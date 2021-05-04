@@ -24,9 +24,24 @@
       <!-- If you are running in a production environment, add a managed
          data source, this configuration uses the JakartaEE default data source is just for development and testing! -->
       <jta-data-source>java:/PostgresDS</jta-data-source>
-      <class>entidades.Vacuna</class>
-      <class>entidades.Lote</class>
+
+      <class>entidades.Administrador</class>
       <class>entidades.Agenda</class>
+      <class>entidades.Autoridad</class>
+      <class>entidades.Ciudadano</class>
+      <class>entidades.Enfermedad</class>   
+      <class>entidades.LogisticaDistribucion</class>   
+      <class>entidades.Lote</class>
+      <class>entidades.PlanVacunacion</class>
+      <class>entidades.Proveedor</class>      
+      <class>entidades.Puesto</class>         
+      <class>entidades.SocioLogistico</class>     
+      <class>entidades.Usuario</class>
+      <class>entidades.Vacuna</class>
+      <class>entidades.Vacunador</class>
+      <class>entidades.Vacunatorio</class>
+
+
       <properties>
          <!--The database schema is auto created on deployment and dropped before redeploy.
              Note: the following configuration does not drop the tables on undeploy. If you prefer this, use this
