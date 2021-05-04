@@ -1,31 +1,38 @@
 package datatypes;
 
+import java.time.LocalDate;
+
 import entidades.Agenda;
+import enumeradores.Horario;
 
 public class DTAgenda {
 	private long id;
 	
 	//private Vacunatorio vacunatorio;
 	//private Plan plan;
-	private DTVigencia diaAtencion;
+	private LocalDate inicio;
+	private LocalDate fin;
 	private Horario horario;
 	
 	public DTAgenda() {
 		super();
 	}
 	
-	public DTAgenda(long id, DTVigencia diaAtencion, Horario horario) {
+	public DTAgenda(long id, LocalDate inicio, LocalDate fin, Horario horario) {
 		super();
 		this.id = id;
-		this.diaAtencion = diaAtencion;
+		this.inicio = inicio;
+		this.fin = fin;
 		this.horario = horario;
 	}
-	
+
+
+
 	public DTAgenda(Agenda agenda) {
 		super();
 		this.id = agenda.getId();
-		this.diaAtencion = agenda.getDiaAtencion();
-		this.horario = agenda.getHorario();
+		this.inicio = agenda.getInicio();
+		this.fin = agenda.getFin();
 	}
 
 	public long getId() {
@@ -36,12 +43,20 @@ public class DTAgenda {
 		this.id = id;
 	}
 
-	public DTVigencia getDiaAtencion() {
-		return diaAtencion;
+	public LocalDate getInicio() {
+		return inicio;
 	}
 
-	public void setDiaAtencion(DTVigencia diaAtencion) {
-		this.diaAtencion = diaAtencion;
+	public void setInicio(LocalDate inicio) {
+		this.inicio = inicio;
+	}
+
+	public LocalDate getFin() {
+		return fin;
+	}
+
+	public void setFin(LocalDate fin) {
+		this.fin = fin;
 	}
 
 	public Horario getHorario() {

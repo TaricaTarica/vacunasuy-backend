@@ -1,12 +1,15 @@
 package entidades;
 
+import java.time.LocalDate;
+
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 import datatypes.DTAgenda;
-import datatypes.DTVigencia;
-import datatypes.Horario;
+import enumeradores.Horario;
 
 @Entity
 public class Agenda {
@@ -16,7 +19,9 @@ public class Agenda {
 	
 	//private Vacunatorio vacunatorio;
 	//private Plan plan;
-	private DTVigencia diaAtencion;
+	private LocalDate inicio;
+	private LocalDate fin;
+	@Enumerated(value = EnumType.STRING)
 	private Horario horario;
 	
 	public Agenda() {
@@ -24,15 +29,17 @@ public class Agenda {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Agenda(DTVigencia diaAtencion, Horario horario) {
+	public Agenda(LocalDate inicio, LocalDate fin, Horario horario) {
 		super();
-		this.diaAtencion = diaAtencion;
+		this.inicio = inicio;
+		this.fin = fin;
 		this.horario = horario;
 	}
-	
+
 	public Agenda(DTAgenda agenda) {
 		super();
-		this.diaAtencion = agenda.getDiaAtencion();
+		this.inicio = agenda.getInicio();
+		this.fin = agenda.getFin();
 		this.horario = agenda.getHorario();
 	}
 
@@ -44,12 +51,20 @@ public class Agenda {
 		this.id = id;
 	}
 
-	public DTVigencia getDiaAtencion() {
-		return diaAtencion;
+	public LocalDate getInicio() {
+		return inicio;
 	}
 
-	public void setDiaAtencion(DTVigencia diaAtencion) {
-		this.diaAtencion = diaAtencion;
+	public void setInicio(LocalDate inicio) {
+		this.inicio = inicio;
+	}
+
+	public LocalDate getFin() {
+		return fin;
+	}
+
+	public void setFin(LocalDate fin) {
+		this.fin = fin;
 	}
 
 	public Horario getHorario() {
