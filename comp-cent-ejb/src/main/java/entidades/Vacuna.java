@@ -1,8 +1,14 @@
 package entidades;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import datatypes.DTVacuna;
 
@@ -14,6 +20,15 @@ public class Vacuna {
 	private String nombre;
 	private String codigo;
 	private String laboratorio;
+	
+	@ManyToOne
+	private Enfermedad enfermedad;
+	
+	@OneToMany(mappedBy="vacuna",cascade=CascadeType.ALL,orphanRemoval=true)
+	private List<Lote> lotes = new ArrayList<>();
+	
+	@ManyToOne
+	private Proveedor proveedor;
 	
 	public Vacuna() {
 		super();
@@ -59,6 +74,38 @@ public class Vacuna {
 	public void setLaboratorio(String laboratorio) {
 		this.laboratorio = laboratorio;
 	}
+
+	public Enfermedad getEnfermedad() {
+		return enfermedad;
+	}
+
+	public void setEnfermedad(Enfermedad enfermedad) {
+		this.enfermedad = enfermedad;
+	}
+
+	public List<Lote> getLotes() {
+		return lotes;
+	}
+
+	public void setLotes(List<Lote> lotes) {
+		this.lotes = lotes;
+	}
 	
-	
+	public Proveedor getProveedor() {
+		return proveedor;
+	}
+
+	public void setProveedor(Proveedor proveedor) {
+		this.proveedor = proveedor;
+	}
+
+	/* Esto no se si está teóricamente correcto */
+	public void agregarLote(Lote lote) {
+		lotes.add(lote);
+		lote.setVacuna(this);
+	}
+	public void eliminarVacuna(Lote lote) {
+		lotes.remove(lote);
+		lote.setVacuna(null);
+	}
 }

@@ -1,7 +1,12 @@
 package entidades;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+
 import datatypes.DTAdministrador;
 
 @Entity
@@ -9,6 +14,7 @@ import datatypes.DTAdministrador;
 public class Administrador extends Usuario {
 
 	private static final long serialVersionUID = 1L;
+	
 
 	public Administrador() {
 		// TODO Auto-generated constructor stub

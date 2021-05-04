@@ -1,8 +1,13 @@
 package entidades;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import datatypes.DTLogisticaDistribucion;
 
@@ -13,6 +18,9 @@ public class LogisticaDistribucion {
 	private long id;
 	private String nombre;
 	private String codigo;
+	
+	@OneToMany(mappedBy="logistica",cascade=CascadeType.ALL,orphanRemoval=true)
+	private List<Lote> lotes = new ArrayList<>();
 	
 	public LogisticaDistribucion() {
 		super();
@@ -56,6 +64,22 @@ public class LogisticaDistribucion {
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
 	}
+
+	public List<Lote> getLotes() {
+		return lotes;
+	}
+
+	public void setLotes(List<Lote> lotes) {
+		this.lotes = lotes;
+	}
 	
-	
+	/*	no se si está teóricamente correcto	*/
+	public void agregarLote(Lote lote) {
+		lotes.add(lote);
+		lote.setLogistica(this);
+	}
+	public void eliminarLote(Lote lote) {
+		lotes.remove(lote);
+		lote.setLogistica(null);
+	}
 }
