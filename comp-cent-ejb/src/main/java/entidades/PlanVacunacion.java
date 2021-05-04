@@ -3,6 +3,8 @@ package entidades;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
@@ -17,8 +19,11 @@ public class PlanVacunacion {
 	@GeneratedValue
 	private long id;
 	private String nombre;
+	int edadMinima;
+	int edadMaxima;
+	@Enumerated(value = EnumType.STRING)
 	private PoblacionObjetivo poblacionObjetivo; 
-	private List<Integer> rangoEdad;
+	
 	
 	public PlanVacunacion() {
 		// TODO Auto-generated constructor stub
@@ -29,7 +34,8 @@ public class PlanVacunacion {
 		super();
 		this.nombre = plan.getNombre();
 		this.poblacionObjetivo = plan.getPoblacionObjetivo();
-		this.rangoEdad = plan.getRangoEdad();
+		this.edadMinima = plan.getEdadMinima();
+		this.edadMaxima = plan.getEdadMaxima();
 	}
 
 
@@ -52,12 +58,27 @@ public class PlanVacunacion {
 	public void setPoblacionObjetivo(PoblacionObjetivo poblacionObjetivo) {
 		this.poblacionObjetivo = poblacionObjetivo;
 	}
-	public List<Integer> getRangoEdad() {
-		return rangoEdad;
+
+
+	public int getEdadMinima() {
+		return edadMinima;
 	}
-	public void setRangoEdad(List<Integer> rangoEdad) {
-		this.rangoEdad = rangoEdad;
+
+
+	public void setEdadMinima(int edadMinima) {
+		this.edadMinima = edadMinima;
 	}
+
+
+	public int getEdadMaxima() {
+		return edadMaxima;
+	}
+
+
+	public void setEdadMaxima(int edadMaxima) {
+		this.edadMaxima = edadMaxima;
+	}
+	
 	
 	
 }

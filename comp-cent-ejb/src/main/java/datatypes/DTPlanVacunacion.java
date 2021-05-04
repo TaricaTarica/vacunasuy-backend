@@ -8,7 +8,8 @@ import enumeradores.PoblacionObjetivo;
 public class DTPlanVacunacion {
 	private String nombre;
 	private PoblacionObjetivo poblacionObjetivo; 
-	private List<Integer> rangoEdad;
+	int edadMinima;
+	int edadMaxima;
 	private DTEnfermedad enfermedad;
 	private DTVacuna vacuna;
 	
@@ -20,7 +21,8 @@ public class DTPlanVacunacion {
 		super();
 		this.nombre = plan.getNombre();
 		this.poblacionObjetivo = plan.getPoblacionObjetivo();
-		this.rangoEdad = plan.getRangoEdad();
+		this.edadMinima = plan.getEdadMinima();
+		this.edadMaxima = plan.getEdadMaxima();
 		//this.enfermedad = plan.getDTEnfermedad; // para despues
 		//this.vacuna = plan.getDTVacuna; // para despues
 	}
@@ -41,12 +43,22 @@ public class DTPlanVacunacion {
 		this.poblacionObjetivo = poblacionObjetivo;
 	}
 
-	public List<Integer> getRangoEdad() {
-		return rangoEdad;
+	
+
+	public int getEdadMinima() {
+		return edadMinima;
 	}
 
-	public void setRangoEdad(List<Integer> rangoEdad) {
-		this.rangoEdad = rangoEdad;
+	public void setEdadMinima(int edadMinima) {
+		this.edadMinima = edadMinima;
+	}
+
+	public int getEdadMaxima() {
+		return edadMaxima;
+	}
+
+	public void setEdadMaxima(int edadMaxima) {
+		this.edadMaxima = edadMaxima;
 	}
 
 	public DTEnfermedad getEnfermedad() {
