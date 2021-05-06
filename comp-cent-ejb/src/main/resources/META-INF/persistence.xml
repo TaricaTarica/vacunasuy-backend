@@ -23,7 +23,7 @@
    <persistence-unit name="comp-centPersistenceUnit" transaction-type="JTA">
       <!-- If you are running in a production environment, add a managed
          data source, this configuration uses the JakartaEE default data source is just for development and testing! -->
-      <jta-data-source>java:/PostgresDS</jta-data-source>
+      <jta-data-source>java:jboss/datasources/PostgresDS</jta-data-source>
 
       <class>entidades.Administrador</class>
       <class>entidades.Agenda</class>
