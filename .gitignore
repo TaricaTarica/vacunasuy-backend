@@ -1,6 +1,3 @@
-persistence.xml
-comp-cent-ejb/src/main/resources/META-INF/persistence.xml
-
 # Compiled class file
 *.class
 
