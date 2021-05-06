@@ -28,7 +28,6 @@ public class DTCiudadano {
 		this.nombre = cuidadano.getNombre();
 		this.telefono = cuidadano.getTelefono();
 		Email = cuidadano.getEmail();
-		Pass = cuidadano.getPass();
 	}
 
 	public int getCi() {
@@ -63,12 +62,5 @@ public class DTCiudadano {
 		Email = email;
 	}
 
-	public String getPass() {
-		return Pass;
-	}
-
-	public void setPass(String pass) {
-		Pass = pass;
-	}
 
 }

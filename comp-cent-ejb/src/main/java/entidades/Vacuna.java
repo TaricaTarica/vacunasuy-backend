@@ -99,7 +99,6 @@ public class Vacuna {
 		this.proveedor = proveedor;
 	}
 
-	/* Esto no se si está teóricamente correcto */
 	public void agregarLote(Lote lote) {
 		lotes.add(lote);
 		lote.setVacuna(this);

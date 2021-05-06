@@ -19,20 +19,19 @@ public abstract class Usuario implements Serializable{
 	private String nombre;
 	private int telefono;
 	private String Email;
-	private String Pass;
 
 	public Usuario() {
 		// TODO Auto-generated constructor stub
 	}
 	
 
-	public Usuario(int ci, String nombre, int telefono, String email, String pass) {
+	public Usuario(int ci, String nombre, int telefono, String email) {
 		super();
 		this.ci = ci;
 		this.nombre = nombre;
 		this.telefono = telefono;
 		Email = email;
-		Pass = pass;
+
 	}
 
 	public int getCi() {
@@ -67,13 +66,4 @@ public abstract class Usuario implements Serializable{
 		Email = email;
 	}
 
-	public String getPass() {
-		return Pass;
-	}
-
-	public void setPass(String pass) {
-		Pass = pass;
-	}
-
-	
 }

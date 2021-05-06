@@ -7,28 +7,31 @@ public class DTAdministrador {
 	private int ci;
 	private String nombre;
 	private int telefono;
-	private String Email;
-	private String Pass;
+	private String email;
+	private String user;
+	private String pass;
 
 	public DTAdministrador() {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public DTAdministrador(int ci, String nombre, int telefono, String email, String pass) {
+	public DTAdministrador(int ci, String nombre, int telefono, String email, String usr, String pass) {
 		super();
 		this.ci = ci;
 		this.nombre = nombre;
 		this.telefono = telefono;
-		Email = email;
-		Pass = pass;
+		this.email = email;
+		this.user = usr;
+		this.pass = pass;
+		
 	}
 	
 	public DTAdministrador(Administrador adm) {
 		this.ci = adm.getCi();
 		this.nombre = adm.getNombre();
 		this.telefono = adm.getTelefono();
-		Email = adm.getEmail();
-		Pass = adm.getPass();
+		email = adm.getEmail();
+		pass = adm.getPass();
 	}
 
 	public int getCi() {
@@ -56,19 +59,27 @@ public class DTAdministrador {
 	}
 
 	public String getEmail() {
-		return Email;
+		return email;
 	}
 
 	public void setEmail(String email) {
-		Email = email;
+		this.email = email;
+	}
+	
+	public String getUser() {
+		return user;
+	}
+
+	public void setUser(String user) {
+		this.user = user;
 	}
 
 	public String getPass() {
-		return Pass;
+		return pass;
 	}
 
 	public void setPass(String pass) {
-		Pass = pass;
+		this.pass = pass;
 	}
 
 }

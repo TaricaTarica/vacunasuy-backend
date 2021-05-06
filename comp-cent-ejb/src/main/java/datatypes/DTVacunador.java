@@ -20,7 +20,6 @@ public class DTVacunador {
 		this.nombre = nombre;
 		this.telefono = telefono;
 		Email = email;
-		Pass = pass;
 	}
 	
 	public DTVacunador(Vacunador vacunador) {
@@ -28,7 +27,6 @@ public class DTVacunador {
 		this.nombre = vacunador.getNombre();
 		this.telefono = vacunador.getTelefono();
 		Email = vacunador.getEmail();
-		Pass = vacunador.getPass();
 	}
 
 	public int getCi() {
@@ -61,14 +59,6 @@ public class DTVacunador {
 
 	public void setEmail(String email) {
 		Email = email;
-	}
-
-	public String getPass() {
-		return Pass;
-	}
-
-	public void setPass(String pass) {
-		Pass = pass;
 	}
 
 }

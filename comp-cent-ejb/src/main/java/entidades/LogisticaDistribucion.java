@@ -7,6 +7,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import datatypes.DTLogisticaDistribucion;
@@ -21,6 +22,9 @@ public class LogisticaDistribucion {
 	
 	@OneToMany(mappedBy="logistica",cascade=CascadeType.ALL,orphanRemoval=true)
 	private List<Lote> lotes = new ArrayList<>();
+	
+	@ManyToOne
+	private SocioLogistico socio;
 	
 	public LogisticaDistribucion() {
 		super();
@@ -73,7 +77,14 @@ public class LogisticaDistribucion {
 		this.lotes = lotes;
 	}
 	
-	/*	no se si está teóricamente correcto	*/
+	public SocioLogistico getSocio() {
+		return socio;
+	}
+
+	public void setSocio(SocioLogistico socio) {
+		this.socio = socio;
+	}
+
 	public void agregarLote(Lote lote) {
 		lotes.add(lote);
 		lote.setLogistica(this);
@@ -82,4 +93,6 @@ public class LogisticaDistribucion {
 		lotes.remove(lote);
 		lote.setLogistica(null);
 	}
+	
+	
 }

@@ -14,7 +14,7 @@ public class Autoridad extends Usuario{
 
 	private static final long serialVersionUID = 1L;
 	
-	
+	private String Pass;
 	
 	@ManyToMany(cascade= {CascadeType.PERSIST,CascadeType.MERGE})
 	private List<Proveedor> proveedores = new ArrayList<>();
@@ -30,7 +30,15 @@ public class Autoridad extends Usuario{
 	public void setProveedores(List<Proveedor> proveedores) {
 		this.proveedores = proveedores;
 	}
-	/*	Esto no se si está teóricamente correcto	*/
+	
+	public String getPass() {
+		return Pass;
+	}
+
+	public void setPass(String pass) {
+		Pass = pass;
+	}
+
 	public void agregarProveedor(Proveedor proveedor) {
 		proveedores.add(proveedor);
 		proveedor.getAutoridades().add(this);
@@ -39,6 +47,8 @@ public class Autoridad extends Usuario{
 		proveedores.remove(proveedor);
 		proveedor.getAutoridades().remove(this);
 	}
+	
+	
 	
 
 }
