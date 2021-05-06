@@ -1,3 +1,10 @@
+.project
+
+.settings/org.eclipse.core.resources.prefs
+
+comp-cent-ear/.settings/org.eclipse.wst.common.component
+/.metadata/
+
 # Compiled class file
 *.class
 
