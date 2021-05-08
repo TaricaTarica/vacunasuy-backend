@@ -28,6 +28,9 @@ public class SocioLogistico {
 	@ManyToMany(mappedBy="socios")
 	private List<Administrador> administradores = new ArrayList<>();
 	
+	@OneToMany(mappedBy="socio",cascade=CascadeType.ALL,orphanRemoval=true)
+	private List<Transportista> transportistas = new ArrayList<>();
+	
 	public SocioLogistico() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -95,6 +98,14 @@ public class SocioLogistico {
 		this.administradores = administradores;
 	}
 
+	public List<Transportista> getTransportistas() {
+		return transportistas;
+	}
+
+	public void setTransportistas(List<Transportista> transportistas) {
+		this.transportistas = transportistas;
+	}
+
 	public void agregarLogistica(LogisticaDistribucion logistica) {
 		logisticas.add(logistica);
 		logistica.setSocio(this);
@@ -102,6 +113,14 @@ public class SocioLogistico {
 	public void eliminarLogistica(LogisticaDistribucion logistica) {
 		logisticas.remove(logistica);
 		logistica.setSocio(null);
+	}
+	public void agregarTransportista(Transportista transportista) {
+		transportistas.add(transportista);
+		transportista.setSocio(this);
+	}
+	public void eliminarTransportista(Transportista transportista) {
+		transportistas.remove(transportista);
+		transportista.setSocio(null);
 	}
 	
 }

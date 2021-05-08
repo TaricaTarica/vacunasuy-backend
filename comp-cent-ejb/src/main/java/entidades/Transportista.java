@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -27,6 +28,9 @@ public class Transportista {
 	
 	@OneToMany(mappedBy="transportista",cascade=CascadeType.ALL,orphanRemoval=true)
 	private List<Evento> eventos = new ArrayList<>();
+	
+	@ManyToOne
+	private SocioLogistico socio;
 	
 	public Transportista() {
 		super();
@@ -71,6 +75,14 @@ public class Transportista {
 		this.eventos = eventos;
 	}
 	
+	public SocioLogistico getSocio() {
+		return socio;
+	}
+
+	public void setSocio(SocioLogistico socio) {
+		this.socio = socio;
+	}
+
 	public void agregarEvento(Evento evento) {
 		eventos.add(evento);
 		evento.setTransportista(this);
