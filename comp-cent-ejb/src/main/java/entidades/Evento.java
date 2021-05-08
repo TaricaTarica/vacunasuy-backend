@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Evento {
@@ -14,6 +15,9 @@ public class Evento {
 	private long id;
 	private String descripcion;
 	private LocalDate fechaCreacion;
+	
+	@ManyToOne
+	private Transportista transportista;
 	
 	public Evento() {
 		super();
@@ -49,6 +53,14 @@ public class Evento {
 
 	public void setFechaCreacion(LocalDate fechaCreacion) {
 		this.fechaCreacion = fechaCreacion;
+	}
+	
+	public Transportista getTransportista() {
+		return transportista;
+	}
+
+	public void setTransportista(Transportista transportista) {
+		this.transportista = transportista;
 	}
 
 	@Override

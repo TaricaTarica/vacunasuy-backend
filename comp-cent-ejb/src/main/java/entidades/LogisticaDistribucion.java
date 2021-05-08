@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import datatypes.DTLogisticaDistribucion;
 
@@ -25,6 +26,9 @@ public class LogisticaDistribucion {
 	
 	@ManyToOne
 	private SocioLogistico socio;
+	
+	@OneToOne
+	private Transportista transportista;
 	
 	public LogisticaDistribucion() {
 		super();
@@ -83,6 +87,14 @@ public class LogisticaDistribucion {
 
 	public void setSocio(SocioLogistico socio) {
 		this.socio = socio;
+	}
+	
+	public Transportista getTransportista() {
+		return transportista;
+	}
+
+	public void setTransportista(Transportista transportista) {
+		this.transportista = transportista;
 	}
 
 	public void agregarLote(Lote lote) {

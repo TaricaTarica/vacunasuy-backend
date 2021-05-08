@@ -1,8 +1,15 @@
 package entidades;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Transportista {
@@ -11,6 +18,15 @@ public class Transportista {
 	@GeneratedValue
 	private long id;
 	private String descripcion;
+	
+	@OneToOne(mappedBy="transportista",
+			cascade=CascadeType.ALL,
+			orphanRemoval=true,
+			fetch=FetchType.LAZY)
+	private LogisticaDistribucion logistica;
+	
+	@OneToMany(mappedBy="transportista",cascade=CascadeType.ALL,orphanRemoval=true)
+	private List<Evento> eventos = new ArrayList<>();
 	
 	public Transportista() {
 		super();
@@ -38,7 +54,43 @@ public class Transportista {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
+	
+	public LogisticaDistribucion getLogistica() {
+		return logistica;
+	}
 
+	public void setLogistica(LogisticaDistribucion logistica) {
+		this.logistica = logistica;
+	}
+	
+	public List<Evento> getEventos() {
+		return eventos;
+	}
+
+	public void setEventos(List<Evento> eventos) {
+		this.eventos = eventos;
+	}
+	
+	public void agregarEvento(Evento evento) {
+		eventos.add(evento);
+		evento.setTransportista(this);
+	}
+	public void eliminarEvento(Evento evento) {
+		eventos.remove(evento);
+		evento.setTransportista(null);
+	}
+	
+	public void agregarLogistica(LogisticaDistribucion ld) {
+		ld.setTransportista(this);
+		this.logistica = ld;
+	}
+	public void eliminarLogistica() {
+		if(logistica!=null) {
+			logistica.setTransportista(null);
+			this.logistica=null;
+		}
+	}
+		
 	@Override
 	public int hashCode() {
 		final int prime = 31;
