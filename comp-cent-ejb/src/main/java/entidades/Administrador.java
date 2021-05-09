@@ -22,6 +22,9 @@ public class Administrador extends Usuario {
 	@ManyToMany(cascade= {CascadeType.PERSIST,CascadeType.MERGE})
 	private List<SocioLogistico> socios = new ArrayList<>();
 	
+	@ManyToMany(cascade= {CascadeType.PERSIST,CascadeType.MERGE})
+	private List<Vacunatorio> vacunatorios = new ArrayList<>();
+	
 	public Administrador() {
 		// TODO Auto-generated constructor stub
 	}
@@ -67,5 +70,14 @@ public class Administrador extends Usuario {
 	public void eliminarSocio(SocioLogistico socio) {
 		socios.remove(socio);
 		socio.getAdministradores().remove(this);
+	}
+	
+	public void agregarVacunatorio(Vacunatorio vacunatorio) {
+		vacunatorios.add(vacunatorio);
+		vacunatorio.getAdministradores().add(this);
+	}
+	public void eliminarVacunatorio(Vacunatorio vacunatorio) {
+		vacunatorios.remove(vacunatorio);
+		vacunatorio.getAdministradores().remove(this);
 	}
 }

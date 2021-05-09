@@ -1,5 +1,6 @@
 package entidades;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -7,6 +8,8 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 import datatypes.DTPlanVacunacion;
 import enumeradores.PoblacionObjetivo;
@@ -24,6 +27,17 @@ public class PlanVacunacion {
 	@Enumerated(value = EnumType.STRING)
 	private PoblacionObjetivo poblacionObjetivo; 
 	
+	@ManyToMany(mappedBy="planes")
+	private List<Agenda> agendas = new ArrayList<>();
+	
+	@ManyToOne
+	private Enfermedad enfermedad;
+	
+	@ManyToMany(mappedBy="planes")
+	private List<Ciudadano> ciudadanos = new ArrayList<>();
+	
+	@ManyToMany(mappedBy="planes")
+	private List<Autoridad> autoridades = new ArrayList<>();
 	
 	public PlanVacunacion() {
 		// TODO Auto-generated constructor stub
@@ -74,11 +88,42 @@ public class PlanVacunacion {
 		return edadMaxima;
 	}
 
-
 	public void setEdadMaxima(int edadMaxima) {
 		this.edadMaxima = edadMaxima;
 	}
+
+	public List<Agenda> getAgendas() {
+		return agendas;
+	}
+
+	public void setAgendas(List<Agenda> agendas) {
+		this.agendas = agendas;
+	}
+
+
+	public Enfermedad getEnfermedad() {
+		return enfermedad;
+	}
+
+	public void setEnfermedad(Enfermedad enfermedad) {
+		this.enfermedad = enfermedad;
+	}
+
+	public List<Ciudadano> getCiudadanos() {
+		return ciudadanos;
+	}
+
+	public void setCiudadanos(List<Ciudadano> ciudadanos) {
+		this.ciudadanos = ciudadanos;
+	}
+
+	public List<Autoridad> getAutoridades() {
+		return autoridades;
+	}
+
+	public void setAutoridades(List<Autoridad> autoridades) {
+		this.autoridades = autoridades;
+	}
 	
-	
-	
+		
 }

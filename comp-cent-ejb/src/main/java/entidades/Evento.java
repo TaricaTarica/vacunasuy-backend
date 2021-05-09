@@ -19,6 +19,9 @@ public class Evento {
 	@ManyToOne
 	private Transportista transportista;
 	
+	@ManyToOne
+	private Agenda agenda;
+	
 	public Evento() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -61,6 +64,14 @@ public class Evento {
 
 	public void setTransportista(Transportista transportista) {
 		this.transportista = transportista;
+	}
+	
+	public Agenda getAgenda() {
+		return agenda;
+	}
+
+	public void setAgenda(Agenda agenda) {
+		this.agenda = agenda;
 	}
 
 	@Override

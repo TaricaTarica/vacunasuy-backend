@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -32,6 +33,15 @@ public class Vacunatorio {
 			orphanRemoval=true,
 			fetch=FetchType.LAZY)
 	private Ubicacion ubicacion;
+	
+	@ManyToMany(mappedBy="vacunatorios")
+	private List<Agenda> agendas = new ArrayList<>();
+	
+	@ManyToMany(mappedBy="vacunatorios")
+	private List<Ciudadano> ciudadanos = new ArrayList<>();
+	
+	@ManyToMany(mappedBy="vacunatorios")
+	private List<Administrador> administradores = new ArrayList<>();
 	
 	public Vacunatorio() {
 		super();
@@ -98,6 +108,14 @@ public class Vacunatorio {
 		this.ubicacion = ubicacion;
 	}
 
+	public List<Agenda> getAgendas() {
+		return agendas;
+	}
+
+	public void setAgendas(List<Agenda> agendas) {
+		this.agendas = agendas;
+	}
+
 	public void agregarLogistica(LogisticaDistribucion logistica) {
 		logisticas.add(logistica);
 		logistica.setVacunatorio(this);
@@ -118,6 +136,22 @@ public class Vacunatorio {
 			ubicacion.setVacunatorio(null);
 			this.ubicacion=null;
 		}
+	}
+
+	public List<Ciudadano> getCiudadanos() {
+		return ciudadanos;
+	}
+
+	public void setCiudadanos(List<Ciudadano> ciudadanos) {
+		this.ciudadanos = ciudadanos;
+	}
+
+	public List<Administrador> getAdministradores() {
+		return administradores;
+	}
+
+	public void setAdministradores(List<Administrador> administradores) {
+		this.administradores = administradores;
 	}
 	
 }

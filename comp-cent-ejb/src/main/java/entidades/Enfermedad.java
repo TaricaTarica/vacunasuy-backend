@@ -23,6 +23,9 @@ public class Enfermedad {
 	
 	@OneToMany(mappedBy="enfermedad",cascade=CascadeType.ALL,orphanRemoval=true)
 	private List<Vacuna> vacunas = new ArrayList<>();
+	
+	@OneToMany(mappedBy="enfermedad",cascade=CascadeType.ALL,orphanRemoval=true)
+	private List<PlanVacunacion> planes = new ArrayList<>();
 
 	public Enfermedad() {
 		// TODO Auto-generated constructor stub
@@ -74,7 +77,7 @@ public class Enfermedad {
 	public void setVacunas(List<Vacuna> vacunas) {
 		this.vacunas = vacunas;
 	}
-	/* Esto no se si está teóricamente correcto */
+
 	public void agregarVacuna(Vacuna vacuna) {
 		vacunas.add(vacuna);
 		vacuna.setEnfermedad(this);
@@ -83,4 +86,23 @@ public class Enfermedad {
 		vacunas.remove(vacuna);
 		vacuna.setEnfermedad(null);
 	}
+
+	public List<PlanVacunacion> getPlanes() {
+		return planes;
+	}
+
+	public void setPlanes(List<PlanVacunacion> planes) {
+		this.planes = planes;
+	}
+	
+	public void agregarPlan(PlanVacunacion plan) {
+		planes.add(plan);
+		plan.setEnfermedad(this);
+	}
+	public void eliminarPlan(PlanVacunacion plan) {
+		planes.remove(plan);
+		plan.setEnfermedad(null);
+	}
+	
+	
 }

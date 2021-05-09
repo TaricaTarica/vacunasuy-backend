@@ -18,6 +18,12 @@ public class Autoridad extends Usuario{
 	
 	@ManyToMany(cascade= {CascadeType.PERSIST,CascadeType.MERGE})
 	private List<Proveedor> proveedores = new ArrayList<>();
+	
+	@ManyToMany(cascade= {CascadeType.PERSIST,CascadeType.MERGE})
+	private List<Agenda> agendas = new ArrayList<>();
+	
+	@ManyToMany(cascade= {CascadeType.PERSIST,CascadeType.MERGE})
+	private List<PlanVacunacion> planes = new ArrayList<>();
 
 	public Autoridad() {
 		// TODO Auto-generated constructor stub
@@ -47,8 +53,39 @@ public class Autoridad extends Usuario{
 		proveedores.remove(proveedor);
 		proveedor.getAutoridades().remove(this);
 	}
+
+	public List<Agenda> getAgendas() {
+		return agendas;
+	}
+
+	public void setAgendas(List<Agenda> agendas) {
+		this.agendas = agendas;
+	}
+	public void agregarAgenda(Agenda agenda) {
+		agendas.add(agenda);
+		agenda.getAutoridades().add(this);
+	}
+	public void eliminarAgenda(Agenda agenda) {
+		agendas.remove(agenda);
+		agenda.getAutoridades().remove(this);
+	}
+
+	public List<PlanVacunacion> getPlanes() {
+		return planes;
+	}
+
+	public void setPlanes(List<PlanVacunacion> planes) {
+		this.planes = planes;
+	}
 	
-	
+	public void agregarPlan(PlanVacunacion plan) {
+		planes.add(plan);
+		plan.getAutoridades().add(this);
+	}
+	public void eliminarPlan(PlanVacunacion plan) {
+		planes.remove(plan);
+		plan.getAutoridades().remove(this);
+	}
 	
 
 }
