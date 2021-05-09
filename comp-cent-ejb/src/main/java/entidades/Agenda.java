@@ -1,12 +1,16 @@
 package entidades;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 import datatypes.DTAgenda;
 import enumeradores.Horario;
@@ -23,6 +27,9 @@ public class Agenda {
 	private LocalDate fin;
 	@Enumerated(value = EnumType.STRING)
 	private Horario horario;
+	
+	@ManyToMany(cascade= {CascadeType.PERSIST,CascadeType.MERGE})
+	private List<Departamento> departamentos = new ArrayList<>();
 	
 	public Agenda() {
 		super();
@@ -73,6 +80,23 @@ public class Agenda {
 
 	public void setHorario(Horario horario) {
 		this.horario = horario;
+	}
+
+	public List<Departamento> getDepartamentos() {
+		return departamentos;
+	}
+
+	public void setDepartamentos(List<Departamento> departamentos) {
+		this.departamentos = departamentos;
+	}
+	
+	public void agregarDepartamento(Departamento departamento) {
+		departamentos.add(departamento);
+		departamento.getAgendas().add(this);
+	}
+	public void eliminarDepartamento(Departamento departamento) {
+		departamentos.remove(departamento);
+		departamento.getAgendas().remove(this);
 	}
 	
 }

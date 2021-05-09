@@ -30,6 +30,9 @@ public class LogisticaDistribucion {
 	@OneToOne
 	private Transportista transportista;
 	
+	@ManyToOne
+	private Vacunatorio vacunatorio;
+	
 	public LogisticaDistribucion() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -95,6 +98,14 @@ public class LogisticaDistribucion {
 
 	public void setTransportista(Transportista transportista) {
 		this.transportista = transportista;
+	}
+
+	public Vacunatorio getVacunatorio() {
+		return vacunatorio;
+	}
+
+	public void setVacunatorio(Vacunatorio vacunatorio) {
+		this.vacunatorio = vacunatorio;
 	}
 
 	public void agregarLote(Lote lote) {
