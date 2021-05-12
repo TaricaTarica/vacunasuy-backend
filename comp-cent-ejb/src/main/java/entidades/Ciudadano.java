@@ -7,6 +7,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import datatypes.DTCiudadano;
 
@@ -21,6 +22,9 @@ public class Ciudadano extends Usuario {
 	
 	@ManyToMany(cascade= {CascadeType.PERSIST,CascadeType.MERGE})
 	private List<PlanVacunacion> planes = new ArrayList<>();
+	
+	@OneToMany(mappedBy="ciudadano",cascade=CascadeType.ALL,orphanRemoval=true)
+	private List<RegistroVacuna> registros = new ArrayList<>();
 	
 	public Ciudadano() {
 		// TODO Auto-generated constructor stub
@@ -69,4 +73,14 @@ public class Ciudadano extends Usuario {
 		planes.remove(plan);
 		plan.getCiudadanos().remove(this);
 	}
+
+	public List<RegistroVacuna> getRegistros() {
+		return registros;
+	}
+
+	public void setRegistros(List<RegistroVacuna> registros) {
+		this.registros = registros;
+	}
+	
+	
 }

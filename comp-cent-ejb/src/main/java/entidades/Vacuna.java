@@ -7,6 +7,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -29,6 +30,15 @@ public class Vacuna {
 	
 	@ManyToOne
 	private Proveedor proveedor;
+	
+	@ManyToMany(mappedBy="vacunas")
+	private List<Autoridad> autoridades = new ArrayList<>();
+	
+	@OneToMany(mappedBy="vacuna",cascade=CascadeType.ALL,orphanRemoval=true) 
+	private List<Regla> reglas = new ArrayList<>();
+	
+	@OneToMany(mappedBy="vacuna",cascade=CascadeType.ALL,orphanRemoval=true) 
+	private List<RegistroVacuna> registros = new ArrayList<>();
 	
 	public Vacuna() {
 		super();
@@ -107,4 +117,32 @@ public class Vacuna {
 		lotes.remove(lote);
 		lote.setVacuna(null);
 	}
+
+	public List<Autoridad> getAutoridades() {
+		return autoridades;
+	}
+
+	public void setAutoridades(List<Autoridad> autoridades) {
+		this.autoridades = autoridades;
+	}
+
+	public List<Regla> getReglas() {
+		return reglas;
+	}
+
+	public void setReglas(List<Regla> reglas) {
+		this.reglas = reglas;
+	}
+
+	public List<RegistroVacuna> getRegistros() {
+		return registros;
+	}
+
+	public void setRegistros(List<RegistroVacuna> registros) {
+		this.registros = registros;
+	}
+	
+	
+	
+	
 }

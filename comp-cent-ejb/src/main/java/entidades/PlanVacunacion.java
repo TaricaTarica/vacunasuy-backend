@@ -3,6 +3,7 @@ package entidades;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -10,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import datatypes.DTPlanVacunacion;
 import enumeradores.PoblacionObjetivo;
@@ -38,6 +40,9 @@ public class PlanVacunacion {
 	
 	@ManyToMany(mappedBy="planes")
 	private List<Autoridad> autoridades = new ArrayList<>();
+	
+	@OneToMany(mappedBy="plan",cascade=CascadeType.ALL,orphanRemoval=true)
+	private List<Regla> reglas = new ArrayList<>();
 	
 	public PlanVacunacion() {
 		// TODO Auto-generated constructor stub
@@ -123,6 +128,15 @@ public class PlanVacunacion {
 
 	public void setAutoridades(List<Autoridad> autoridades) {
 		this.autoridades = autoridades;
+	}
+
+	public List<Regla> getReglas() {
+		return reglas;
+	}
+
+
+	public void setReglas(List<Regla> reglas) {
+		this.reglas = reglas;
 	}
 	
 		

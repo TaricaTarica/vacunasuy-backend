@@ -25,6 +25,9 @@ public class Autoridad extends Usuario{
 	@ManyToMany(cascade= {CascadeType.PERSIST,CascadeType.MERGE})
 	private List<PlanVacunacion> planes = new ArrayList<>();
 
+	@ManyToMany(cascade= {CascadeType.PERSIST,CascadeType.MERGE})
+	private List<Vacuna> vacunas = new ArrayList<>();
+	
 	public Autoridad() {
 		// TODO Auto-generated constructor stub
 	}
@@ -86,6 +89,25 @@ public class Autoridad extends Usuario{
 		planes.remove(plan);
 		plan.getAutoridades().remove(this);
 	}
+
+	public List<Vacuna> getVacunas() {
+		return vacunas;
+	}
+
+	public void setVacunas(List<Vacuna> vacunas) {
+		this.vacunas = vacunas;
+	}
+	
+	public void agregarVacuna(Vacuna vacuna) {
+		vacunas.add(vacuna);
+		vacuna.getAutoridades().add(this);
+	}
+	public void eliminarVacuna(Vacuna vacuna) {
+		vacunas.remove(vacuna);
+		vacuna.getAutoridades().remove(this);
+	}
+	
+	
 	
 
 }

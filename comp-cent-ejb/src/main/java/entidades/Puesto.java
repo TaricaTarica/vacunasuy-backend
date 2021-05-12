@@ -1,8 +1,12 @@
 package entidades;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 import datatypes.DTPuesto;
 
@@ -12,6 +16,9 @@ public class Puesto {
 	@GeneratedValue
 	private long id;
 	private String codigo;
+	
+	@ManyToMany(mappedBy="puestos")
+	private List<Vacunador> vacunadores = new ArrayList<>();
 
 	public Puesto() {
 		super();
@@ -43,6 +50,14 @@ public class Puesto {
 
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
+	}
+
+	public List<Vacunador> getVacunadores() {
+		return vacunadores;
+	}
+
+	public void setVacunadores(List<Vacunador> vacunadores) {
+		this.vacunadores = vacunadores;
 	}
 	
 	
