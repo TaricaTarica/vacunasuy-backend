@@ -4,17 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 
 @Entity
-@PrimaryKeyJoinColumn(name="usuarioCi")
+@DiscriminatorValue("Aut")
 public class Autoridad extends Usuario{
 
-	private static final long serialVersionUID = 1L;
 	
-	private String Pass;
+	private String contraseniaAutoridad;
 	
 	@ManyToMany(cascade= {CascadeType.PERSIST,CascadeType.MERGE})
 	private List<Proveedor> proveedores = new ArrayList<>();
@@ -29,6 +29,7 @@ public class Autoridad extends Usuario{
 	private List<Vacuna> vacunas = new ArrayList<>();
 	
 	public Autoridad() {
+		super();
 		// TODO Auto-generated constructor stub
 	}
 
@@ -40,12 +41,14 @@ public class Autoridad extends Usuario{
 		this.proveedores = proveedores;
 	}
 	
-	public String getPass() {
-		return Pass;
+
+
+	public String getContraseniaAutoridad() {
+		return contraseniaAutoridad;
 	}
 
-	public void setPass(String pass) {
-		Pass = pass;
+	public void setContraseniaAutoridad(String contraseniaAutoridad) {
+		this.contraseniaAutoridad = contraseniaAutoridad;
 	}
 
 	public void agregarProveedor(Proveedor proveedor) {

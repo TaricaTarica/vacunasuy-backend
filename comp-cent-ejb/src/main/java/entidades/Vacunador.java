@@ -15,7 +15,6 @@ import datatypes.DTVacunador;
 @DiscriminatorValue("V")
 public class Vacunador extends Usuario {
 
-	private static final long serialVersionUID = 1L;
 	
 	@ManyToMany(cascade= {CascadeType.PERSIST,CascadeType.MERGE})
 	private List<Agenda> agendas = new ArrayList<>();
@@ -24,7 +23,7 @@ public class Vacunador extends Usuario {
 	private List<Puesto> puestos = new ArrayList<>();
 
 	public Vacunador() {
-		// TODO Auto-generated constructor stub
+		super();
 	}
 
 	public Vacunador(int ci, String nombre, int telefono, String email) {

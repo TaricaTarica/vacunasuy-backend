@@ -15,19 +15,18 @@ import datatypes.DTCiudadano;
 @DiscriminatorValue("C")
 public class Ciudadano extends Usuario {
 
-	private static final long serialVersionUID = 1L;
 
 	@ManyToMany(cascade= {CascadeType.PERSIST,CascadeType.MERGE})
 	private List<Vacunatorio> vacunatorios = new ArrayList<>();
 	
 	@ManyToMany(cascade= {CascadeType.PERSIST,CascadeType.MERGE})
 	private List<PlanVacunacion> planes = new ArrayList<>();
-	
+	/*
 	@OneToMany(mappedBy="ciudadano",cascade=CascadeType.ALL,orphanRemoval=true)
 	private List<RegistroVacuna> registros = new ArrayList<>();
-	
+	*/
 	public Ciudadano() {
-		// TODO Auto-generated constructor stub
+		super();
 	}
 
 	public Ciudadano(int ci, String nombre, int telefono, String email) {
@@ -73,7 +72,7 @@ public class Ciudadano extends Usuario {
 		planes.remove(plan);
 		plan.getCiudadanos().remove(this);
 	}
-
+/*
 	public List<RegistroVacuna> getRegistros() {
 		return registros;
 	}
@@ -82,5 +81,5 @@ public class Ciudadano extends Usuario {
 		this.registros = registros;
 	}
 	
-	
+	*/
 }
