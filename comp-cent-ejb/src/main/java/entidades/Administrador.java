@@ -14,10 +14,11 @@ import datatypes.DTAdministrador;
 @DiscriminatorValue("A")
 public class Administrador extends Usuario {
 
-	private static final long serialVersionUID = 1L;
 	
-	private String user;
-	private String pass;
+	private String usuario;
+	private String contraseniaAdmin;
+	
+	
 	
 	@ManyToMany(cascade= {CascadeType.PERSIST,CascadeType.MERGE})
 	private List<SocioLogistico> socios = new ArrayList<>();
@@ -26,34 +27,38 @@ public class Administrador extends Usuario {
 	private List<Vacunatorio> vacunatorios = new ArrayList<>();
 	
 	public Administrador() {
-		// TODO Auto-generated constructor stub
+		super();
 	}
 
-	public Administrador(int ci, String nombre, int telefono, String email, String pass) {
+	public Administrador(int ci, String nombre, int telefono, String email,String user, String pass) {
 		super(ci, nombre, telefono, email);
+		this.usuario = user;
+		this.contraseniaAdmin = pass;
 		// TODO Auto-generated constructor stub
 	}
 	
 	public Administrador (DTAdministrador dtAdm) {
 		super(dtAdm.getCi(), dtAdm.getNombre(), dtAdm.getTelefono(), dtAdm.getEmail());
-		this.pass =  dtAdm.getPass();
-		this.user = dtAdm.getUser();
+		this.contraseniaAdmin =  dtAdm.getPass();
+		this.usuario = dtAdm.getUser();
 	}
 
-	public String getUser() {
-		return user;
+	
+
+	public String getUsuario() {
+		return usuario;
 	}
 
-	public void setUser(String user) {
-		this.user = user;
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
 	}
 
-	public String getPass() {
-		return pass;
+	public String getContraseniaAdmin() {
+		return contraseniaAdmin;
 	}
 
-	public void setPass(String pass) {
-		this.pass = pass;
+	public void setContraseniaAdmin(String contraseniaAdmin) {
+		this.contraseniaAdmin = contraseniaAdmin;
 	}
 
 	public List<SocioLogistico> getSocios() {
