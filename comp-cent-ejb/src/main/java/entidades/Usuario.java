@@ -30,7 +30,7 @@ public abstract class Usuario implements Serializable{
 		this.ci = ci;
 		this.nombre = nombre;
 		this.telefono = telefono;
-		Email = email;
+		this.Email = email;
 
 	}
 

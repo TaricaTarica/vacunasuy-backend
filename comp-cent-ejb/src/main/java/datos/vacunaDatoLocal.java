@@ -1,5 +1,7 @@
 package datos;
 
+import java.util.List;
+
 import javax.ejb.Local;
 
 import entidades.Vacuna;
@@ -7,6 +9,7 @@ import entidades.Vacuna;
 @Local
 public interface vacunaDatoLocal {
 	
-	public void addVacuna(Vacuna vac);
+	public void agregarVacuna(Vacuna vac);
+	public List<Vacuna> obtenerVacunas();
 
 }
