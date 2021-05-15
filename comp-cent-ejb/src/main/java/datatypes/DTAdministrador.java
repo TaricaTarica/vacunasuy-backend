@@ -31,7 +31,7 @@ public class DTAdministrador {
 		this.nombre = adm.getNombre();
 		this.telefono = adm.getTelefono();
 		email = adm.getEmail();
-		pass = adm.getPass();
+		pass = adm.getContraseniaAdmin();
 	}
 
 	public int getCi() {
