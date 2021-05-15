@@ -7,9 +7,9 @@ import javax.ejb.Local;
 import entidades.Vacuna;
 
 @Local
-public interface vacunaDatoLocal {
-	
+public interface VacunaDatoLocal {
+
 	public void agregarVacuna(Vacuna vac);
 	public List<Vacuna> obtenerVacunas();
-
+	public Vacuna obtenerVacuna(long id);
 }
