@@ -9,7 +9,7 @@ import javax.inject.Inject;
 
 
 import datatypes.DTVacuna;
-import datos.vacunaDato;
+import datos.VacunaDato;
 import entidades.Enfermedad;
 import entidades.Proveedor;
 import entidades.Vacuna;
@@ -19,22 +19,22 @@ import entidades.Vacuna;
  */
 @Stateless
 @LocalBean
-public class vacunaNegocio implements vacunaNegocioRemote, vacunaNegocioLocal {
+public class VacunaNegocio implements VacunaNegocioRemote, VacunaNegocioLocal {
 
 	@SuppressWarnings("unused")
 	private static final long serialVersionUID = 1L;
 	
 	@Inject
-	private vacunaDato puenteDatos;
+	private VacunaDato puenteDatos;
 	
     /**
      * Default constructor. 
      */
-    public vacunaNegocio() {
+    public VacunaNegocio() {
         // TODO Auto-generated constructor stub
     }
     
-    public void AgregarVacuna(String nombre, String codigo, String laboratorio, Enfermedad enf, Proveedor pro) {
+    public void agregarVacuna(String nombre, String codigo, String laboratorio, Enfermedad enf, Proveedor pro) {
     	
     	Vacuna vac= new Vacuna();
     	vac.setNombre(nombre);
@@ -60,5 +60,8 @@ public class vacunaNegocio implements vacunaNegocioRemote, vacunaNegocioLocal {
     		dtVacs.add(new DTVacuna(vac.getNombre(), vac.getCodigo(), vac.getLaboratorio()));
     	}
     	return dtVacs;
+    }
+    public void agregarVacunas() {
+    	puenteDatos.agregarVacunas();
     }
 }

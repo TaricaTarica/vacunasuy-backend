@@ -37,6 +37,12 @@ public class Enfermedad {
 		this.nombre = enfermedad.getNombre();
 		this.fechaCreacion = LocalDate.parse(enfermedad.getFechaCreacion());
 	}
+	
+	public Enfermedad(String nombre, LocalDate fecha) {
+		super();
+		this.nombre = nombre;
+		this.fechaCreacion = fecha;
+	}
 
 
 	public long getId() {
