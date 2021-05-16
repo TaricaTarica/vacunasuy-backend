@@ -8,9 +8,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 @Entity
+@NamedQueries ({
+	@NamedQuery(name="Departamento.obtenerDepartamentos", query="Select d from Departamento d ORDER BY d.descripcion")
+})
 public class Departamento {
 	@Id 
 	@GeneratedValue
@@ -64,6 +69,12 @@ public class Departamento {
 
 	public void setAgendas(List<Agenda> agendas) {
 		this.agendas = agendas;
+	}
+
+	@Override
+	public String toString() {
+		return "Departamento [id=" + id + ", descripcion=" + descripcion + ", ubicaciones=" + ubicaciones + ", agendas="
+				+ agendas + "]";
 	}
 	
 	
