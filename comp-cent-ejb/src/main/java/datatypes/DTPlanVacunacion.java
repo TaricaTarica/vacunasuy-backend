@@ -1,7 +1,5 @@
 package datatypes;
 
-import java.util.List;
-
 import entidades.PlanVacunacion;
 import enumeradores.PoblacionObjetivo;
 
