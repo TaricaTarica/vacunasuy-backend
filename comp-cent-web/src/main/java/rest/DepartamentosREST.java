@@ -29,7 +29,7 @@ public class DepartamentosREST {
 	}
 		
 	@GET
-	public Response getVacunadores() {
+	public Response getDepartamentos() {
 		ArrayList<DTDepartamento> dtDepartamentos = (ArrayList<DTDepartamento>) dn.obtenerDepartamentos();
     	//return vacunadoresWs;
     	
@@ -48,18 +48,26 @@ public class DepartamentosREST {
 	@GET
 	@Path("/ubicaciones/{departamento}")
 	public Response getDepartamentoUbicaciones(@PathParam("departamento") String departamento) {
-		ArrayList<DTUbicacion> dTUbicaciones = (ArrayList<DTUbicacion>) dn.obtenerDepartamentoUbicaciones(departamento);
-    	
-        if (!dTUbicaciones.isEmpty()) {
-        	return Response
-		            .status(Response.Status.OK)
-		            .entity(dTUbicaciones)
-		            .build();        	
-        } else {
-            return Response
-            		.status(Response.Status.NOT_FOUND)
-            		.build();
-        }          
+		if (departamento != null && !departamento.equals("")) {
+			ArrayList<DTUbicacion> dTUbicaciones = (ArrayList<DTUbicacion>) dn.obtenerDepartamentoUbicaciones(departamento);
+	    	
+	        if (!dTUbicaciones.isEmpty()) {
+	        	return Response
+			            .status(Response.Status.OK)
+			            .entity(dTUbicaciones)
+			            .build();        	
+	        } else {
+	            return Response
+	            		.status(Response.Status.NOT_FOUND)
+	            		.entity("No se ecnontraron ubicaciones para el departamento.")
+	            		.build();
+	        } 
+		} else {
+			return Response
+            		.status(Response.Status.BAD_REQUEST)
+            		.entity("Falta paramentro departamento.")
+            		.build();			
+		}
 	}	
 	
 }
