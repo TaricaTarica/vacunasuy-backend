@@ -50,7 +50,6 @@ public class DepartamentoDato implements DepartamentoDatoRemote, DepartamentoDat
     	} catch (Exception e) {
     		return new ArrayList<Ubicacion>();
     	}
-
     } 
 
 }
