@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
@@ -14,6 +16,7 @@ import datatypes.DTVacuna;
 import datos.EnfermedadDatoLocal;
 import entidades.Enfermedad;
 import entidades.Vacuna;
+import enumeradores.PoblacionObjetivo;
 
 
 
@@ -90,5 +93,15 @@ public class EnfermedadNegocio implements EnfermedadNegocioRemote, EnfermedadNeg
 		else 
 			throw new Exception("\nEnfermedad no encontrada en el sistema");
 	}
+	
+	@Override
+	public List<String> listarPoblacionObjetivo () {
+		
+		List<String> poblacion = Stream.of(PoblacionObjetivo.values())
+                .map(Enum::name)
+                .collect(Collectors.toList());
+		
+		return poblacion;
+    }
 
 }

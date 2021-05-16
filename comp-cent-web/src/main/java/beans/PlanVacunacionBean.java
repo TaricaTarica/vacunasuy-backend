@@ -43,12 +43,15 @@ public class PlanVacunacionBean implements Serializable {
 	private DTVacuna vacuna;
 	private List<DTVacuna> vacunas;
 	private String nombreEnfermedad;
-	private String nombreVacuna;	
+	private String nombreVacuna;
+	private String poblacion;
+	private List<String> poblaciones;
 	@PostConstruct
 	public void init() {
 		enfermedades = enfermedadLocal.listarEnfermedades();
 		enfermedad = new DTEnfermedad();
 		vacuna = new DTVacuna();
+		poblaciones = enfermedadLocal.listarPoblacionObjetivo();
 		
 	}
 	
@@ -88,7 +91,29 @@ public class PlanVacunacionBean implements Serializable {
 	public DTVacuna getVacuna() {
 		return vacuna;
 	}
+	
+	
 
+
+
+	public String getPoblacion() {
+		return poblacion;
+	}
+
+
+	public void setPoblacion(String poblacion) {
+		this.poblacion = poblacion;
+	}
+
+
+	public List<String> getPoblaciones() {
+		return poblaciones;
+	}
+
+
+	public void setPoblaciones(List<String> poblaciones) {
+		this.poblaciones = poblaciones;
+	}
 
 
 	public void cargarVacunas() throws Exception {
@@ -98,6 +123,8 @@ public class PlanVacunacionBean implements Serializable {
         	vacunas = new ArrayList<DTVacuna>();
         }
     }
+	
+	
 	/*
 	public void agregarEnfermedad(){
 		enfermedad.setFecha(LocalDate.now());

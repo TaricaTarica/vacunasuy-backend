@@ -46,22 +46,32 @@
 
 		<h:form id="dialogForm">
 			
-<p:panel header="Seleccionar Enfermedad " style="margin-bottom:10px;">
+<p:panel header="Nuevo Plan" style="margin-bottom:10px;">
             <h:panelGrid columns="2" cellpadding="5">
                 
+                <h:outputLabel for="name" value="Nombre:"/>
+            	<p:inputText id="name" required="true"/>
+                
+                <h:outputLabel for="edadminima" value="Edad Minima"/>
+            	<p:spinner id="edadminima" value="0"/>
+            	
+            	<h:outputLabel for="edadmaxima" value="Edad Maxima"/>
+            	<p:spinner id="edadmaxima" value="0"/>
+            	
+            	<h:outputLabel for="poblacion" value="Poblacion Objetivo:"/>
+                <p:selectOneMenu id="poblacion" value="#{planVacunacionBean.poblacion}" style="width:15rem">
+                    <f:selectItem itemLabel="Seleccionar Poblacion" itemValue="" noSelectionOption="true"/>
+                    <f:selectItems value="#{planVacunacionBean.poblaciones}"/>
+                </p:selectOneMenu>
+            	
+            	 <h:outputLabel for="enfermedad" value="Enfermedad:"/>
                 <p:selectOneMenu id="enfermedad" value="#{planVacunacionBean.nombreEnfermedad}" style="width:15rem">
-                     
                      <p:ajax listener="#{planVacunacionBean.cargarVacunas}" update="Vac"/>
                     <f:selectItem itemLabel="Seleccionar Enfermedad" itemValue="" noSelectionOption="true"/>
                     <f:selectItems value="#{planVacunacionBean.enfermedades}"/>
                 </p:selectOneMenu>
 
-                <!-- <p:outputLabel for="Vac" value="Vacuna: "/>
-                <p:selectOneMenu id="Vac" value="#{planVacunacionBean.nombreVacuna}" style="width:150px">
-                    <f:selectItem itemLabel="Seleccionar Vacuna" itemValue="" noSelectionOption="true"/>
-                    <f:selectItems value="#{planVacunacionBean.vacunas}"/>
-                </p:selectOneMenu> -->
-                
+                <h:outputLabel for="Vac" value="Vacunas:"/>
                 <p:selectCheckboxMenu id="Vac" value="#{planVacunacionBean.nombreVacuna}" label="Seleccionar Vacunas" style="width: 15rem"
                                 filter="true" filterMatchMode="startsWith" panelStyle="width: 15rem" scrollHeight="250">
             <f:selectItems value="#{planVacunacionBean.vacunas}"/>
@@ -69,9 +79,10 @@
             </h:panelGrid>
 			
           
-
-            <p:commandButton value="Submit" action="#{PlanVacunacionBean.cargarVacunas}"
+			<div style="display: flex; align-items: center;justify-content: center;">
+            <p:commandButton  value="Cargar Plan" action="#{PlanVacunacionBean.cargarVacunas}"
                              icon="pi pi-check"/>
+            </div>
         </p:panel>
 	
 		</h:form>
