@@ -41,12 +41,6 @@ public class Agenda {
 	@ManyToMany(cascade= {CascadeType.PERSIST,CascadeType.MERGE})
 	private List<PlanVacunacion> planes = new ArrayList<>();
 	
-	@ManyToMany(mappedBy="agendas")
-	private List<Autoridad> autoridades = new ArrayList<>();
-	
-	@ManyToMany(mappedBy="agendas")
-	private List<Vacunador> vacunadores = new ArrayList<>();
-	
 	public Agenda() {
 		super();
 		// TODO Auto-generated constructor stub
