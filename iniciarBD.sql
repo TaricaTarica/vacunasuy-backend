@@ -59,3 +59,43 @@ INSERT INTO public.departamento_ubicacion(departamento_id, ubicaciones_id) VALUE
 INSERT INTO public.departamento_ubicacion(departamento_id, ubicaciones_id) VALUES (7, 6);
 INSERT INTO public.departamento_ubicacion(departamento_id, ubicaciones_id) VALUES (7, 7);
 
+
+--Ubicaciones de Canelones
+
+INSERT INTO public.ubicacion(id, descripcion, vacunatorio_id) VALUES (8, 'Sur de Canelones', null);
+INSERT INTO public.ubicacion(id, descripcion, vacunatorio_id) VALUES (9, 'Norte de Canelones', null);
+INSERT INTO public.ubicacion(id, descripcion, vacunatorio_id) VALUES (10, 'Este de Canelones', null);
+INSERT INTO public.ubicacion(id, descripcion, vacunatorio_id) VALUES (11, 'Oeste de Canelones', null);
+
+--Ubicaciones de Cerro Largo
+
+INSERT INTO public.ubicacion(id, descripcion, vacunatorio_id) VALUES (12, 'Sur de Cerro Largo', null);
+INSERT INTO public.ubicacion(id, descripcion, vacunatorio_id) VALUES (13, 'Norte de Cerro Largo', null);
+INSERT INTO public.ubicacion(id, descripcion, vacunatorio_id) VALUES (14, 'Este de Cerro Largo', null);
+INSERT INTO public.ubicacion(id, descripcion, vacunatorio_id) VALUES (15, 'Oeste de Cerro Largo', null);
+
+--Ubicaciones de Colonia
+
+INSERT INTO public.ubicacion(id, descripcion, vacunatorio_id) VALUES (16, 'Sur de Colonia', null);
+INSERT INTO public.ubicacion(id, descripcion, vacunatorio_id) VALUES (17, 'Norte de Colonia', null);
+
+--Vinculamos las ubicaciones al departamentos Canelones
+
+INSERT INTO public.departamento_ubicacion(departamento_id, ubicaciones_id) VALUES (2, 8);
+INSERT INTO public.departamento_ubicacion(departamento_id, ubicaciones_id) VALUES (2, 9);
+INSERT INTO public.departamento_ubicacion(departamento_id, ubicaciones_id) VALUES (2, 10);
+INSERT INTO public.departamento_ubicacion(departamento_id, ubicaciones_id) VALUES (2, 11);
+
+--Vinculamos las ubicaciones al departamentos Cerro Largo
+
+INSERT INTO public.departamento_ubicacion(departamento_id, ubicaciones_id) VALUES (3, 12);
+INSERT INTO public.departamento_ubicacion(departamento_id, ubicaciones_id) VALUES (3, 13);
+INSERT INTO public.departamento_ubicacion(departamento_id, ubicaciones_id) VALUES (3, 14);
+INSERT INTO public.departamento_ubicacion(departamento_id, ubicaciones_id) VALUES (3, 15);
+
+--Vinculamos las ubicaciones al departamentos Colonia
+
+INSERT INTO public.departamento_ubicacion(departamento_id, ubicaciones_id) VALUES (4, 16);
+INSERT INTO public.departamento_ubicacion(departamento_id, ubicaciones_id) VALUES (4, 17);
+
+
