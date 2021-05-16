@@ -2,16 +2,21 @@ package negocio;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Comparator;
+
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
 import datatypes.DTEnfermedad;
+import datatypes.DTVacuna;
 import datos.EnfermedadDatoLocal;
 import entidades.Enfermedad;
+import entidades.Vacuna;
+import enumeradores.PoblacionObjetivo;
 
 
 
@@ -53,7 +58,8 @@ public class EnfermedadNegocio implements EnfermedadNegocioRemote, EnfermedadNeg
 		}
 		
 	}
-
+	
+	
 	@Override
 	public DTEnfermedad buscarEnfermedad(String nombre) throws Exception {
 		
@@ -67,10 +73,35 @@ public class EnfermedadNegocio implements EnfermedadNegocioRemote, EnfermedadNeg
 			
 	}
 
+
+
 	@Override
-	public void cargarBase() {
-		datoLocal.cargarBase();
+	public List<DTVacuna> listarVacunasPorEnfermedad(String nombreEnfermedad) throws Exception {
 		
+		if (datoLocal.existeEnfermedad(nombreEnfermedad)) {
+			List<DTVacuna> lista = new ArrayList<DTVacuna>();
+			List<Vacuna> vacunas = (datoLocal.buscarEnfermedad(nombreEnfermedad)).getVacunas();
+			if (vacunas!= null) {
+				for (Vacuna vac:vacunas) {
+				    DTVacuna vacuna = new DTVacuna(vac);
+				    lista.add(vacuna);
+				    }
+			}
+				
+			return lista;
+		}
+		else 
+			throw new Exception("\nEnfermedad no encontrada en el sistema");
 	}
+	
+	@Override
+	public List<String> listarPoblacionObjetivo () {
+		
+		List<String> poblacion = Stream.of(PoblacionObjetivo.values())
+                .map(Enum::name)
+                .collect(Collectors.toList());
+		
+		return poblacion;
+    }
 
 }

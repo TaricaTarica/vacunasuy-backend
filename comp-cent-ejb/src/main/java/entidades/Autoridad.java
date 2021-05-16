@@ -23,9 +23,6 @@ public class Autoridad extends Usuario{
 	private List<Agenda> agendas = new ArrayList<>();
 	
 	@ManyToMany(cascade= {CascadeType.PERSIST,CascadeType.MERGE})
-	private List<PlanVacunacion> planes = new ArrayList<>();
-
-	@ManyToMany(cascade= {CascadeType.PERSIST,CascadeType.MERGE})
 	private List<Vacuna> vacunas = new ArrayList<>();
 	
 	public Autoridad() {
@@ -76,22 +73,6 @@ public class Autoridad extends Usuario{
 		agenda.getAutoridades().remove(this);
 	}
 
-	public List<PlanVacunacion> getPlanes() {
-		return planes;
-	}
-
-	public void setPlanes(List<PlanVacunacion> planes) {
-		this.planes = planes;
-	}
-	
-	public void agregarPlan(PlanVacunacion plan) {
-		planes.add(plan);
-		plan.getAutoridades().add(this);
-	}
-	public void eliminarPlan(PlanVacunacion plan) {
-		planes.remove(plan);
-		plan.getAutoridades().remove(this);
-	}
 
 	public List<Vacuna> getVacunas() {
 		return vacunas;

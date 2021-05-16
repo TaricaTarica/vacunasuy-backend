@@ -19,8 +19,6 @@ public class Ciudadano extends Usuario {
 	@ManyToMany(cascade= {CascadeType.PERSIST,CascadeType.MERGE})
 	private List<Vacunatorio> vacunatorios = new ArrayList<>();
 	
-	@ManyToMany(cascade= {CascadeType.PERSIST,CascadeType.MERGE})
-	private List<PlanVacunacion> planes = new ArrayList<>();
 	/*
 	@OneToMany(mappedBy="ciudadano",cascade=CascadeType.ALL,orphanRemoval=true)
 	private List<RegistroVacuna> registros = new ArrayList<>();
@@ -56,22 +54,7 @@ public class Ciudadano extends Usuario {
 		vacunatorio.getCiudadanos().remove(this);
 	}
 
-	public List<PlanVacunacion> getPlanes() {
-		return planes;
-	}
-
-	public void setPlanes(List<PlanVacunacion> planes) {
-		this.planes = planes;
-	}
 	
-	public void agregarPlan(PlanVacunacion plan) {
-		planes.add(plan);
-		plan.getCiudadanos().add(this);
-	}
-	public void eliminarPlan(PlanVacunacion plan) {
-		planes.remove(plan);
-		plan.getCiudadanos().remove(this);
-	}
 /*
 	public List<RegistroVacuna> getRegistros() {
 		return registros;

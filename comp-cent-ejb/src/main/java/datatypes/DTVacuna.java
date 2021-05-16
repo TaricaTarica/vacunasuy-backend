@@ -53,4 +53,9 @@ public class DTVacuna {
 	public void setLaboratorio(String laboratorio) {
 		this.laboratorio = laboratorio;
 	}
+
+	@Override
+	public String toString() {
+		return nombre;
+	}
 }
