@@ -28,3 +28,34 @@ INSERT INTO public.vacuna(id, codigo, laboratorio, nombre, enfermedad_id, provee
 INSERT INTO public.vacuna(id, codigo, laboratorio, nombre, enfermedad_id, proveedor_id) VALUES (2, 'JK2', 'Jhosepha', 'Jose A.', 1, null);
 INSERT INTO public.vacuna(id, codigo, laboratorio, nombre, enfermedad_id, proveedor_id) VALUES (3, 'JK3', 'Mac Bns', 'Jose R.', 2, null);
 INSERT INTO public.vacuna(id, codigo, laboratorio, nombre, enfermedad_id, proveedor_id) VALUES (4, 'JK4', 'Herby', 'Pedro K.', 3, null);
+
+
+
+
+-- Agregamos ubicaciones para vincularlos a los departamentos
+
+INSERT INTO public.ubicacion(id, descripcion, vacunatorio_id) VALUES (1, 'Sur de artigas ', null);
+INSERT INTO public.ubicacion(id, descripcion, vacunatorio_id) VALUES (2, 'Norte de artigas ', null);
+INSERT INTO public.ubicacion(id, descripcion, vacunatorio_id) VALUES (3, 'Este de artigas ', null);
+INSERT INTO public.ubicacion(id, descripcion, vacunatorio_id) VALUES (4, 'Oeste de artigas ', null);
+
+
+-- Vinculamos la Tabla departamentos de Artigas con la ubicacion
+
+INSERT INTO public.departamento_ubicacion(departamento_id, ubicaciones_id) VALUES (1, 1);
+INSERT INTO public.departamento_ubicacion(departamento_id, ubicaciones_id) VALUES (1, 2);
+INSERT INTO public.departamento_ubicacion(departamento_id, ubicaciones_id) VALUES (1, 3);
+INSERT INTO public.departamento_ubicacion(departamento_id, ubicaciones_id) VALUES (1, 4);
+
+-- Agregamos ubicaciones para vincularlos a los departamentos
+
+INSERT INTO public.ubicacion(id, descripcion, vacunatorio_id) VALUES (5, 'Sur de Florida', null);
+INSERT INTO public.ubicacion(id, descripcion, vacunatorio_id) VALUES (6, 'Norte de Florida ', null);
+INSERT INTO public.ubicacion(id, descripcion, vacunatorio_id) VALUES (7, 'Este de Florida ', null);
+
+-- Vinculamos la Tabla departamentos de Florida con la ubicacion
+
+INSERT INTO public.departamento_ubicacion(departamento_id, ubicaciones_id) VALUES (7, 5);
+INSERT INTO public.departamento_ubicacion(departamento_id, ubicaciones_id) VALUES (7, 6);
+INSERT INTO public.departamento_ubicacion(departamento_id, ubicaciones_id) VALUES (7, 7);
+
