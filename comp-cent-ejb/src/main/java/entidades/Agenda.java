@@ -159,21 +159,5 @@ public class Agenda {
 		planes.remove(plan);
 		plan.getAgendas().remove(this);
 	}
-
-	public List<Autoridad> getAutoridades() {
-		return autoridades;
-	}
-
-	public void setAutoridades(List<Autoridad> autoridades) {
-		this.autoridades = autoridades;
-	}
-
-	public List<Vacunador> getVacunadores() {
-		return vacunadores;
-	}
-
-	public void setVacunadores(List<Vacunador> vacunadores) {
-		this.vacunadores = vacunadores;
-	}
 	
 }
