@@ -29,7 +29,7 @@ public class DepartamentosREST {
 	}
 		
 	@GET
-	public Response getVacunadores() {
+	public Response getDepartamentos() {
 		ArrayList<DTDepartamento> dtDepartamentos = (ArrayList<DTDepartamento>) dn.obtenerDepartamentos();
     	//return vacunadoresWs;
     	
