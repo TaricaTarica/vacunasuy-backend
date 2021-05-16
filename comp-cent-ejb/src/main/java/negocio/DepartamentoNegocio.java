@@ -8,8 +8,10 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import datatypes.DTDepartamento;
+import datatypes.DTUbicacion;
 import datos.DepartamentoDatoLocal;
 import entidades.Departamento;
+import entidades.Ubicacion;
 
 /**
  * Session Bean implementation class DepartamentoNegocio
@@ -29,15 +31,25 @@ public class DepartamentoNegocio implements DepartamentoNegocioRemote, Departame
 
 	@Override
 	public List<DTDepartamento> obtenerDepartamentos() {
-    	ArrayList<Departamento> Departamentos = (ArrayList<Departamento>) md.obtenerDepartamentos();
-    	ArrayList<DTDepartamento> DTDepartamentos = new ArrayList<DTDepartamento>();
-    	Departamentos.forEach( (d) -> { DTDepartamentos.add( new DTDepartamento(d.getDescripcion())) ; } );
-		return DTDepartamentos;
+    	ArrayList<Departamento> departamentos = (ArrayList<Departamento>) md.obtenerDepartamentos();
+    	ArrayList<DTDepartamento> dTDepartamentos = new ArrayList<DTDepartamento>();
+    	departamentos.forEach( (d) -> { dTDepartamentos.add( new DTDepartamento(d.getDescripcion())) ; } );
+		return dTDepartamentos;
 	}
 
 	@Override
 	public DTDepartamento obtenerDepartamentoPorNombre(String nombre) {
 		return new DTDepartamento(md.obtenerDepartamentoPorNombre(nombre).getDescripcion());
 	}
+
+	@Override
+	public List<DTUbicacion> obtenerDepartamentoUbicaciones(String nombre) {
+		ArrayList<Ubicacion> ubicaciones = (ArrayList<Ubicacion>) md.obtenerDepartamentoUbicaciones(nombre);
+		ArrayList<DTUbicacion> dTUbicaciones = new ArrayList<DTUbicacion>();
+		ubicaciones.forEach( (u) -> { dTUbicaciones.add( new DTUbicacion(u.getDescripcion())) ; } );
+		return dTUbicaciones;
+	}
+
+
 
 }

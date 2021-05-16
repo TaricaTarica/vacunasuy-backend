@@ -9,7 +9,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import entidades.Departamento;
-import entidades.Vacuna;
+import entidades.Ubicacion;
 
 /**
  * Session Bean implementation class DepartamentoDato
@@ -50,6 +50,14 @@ public class DepartamentoDato implements DepartamentoDatoRemote, DepartamentoDat
     	Query query = em.createQuery("from Departamento d where d.descripcion =: descripcion");
     	query.setParameter("descripcion", nombre);
 		return (Departamento) query.getSingleResult();
+    } 
+    
+    @Override
+    public List<Ubicacion> obtenerDepartamentoUbicaciones(String nombre) {
+    	Query query = em.createQuery("from Departamento d where d.descripcion =: descripcion");
+    	query.setParameter("descripcion", nombre);
+    	Departamento dep =  (Departamento) query.getSingleResult();    	
+    	return dep.getUbicaciones();
     } 
 
 }
