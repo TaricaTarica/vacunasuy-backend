@@ -34,8 +34,6 @@ public class Vacuna {
 	@ManyToMany(mappedBy="vacunas")
 	private List<Autoridad> autoridades = new ArrayList<>();
 	
-	@OneToMany(mappedBy="vacuna",cascade=CascadeType.ALL,orphanRemoval=true) 
-	private List<Regla> reglas = new ArrayList<>();
 	
 	@OneToMany(mappedBy="vacuna",cascade=CascadeType.ALL,orphanRemoval=true) 
 	private List<RegistroVacuna> registros = new ArrayList<>();
@@ -126,13 +124,7 @@ public class Vacuna {
 		this.autoridades = autoridades;
 	}
 
-	public List<Regla> getReglas() {
-		return reglas;
-	}
 
-	public void setReglas(List<Regla> reglas) {
-		this.reglas = reglas;
-	}
 
 	public List<RegistroVacuna> getRegistros() {
 		return registros;

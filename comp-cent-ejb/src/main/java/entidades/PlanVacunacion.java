@@ -35,14 +35,6 @@ public class PlanVacunacion {
 	@ManyToOne
 	private Enfermedad enfermedad;
 	
-	@ManyToMany(mappedBy="planes")
-	private List<Ciudadano> ciudadanos = new ArrayList<>();
-	
-	@ManyToMany(mappedBy="planes")
-	private List<Autoridad> autoridades = new ArrayList<>();
-	
-	@OneToMany(mappedBy="plan",cascade=CascadeType.ALL,orphanRemoval=true)
-	private List<Regla> reglas = new ArrayList<>();
 	
 	public PlanVacunacion() {
 		// TODO Auto-generated constructor stub
@@ -114,30 +106,7 @@ public class PlanVacunacion {
 		this.enfermedad = enfermedad;
 	}
 
-	public List<Ciudadano> getCiudadanos() {
-		return ciudadanos;
-	}
-
-	public void setCiudadanos(List<Ciudadano> ciudadanos) {
-		this.ciudadanos = ciudadanos;
-	}
-
-	public List<Autoridad> getAutoridades() {
-		return autoridades;
-	}
-
-	public void setAutoridades(List<Autoridad> autoridades) {
-		this.autoridades = autoridades;
-	}
-
-	public List<Regla> getReglas() {
-		return reglas;
-	}
-
-
-	public void setReglas(List<Regla> reglas) {
-		this.reglas = reglas;
-	}
+	
 	
 		
 }
