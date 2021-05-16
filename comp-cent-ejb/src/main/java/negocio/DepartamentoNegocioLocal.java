@@ -9,10 +9,7 @@ import datatypes.DTUbicacion;
 public interface DepartamentoNegocioLocal {	
 
 	public List<DTDepartamento> obtenerDepartamentos();
-
-    public DTDepartamento obtenerDepartamentoPorNombre(String nombre);
     
-    public List<DTUbicacion> obtenerDepartamentoUbicaciones(String nombre);
-    
+    public List<DTUbicacion> obtenerDepartamentoUbicaciones(String nombre);    
     
 }

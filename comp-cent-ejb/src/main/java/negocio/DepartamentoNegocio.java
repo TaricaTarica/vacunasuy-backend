@@ -38,18 +38,11 @@ public class DepartamentoNegocio implements DepartamentoNegocioRemote, Departame
 	}
 
 	@Override
-	public DTDepartamento obtenerDepartamentoPorNombre(String nombre) {
-		return new DTDepartamento(md.obtenerDepartamentoPorNombre(nombre).getDescripcion());
-	}
-
-	@Override
 	public List<DTUbicacion> obtenerDepartamentoUbicaciones(String nombre) {
-		ArrayList<Ubicacion> ubicaciones = (ArrayList<Ubicacion>) md.obtenerDepartamentoUbicaciones(nombre);
-		ArrayList<DTUbicacion> dTUbicaciones = new ArrayList<DTUbicacion>();
+		List<Ubicacion> ubicaciones =  md.obtenerDepartamentoUbicaciones(nombre);
+		List<DTUbicacion> dTUbicaciones = new ArrayList<DTUbicacion>();
 		ubicaciones.forEach( (u) -> { dTUbicaciones.add( new DTUbicacion(u.getDescripcion())) ; } );
 		return dTUbicaciones;
 	}
-
-
 
 }
