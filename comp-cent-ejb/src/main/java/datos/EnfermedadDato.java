@@ -1,6 +1,6 @@
 package datos;
 
-import java.time.LocalDate;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +8,7 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
 
 import entidades.Enfermedad;
 
@@ -61,25 +62,5 @@ public class EnfermedadDato implements EnfermedadDatoRemote, EnfermedadDatoLocal
 
 	}
 
-	@Override
-	public void cargarBase() {
-		LocalDate date1 = LocalDate.now();
-        LocalDate date2 = LocalDate.of(2018, 10, 30);
-        LocalDate date3 = LocalDate.of(2021, 01, 04);
-        LocalDate date4 = LocalDate.of(2020, 07, 07);
-        Enfermedad enf1 = new Enfermedad("Fiebre Amarilla",date1);
-        Enfermedad enf2 = new Enfermedad("Gripe",date1);
-        Enfermedad enf3 = new Enfermedad("Varicela",date2);
-        Enfermedad enf4 = new Enfermedad("Paperas",date3);
-        Enfermedad enf5 = new Enfermedad("Rubeola",date4);
-        
-       
-        em.persist(enf1);
-        em.persist(enf2);
-        em.persist(enf3);
-        em.persist(enf4);
-        em.persist(enf5);
-		
-	}
 
 }
