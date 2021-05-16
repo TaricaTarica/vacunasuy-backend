@@ -41,12 +41,6 @@ public class Agenda {
 	@ManyToMany(cascade= {CascadeType.PERSIST,CascadeType.MERGE})
 	private List<PlanVacunacion> planes = new ArrayList<>();
 	
-	@ManyToMany(mappedBy="agendas")
-	private List<Autoridad> autoridades = new ArrayList<>();
-	
-	@ManyToMany(mappedBy="agendas")
-	private List<Vacunador> vacunadores = new ArrayList<>();
-	
 	public Agenda() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -164,22 +158,6 @@ public class Agenda {
 	public void eliminarPlan(PlanVacunacion plan) {
 		planes.remove(plan);
 		plan.getAgendas().remove(this);
-	}
-
-	public List<Autoridad> getAutoridades() {
-		return autoridades;
-	}
-
-	public void setAutoridades(List<Autoridad> autoridades) {
-		this.autoridades = autoridades;
-	}
-
-	public List<Vacunador> getVacunadores() {
-		return vacunadores;
-	}
-
-	public void setVacunadores(List<Vacunador> vacunadores) {
-		this.vacunadores = vacunadores;
 	}
 	
 }
