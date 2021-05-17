@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import datatypes.DTAgenda;
 import enumeradores.Horario;
@@ -35,8 +36,8 @@ public class Agenda {
 	@OneToMany(mappedBy="agenda",cascade=CascadeType.ALL,orphanRemoval=true)
 	private List<Evento> eventos = new ArrayList<>();
 	
-	@ManyToMany(cascade= {CascadeType.PERSIST,CascadeType.MERGE})
-	private List<Vacunatorio> vacunatorios = new ArrayList<>();
+	@OneToOne
+	private Vacunatorio vacunatorio;
 	
 	@ManyToMany(cascade= {CascadeType.PERSIST,CascadeType.MERGE})
 	private List<PlanVacunacion> planes = new ArrayList<>();
@@ -134,21 +135,12 @@ public class Agenda {
 		evento.setAgenda(null);
 	}
 
-	public List<Vacunatorio> getVacunatorios() {
-		return vacunatorios;
+	public Vacunatorio getVacunatorio() {
+		return vacunatorio;
 	}
 
-	public void setVacunatorios(List<Vacunatorio> vacunatorios) {
-		this.vacunatorios = vacunatorios;
-	}
-	
-	public void agregarVacunatorio(Vacunatorio vacunatorio) {
-		vacunatorios.add(vacunatorio);
-		vacunatorio.getAgendas().add(this);
-	}
-	public void eliminarVacunatorio(Vacunatorio vacunatorio) {
-		vacunatorios.remove(vacunatorio);
-		vacunatorio.getAgendas().remove(this);
+	public void setVacunatorio(Vacunatorio vacunatorio) {
+		this.vacunatorio = vacunatorio;
 	}
 	
 	public void agregarPlan(PlanVacunacion plan) {
