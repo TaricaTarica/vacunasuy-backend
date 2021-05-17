@@ -7,7 +7,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -24,9 +23,6 @@ public class Departamento {
 	
 	@OneToMany(cascade=CascadeType.ALL,orphanRemoval=true)
 	private List<Ubicacion> ubicaciones = new ArrayList<>();
-	
-	@ManyToMany(mappedBy="departamentos")
-	private List<Agenda> agendas = new ArrayList<>();
 	
 	public Departamento() {
 		super();
@@ -62,22 +58,6 @@ public class Departamento {
 	public void setUbicaciones(List<Ubicacion> ubicaciones) {
 		this.ubicaciones = ubicaciones;
 	}
-
-	public List<Agenda> getAgendas() {
-		return agendas;
-	}
-
-	public void setAgendas(List<Agenda> agendas) {
-		this.agendas = agendas;
-	}
-
-	@Override
-	public String toString() {
-		return "Departamento [id=" + id + ", descripcion=" + descripcion + ", ubicaciones=" + ubicaciones + ", agendas="
-				+ agendas + "]";
-	}
-	
-	
 	
 	
 }

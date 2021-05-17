@@ -1,6 +1,7 @@
 package datatypes;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import entidades.Agenda;
 import enumeradores.Horario;
@@ -13,11 +14,29 @@ public class DTAgenda {
 	private LocalDate inicio;
 	private LocalDate fin;
 	private Horario horario;
+	private DTVacunatorio dtVacunatorio;
+	private List<DTPlanVacunacion> listDtPlanVacunacion;
 	
 	public DTAgenda() {
 		super();
 	}
 	
+	public DTVacunatorio getDtVacunatorio() {
+		return dtVacunatorio;
+	}
+
+	public void setDtVacunatorio(DTVacunatorio dtVacunatorio) {
+		this.dtVacunatorio = dtVacunatorio;
+	}
+
+	public List<DTPlanVacunacion> getListDtPlanVacunacion() {
+		return listDtPlanVacunacion;
+	}
+
+	public void setListDtPlanVacunacion(List<DTPlanVacunacion> listDtPlanVacunacion) {
+		this.listDtPlanVacunacion = listDtPlanVacunacion;
+	}
+
 	public DTAgenda(long id, LocalDate inicio, LocalDate fin, Horario horario) {
 		super();
 		this.id = id;
@@ -25,8 +44,6 @@ public class DTAgenda {
 		this.fin = fin;
 		this.horario = horario;
 	}
-
-
 
 	public DTAgenda(Agenda agenda) {
 		super();

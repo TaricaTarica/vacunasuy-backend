@@ -30,9 +30,6 @@ public class Agenda {
 	@Enumerated(value = EnumType.STRING)
 	private Horario horario;
 	
-	@ManyToMany(cascade= {CascadeType.PERSIST,CascadeType.MERGE})
-	private List<Departamento> departamentos = new ArrayList<>();
-	
 	@OneToMany(mappedBy="agenda",cascade=CascadeType.ALL,orphanRemoval=true)
 	private List<Evento> eventos = new ArrayList<>();
 	
@@ -92,14 +89,6 @@ public class Agenda {
 	public void setHorario(Horario horario) {
 		this.horario = horario;
 	}
-
-	public List<Departamento> getDepartamentos() {
-		return departamentos;
-	}
-
-	public void setDepartamentos(List<Departamento> departamentos) {
-		this.departamentos = departamentos;
-	}
 	
 	public List<Evento> getEventos() {
 		return eventos;
@@ -117,15 +106,6 @@ public class Agenda {
 		this.planes = planes;
 	}
 
-	public void agregarDepartamento(Departamento departamento) {
-		departamentos.add(departamento);
-		departamento.getAgendas().add(this);
-	}
-	public void eliminarDepartamento(Departamento departamento) {
-		departamentos.remove(departamento);
-		departamento.getAgendas().remove(this);
-	}
-	
 	public void agregarEvento(Evento evento) {
 		eventos.add(evento);
 		evento.setAgenda(this);
