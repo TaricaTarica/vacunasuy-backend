@@ -16,9 +16,6 @@ public class Puesto {
 	@GeneratedValue
 	private long id;
 	private String codigo;
-	
-	@ManyToMany(mappedBy="puestos")
-	private List<Vacunador> vacunadores = new ArrayList<>();
 
 	public Puesto() {
 		super();
@@ -50,14 +47,6 @@ public class Puesto {
 
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
-	}
-
-	public List<Vacunador> getVacunadores() {
-		return vacunadores;
-	}
-
-	public void setVacunadores(List<Vacunador> vacunadores) {
-		this.vacunadores = vacunadores;
 	}
 	
 	

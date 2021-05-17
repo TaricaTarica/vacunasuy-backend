@@ -22,9 +22,7 @@ public class Proveedor {
 	
 	@OneToMany(mappedBy="proveedor",cascade=CascadeType.ALL,orphanRemoval=true)
 	private List<Vacuna> vacunas = new ArrayList<>();
-	
-	@ManyToMany(mappedBy="proveedores")
-	private List<Autoridad> autoridades = new ArrayList<>();
+
 
 	public Proveedor() {
 		// TODO Auto-generated constructor stub
@@ -70,14 +68,7 @@ public class Proveedor {
 	public void setVacunas(List<Vacuna> vacunas) {
 		this.vacunas = vacunas;
 	}
-	
-	public List<Autoridad> getAutoridades() {
-		return autoridades;
-	}
 
-	public void setAutoridades(List<Autoridad> autoridades) {
-		this.autoridades = autoridades;
-	}
 
 	/* Esto no se si está teóricamente correcto */
 	public void agregarVacuna(Vacuna vacuna) {

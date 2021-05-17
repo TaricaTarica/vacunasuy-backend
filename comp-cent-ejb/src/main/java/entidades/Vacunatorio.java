@@ -34,8 +34,11 @@ public class Vacunatorio {
 			fetch=FetchType.LAZY)
 	private Ubicacion ubicacion;
 	
-	@ManyToMany(mappedBy="vacunatorios")
-	private List<Agenda> agendas = new ArrayList<>();
+	@OneToOne(mappedBy="vacunatorio",
+			cascade=CascadeType.ALL,
+			orphanRemoval=true,
+			fetch=FetchType.LAZY)
+	private Agenda agenda;
 	
 	@ManyToMany(mappedBy="vacunatorios")
 	private List<Ciudadano> ciudadanos = new ArrayList<>();
@@ -108,12 +111,12 @@ public class Vacunatorio {
 		this.ubicacion = ubicacion;
 	}
 
-	public List<Agenda> getAgendas() {
-		return agendas;
+	public Agenda getAgenda() {
+		return agenda;
 	}
 
-	public void setAgendas(List<Agenda> agendas) {
-		this.agendas = agendas;
+	public void setAgenda(Agenda agenda) {
+		this.agenda = agenda;
 	}
 
 	public void agregarLogistica(LogisticaDistribucion logistica) {

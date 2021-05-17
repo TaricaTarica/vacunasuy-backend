@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import datatypes.DTAgenda;
 import enumeradores.Horario;
@@ -35,17 +36,11 @@ public class Agenda {
 	@OneToMany(mappedBy="agenda",cascade=CascadeType.ALL,orphanRemoval=true)
 	private List<Evento> eventos = new ArrayList<>();
 	
-	@ManyToMany(cascade= {CascadeType.PERSIST,CascadeType.MERGE})
-	private List<Vacunatorio> vacunatorios = new ArrayList<>();
+	@OneToOne
+	private Vacunatorio vacunatorio;
 	
 	@ManyToMany(cascade= {CascadeType.PERSIST,CascadeType.MERGE})
 	private List<PlanVacunacion> planes = new ArrayList<>();
-	
-	@ManyToMany(mappedBy="agendas")
-	private List<Autoridad> autoridades = new ArrayList<>();
-	
-	@ManyToMany(mappedBy="agendas")
-	private List<Vacunador> vacunadores = new ArrayList<>();
 	
 	public Agenda() {
 		super();
@@ -140,21 +135,12 @@ public class Agenda {
 		evento.setAgenda(null);
 	}
 
-	public List<Vacunatorio> getVacunatorios() {
-		return vacunatorios;
+	public Vacunatorio getVacunatorio() {
+		return vacunatorio;
 	}
 
-	public void setVacunatorios(List<Vacunatorio> vacunatorios) {
-		this.vacunatorios = vacunatorios;
-	}
-	
-	public void agregarVacunatorio(Vacunatorio vacunatorio) {
-		vacunatorios.add(vacunatorio);
-		vacunatorio.getAgendas().add(this);
-	}
-	public void eliminarVacunatorio(Vacunatorio vacunatorio) {
-		vacunatorios.remove(vacunatorio);
-		vacunatorio.getAgendas().remove(this);
+	public void setVacunatorio(Vacunatorio vacunatorio) {
+		this.vacunatorio = vacunatorio;
 	}
 	
 	public void agregarPlan(PlanVacunacion plan) {
@@ -164,22 +150,6 @@ public class Agenda {
 	public void eliminarPlan(PlanVacunacion plan) {
 		planes.remove(plan);
 		plan.getAgendas().remove(this);
-	}
-
-	public List<Autoridad> getAutoridades() {
-		return autoridades;
-	}
-
-	public void setAutoridades(List<Autoridad> autoridades) {
-		this.autoridades = autoridades;
-	}
-
-	public List<Vacunador> getVacunadores() {
-		return vacunadores;
-	}
-
-	public void setVacunadores(List<Vacunador> vacunadores) {
-		this.vacunadores = vacunadores;
 	}
 	
 }
