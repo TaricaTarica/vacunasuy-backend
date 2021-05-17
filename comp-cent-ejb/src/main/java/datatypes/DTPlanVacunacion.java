@@ -1,5 +1,6 @@
 package datatypes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import entidades.PlanVacunacion;
@@ -11,7 +12,7 @@ public class DTPlanVacunacion {
 	int edadMinima;
 	int edadMaxima;
 	private DTEnfermedad enfermedad;
-	private DTVacuna vacuna;
+	private List<DTVacuna> vacunas;
 	
 	public DTPlanVacunacion() {
 		// TODO Auto-generated constructor stub
@@ -23,6 +24,9 @@ public class DTPlanVacunacion {
 		this.poblacionObjetivo = plan.getPoblacionObjetivo();
 		this.edadMinima = plan.getEdadMinima();
 		this.edadMaxima = plan.getEdadMaxima();
+		this.enfermedad = plan.enfermedadDT();
+		this.vacunas = plan.vacunasDT();
+		
 		//this.enfermedad = plan.getDTEnfermedad; // para despues
 		//this.vacuna = plan.getDTVacuna; // para despues
 	}
@@ -69,13 +73,20 @@ public class DTPlanVacunacion {
 		this.enfermedad = enfermedad;
 	}
 
-	public DTVacuna getVacuna() {
-		return vacuna;
+	public List<DTVacuna> getVacunas() {
+		return vacunas;
 	}
 
-	public void setVacuna(DTVacuna vacuna) {
-		this.vacuna = vacuna;
+	
+	
+	public void setVacunas(List<DTVacuna> vacunas) {
+		this.vacunas = vacunas;
 	}
+
+	public void agregarVacunas(DTVacuna vacuna) {
+		this.vacunas.add(vacuna);
+	}
+
 
 	
 

@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import entidades.Enfermedad;
 import entidades.Vacuna;
 
 /**
@@ -36,11 +37,11 @@ public class VacunaDato implements VacunaDatoRemote, VacunaDatoLocal {
 	}
     
     @Override
-	public List<Vacuna> obtenerVacunas(){
-    	Query query = em.createQuery("SELECT v FROM Vacuna v");
-    	List<Vacuna> resul = query.getResultList();
-    	return resul;
-    }
+	public Vacuna obtenerVacuna (String nombre) {
+		Vacuna vacuna =(Vacuna) em.createQuery("Select v from Vacuna v where v.nombre = :nombre").setParameter("nombre", nombre).getSingleResult();	
+		return vacuna;	
+		    	
+	}
     
     public Vacuna obtenerVacuna(long id) {
 	    Vacuna vac = new Vacuna();
@@ -62,5 +63,11 @@ public class VacunaDato implements VacunaDatoRemote, VacunaDatoLocal {
     	em.persist(vac5);
     
     }
+
+	@Override
+	public List<Vacuna> obtenerVacunas() {
+		// TODO Auto-generated method stub
+		return null;
+	}
     
 }

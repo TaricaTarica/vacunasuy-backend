@@ -17,8 +17,10 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import datatypes.DTEnfermedad;
+import datatypes.DTPlanVacunacion;
 import datatypes.DTVacuna;
 import negocio.EnfermedadNegocioLocal;
+import negocio.PlanVacunacionNegocioLocal;
 import negocio.VacunaNegocioLocal;
 
 
@@ -34,23 +36,31 @@ public class PlanVacunacionBean implements Serializable {
 	private EnfermedadNegocioLocal enfermedadLocal;
 	@EJB
 	private VacunaNegocioLocal vacunaLocal;
+	@EJB
+	private PlanVacunacionNegocioLocal planLocal;
 	
 	
 	
 	
 	private DTEnfermedad enfermedad;
 	private List<DTEnfermedad> enfermedades;
+	private List<DTPlanVacunacion> planesVacunaciones;
 	private DTVacuna vacuna;
+	private DTPlanVacunacion planVacunacion;
 	private List<DTVacuna> vacunas;
 	private String nombreEnfermedad;
-	private String nombreVacuna;
+	private String nombrePlan;
+	private String[] nombreVacuna;
 	private String poblacion;
 	private List<String> poblaciones;
+	
 	@PostConstruct
 	public void init() {
 		enfermedades = enfermedadLocal.listarEnfermedades();
+		planesVacunaciones = planLocal.listarPlanesDeVacunacion();
 		enfermedad = new DTEnfermedad();
 		vacuna = new DTVacuna();
+		planVacunacion = new DTPlanVacunacion();
 		poblaciones = enfermedadLocal.listarPoblacionObjetivo();
 		
 	}
@@ -66,12 +76,15 @@ public class PlanVacunacionBean implements Serializable {
 	
 	
 
-	public String getNombreVacuna() {
+	
+
+
+	public String[] getNombreVacuna() {
 		return nombreVacuna;
 	}
 
 
-	public void setNombreVacuna(String nombreVacuna) {
+	public void setNombreVacuna(String[] nombreVacuna) {
 		this.nombreVacuna = nombreVacuna;
 	}
 
@@ -92,9 +105,6 @@ public class PlanVacunacionBean implements Serializable {
 		return vacuna;
 	}
 	
-	
-
-
 
 	public String getPoblacion() {
 		return poblacion;
@@ -116,6 +126,41 @@ public class PlanVacunacionBean implements Serializable {
 	}
 
 
+	public String getNombrePlan() {
+		return nombrePlan;
+	}
+
+
+	public void setNombrePlan(String nombrePlan) {
+		this.nombrePlan = nombrePlan;
+	}
+
+
+
+
+
+	public DTPlanVacunacion getPlanVacunacion() {
+		return planVacunacion;
+	}
+
+
+	public void setPlanVacunacion(DTPlanVacunacion planVacunacion) {
+		this.planVacunacion = planVacunacion;
+	}
+	
+	
+
+
+	public List<DTPlanVacunacion> getPlanesVacunaciones() {
+		return planesVacunaciones;
+	}
+
+
+	public void setPlanesVacunaciones(List<DTPlanVacunacion> planesVacunaciones) {
+		this.planesVacunaciones = planesVacunaciones;
+	}
+
+
 	public void cargarVacunas() throws Exception {
         if (nombreEnfermedad != null && !nombreEnfermedad.equals("")) {
         	vacunas = enfermedadLocal.listarVacunasPorEnfermedad(nombreEnfermedad);
@@ -123,6 +168,31 @@ public class PlanVacunacionBean implements Serializable {
         	vacunas = new ArrayList<DTVacuna>();
         }
     }
+	
+	public void agregarPlanVacunacion () throws Exception {
+		
+		DTEnfermedad enfAux = new DTEnfermedad();
+		List<DTVacuna> vacAux = new ArrayList<DTVacuna>();
+		for (DTEnfermedad enf: enfermedades) {
+			if (enf.getNombre().equals(nombreEnfermedad))
+				enfAux = enf;
+		}
+		planVacunacion.setEnfermedad(enfAux);
+		
+		for (DTVacuna vac: vacunas) {
+			for (String nombreV: nombreVacuna) {
+				if (vac.getNombre().equals(nombreV)) {
+					vacAux.add(vac);
+				}
+			}
+			
+		}
+		planVacunacion.setVacunas(vacAux);
+		
+		
+		planLocal.agregarPlanVacunacion(planVacunacion);
+		
+	}
 	
 	
 	/*

@@ -13,7 +13,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import datatypes.DTEnfermedad;
 import datatypes.DTPlanVacunacion;
+import datatypes.DTVacuna;
 import enumeradores.PoblacionObjetivo;
 
 
@@ -35,6 +37,11 @@ public class PlanVacunacion {
 	@ManyToOne
 	private Enfermedad enfermedad;
 	
+	@ManyToMany(cascade= {CascadeType.PERSIST,CascadeType.MERGE})
+	private List<Proveedor> proveedores = new ArrayList<>();
+	
+	@ManyToMany(cascade= {CascadeType.PERSIST,CascadeType.MERGE})
+	private List<Vacuna> vacunas = new ArrayList<>();
 	
 	public PlanVacunacion() {
 		// TODO Auto-generated constructor stub
@@ -105,6 +112,40 @@ public class PlanVacunacion {
 	public void setEnfermedad(Enfermedad enfermedad) {
 		this.enfermedad = enfermedad;
 	}
+
+
+	public List<Vacuna> getVacunas() {
+		return vacunas;
+	}
+
+
+	public void setVacunas(Vacuna vacuna) {
+		this.vacunas.add(vacuna);
+	}
+	
+	public List<DTVacuna> vacunasDT (){
+		List<DTVacuna> vacDT = new ArrayList<DTVacuna>();
+		
+		for (Vacuna vac : vacunas) {
+			DTVacuna vacuna = new DTVacuna();
+			vacuna.setId(vac.getId());
+			vacuna.setCodigo(vac.getCodigo());
+			vacuna.setLaboratorio(vac.getLaboratorio());
+			vacuna.setNombre(vac.getNombre());
+			vacDT.add(vacuna);
+			
+		}
+		return vacDT;
+	}
+	
+	public DTEnfermedad enfermedadDT (){
+		DTEnfermedad enfDT = new DTEnfermedad (this.enfermedad);
+		return enfDT;
+		
+	}
+	
+	
+	
 
 	
 	

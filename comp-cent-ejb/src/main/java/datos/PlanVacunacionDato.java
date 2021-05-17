@@ -41,5 +41,12 @@ public class PlanVacunacionDato implements PlanVacunacionDatoRemote, PlanVacunac
 
 		return lista;
 	}
+    
+    @Override
+	public Boolean existePlanVacunacion(String nombre) {
+		Boolean existe = (em.createQuery("Select p from PlanVacunacion p where p.nombre = :nombre").setParameter("nombre", nombre).getResultList().size() > 0);	
+		return existe;
+
+	}
 
 }

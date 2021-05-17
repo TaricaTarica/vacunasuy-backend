@@ -13,4 +13,6 @@ public interface PlanVacunacionDatoLocal {
 
 	List<PlanVacunacion> listarPlanesDeVacunacion();
 
+	Boolean existePlanVacunacion(String nombre);
+
 }

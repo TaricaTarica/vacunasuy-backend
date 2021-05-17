@@ -11,5 +11,5 @@ public interface VacunaDatoLocal {
 
 	public void agregarVacuna(Vacuna vac);
 	public List<Vacuna> obtenerVacunas();
-	public Vacuna obtenerVacuna(long id);
+	Vacuna obtenerVacuna(String nombre);
 }

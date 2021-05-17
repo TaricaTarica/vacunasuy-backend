@@ -10,8 +10,8 @@ import datatypes.DTPlanVacunacion;
 public interface PlanVacunacionNegocioLocal {
 
 	
-	List<DTPlanVacunacion> listarPlanesDeVacunacion();
+	public List<DTPlanVacunacion> listarPlanesDeVacunacion();
 
-	void agregarPlanVacunacion(DTPlanVacunacion plan) throws Exception;
+	public void agregarPlanVacunacion(DTPlanVacunacion plan) throws Exception;
 
 }

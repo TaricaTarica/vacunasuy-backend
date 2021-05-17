@@ -10,10 +10,13 @@ import javax.ejb.Stateless;
 
 
 import datatypes.DTPlanVacunacion;
-
+import datatypes.DTVacuna;
+import datos.EnfermedadDatoLocal;
 import datos.PlanVacunacionDatoLocal;
-
+import datos.VacunaDatoLocal;
+import entidades.Enfermedad;
 import entidades.PlanVacunacion;
+import entidades.Vacuna;
 
 /**
  * Session Bean implementation class PlanVacunacionNegocio
@@ -24,6 +27,12 @@ public class PlanVacunacionNegocio implements PlanVacunacionNegocioRemote, PlanV
 
 	@EJB
 	private PlanVacunacionDatoLocal datoLocal;
+	
+	@EJB
+	private EnfermedadDatoLocal enfermedadDatoLocal;
+	
+	@EJB
+	private VacunaDatoLocal vacunaDatoLocal;
 	
 	
     public PlanVacunacionNegocio() {
@@ -44,16 +53,27 @@ public class PlanVacunacionNegocio implements PlanVacunacionNegocioRemote, PlanV
 	
 	@Override
 	public void agregarPlanVacunacion(DTPlanVacunacion plan) throws Exception {
-		/*
-		if (datoLocal.existeEnfermedad(nombre))
-				throw new Exception("\nEnfermedad ya existe en el sistema");
+		
+		if (datoLocal.existePlanVacunacion(plan.getNombre()))
+				throw new Exception("\nPlan ya existe en el sistema");
 		else {
-			LocalDate date1 = LocalDate.now();
-			Enfermedad enf = new Enfermedad(nombre,date1);
-			datoLocal.agregarEnfermedad(enf);	
+			
+			PlanVacunacion planVac = new PlanVacunacion(plan);
+			Enfermedad enf = enfermedadDatoLocal.buscarEnfermedad(plan.getEnfermedad().getNombre());
+			planVac.setEnfermedad(enf);
+			List<DTVacuna> vacunas = plan.getVacunas();
+			for (DTVacuna vac: vacunas) {
+				Vacuna vacuna = vacunaDatoLocal.obtenerVacuna(vac.getNombre());
+				planVac.setVacunas(vacuna);
+			}
+			
+			datoLocal.agregarPlanVacunacion(planVac);
+			
+			
 		}
-		*/
+	}
+		
 		
 	}
 
-}
+
