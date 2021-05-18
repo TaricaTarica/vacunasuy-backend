@@ -84,8 +84,8 @@ public class DTAgenda {
 		return horaInicio;
 	}
 
-	public void setHoraIncio(int horaIncio) {
-		this.horaInicio = horaIncio;
+	public void setHoraIncio(int horaInicio) {
+		this.horaInicio = horaInicio;
 	}
 
 	public int getHoraFin() {
