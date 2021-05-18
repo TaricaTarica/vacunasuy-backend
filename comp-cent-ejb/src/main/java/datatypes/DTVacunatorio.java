@@ -6,6 +6,7 @@ public class DTVacunatorio {
 	private long id;
 	private String nombre;
 	private String codigo;
+	private DTAgenda agenda;
 	
 	public DTVacunatorio() {
 		super();
@@ -17,6 +18,7 @@ public class DTVacunatorio {
 		this.id = vacunatorio.getId();
 		this.nombre = vacunatorio.getNombre();
 		this.codigo = vacunatorio.getCodigo();
+		this.agenda = new DTAgenda(vacunatorio.getAgenda());
 	}
 	
 	public DTVacunatorio(String nombre, String codigo) {
@@ -44,6 +46,15 @@ public class DTVacunatorio {
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
 	}
+
+	public DTAgenda getAgenda() {
+		return agenda;
+	}
+
+	public void setAgenda(DTAgenda agenda) {
+		this.agenda = agenda;
+	}
+	
 	
 	
 }
