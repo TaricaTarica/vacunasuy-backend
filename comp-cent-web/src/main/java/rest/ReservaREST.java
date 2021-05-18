@@ -83,8 +83,6 @@ public class ReservaREST {
 		}
 		else {
 			DTVacunatorio dtVacunatorio = dtUbicacion.getVacunatorio();
-			DTAgenda dtAgenda = dtVacunatorio.getAgenda();
-			dtReserva.setAgenda(dtAgenda);
 		}
 		rnl.crearReserva(dtReserva);
 		return Response
