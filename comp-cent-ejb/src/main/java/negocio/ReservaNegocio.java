@@ -44,7 +44,7 @@ public class ReservaNegocio implements ReservaNegocioRemote, ReservaNegocioLocal
 		Reserva reserva = new Reserva(res);
 		///buscar ciudadano
 		
-		rdl.crearReserva();
+		//rdl.crearReserva();
 		
 	}
 
