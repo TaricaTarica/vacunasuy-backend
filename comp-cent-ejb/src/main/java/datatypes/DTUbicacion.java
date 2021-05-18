@@ -31,7 +31,7 @@ public class DTUbicacion implements Serializable {
 
 	@Override
 	public String toString() {
-		return "DTUbicacion [description=" + description + "]";
+		return description;
 	}	
 
 }
