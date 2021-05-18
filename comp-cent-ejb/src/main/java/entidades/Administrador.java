@@ -11,7 +11,7 @@ import javax.persistence.ManyToMany;
 import datatypes.DTAdministrador;
 
 @Entity
-@DiscriminatorValue("A")
+//@DiscriminatorValue("A")
 public class Administrador extends Usuario {
 
 	

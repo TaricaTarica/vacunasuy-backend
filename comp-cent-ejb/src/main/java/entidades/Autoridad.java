@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 
 
 @Entity
-@DiscriminatorValue("Aut")
+//@DiscriminatorValue("Aut")
 public class Autoridad extends Usuario{
 
 	private String usuarioAutoridad;
