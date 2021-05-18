@@ -48,5 +48,11 @@ public class PlanVacunacionDato implements PlanVacunacionDatoRemote, PlanVacunac
 		return existe;
 
 	}
+    
+    @Override
+    public PlanVacunacion obtenerPlanVacunacion(String nombre) {
+    	PlanVacunacion planVacunacion = em.find(PlanVacunacion.class, nombre);
+    	return planVacunacion;
+    }
 
 }

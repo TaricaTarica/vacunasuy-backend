@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import datatypes.DTReserva;
 import datos.AgendaDatoLocal;
 import datos.CiudadanoDatoLocal;
+import datos.PlanVacunacionDatoLocal;
 import datos.ReservaDatoLocal;
 import entidades.Agenda;
 import entidades.Ciudadano;
@@ -29,7 +30,10 @@ public class ReservaNegocio implements ReservaNegocioRemote, ReservaNegocioLocal
 	CiudadanoDatoLocal cdl;
 	
 	@Inject
-	AgendaDatoLocal adl;	
+	AgendaDatoLocal adl;
+	
+	@Inject
+	PlanVacunacionDatoLocal pvdl;
 
     /**
      * Default constructor. 
@@ -51,7 +55,7 @@ public class ReservaNegocio implements ReservaNegocioRemote, ReservaNegocioLocal
 		Reserva reserva = new Reserva(res);
 		Ciudadano ciudadano = cdl.obtenerCiudadano(res.getCiudadano().getCi());
 		Agenda agenda = adl.obtenerAgendaPorId(res.getAgenda().getId());
-		PlanVacunacion planVacunacion = null; ///////Me falta buscar plan de vacunacion por nombre o id
+		PlanVacunacion planVacunacion = pvdl.obtenerPlanVacunacion(res.getPlanVacunacion().getNombre());
 		reserva.setCiudadano(ciudadano);
 		reserva.setAgenda(agenda);		
 		reserva.setPlanVacunacion(planVacunacion);		
