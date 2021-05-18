@@ -6,8 +6,6 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
@@ -15,7 +13,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import datatypes.DTAgenda;
-import enumeradores.Horario;
 
 @Entity
 public class Agenda {
@@ -27,8 +24,8 @@ public class Agenda {
 	//private Plan plan;
 	private LocalDate inicio;
 	private LocalDate fin;
-	@Enumerated(value = EnumType.STRING)
-	private Horario horario;
+	private int horaIncio;
+	private int horaFin;
 	
 	@OneToMany(mappedBy="agenda",cascade=CascadeType.ALL,orphanRemoval=true)
 	private List<Evento> eventos = new ArrayList<>();
@@ -44,18 +41,36 @@ public class Agenda {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Agenda(LocalDate inicio, LocalDate fin, Horario horario) {
+	public Agenda(LocalDate inicio, LocalDate fin, int horaInicio, int horaFin) {
 		super();
 		this.inicio = inicio;
 		this.fin = fin;
-		this.horario = horario;
+		this.horaIncio = horaInicio;
+		this.horaFin = horaFin;
 	}
 
 	public Agenda(DTAgenda agenda) {
 		super();
 		this.inicio = agenda.getInicio();
 		this.fin = agenda.getFin();
-		this.horario = agenda.getHorario();
+		this.horaIncio = agenda.getHoraIncio();
+		this.horaFin = agenda.getHoraFin();
+	}
+
+	public int getHoraIncio() {
+		return horaIncio;
+	}
+
+	public void setHoraIncio(int horaIncio) {
+		this.horaIncio = horaIncio;
+	}
+
+	public int getHoraFin() {
+		return horaFin;
+	}
+
+	public void setHoraFin(int horaFin) {
+		this.horaFin = horaFin;
 	}
 
 	public long getId() {
@@ -80,14 +95,6 @@ public class Agenda {
 
 	public void setFin(LocalDate fin) {
 		this.fin = fin;
-	}
-
-	public Horario getHorario() {
-		return horario;
-	}
-
-	public void setHorario(Horario horario) {
-		this.horario = horario;
 	}
 	
 	public List<Evento> getEventos() {

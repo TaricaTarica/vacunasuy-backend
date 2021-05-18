@@ -72,8 +72,15 @@ public class PlanVacunacionNegocio implements PlanVacunacionNegocioRemote, PlanV
 			
 		}
 	}
-		
-		
+	
+	@Override
+	public List<String> nombresPlanes() {
+		List<DTPlanVacunacion> planes = listarPlanesDeVacunacion();
+		List<String> nombresplanes = new ArrayList<String>();
+		planes.forEach((p)->{nombresplanes.add(p.getNombre());});
+		return nombresplanes;
 	}
+		
+}
 
 
