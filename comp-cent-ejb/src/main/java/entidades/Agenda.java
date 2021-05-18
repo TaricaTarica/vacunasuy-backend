@@ -9,8 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 import datatypes.DTAgenda;
 
@@ -30,7 +30,7 @@ public class Agenda {
 	@OneToMany(mappedBy="agenda",cascade=CascadeType.ALL,orphanRemoval=true)
 	private List<Evento> eventos = new ArrayList<>();
 	
-	@OneToOne
+	@ManyToOne
 	private Vacunatorio vacunatorio;
 	
 	@ManyToMany(cascade= {CascadeType.PERSIST,CascadeType.MERGE})

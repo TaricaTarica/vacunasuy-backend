@@ -39,4 +39,7 @@ public class VacunatorioDato implements VacunatorioDatoRemote, VacunatorioDatoLo
 		}
 		return lista;
 	}
+	public Vacunatorio obtenerVacunatorio(long id) {
+		return em.find(Vacunatorio.class, id);
+	}
 }

@@ -11,5 +11,6 @@ public interface VacunatorioDatoLocal {
 	
 	public void agregarVacunatorio(Vacunatorio vacunatorio);
 	public List<Vacunatorio> listarVacunatorio();
+	public Vacunatorio obtenerVacunatorio(long id);
 
 }
