@@ -3,34 +3,22 @@
 <html xmlns="http://www.w3c.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<title>Enfermedades</title>
 </h:head>
 <h:body>
-	   <p:ajaxStatus style="width: 16px;height: 16px;" id="ajaxStatusPanel">
-            <f:facet name="start">
-                <h:graphicImage library="images" name="ajaxloading.gif" />
-            </f:facet>
-
-            <f:facet name="complete">
-                <h:outputText value="" />
-            </f:facet>
-
-        </p:ajaxStatus>
-
         <h:form id="enfermedadesListForm">
-            <p:growl id="messages" showDetail="true" />
-            <p:messages/>
-            <p:dataTable id="EnfermedadTabla" var="enfermedad" editable="true" 
-				value="#{enfermedadBean.enfermedades}" 
+            <p:messages id="messages" showDetail="true" closable="true">
+				<p:autoUpdate />
+			</p:messages>
+			<div>
+            <p:dataTable id="EnfermedadTabla" var="enfermedad"  
+            	value="#{enfermedadBean.enfermedades}" paginator="true" rows="6"
         		paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
-           <!--    paginator="true" rows="6"  -->
-              
-                <f:facet name="header">
-                    Listado de enfermedades
-                </f:facet>
-                
+        		<f:facet name="header">Listado de Enfermedades</f:facet>
+        		
                 <p:column headerText="Nombre">
                             <h:outputText value="#{enfermedad.nombre}" />
                 </p:column>
@@ -39,33 +27,38 @@
                 </p:column>
 
                 <f:facet name="footer">
-                    
-                    <p:spacer height="5px"/>
-                    <p:commandButton value="Agregar" actionListener="#{enfermedadBean.reiniciarEnfermedad()}"
-                                     update=":dialogForm" oncomplete="PF('enfermedadDialog').show()" />
-                   <!--  <p:commandButton value="Buscar" actionListener="#{proveedorBean.reiniciarProveedorSeleccionada}"
-                                     update=":buscarForm" oncomplete="PF('proveedorBuscar').show()" /> -->
-                    <p:commandButton value="Regresar" action="index" />
+                    <div style="display: flex; align-items: center;justify-content: center;">>
+	                    <p:spacer height="5px"/>
+	                    <p:commandButton styleClass="rounded-button" value="Agregar" actionListener="#{enfermedadBean.reiniciarEnfermedad()}"
+	                                     oncomplete="PF('enfermedadDialog').show()" />
+	                   <!--  <p:commandButton value="Buscar" actionListener="#{proveedorBean.reiniciarProveedorSeleccionada}"
+	                                     update=":buscarForm" oncomplete="PF('proveedorBuscar').show()" /> -->
+	                    <p:commandButton styleClass="rounded-button" value="Regresar" action="index" />
+                    </div>
                 </f:facet>
             </p:dataTable>
+            </div>
         </h:form>
-        <p:dialog id="proveedorDlg" widgetVar="enfermedadDialog" header="Agregar enfermedad" modal="true" showEffect="fade" hideEffect="fade" 
-            resizable="false" >
+          
+        <p:dialog id="enfermedadDlg" widgetVar="enfermedadDialog" header="Agregar enfermedad" modal="true" showEffect="fade" 
+        hideEffect="fade" resizable="false" >
             <h:form id="dialogForm">
+              <p:panel header="Nueva Enfermedad" style="margin-bottom:10px;">
                 <p:outputPanel id="enfermedadDetail" style="text-align: center">
                     <p:panelGrid id="display" columns="4" columnClasses="label, value" >
                         <h:outputText value="nombre de la vacuna" />
                         <h:inputText value="#{enfermedadBean.nombre}" />
                
                         <f:facet name="footer" >
-                            <p:commandButton value="Agregar" actionListener="#{enfermedadBean.agregarEnfermedad()}" 
-                                             update="display,:enfermedadesListForm:EnfermedadTabla" oncomplete="PF('enfermedadDialog').hide();" />
+                            <p:commandButton styleClass="rounded-button" value="Agregar" actionListener="#{enfermedadBean.agregarEnfermedad()}" 
+                             update="display,:enfermedadesListForm:EnfermedadTabla" oncomplete="PF('enfermedadDialog').hide();" icon="pi pi-check"/>
                         </f:facet>
                     </p:panelGrid>
                 </p:outputPanel>
+              </p:panel>
             </h:form>
-        </p:dialog>
          
-
+        </p:dialog>
+  
 </h:body>
 </html>

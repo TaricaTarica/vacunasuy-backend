@@ -9,8 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 import datatypes.DTAgenda;
 
@@ -24,13 +24,13 @@ public class Agenda {
 	//private Plan plan;
 	private LocalDate inicio;
 	private LocalDate fin;
-	private int horaIncio;
+	private int horaInicio;
 	private int horaFin;
 	
 	@OneToMany(mappedBy="agenda",cascade=CascadeType.ALL,orphanRemoval=true)
 	private List<Evento> eventos = new ArrayList<>();
 	
-	@OneToOne
+	@ManyToOne
 	private Vacunatorio vacunatorio;
 	
 	@ManyToMany(cascade= {CascadeType.PERSIST,CascadeType.MERGE})
@@ -45,7 +45,7 @@ public class Agenda {
 		super();
 		this.inicio = inicio;
 		this.fin = fin;
-		this.horaIncio = horaInicio;
+		this.horaInicio = horaInicio;
 		this.horaFin = horaFin;
 	}
 
@@ -53,16 +53,16 @@ public class Agenda {
 		super();
 		this.inicio = agenda.getInicio();
 		this.fin = agenda.getFin();
-		this.horaIncio = agenda.getHoraIncio();
+		this.horaInicio = agenda.getHoraIncio();
 		this.horaFin = agenda.getHoraFin();
 	}
 
 	public int getHoraIncio() {
-		return horaIncio;
+		return horaInicio;
 	}
 
-	public void setHoraIncio(int horaIncio) {
-		this.horaIncio = horaIncio;
+	public void setHoraIncio(int horaInicio) {
+		this.horaInicio = horaInicio;
 	}
 
 	public int getHoraFin() {

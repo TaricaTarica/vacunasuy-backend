@@ -1,11 +1,15 @@
 package datatypes;
 
+import java.util.List;
+
+import entidades.Agenda;
 import entidades.Vacunatorio;
 
 public class DTVacunatorio {
 	private long id;
 	private String nombre;
 	private String codigo;
+	private List<DTAgenda> agendas;
 	
 	public DTVacunatorio() {
 		super();
@@ -17,6 +21,9 @@ public class DTVacunatorio {
 		this.id = vacunatorio.getId();
 		this.nombre = vacunatorio.getNombre();
 		this.codigo = vacunatorio.getCodigo();
+		for(Agenda a: vacunatorio.getAgendas()) {
+			this.agendas.add(new DTAgenda(a));
+		} 
 	}
 	
 	public DTVacunatorio(String nombre, String codigo) {
@@ -24,7 +31,6 @@ public class DTVacunatorio {
 		this.nombre = nombre;
 		this.codigo = codigo;
 	}
-
 	
 	public long getId() {
 		return id;
@@ -44,6 +50,17 @@ public class DTVacunatorio {
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
 	}
+
+	public List<DTAgenda> getAgendas() {
+		return agendas;
+	}
+
+	public void setAgendas(List<DTAgenda> agendas) {
+		this.agendas = agendas;
+	}
+	
+
+	
 	
 	
 }
