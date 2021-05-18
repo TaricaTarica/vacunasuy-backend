@@ -1,14 +1,31 @@
 package datatypes;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class DTReserva {
+import entidades.Reserva;
+
+public class DTReserva implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private long id;
 	private int hora;
 	private LocalDate fecha;	
+	private DTCiudadano ciudadano;
+	private DTPlanVacunacion planVacunacion;
+	private DTAgenda agenda;
 	
 	public DTReserva() {
 		super();
+	}
+	
+	public DTReserva(Reserva res) {
+		super();
+		this.id = res.getId();
+		this.hora = res.getHora();
+		this.fecha = res.getFecha();		
 	}
 
 	public DTReserva(long id, int hora, LocalDate fecha) {
@@ -40,6 +57,32 @@ public class DTReserva {
 
 	public void setFecha(LocalDate fecha) {
 		this.fecha = fecha;
+	}
+	
+	
+
+	public DTCiudadano getCiudadano() {
+		return ciudadano;
+	}
+
+	public void setCiudadano(DTCiudadano ciudadano) {
+		this.ciudadano = ciudadano;
+	}
+
+	public DTPlanVacunacion getPlanVacunacion() {
+		return planVacunacion;
+	}
+
+	public void setPlanVacunacion(DTPlanVacunacion planVacunacion) {
+		this.planVacunacion = planVacunacion;
+	}
+
+	public DTAgenda getAgenda() {
+		return agenda;
+	}
+
+	public void setAgenda(DTAgenda agenda) {
+		this.agenda = agenda;
 	}
 
 	@Override
