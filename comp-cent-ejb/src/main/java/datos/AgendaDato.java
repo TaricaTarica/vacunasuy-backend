@@ -39,5 +39,11 @@ public class AgendaDato implements AgendaDatoRemote, AgendaDatoLocal {
 		}
     	return lista;
     }
+
+	@Override
+	public Agenda obtenerAgendaPorId(Long id) {
+		// TODO Auto-generated method stub
+		return em.find(Agenda.class, id);
+	}
     
 }

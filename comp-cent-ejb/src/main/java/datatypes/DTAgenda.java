@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 import entidades.Agenda;
-import enumeradores.Horario;
 
 public class DTAgenda {
 	private long id;
@@ -13,7 +12,8 @@ public class DTAgenda {
 	//private Plan plan;
 	private LocalDate inicio;
 	private LocalDate fin;
-	private Horario horario;
+	private int horaInicio;
+	private int horaFin;
 	private DTVacunatorio dtVacunatorio;
 	private List<DTPlanVacunacion> listDtPlanVacunacion;
 	
@@ -37,12 +37,13 @@ public class DTAgenda {
 		this.listDtPlanVacunacion = listDtPlanVacunacion;
 	}
 
-	public DTAgenda(long id, LocalDate inicio, LocalDate fin, Horario horario) {
+	public DTAgenda(long id, LocalDate inicio, LocalDate fin, int horaInicio, int horaFin) {
 		super();
 		this.id = id;
 		this.inicio = inicio;
 		this.fin = fin;
-		this.horario = horario;
+		this.horaInicio = horaInicio;
+		this.horaFin = horaFin;
 	}
 
 	public DTAgenda(Agenda agenda) {
@@ -50,6 +51,9 @@ public class DTAgenda {
 		this.id = agenda.getId();
 		this.inicio = agenda.getInicio();
 		this.fin = agenda.getFin();
+		this.dtVacunatorio = new DTVacunatorio(agenda.getVacunatorio());
+		this.horaInicio = agenda.getHoraIncio();
+		this.horaFin = agenda.getHoraFin();
 	}
 
 	public long getId() {
@@ -76,11 +80,20 @@ public class DTAgenda {
 		this.fin = fin;
 	}
 
-	public Horario getHorario() {
-		return horario;
+	public int getHoraIncio() {
+		return horaInicio;
 	}
 
-	public void setHorario(Horario horario) {
-		this.horario = horario;
+	public void setHoraIncio(int horaIncio) {
+		this.horaInicio = horaIncio;
 	}
+
+	public int getHoraFin() {
+		return horaFin;
+	}
+
+	public void setHoraFin(int horaFin) {
+		this.horaFin = horaFin;
+	}
+
 }

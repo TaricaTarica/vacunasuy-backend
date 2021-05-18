@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import datatypes.DTReserva;
+
 @Entity
 public class Reserva {
 	@Id 
@@ -27,6 +29,12 @@ public class Reserva {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	public Reserva(DTReserva res) {
+		super();
+		this.hora = res.getHora();
+		this.fecha = res.getFecha();
+	}	
 
 	public Reserva(int hora, LocalDate fecha, Ciudadano ciudadano, Agenda agenda, PlanVacunacion planVacunacion) {
 		super();

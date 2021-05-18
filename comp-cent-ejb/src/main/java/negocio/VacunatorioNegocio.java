@@ -11,6 +11,7 @@ import datatypes.DTVacunatorio;
 import datos.VacunatorioDatoLocal;
 import entidades.Vacunatorio;
 
+
 /**
  * Session Bean implementation class VacunatorioNegocio
  */
@@ -39,5 +40,14 @@ public class VacunatorioNegocio implements VacunatorioNegocioRemote, Vacunatorio
 		vacunatorio.forEach((v)->{dtVacunatorio.add(new DTVacunatorio(v));});
 		return dtVacunatorio;
 	}
+	
+	@Override
+	public List<String> nombresVacunatorios() {
+		
+		List<DTVacunatorio> vacunatorio = listarVacunatorio();
+		List<String> nombres = new ArrayList<String>();
+		vacunatorio.forEach((v)->{nombres.add(v.getNombre());});
+		return nombres;
+    }
 	
 }
