@@ -21,6 +21,7 @@ import negocio.CiudadanoNegocioLocal;
 import negocio.DepartamentoNegocioLocal;
 import negocio.PlanVacunacionNegocioLocal;
 import negocio.ReservaNegocioLocal;
+import negocio.VacunatorioNegocioLocal;
 
 
 @RequestScoped
@@ -40,6 +41,9 @@ public class ReservaREST {
 	
 	@Inject 
 	private DepartamentoNegocioLocal dnl;
+	
+	@Inject
+	private VacunatorioNegocioLocal vnl;
 	
 	public ReservaREST() throws NamingException {		
 
@@ -83,6 +87,8 @@ public class ReservaREST {
 		}
 		else {
 			DTVacunatorio dtVacunatorio = dtUbicacion.getVacunatorio();
+			DTAgenda dtAgenda = vnl.obtenerAgendaActiva(dtVacunatorio.getId());
+			dtReserva.setAgenda(dtAgenda);
 		}
 		rnl.crearReserva(dtReserva);
 		return Response
