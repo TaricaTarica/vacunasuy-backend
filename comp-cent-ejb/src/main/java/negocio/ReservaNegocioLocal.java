@@ -13,5 +13,5 @@ public interface ReservaNegocioLocal {
 	public List<DTReserva> obtenerReservas();
 	
 	public void crearReserva(DTReserva res);
-
+	
 }

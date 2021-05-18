@@ -2,16 +2,16 @@ package negocio;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-
-import datatypes.DTDepartamento;
 import datatypes.DTReserva;
-import datos.DepartamentoDatoLocal;
+import datos.AgendaDatoLocal;
+import datos.CiudadanoDatoLocal;
 import datos.ReservaDatoLocal;
-import entidades.Departamento;
+import entidades.Agenda;
+import entidades.Ciudadano;
+import entidades.PlanVacunacion;
 import entidades.Reserva;
 
 /**
@@ -23,6 +23,13 @@ public class ReservaNegocio implements ReservaNegocioRemote, ReservaNegocioLocal
 	
 	@Inject
 	ReservaDatoLocal rdl;	
+	
+	
+	@Inject
+	CiudadanoDatoLocal cdl;
+	
+	@Inject
+	AgendaDatoLocal adl;	
 
     /**
      * Default constructor. 
@@ -42,11 +49,13 @@ public class ReservaNegocio implements ReservaNegocioRemote, ReservaNegocioLocal
 	@Override
 	public void crearReserva(DTReserva res) {
 		Reserva reserva = new Reserva(res);
-		///buscar ciudadano
-		
-		//rdl.crearReserva();
-		
+		Ciudadano ciudadano = cdl.obtenerCiudadano(res.getCiudadano().getCi());
+		Agenda agenda = adl.obtenerAgendaPorId(res.getAgenda().getId());
+		PlanVacunacion planVacunacion = null; ///////Me falta buscar plan de vacunacion por nombre o id
+		reserva.setCiudadano(ciudadano);
+		reserva.setAgenda(agenda);		
+		reserva.setPlanVacunacion(planVacunacion);		
+		rdl.crearReserva(reserva);		
 	}
-
 
 }
