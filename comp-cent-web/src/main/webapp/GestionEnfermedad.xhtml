@@ -18,19 +18,24 @@
             </f:facet>
 
         </p:ajaxStatus>
+
         <h:form id="enfermedadesListForm">
             <p:growl id="messages" showDetail="true" />
             <p:messages/>
-
-            <p:dataTable id="EnfermedadTabla" var="enfermedad"
-				value="#{enfermedadBean.enfermedades}" paginator="true" rows="6"
+            <p:dataTable id="EnfermedadTabla" var="enfermedad" editable="true" 
+				value="#{enfermedadBean.enfermedades}" 
         		paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+           <!--    paginator="true" rows="6"  -->
+              
                 <f:facet name="header">
                     Listado de enfermedades
                 </f:facet>
                 
                 <p:column headerText="Nombre">
                             <h:outputText value="#{enfermedad.nombre}" />
+                </p:column>
+                <p:column headerText="Fecha de Creación">
+                            <h:outputText value="#{enfermedad.fechaCreacion}" />
                 </p:column>
 
                 <f:facet name="footer">
@@ -60,6 +65,7 @@
                 </p:outputPanel>
             </h:form>
         </p:dialog>
+         
 
 </h:body>
 </html>

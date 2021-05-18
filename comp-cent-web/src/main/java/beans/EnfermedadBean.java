@@ -1,8 +1,6 @@
 package beans;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -11,7 +9,6 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
 import datatypes.DTEnfermedad;
-import entidades.Enfermedad;
 import negocio.EnfermedadNegocioLocal;
 
 @Named("enfermedadBean")
@@ -64,13 +61,6 @@ public class EnfermedadBean implements Serializable{
 		this.nombre = nombre;
 	}
 
-//	public String getFechaCreacion() {
-//		return fechaCreacion;
-//	}
-
-//	public void setFechaCreacion(String fechaCreacion) {
-//		this.fechaCreacion = fechaCreacion;
-//	}
 
 	public void agregarEnfermedad() throws Exception {
 		
