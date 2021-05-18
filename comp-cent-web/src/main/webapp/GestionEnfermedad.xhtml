@@ -51,7 +51,7 @@
                
                         <f:facet name="footer" >
                             <p:commandButton styleClass="rounded-button" value="Agregar" actionListener="#{enfermedadBean.agregarEnfermedad()}" 
-                             update="display" oncomplete="PF('enfermedadDialog').hide();" icon="pi pi-check"/>
+                             update="display,:enfermedadesListForm:EnfermedadTabla" oncomplete="PF('enfermedadDialog').hide();" icon="pi pi-check"/>
                         </f:facet>
                     </p:panelGrid>
                 </p:outputPanel>
