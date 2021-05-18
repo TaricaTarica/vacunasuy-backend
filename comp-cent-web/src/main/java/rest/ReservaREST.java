@@ -14,6 +14,7 @@ import datatypes.DTAgenda;
 import datatypes.DTCiudadano;
 import datatypes.DTPlanVacunacion;
 import datatypes.DTReserva;
+import datatypes.DTReservaWS;
 import datatypes.DTUbicacion;
 import datatypes.DTVacunatorio;
 import negocio.CiudadanoNegocioLocal;
@@ -45,10 +46,10 @@ public class ReservaREST {
 	}
 	
 	@POST
-	public Response crearReserva(String ci, String planVacunacion, String departamento, String ubicacion) {
+	public Response crearReserva(DTReservaWS dtrws) {
 		DTReserva dtReserva = new DTReserva(); 
 		try{
-            int numeroCi = Integer.parseInt(ci);
+            int numeroCi = Integer.parseInt(dtrws.getCi());
             DTCiudadano dtCiudadano = cnl.obtenerCiudadano(numeroCi);
             if(dtCiudadano == null) {
             	return Response
@@ -65,7 +66,7 @@ public class ReservaREST {
             		 .build();
         }
 		
-		DTPlanVacunacion dtPlanVacunacion = pvnl.obtenerPlanVacunacion(planVacunacion);
+		DTPlanVacunacion dtPlanVacunacion = pvnl.obtenerPlanVacunacion(dtrws.getPlanVacunacion());
 		if(dtPlanVacunacion == null) {
 			return Response
 					.status(Response.Status.NOT_FOUND)
@@ -74,7 +75,7 @@ public class ReservaREST {
 		else {
 			dtReserva.setPlanVacunacion(dtPlanVacunacion);
 		}
-		DTUbicacion dtUbicacion = dnl.obtenerDepartamentoUbicacion(departamento, ubicacion);
+		DTUbicacion dtUbicacion = dnl.obtenerDepartamentoUbicacion(dtrws.getDepartamento(), dtrws.getUbicacion());
 		if(dtUbicacion == null) {
 			return Response
 					.status(Response.Status.NOT_FOUND)
