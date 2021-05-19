@@ -42,8 +42,9 @@ public class PlanVacunacionBean implements Serializable {
 	private DTPlanVacunacion planVacunacion;
 	private List<DTVacuna> vacunas;
 	private List<DTVacuna> vacunasEnPlan;
-	private String nombreEnfermedad;
 	
+	private String nombreEnfermedad;
+	private String nombrePlan;
 	private String[] nombreVacuna;
 	private String poblacion;
 	private List<String> poblaciones;
@@ -156,6 +157,17 @@ public class PlanVacunacionBean implements Serializable {
 	public void setVacunasEnPlan(List<DTVacuna> vacunasEnPlan) {
 		this.vacunasEnPlan = vacunasEnPlan;
 	}
+	
+
+
+	public String getNombrePlan() {
+		return nombrePlan;
+	}
+
+
+	public void setNombrePlan(String nombrePlan) {
+		this.nombrePlan = nombrePlan;
+	}
 
 
 	public void cargarVacunasPlan(DTPlanVacunacion planVac) {
@@ -175,6 +187,15 @@ public class PlanVacunacionBean implements Serializable {
         FacesContext.getCurrentInstance().
                 addMessage(null, new FacesMessage(severity, summary, detail));
     }
+	
+	public void buscarPlan () throws Exception {
+		try {
+		planVacunacion = planLocal.buscarPlanVacunacion(nombrePlan);
+		} catch (Exception e) {
+    		this.planVacunacion = null;
+    	}
+	}
+		
 	
 	public void agregarPlanVacunacion () throws Exception {
 		
@@ -243,8 +264,8 @@ public class PlanVacunacionBean implements Serializable {
     	}
     }*/
 	
-	public void reiniciarEnfermedad(){
-        this.enfermedad = new DTEnfermedad();
+	public void reiniciarPlan(){
+        this.planVacunacion = new DTPlanVacunacion();
     }
 
 }

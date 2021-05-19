@@ -18,6 +18,7 @@ import entidades.Enfermedad;
 import entidades.PlanVacunacion;
 import entidades.Vacuna;
 
+
 /**
  * Session Bean implementation class PlanVacunacionNegocio
  */
@@ -91,6 +92,21 @@ public class PlanVacunacionNegocio implements PlanVacunacionNegocioRemote, PlanV
 		else {
 			return null;
 		}
+	}
+	
+
+	@Override
+	public DTPlanVacunacion buscarPlanVacunacion(String nombre)  throws Exception {
+		
+		if (datoLocal.existePlanVacunacion(nombre)) {
+			PlanVacunacion planVacunacion = datoLocal.buscarPlanVacunacion(nombre);
+			DTPlanVacunacion dtPlanVacunacion = new DTPlanVacunacion(planVacunacion);
+			return dtPlanVacunacion; 
+		}
+		else {
+			throw new Exception("\nNo existe un plan con el nombre ingresado");
+		}
+		
 	}
 	
 		
