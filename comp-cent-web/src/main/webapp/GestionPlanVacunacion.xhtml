@@ -41,11 +41,11 @@
 				<f:facet name="footer">
 					<div style="display: flex; align-items: center;justify-content: center;">
 						<p:commandButton value="Buscar"
-							actionListener="#{planVacunacionBean.reiniciarEnfermedad}"
-							oncomplete="PF('enfermedadDialogBuscar').show()" />
+							actionListener="#{planVacunacionBean.reiniciarPlan}"
+							oncomplete="PF('planDialogBuscar').show()" />
 						<p:spacer height="5px" />
 						<p:commandButton value="Agregar Plan"
-							actionListener="#{planVacunacionBean.reiniciarEnfermedad}"
+							actionListener="#{planVacunacionBean.reiniciarPlan}"
 							oncomplete="PF('planDialog').show()" />
 					</div>
 				</f:facet>
@@ -78,68 +78,98 @@
 		header="Agregar Plan Vacunacion" modal="true" showEffect="fade"
 		hideEffect="fade" resizable="false">
 
-		<h:form id="dialogForm">
+		<h:form id="dialogForm">			
+			<p:panel header="Nuevo Plan" id="grid" style="margin-bottom:10px;">
+	            <p:growl id="growl" showDetail="false" />
+	        	<p:growl id="growl-sticky" for="sticky-key" showDetail="true" sticky="true" />
+	            
+		            <h:panelGrid  columns="2" cellpadding="5" styleClass="p-mb-3">
+		                
+		                <h:outputLabel for="name" value="Nombre:"/>
+		            	<p:message for="name" display="icon"> <p:inputText id="name" value="#{planVacunacionBean.planVacunacion.nombre}" required="true" requiredMessage="Debe ingresar un nombre de Plan"/>  </p:message>
+		            	
+		                
+		                <h:outputLabel for="edadminima" value="Edad Minima"/>
+		            	<p:spinner id="edadminima" value="#{planVacunacionBean.planVacunacion.edadMinima}" required="true"/>
+		        
+		            	
+		            	<h:outputLabel for="edadmaxima" value="Edad Maxima" />
+		            	<p:spinner id="edadmaxima" value="#{planVacunacionBean.planVacunacion.edadMaxima}" required="true"/>
+		            	
+		            	
+		            	<h:outputLabel for="poblacion" value="Poblacion Objetivo:"/>
+			                <p:selectOneMenu id="poblacion" value="#{planVacunacionBean.planVacunacion.poblacionObjetivo}" required="true" requiredMessage="Debe seleccionar poblacion objetivo" style="width:15rem">
+			                    <f:selectItem itemLabel="Seleccionar Poblacion" itemValue="" noSelectionOption="true"/>
+			                    <f:selectItems value="#{planVacunacionBean.poblaciones}"/>
+			                </p:selectOneMenu>
+		        
+		            	
+		            	 <h:outputLabel for="enfermedad" value="Enfermedad:"/>
+			                <p:selectOneMenu id="enfermedad" value="#{planVacunacionBean.nombreEnfermedad}" required="true" requiredMessage="Debe seleccionar una Enfermedad" style="width:15rem">
+			                     <p:ajax listener="#{planVacunacionBean.cargarVacunas}" update="Vac"/>
+			                    <f:selectItem itemLabel="Seleccionar Enfermedad" itemValue="" noSelectionOption="true"/>
+			                    <f:selectItems value="#{planVacunacionBean.enfermedades}"/>
+			                </p:selectOneMenu>
+		        
+		
+		                <h:outputLabel for="Vac" value="Vacunas:"/>
+		                <p:selectCheckboxMenu id="Vac" value="#{planVacunacionBean.nombreVacuna}" required="true" requiredMessage="Debe seleccionar al menos una Vacuna" label="Seleccionar Vacunas" style="width: 15rem"
+		                                filter="true" filterMatchMode="startsWith" panelStyle="width: 15rem" scrollHeight="250">
+		            		<f:selectItems value="#{planVacunacionBean.vacunas}"/>
+	        			</p:selectCheckboxMenu>
+	        
+	            	</h:panelGrid>
 				
-<p:panel header="Nuevo Plan" id="grid" style="margin-bottom:10px;">
-            <p:growl id="growl" showDetail="false" />
-        	<p:growl id="growl-sticky" for="sticky-key" showDetail="true" sticky="true" />
-            
-            <h:panelGrid  columns="2" cellpadding="5" styleClass="p-mb-3">
-                
-                 <h:outputLabel for="name" value="Nombre:"/>
-            	<p:message for="name" display="icon"> <p:inputText id="name" value="#{planVacunacionBean.planVacunacion.nombre}" required="true" requiredMessage="Debe ingresar un nombre de Plan"/>  </p:message>
-            	
-                
-                <h:outputLabel for="edadminima" value="Edad Minima"/>
-            	<p:spinner id="edadminima" value="#{planVacunacionBean.planVacunacion.edadMinima}" required="true"/>
-        
-            	
-            	<h:outputLabel for="edadmaxima" value="Edad Maxima" />
-            	<p:spinner id="edadmaxima" value="#{planVacunacionBean.planVacunacion.edadMaxima}" required="true"/>
-            	
-            	
-            	<h:outputLabel for="poblacion" value="Poblacion Objetivo:"/>
-                <p:selectOneMenu id="poblacion" value="#{planVacunacionBean.planVacunacion.poblacionObjetivo}" required="true" requiredMessage="Debe seleccionar poblacion objetivo" style="width:15rem">
-                    <f:selectItem itemLabel="Seleccionar Poblacion" itemValue="" noSelectionOption="true"/>
-                    <f:selectItems value="#{planVacunacionBean.poblaciones}"/>
-                </p:selectOneMenu>
-        
-            	
-            	 <h:outputLabel for="enfermedad" value="Enfermedad:"/>
-                <p:selectOneMenu id="enfermedad" value="#{planVacunacionBean.nombreEnfermedad}" required="true" requiredMessage="Debe seleccionar una Enfermedad" style="width:15rem">
-                     <p:ajax listener="#{planVacunacionBean.cargarVacunas}" update="Vac"/>
-                    <f:selectItem itemLabel="Seleccionar Enfermedad" itemValue="" noSelectionOption="true"/>
-                    <f:selectItems value="#{planVacunacionBean.enfermedades}"/>
-                </p:selectOneMenu>
-        
-
-                <h:outputLabel for="Vac" value="Vacunas:"/>
-                <p:selectCheckboxMenu id="Vac" value="#{planVacunacionBean.nombreVacuna}" required="true" requiredMessage="Debe seleccionar al menos una Vacuna" label="Seleccionar Vacunas" style="width: 15rem"
-                                filter="true" filterMatchMode="startsWith" panelStyle="width: 15rem" scrollHeight="250">
-            <f:selectItems value="#{planVacunacionBean.vacunas}"/>
-        </p:selectCheckboxMenu>
-        
-            </h:panelGrid>
-			
-          
-			<div style="display: flex; align-items: center;justify-content: center;">
-            <p:commandButton  value="Cargar Plan"  action="#{planVacunacionBean.agregarPlanVacunacion()}" 
-            				update="grid,:PlanListarForm:PlanTabla"
-                             icon="pi pi-check" /> 
-            </div>
-        </p:panel>
+	          
+				<div style="display: flex; align-items: center;justify-content: center;">
+	            <p:commandButton  value="Cargar Plan"  action="#{planVacunacionBean.agregarPlanVacunacion()}" 
+	            				update="grid,:PlanListarForm:PlanTabla"
+	                             icon="pi pi-check" /> 
+	            </div>
+	        </p:panel>
 	
 		</h:form>
 
 	</p:dialog>
 
-	<p:dialog id="enfermedadDlgBuscar" widgetVar="enfermedadDialogBuscar"
-		header="Buscar Enfermedad" modal="true" showEffect="fade"
+	<p:dialog id="planDlgBuscar" widgetVar="planDialogBuscar"
+		header="Buscar Plan" modal="true" showEffect="fade"
 		hideEffect="fade" resizable="false">
 
-		<h:form id="dialogFormBuscar">
+		<h:form id="dialogFormPlan">
 
-			
+			<p:outputPanel id="PlanInfo" style="text-align: center">
+				<h:outputText value="Nombre" />
+				<h:inputText value="#{planVacunacionBean.nombrePlan}" />
+					<p:commandButton value="Buscar"
+					actionListener="#{planVacunacionBean.buscarPlan()}"
+					update="PlanTabla" />
+				<p:dataTable id="PlanTabla" var="plan"	value="#{planVacunacionBean.planVacunacion}">
+
+					
+				<f:facet name="header">Listado Planes de Vacunacion </f:facet>
+				
+				<p:column headerText="Nombre">
+					<h:outputText value="#{plan.nombre}" />
+				</p:column>
+				<p:column headerText="Poblacion Objetivo">
+					<h:outputText value="#{plan.poblacionObjetivo.name()}" />
+				</p:column>
+				<p:column headerText="Edad Minima">
+					<h:outputText value="#{plan.edadMinima}" />
+				</p:column>
+				<p:column headerText="Edad Maxima">
+					<h:outputText value="#{plan.edadMaxima}" />
+				</p:column>
+				<p:column headerText="Enfermedad">
+					<h:outputText value="#{plan.enfermedad.nombre}" />
+				</p:column>
+				<p:column headerText="Vacunas">
+						     <p:commandButton value="Vacunas" update=":dialogVac" icon="pi pi-eye" action="#{planVacunacionBean.cargarVacunasPlan(plan)}" oncomplete="PF('vacunasDialog').show()">
+						         </p:commandButton>      
+				</p:column>
+				</p:dataTable>
+			</p:outputPanel>
 		</h:form>
 
 	</p:dialog>

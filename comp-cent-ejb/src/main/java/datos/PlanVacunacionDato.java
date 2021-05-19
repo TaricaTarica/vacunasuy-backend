@@ -54,5 +54,12 @@ public class PlanVacunacionDato implements PlanVacunacionDatoRemote, PlanVacunac
     	PlanVacunacion planVacunacion = (em.createQuery("Select p from PlanVacunacion p where p.nombre = :nombre", PlanVacunacion.class).setParameter("nombre", nombre).getSingleResult());
     	return planVacunacion;
     }
+    
+    @Override
+   	public PlanVacunacion buscarPlanVacunacion(String nombre) {
+    	PlanVacunacion planVacunacion = (PlanVacunacion) (em.createQuery("Select p from PlanVacunacion p where p.nombre = :nombre").setParameter("nombre", nombre).getSingleResult());	
+   		return planVacunacion;
+
+   	}
 
 }

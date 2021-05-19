@@ -11,10 +11,13 @@ public interface PlanVacunacionDatoLocal {
 
 	void agregarPlanVacunacion(PlanVacunacion plan);
 
-	List<PlanVacunacion> listarPlanesDeVacunacion();
+	public List<PlanVacunacion> listarPlanesDeVacunacion();
 
-	Boolean existePlanVacunacion(String nombre);
+	public Boolean existePlanVacunacion(String nombre);
 	
 	public PlanVacunacion obtenerPlanVacunacion(String nombre);
+
+	public PlanVacunacion buscarPlanVacunacion(String nombre);
+
 
 }
