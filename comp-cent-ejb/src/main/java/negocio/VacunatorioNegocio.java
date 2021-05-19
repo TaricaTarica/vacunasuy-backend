@@ -59,12 +59,14 @@ public class VacunatorioNegocio implements VacunatorioNegocioRemote, Vacunatorio
 			DTAgenda retorno = null;
 			List<Agenda> agendas = vacunatorio.getAgendas();
 			LocalDate fechaActual = LocalDate.now();
+			
 			for(Agenda a: agendas) {
 				if((fechaActual.isAfter(a.getInicio()) || fechaActual.isEqual(a.getInicio()))  
 						&& (fechaActual.isBefore(a.getFin()) || fechaActual.isEqual(a.getFin()))) {
 					retorno = new DTAgenda(a);
 				}
 			}
+
 			return retorno;
 		}
 		else {

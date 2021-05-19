@@ -3,15 +3,15 @@ package datatypes;
 public class DTReservaWS {
 	private String ci;
 	private String planVacunacion;
-	private String Departamento;
-	private String Ubicacion;
+	private String departamento;
+	private String ubicacion;
 	
 	public DTReservaWS(String ci, String planVacunacion, String departamento, String ubicacion) {
 		super();
 		this.ci = ci;
 		this.planVacunacion = planVacunacion;
-		Departamento = departamento;
-		Ubicacion = ubicacion;
+		this.departamento = departamento;
+		this.ubicacion = ubicacion;
 	}
 
 	public DTReservaWS() {
@@ -36,19 +36,19 @@ public class DTReservaWS {
 	}
 
 	public String getDepartamento() {
-		return Departamento;
+		return departamento;
 	}
 
 	public void setDepartamento(String departamento) {
-		Departamento = departamento;
+		this.departamento = departamento;
 	}
 
 	public String getUbicacion() {
-		return Ubicacion;
+		return ubicacion;
 	}
 
 	public void setUbicacion(String ubicacion) {
-		Ubicacion = ubicacion;
+		this.ubicacion = ubicacion;
 	}
 	
 }
