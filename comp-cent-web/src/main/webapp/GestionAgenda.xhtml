@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3c.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Gestión de Agenda</title>
+</h:head>
+<body>
+
+	<h:form id="agendaListForm">
+		<p:growl id="messages" showDetail="true" />
+		<p:messages />
+
+		<p:dataTable id="agendaDataTable" value="#{gestionAgendaBean.dtAgendas}" var="agenda" paginator="true" rows="6"
+        	paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">>
+			<f:facet name="header"> Listado de Agendas </f:facet>
+
+			<p:column headerText="Vacunatorio"> 
+				<h:outputText value="#{agenda.dtVacunatorio.nombre}" />
+			</p:column>
+
+			<p:column headerText="Fecha Inicio">
+				<h:outputText value="#{agenda.inicio}" />
+			</p:column>
+
+			<p:column headerText="Fecha Fin">
+				<h:outputText value="#{agenda.fin}" />
+			</p:column>
+			
+			<p:column headerText="Hora Inicio">
+				<h:outputText value="#{agenda.horaIncio}" />
+			</p:column>
+
+			<p:column headerText="Hora Fin">
+				<h:outputText value="#{agenda.horaFin}" />
+			</p:column>
+			
+			<p:column>
+
+				<p:commandButton id="ver" icon="pi pi-eye"  styleClass="rounded-button ui-button-secondary"
+					action="#{gestionAgendaBean.planesPorAgenda(agenda)}"
+					update=":planesDialog" oncomplete="PF('planesDialog').show()"/>
+				<p:tooltip for="ver" value="Ver Planes" position="left"/>
+				<p:spacer width="5"/>
+				
+				<p:commandButton icon="pi pi-pencil" styleClass="rounded-button ui-button-secondary"
+					actionListener="#{gestionAgendaBean.reiniciarAgendaSeleccionada()}"
+					update=":dialogForm" oncomplete="PF('agendaEditDlg').show()" />
+					
+				<p:spacer width="5"/>
+				
+				<p:commandButton icon="pi pi-trash" styleClass="rounded-button ui-button-secondary"
+					actionListener="#{gestionAgendaBean.reiniciarAgendaSeleccionada()}"
+					update=":dialogForm" oncomplete="PF('eliminarDialog').show()" />
+					
+			</p:column>
+
+			<f:facet name="footer">
+				<p:spacer height="5px" />
+				<p:commandButton value="Agregar"
+					actionListener="#{gestionAgendaBean.reiniciarAgendaSeleccionada()}"
+					update=":dialogForm" oncomplete="PF('agendaDialog').show()" />
+				<h:outputText value="#{gestionAgendaBean.msjError}" />
+			</f:facet>
+
+		</p:dataTable>
+
+	</h:form>
+	
+	<p:dialog id="planesDialog" widgetVar="planesDialog"
+		header="Planes Asociados" modal="true" showEffect="fade"
+		hideEffec="fade" resizable="false">
+	
+		<h:form id="PlanesListForm">
+
+		<div>
+			<p:dataTable id="PlanTabla" var="planVacunacion"
+				value="#{gestionAgendaBean.planesAgencia}">
+
+				<p:column headerText="Nombre">
+					<h:outputText value="#{planVacunacion.nombre}" />
+				</p:column>
+				<p:column headerText="Poblacion Objetivo">
+					<h:outputText value="#{planVacunacion.poblacionObjetivo.name()}" />
+				</p:column>
+				<p:column headerText="Edad Minima">
+					<h:outputText value="#{planVacunacion.edadMinima}" />
+				</p:column>
+				<p:column headerText="Edad Maxima">
+					<h:outputText value="#{planVacunacion.edadMaxima}" />
+				</p:column>
+				<p:column headerText="Enfermedad">
+					<h:outputText value="#{planVacunacion.enfermedad.nombre}" />
+				</p:column>
+			</p:dataTable>
+		</div>
+		</h:form>
+
+	</p:dialog>
+
+	<p:dialog id="agendaDlg" widgetVar="agendaDialog"
+		header="Agregar Agenda" modal="true" showEffect="fade"
+		hideEffect="fade" resizable="false">
+		<h:form id="dialogForm">
+			<p:outputPanel id="agendaDetail" style="text-align: center">
+				<p:panelGrid id="display" columns="2" columnClasses="label, value">
+
+					<h:outputLabel for="vacunatorio" value="Vacunatorio"/>
+                	<p:selectOneMenu id="vacunatorio" value="#{gestionAgendaBean.agendaSeleccionada.dtVacunatorio}" style="width:15rem">
+                   		<f:selectItem itemLabel="Seleccionar vacunatorio" itemValue="" noSelectionOption="true"/>
+                    	<f:selectItems value="#{gestionAgendaBean.nombresVacunatorios}"/>
+               		</p:selectOneMenu>
+									
+                	<p:outputLabel value="Fecha Inicio"/>
+                	<p:datePicker id="FechaInicio" value="#{gestionAgendaBean.agendaSeleccionada.inicio}" monthNavigator="true" yearNavigator="true" showWeek="true"/>
+
+					<p:outputLabel value="Fecha Fin"/>
+                	<p:datePicker id="FechaFin" value="#{gestionAgendaBean.agendaSeleccionada.fin}" monthNavigator="true" yearNavigator="true" showWeek="true"/>
+
+
+		            <p:outputLabel for="HoraInicio" value="Hora Inicio"/>
+		            <p:calendar id="HoraInicio" value="#{gestionAgendaBean.horaIni}" pattern="HH:mm" timeOnly="true"/>	
+					
+        			<p:outputLabel for="HoraFin" value="Hora Fin" />
+        			<p:calendar id="HoraFin" value="#{gestionAgendaBean.horaFin}" pattern="HH:mm" timeOnly="true"/>
+					
+					<h:outputLabel for="PlanVacunacion" value="Plan de vacunación"/>
+                		<p:selectCheckboxMenu id="PlanVacunacion" value="#{gestionAgendaBean.nombreplan}" label="Seleccionar Planes de Vacunacion" style="width: 15rem"
+                                filter="true" filterMatchMode="startsWith" panelStyle="width: 15rem" scrollHeight="250">
+            			<f:selectItems value="#{gestionAgendaBean.nombresPlanes}"/>
+        			</p:selectCheckboxMenu>
+        			
+					<f:facet name="footer">
+						<p:commandButton value="Agregar"
+							actionListener="#{gestionAgendaBean.agregarAgenda()}"
+							update="display,:agendaListForm:agendaDataTable"
+							oncomplete="PF('agendaDialog').hide();" />
+					</f:facet>
+				</p:panelGrid>
+			</p:outputPanel>
+		</h:form>
+	</p:dialog>
+	
+</body>
+</html>

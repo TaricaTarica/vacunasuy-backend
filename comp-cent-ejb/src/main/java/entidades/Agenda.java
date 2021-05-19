@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
@@ -13,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import datatypes.DTAgenda;
+import datatypes.DTPlanVacunacion;
 
 @Entity
 public class Agenda {
@@ -33,7 +35,7 @@ public class Agenda {
 	@ManyToOne
 	private Vacunatorio vacunatorio;
 	
-	@ManyToMany(cascade= {CascadeType.PERSIST,CascadeType.MERGE})
+	@ManyToMany(cascade= {CascadeType.PERSIST,CascadeType.MERGE},fetch= FetchType.EAGER)
 	private List<PlanVacunacion> planes = new ArrayList<>();
 	
 	public Agenda() {
@@ -55,6 +57,11 @@ public class Agenda {
 		this.fin = agenda.getFin();
 		this.horaInicio = agenda.getHoraIncio();
 		this.horaFin = agenda.getHoraFin();
+		this.planes = new ArrayList<PlanVacunacion>();
+		for (DTPlanVacunacion planes : agenda.getListDtPlanVacunacion()) {
+			PlanVacunacion plan = new PlanVacunacion(planes);
+			this.planes.add(plan);
+		}
 	}
 
 	public int getHoraIncio() {

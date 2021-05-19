@@ -1,9 +1,11 @@
 package datatypes;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import entidades.Agenda;
+import entidades.PlanVacunacion;
 
 public class DTAgenda {
 	private long id;
@@ -54,6 +56,11 @@ public class DTAgenda {
 		this.dtVacunatorio = new DTVacunatorio(agenda.getVacunatorio());
 		this.horaInicio = agenda.getHoraIncio();
 		this.horaFin = agenda.getHoraFin();
+		this.listDtPlanVacunacion = new ArrayList<DTPlanVacunacion>();
+		for (PlanVacunacion planes : agenda.getPlanes()) {
+			DTPlanVacunacion plan = new DTPlanVacunacion(planes);
+			this.listDtPlanVacunacion.add(plan);
+		}
 	}
 
 	public long getId() {
@@ -96,4 +103,12 @@ public class DTAgenda {
 		this.horaFin = horaFin;
 	}
 
+	@Override
+	public String toString() {
+		return "DTAgenda [id=" + id + ", inicio=" + inicio + ", fin=" + fin + ", horaInicio=" + horaInicio
+				+ ", horaFin=" + horaFin + ", dtVacunatorio=" + dtVacunatorio + ", listDtPlanVacunacion="
+				+ listDtPlanVacunacion + "]";
+	}
+
+	
 }
