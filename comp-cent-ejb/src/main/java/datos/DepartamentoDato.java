@@ -57,7 +57,7 @@ public class DepartamentoDato implements DepartamentoDatoRemote, DepartamentoDat
     	Ubicacion aRetornar = null;
     	if(ubicaciones != null) {
     		for(Ubicacion u: ubicaciones) {
-    			if(u.getDescripcion().equals(descUbicacion)) {
+    			if(u.getDescripcion().trim().equals(descUbicacion.trim())) {
     				aRetornar = u;
     			}
     		}

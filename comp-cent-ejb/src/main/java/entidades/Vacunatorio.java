@@ -34,7 +34,7 @@ public class Vacunatorio {
 			fetch=FetchType.LAZY)
 	private Ubicacion ubicacion;
 	
-	@OneToMany(cascade=CascadeType.ALL,orphanRemoval=true)
+	@OneToMany(mappedBy="vacunatorio",cascade=CascadeType.ALL,orphanRemoval=true)
 	private  List<Agenda> agendas;
 	
 	@ManyToMany(mappedBy="vacunatorios")
@@ -152,6 +152,16 @@ public class Vacunatorio {
 
 	public void setAdministradores(List<Administrador> administradores) {
 		this.administradores = administradores;
+	}
+	
+	public void agregarAgenda(Agenda agenda) {
+		agendas.add(agenda);
+		agenda.setVacunatorio(this);
+	}
+	
+	public void eliminarAgenda(Agenda agenda) {
+		agendas.remove(agenda);
+		agenda.setVacunatorio(null);
 	}
 	
 }
