@@ -55,7 +55,7 @@ public class PlanVacunacionNegocio implements PlanVacunacionNegocioRemote, PlanV
 	public void agregarPlanVacunacion(DTPlanVacunacion plan) throws Exception {
 		
 		if (datoLocal.existePlanVacunacion(plan.getNombre()))
-				throw new Exception("\nPlan ya existe en el sistema");
+				throw new Exception("\nYa existe un plan con el nombre ingresado");
 		else {
 			
 			PlanVacunacion planVac = new PlanVacunacion(plan);

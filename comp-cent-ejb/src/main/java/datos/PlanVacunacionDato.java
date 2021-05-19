@@ -51,7 +51,7 @@ public class PlanVacunacionDato implements PlanVacunacionDatoRemote, PlanVacunac
     
     @Override
     public PlanVacunacion obtenerPlanVacunacion(String nombre) {
-    	PlanVacunacion planVacunacion = em.find(PlanVacunacion.class, nombre);
+    	PlanVacunacion planVacunacion = (em.createQuery("Select p from PlanVacunacion p where p.nombre = :nombre", PlanVacunacion.class).setParameter("nombre", nombre).getSingleResult());
     	return planVacunacion;
     }
 

@@ -5,8 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+
+import org.primefaces.PrimeFaces;
 
 import datatypes.DTEnfermedad;
 import datatypes.DTPlanVacunacion;
@@ -37,8 +41,9 @@ public class PlanVacunacionBean implements Serializable {
 	private DTVacuna vacuna;
 	private DTPlanVacunacion planVacunacion;
 	private List<DTVacuna> vacunas;
+	private List<DTVacuna> vacunasEnPlan;
 	private String nombreEnfermedad;
-	private String nombrePlan;
+	
 	private String[] nombreVacuna;
 	private String poblacion;
 	private List<String> poblaciones;
@@ -115,14 +120,7 @@ public class PlanVacunacionBean implements Serializable {
 	}
 
 
-	public String getNombrePlan() {
-		return nombrePlan;
-	}
-
-
-	public void setNombrePlan(String nombrePlan) {
-		this.nombrePlan = nombrePlan;
-	}
+	
 
 
 
@@ -148,6 +146,21 @@ public class PlanVacunacionBean implements Serializable {
 	public void setPlanesVacunaciones(List<DTPlanVacunacion> planesVacunaciones) {
 		this.planesVacunaciones = planesVacunaciones;
 	}
+	
+	
+	public List<DTVacuna> getVacunasEnPlan() {
+		return vacunasEnPlan;
+	}
+
+
+	public void setVacunasEnPlan(List<DTVacuna> vacunasEnPlan) {
+		this.vacunasEnPlan = vacunasEnPlan;
+	}
+
+
+	public void cargarVacunasPlan(DTPlanVacunacion planVac) {
+		vacunasEnPlan =  planVac.getVacunas();
+	}
 
 
 	public void cargarVacunas() throws Exception {
@@ -158,29 +171,47 @@ public class PlanVacunacionBean implements Serializable {
         }
     }
 	
+	public void addMessage(FacesMessage.Severity severity, String summary, String detail) {
+        FacesContext.getCurrentInstance().
+                addMessage(null, new FacesMessage(severity, summary, detail));
+    }
+	
 	public void agregarPlanVacunacion () throws Exception {
 		
 		DTEnfermedad enfAux = new DTEnfermedad();
 		List<DTVacuna> vacAux = new ArrayList<DTVacuna>();
-		for (DTEnfermedad enf: enfermedades) {
-			if (enf.getNombre().equals(nombreEnfermedad))
-				enfAux = enf;
-		}
-		planVacunacion.setEnfermedad(enfAux);
 		
-		for (DTVacuna vac: vacunas) {
-			for (String nombreV: nombreVacuna) {
-				if (vac.getNombre().equals(nombreV)) {
-					vacAux.add(vac);
+		if (planVacunacion.getEdadMinima() > planVacunacion.getEdadMaxima()) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Edad Minima no puede ser mayor a Edad Maxima", ""));
+		}
+		else {
+		
+				for (DTEnfermedad enf: enfermedades) {
+					if (enf.getNombre().equals(nombreEnfermedad))
+						enfAux = enf;
 				}
-			}
-			
+				planVacunacion.setEnfermedad(enfAux);
+				
+				for (DTVacuna vac: vacunas) {
+					for (String nombreV: nombreVacuna) {
+						if (vac.getNombre().equals(nombreV)) {
+							vacAux.add(vac);
+						}
+					}
+					
+				}
+				planVacunacion.setVacunas(vacAux);
+				try {
+				planLocal.agregarPlanVacunacion(planVacunacion);
+				planesVacunaciones.add(planVacunacion);
+			    this.planVacunacion = null;
+			    PrimeFaces.current().executeScript("PF('planDialog').hide()");
+			    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Plan agregado correctamente","" ));
+				} catch (Exception e){
+					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(),"" ));
+						
+				}
 		}
-		planVacunacion.setVacunas(vacAux);
-		
-		
-		planLocal.agregarPlanVacunacion(planVacunacion);
-		
 	}
 	
 	

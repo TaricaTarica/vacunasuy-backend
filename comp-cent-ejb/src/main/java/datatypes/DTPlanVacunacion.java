@@ -83,11 +83,4 @@ public class DTPlanVacunacion {
 		this.vacunas = vacunas;
 	}
 
-	public void agregarVacunas(DTVacuna vacuna) {
-		this.vacunas.add(vacuna);
-	}
-
-
-	
-
 }
