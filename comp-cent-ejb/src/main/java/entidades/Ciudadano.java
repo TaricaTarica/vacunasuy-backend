@@ -12,7 +12,7 @@ import javax.persistence.OneToMany;
 import datatypes.DTCiudadano;
 
 @Entity
-@DiscriminatorValue("C")
+//@DiscriminatorValue("C")
 public class Ciudadano extends Usuario {
 
 

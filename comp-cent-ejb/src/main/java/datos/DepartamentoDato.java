@@ -50,6 +50,22 @@ public class DepartamentoDato implements DepartamentoDatoRemote, DepartamentoDat
     	} catch (Exception e) {
     		return new ArrayList<Ubicacion>();
     	}
-    } 
+    }
+    @Override
+    public Ubicacion obtenerDepartamentoUbicacion(String descDepartamento, String descUbicacion) {
+    	List<Ubicacion> ubicaciones = this.obtenerDepartamentoUbicaciones(descDepartamento);
+    	Ubicacion aRetornar = null;
+    	if(ubicaciones != null) {
+    		for(Ubicacion u: ubicaciones) {
+    			if(u.getDescripcion().equals(descUbicacion)) {
+    				aRetornar = u;
+    			}
+    		}
+    		return aRetornar;
+    	}
+    	else {
+    		return null;
+    	}
+    }
 
 }

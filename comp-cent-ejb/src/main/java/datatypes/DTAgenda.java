@@ -1,9 +1,11 @@
 package datatypes;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import entidades.Agenda;
-import enumeradores.Horario;
+import entidades.PlanVacunacion;
 
 public class DTAgenda {
 	private long id;
@@ -12,27 +14,53 @@ public class DTAgenda {
 	//private Plan plan;
 	private LocalDate inicio;
 	private LocalDate fin;
-	private Horario horario;
+	private int horaInicio;
+	private int horaFin;
+	private DTVacunatorio dtVacunatorio;
+	private List<DTPlanVacunacion> listDtPlanVacunacion;
 	
 	public DTAgenda() {
 		super();
 	}
 	
-	public DTAgenda(long id, LocalDate inicio, LocalDate fin, Horario horario) {
+	public DTVacunatorio getDtVacunatorio() {
+		return dtVacunatorio;
+	}
+
+	public void setDtVacunatorio(DTVacunatorio dtVacunatorio) {
+		this.dtVacunatorio = dtVacunatorio;
+	}
+
+	public List<DTPlanVacunacion> getListDtPlanVacunacion() {
+		return listDtPlanVacunacion;
+	}
+
+	public void setListDtPlanVacunacion(List<DTPlanVacunacion> listDtPlanVacunacion) {
+		this.listDtPlanVacunacion = listDtPlanVacunacion;
+	}
+
+	public DTAgenda(long id, LocalDate inicio, LocalDate fin, int horaInicio, int horaFin) {
 		super();
 		this.id = id;
 		this.inicio = inicio;
 		this.fin = fin;
-		this.horario = horario;
+		this.horaInicio = horaInicio;
+		this.horaFin = horaFin;
 	}
-
-
 
 	public DTAgenda(Agenda agenda) {
 		super();
 		this.id = agenda.getId();
 		this.inicio = agenda.getInicio();
 		this.fin = agenda.getFin();
+		this.dtVacunatorio = new DTVacunatorio(agenda.getVacunatorio());
+		this.horaInicio = agenda.getHoraIncio();
+		this.horaFin = agenda.getHoraFin();
+		this.listDtPlanVacunacion = new ArrayList<DTPlanVacunacion>();
+		for (PlanVacunacion planes : agenda.getPlanes()) {
+			DTPlanVacunacion plan = new DTPlanVacunacion(planes);
+			this.listDtPlanVacunacion.add(plan);
+		}
 	}
 
 	public long getId() {
@@ -59,11 +87,28 @@ public class DTAgenda {
 		this.fin = fin;
 	}
 
-	public Horario getHorario() {
-		return horario;
+	public int getHoraIncio() {
+		return horaInicio;
 	}
 
-	public void setHorario(Horario horario) {
-		this.horario = horario;
+	public void setHoraIncio(int horaInicio) {
+		this.horaInicio = horaInicio;
 	}
+
+	public int getHoraFin() {
+		return horaFin;
+	}
+
+	public void setHoraFin(int horaFin) {
+		this.horaFin = horaFin;
+	}
+
+	@Override
+	public String toString() {
+		return "DTAgenda [id=" + id + ", inicio=" + inicio + ", fin=" + fin + ", horaInicio=" + horaInicio
+				+ ", horaFin=" + horaFin + ", dtVacunatorio=" + dtVacunatorio + ", listDtPlanVacunacion="
+				+ listDtPlanVacunacion + "]";
+	}
+
+	
 }

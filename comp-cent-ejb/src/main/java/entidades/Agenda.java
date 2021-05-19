@@ -6,16 +6,15 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 import datatypes.DTAgenda;
-import enumeradores.Horario;
+import datatypes.DTPlanVacunacion;
 
 @Entity
 public class Agenda {
@@ -27,19 +26,16 @@ public class Agenda {
 	//private Plan plan;
 	private LocalDate inicio;
 	private LocalDate fin;
-	@Enumerated(value = EnumType.STRING)
-	private Horario horario;
-	
-	@ManyToMany(cascade= {CascadeType.PERSIST,CascadeType.MERGE})
-	private List<Departamento> departamentos = new ArrayList<>();
+	private int horaInicio;
+	private int horaFin;
 	
 	@OneToMany(mappedBy="agenda",cascade=CascadeType.ALL,orphanRemoval=true)
 	private List<Evento> eventos = new ArrayList<>();
 	
-	@OneToOne
+	@ManyToOne
 	private Vacunatorio vacunatorio;
 	
-	@ManyToMany(cascade= {CascadeType.PERSIST,CascadeType.MERGE})
+	@ManyToMany(cascade= {CascadeType.PERSIST,CascadeType.MERGE},fetch= FetchType.EAGER)
 	private List<PlanVacunacion> planes = new ArrayList<>();
 	
 	public Agenda() {
@@ -47,18 +43,41 @@ public class Agenda {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Agenda(LocalDate inicio, LocalDate fin, Horario horario) {
+	public Agenda(LocalDate inicio, LocalDate fin, int horaInicio, int horaFin) {
 		super();
 		this.inicio = inicio;
 		this.fin = fin;
-		this.horario = horario;
+		this.horaInicio = horaInicio;
+		this.horaFin = horaFin;
 	}
 
 	public Agenda(DTAgenda agenda) {
 		super();
 		this.inicio = agenda.getInicio();
 		this.fin = agenda.getFin();
-		this.horario = agenda.getHorario();
+		this.horaInicio = agenda.getHoraIncio();
+		this.horaFin = agenda.getHoraFin();
+		this.planes = new ArrayList<PlanVacunacion>();
+		for (DTPlanVacunacion planes : agenda.getListDtPlanVacunacion()) {
+			PlanVacunacion plan = new PlanVacunacion(planes);
+			this.planes.add(plan);
+		}
+	}
+
+	public int getHoraIncio() {
+		return horaInicio;
+	}
+
+	public void setHoraIncio(int horaInicio) {
+		this.horaInicio = horaInicio;
+	}
+
+	public int getHoraFin() {
+		return horaFin;
+	}
+
+	public void setHoraFin(int horaFin) {
+		this.horaFin = horaFin;
 	}
 
 	public long getId() {
@@ -84,22 +103,6 @@ public class Agenda {
 	public void setFin(LocalDate fin) {
 		this.fin = fin;
 	}
-
-	public Horario getHorario() {
-		return horario;
-	}
-
-	public void setHorario(Horario horario) {
-		this.horario = horario;
-	}
-
-	public List<Departamento> getDepartamentos() {
-		return departamentos;
-	}
-
-	public void setDepartamentos(List<Departamento> departamentos) {
-		this.departamentos = departamentos;
-	}
 	
 	public List<Evento> getEventos() {
 		return eventos;
@@ -117,15 +120,6 @@ public class Agenda {
 		this.planes = planes;
 	}
 
-	public void agregarDepartamento(Departamento departamento) {
-		departamentos.add(departamento);
-		departamento.getAgendas().add(this);
-	}
-	public void eliminarDepartamento(Departamento departamento) {
-		departamentos.remove(departamento);
-		departamento.getAgendas().remove(this);
-	}
-	
 	public void agregarEvento(Evento evento) {
 		eventos.add(evento);
 		evento.setAgenda(this);

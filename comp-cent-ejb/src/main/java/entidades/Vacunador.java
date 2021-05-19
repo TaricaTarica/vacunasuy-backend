@@ -12,7 +12,7 @@ import datatypes.DTVacunador;
 
 
 @Entity
-@DiscriminatorValue("V")
+//@DiscriminatorValue("V")
 public class Vacunador extends Usuario {
 
 

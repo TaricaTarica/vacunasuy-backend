@@ -44,5 +44,17 @@ public class DepartamentoNegocio implements DepartamentoNegocioRemote, Departame
 		ubicaciones.forEach( (u) -> { dTUbicaciones.add( new DTUbicacion(u.getDescripcion())) ; } );
 		return dTUbicaciones;
 	}
+	@Override
+	public DTUbicacion obtenerDepartamentoUbicacion(String descDepartamento, String descUbicacion) {
+		Ubicacion ubicacion = md.obtenerDepartamentoUbicacion(descDepartamento, descUbicacion);
+		if(ubicacion != null) {
+			DTUbicacion dtUbicacion = new DTUbicacion(ubicacion);
+			return dtUbicacion;
+		}
+		else {
+			return null;
+		}
+	}
+	
 
 }
