@@ -29,7 +29,7 @@
                 <f:facet name="footer">
                     <div style="display: flex; align-items: center;justify-content: center;">>
 	                    <p:spacer height="5px"/>
-	                    <p:commandButton styleClass="rounded-button" value="Agregar" actionListener="#{enfermedadBean.reiniciarEnfermedad()}"
+	                    <p:commandButton styleClass="rounded-button" value="Agregar" actionListener="#{enfermedadBean.reiniciarEnfermedad}"
 	                                     oncomplete="PF('enfermedadDialog').show()" />
 	                   <!--  <p:commandButton value="Buscar" actionListener="#{proveedorBean.reiniciarProveedorSeleccionada}"
 	                                     update=":buscarForm" oncomplete="PF('proveedorBuscar').show()" /> -->
@@ -46,7 +46,7 @@
               <p:panel header="Nueva Enfermedad" style="margin-bottom:10px;">
                 <p:outputPanel id="enfermedadDetail" style="text-align: center">
                     <p:panelGrid id="display" columns="4" columnClasses="label, value" >
-                        <h:outputText value="nombre de la vacuna" />
+                        <h:outputText value="Nombre Enfermedad" />
                         <h:inputText value="#{enfermedadBean.nombre}" />
                
                         <f:facet name="footer" >

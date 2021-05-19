@@ -24,7 +24,6 @@ public class EnfermedadBean implements Serializable{
 	private DTEnfermedad enfermedad;
 	private List<DTEnfermedad> enfermedades;
 	private String nombre;
-//	private String fechaCreacion;
 	
 	@PostConstruct
 	public void init() {
@@ -38,6 +37,7 @@ public class EnfermedadBean implements Serializable{
 
 	public void setEnfermedad(DTEnfermedad enfermedad) {
 		this.enfermedad = enfermedad;
+		
 	}
 
 	public List<DTEnfermedad> getEnfermedades() {
@@ -68,5 +68,7 @@ public class EnfermedadBean implements Serializable{
 //		LocalDate fecAux=LocalDate.parse(fechaCreacion);
 //		Enfermedad enf = new Enfermedad(nombre,fecAux);
 		enfermedadLocal.agregarEnfermedad(nombre);
+		enfermedades.add(enfermedad);
 	}
+	
 }
