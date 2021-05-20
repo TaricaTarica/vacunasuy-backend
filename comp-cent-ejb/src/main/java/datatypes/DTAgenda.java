@@ -1,6 +1,5 @@
 package datatypes;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,8 +11,8 @@ public class DTAgenda {
 	
 	//private Vacunatorio vacunatorio;
 	//private Plan plan;
-	private LocalDate inicio;
-	private LocalDate fin;
+	private String inicio;
+	private String fin;
 	private int horaInicio;
 	private int horaFin;
 	private DTVacunatorio dtVacunatorio;
@@ -39,7 +38,7 @@ public class DTAgenda {
 		this.listDtPlanVacunacion = listDtPlanVacunacion;
 	}
 
-	public DTAgenda(long id, LocalDate inicio, LocalDate fin, int horaInicio, int horaFin) {
+	public DTAgenda(long id, String inicio, String fin, int horaInicio, int horaFin) {
 		super();
 		this.id = id;
 		this.inicio = inicio;
@@ -51,9 +50,9 @@ public class DTAgenda {
 	public DTAgenda(Agenda agenda) {
 		super();
 		this.id = agenda.getId();
-		this.inicio = agenda.getInicio();
-		this.fin = agenda.getFin();
-		this.dtVacunatorio = new DTVacunatorio(agenda.getVacunatorio());
+		this.inicio = agenda.getInicio().toString();
+		this.fin = agenda.getFin().toString();
+		this.dtVacunatorio = new DTVacunatorio(agenda.getVacunatorio().getNombre(),agenda.getVacunatorio().getCodigo());
 		this.horaInicio = agenda.getHoraIncio();
 		this.horaFin = agenda.getHoraFin();
 		this.listDtPlanVacunacion = new ArrayList<DTPlanVacunacion>();
@@ -71,19 +70,19 @@ public class DTAgenda {
 		this.id = id;
 	}
 
-	public LocalDate getInicio() {
+	public String getInicio() {
 		return inicio;
 	}
 
-	public void setInicio(LocalDate inicio) {
+	public void setInicio(String inicio) {
 		this.inicio = inicio;
 	}
 
-	public LocalDate getFin() {
+	public String getFin() {
 		return fin;
 	}
 
-	public void setFin(LocalDate fin) {
+	public void setFin(String fin) {
 		this.fin = fin;
 	}
 

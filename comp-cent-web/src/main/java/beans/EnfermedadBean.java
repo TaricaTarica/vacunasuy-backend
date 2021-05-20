@@ -67,7 +67,7 @@ public class EnfermedadBean implements Serializable{
 		//SimpleDateFormat conver = new SimpleDateFormat("dd-MM-yyyy");
 //		LocalDate fecAux=LocalDate.parse(fechaCreacion);
 //		Enfermedad enf = new Enfermedad(nombre,fecAux);
-		enfermedadLocal.agregarEnfermedad(nombre);
+		enfermedadLocal.agregarEnfermedad(enfermedad.getNombre());
 		enfermedades.add(enfermedad);
 	}
 	

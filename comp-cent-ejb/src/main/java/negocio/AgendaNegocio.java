@@ -8,8 +8,13 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
 import datatypes.DTAgenda;
+import datatypes.DTPlanVacunacion;
 import datos.AgendaDatoLocal;
+import datos.PlanVacunacionDatoLocal;
+import datos.VacunatorioDatoLocal;
 import entidades.Agenda;
+import entidades.PlanVacunacion;
+import entidades.Vacunatorio;
 
 /**
  * Session Bean implementation class AgendaNegocio
@@ -20,6 +25,10 @@ public class AgendaNegocio implements AgendaNegocioRemote, AgendaNegocioLocal {
 
 	@EJB
 	private AgendaDatoLocal agendaLocal;
+	@EJB
+	private VacunatorioDatoLocal vacunatorioLocal;
+	@EJB
+	private PlanVacunacionDatoLocal planLocal;
     /**
      * Default constructor. 
      */
@@ -29,13 +38,24 @@ public class AgendaNegocio implements AgendaNegocioRemote, AgendaNegocioLocal {
 
 	public void agregarAgenda(DTAgenda dtAgenda) {
 		Agenda agenda = new Agenda(dtAgenda);
+		Vacunatorio vacunatorio = vacunatorioLocal.obtenerVacunatorio(dtAgenda.getDtVacunatorio().getId());
+		agenda.setVacunatorio(vacunatorio);
+		List<DTPlanVacunacion> planes = dtAgenda.getListDtPlanVacunacion();
+		List<PlanVacunacion> planesAux = new ArrayList<PlanVacunacion>();
+		for (DTPlanVacunacion plan : planes) {
+			PlanVacunacion planVac = planLocal.obtenerPlanVacunacion(plan.getNombre());
+			planesAux.add(planVac);
+		}
+		agenda.setPlanes(planesAux);
 		this.agendaLocal.agregarAgenda(agenda);
 	}
 	
 	public List<DTAgenda> listarAgenda(){
 		List <Agenda> agenda = (ArrayList<Agenda>)(this.agendaLocal.listarAgenda());
 		List <DTAgenda> dtAgenda = new ArrayList<DTAgenda>();
-		agenda.forEach((a)->{dtAgenda.add(new DTAgenda(a));});
+		if (agenda != null) {
+			agenda.forEach((a)->{dtAgenda.add(new DTAgenda(a));});
+		}
 		return dtAgenda;
 	}
     

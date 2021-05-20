@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
@@ -15,6 +14,7 @@ import javax.persistence.OneToMany;
 
 import datatypes.DTAgenda;
 import datatypes.DTPlanVacunacion;
+import datatypes.DTVacunatorio;
 
 @Entity
 public class Agenda {
@@ -35,7 +35,7 @@ public class Agenda {
 	@ManyToOne
 	private Vacunatorio vacunatorio;
 	
-	@ManyToMany(cascade= {CascadeType.PERSIST,CascadeType.MERGE},fetch= FetchType.EAGER)
+	@ManyToMany(cascade= {CascadeType.PERSIST,CascadeType.MERGE})
 	private List<PlanVacunacion> planes = new ArrayList<>();
 	
 	public Agenda() {
@@ -53,15 +53,17 @@ public class Agenda {
 
 	public Agenda(DTAgenda agenda) {
 		super();
-		this.inicio = agenda.getInicio();
-		this.fin = agenda.getFin();
+		this.inicio = LocalDate.parse(agenda.getInicio());
+		this.fin = LocalDate.parse(agenda.getFin());
 		this.horaInicio = agenda.getHoraIncio();
 		this.horaFin = agenda.getHoraFin();
-		this.planes = new ArrayList<PlanVacunacion>();
-		for (DTPlanVacunacion planes : agenda.getListDtPlanVacunacion()) {
-			PlanVacunacion plan = new PlanVacunacion(planes);
-			this.planes.add(plan);
-		}
+		/*
+		 * this.planes = new ArrayList<PlanVacunacion>(); this.vacunatorio = new
+		 * Vacunatorio(agenda.getDtVacunatorio()); for (DTPlanVacunacion planes :
+		 * agenda.getListDtPlanVacunacion()) { PlanVacunacion plan = new
+		 * PlanVacunacion(planes); this.agregarPlan(plan);
+		 *
+		}*/
 	}
 
 	public int getHoraIncio() {
