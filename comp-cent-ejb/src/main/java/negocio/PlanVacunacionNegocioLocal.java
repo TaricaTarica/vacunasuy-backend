@@ -16,8 +16,8 @@ public interface PlanVacunacionNegocioLocal {
 	
 	public List<String> nombresPlanes();
 	
-	public DTPlanVacunacion obtenerPlanVacunacion(String nombre);
+	public DTPlanVacunacion obtenerPlanVacunacion(String nombre) throws Exception;
 
-	public DTPlanVacunacion buscarPlanVacunacion(String nombre) throws Exception; 
+	 
 
 }

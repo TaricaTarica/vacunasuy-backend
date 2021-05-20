@@ -17,7 +17,4 @@ public interface PlanVacunacionDatoLocal {
 	
 	public PlanVacunacion obtenerPlanVacunacion(String nombre);
 
-	public PlanVacunacion buscarPlanVacunacion(String nombre);
-
-
 }

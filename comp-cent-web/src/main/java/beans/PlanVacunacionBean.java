@@ -190,7 +190,7 @@ public class PlanVacunacionBean implements Serializable {
 	
 	public void buscarPlan () throws Exception {
 		try {
-		planVacunacion = planLocal.buscarPlanVacunacion(nombrePlan);
+		planVacunacion = planLocal.obtenerPlanVacunacion(nombrePlan);
 		} catch (Exception e) {
     		this.planVacunacion = null;
     	}

@@ -83,31 +83,17 @@ public class PlanVacunacionNegocio implements PlanVacunacionNegocioRemote, PlanV
 	}
 	
 	@Override
-	public DTPlanVacunacion obtenerPlanVacunacion(String nombre) {
-		PlanVacunacion planVacunacion = datoLocal.obtenerPlanVacunacion(nombre);
-		if(planVacunacion != null) {
-			DTPlanVacunacion dtPlanVacunacion = new DTPlanVacunacion(planVacunacion);
-			return dtPlanVacunacion; 
-		}
-		else {
-			return null;
-		}
-	}
-	
-
-	@Override
-	public DTPlanVacunacion buscarPlanVacunacion(String nombre)  throws Exception {
-		
+	public DTPlanVacunacion obtenerPlanVacunacion(String nombre) throws Exception {
 		if (datoLocal.existePlanVacunacion(nombre)) {
-			PlanVacunacion planVacunacion = datoLocal.buscarPlanVacunacion(nombre);
+			PlanVacunacion planVacunacion = datoLocal.obtenerPlanVacunacion(nombre);
 			DTPlanVacunacion dtPlanVacunacion = new DTPlanVacunacion(planVacunacion);
 			return dtPlanVacunacion; 
 		}
 		else {
 			throw new Exception("\nNo existe un plan con el nombre ingresado");
 		}
-		
 	}
+	
 	
 		
 }
