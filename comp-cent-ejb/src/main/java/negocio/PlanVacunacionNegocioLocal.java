@@ -18,6 +18,10 @@ public interface PlanVacunacionNegocioLocal {
 	
 	public DTPlanVacunacion obtenerPlanVacunacion(String nombre) throws Exception;
 
+	public void editarPlanVacunacion(DTPlanVacunacion plan) throws Exception;
+
+	public void eliminarPlanVacunacion(DTPlanVacunacion plan) throws Exception;
+
 	 
 
 }

@@ -22,6 +22,7 @@ import enumeradores.PoblacionObjetivo;
 
 @Entity
 public class PlanVacunacion {
+	
 	@Id 
 	@GeneratedValue
 	private long id;
@@ -118,11 +119,12 @@ public class PlanVacunacion {
 		return vacunas;
 	}
 
-
-	public void setVacunas(Vacuna vacuna) {
-		this.vacunas.add(vacuna);
-	}
 	
+	public void setVacunas(List<Vacuna> vacunas) {
+		this.vacunas = vacunas;
+	}
+
+
 	public List<DTVacuna> vacunasDT (){
 		List<DTVacuna> vacDT = new ArrayList<DTVacuna>();
 		
