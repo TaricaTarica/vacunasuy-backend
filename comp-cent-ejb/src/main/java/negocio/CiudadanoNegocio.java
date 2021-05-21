@@ -32,8 +32,14 @@ public class CiudadanoNegocio implements CiudadanoNegocioRemote, CiudadanoNegoci
     
     public DTCiudadano obtenerCiudadano(int ci) {
     	Ciudadano ciudadano = cdl.obtenerCiudadano(ci);
-    	DTCiudadano dtCiudadano = new DTCiudadano(ciudadano);
-    	return dtCiudadano;
+    	if(ciudadano != null) {
+    		DTCiudadano dtCiudadano = new DTCiudadano(ciudadano);
+        	return dtCiudadano;
+    	}
+    	else {
+    		return null;
+    	}
+    	
     }
 
 }
