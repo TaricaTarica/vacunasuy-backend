@@ -12,4 +12,5 @@ public interface VacunaDatoLocal {
 	public void agregarVacuna(Vacuna vac);
 	public List<Vacuna> obtenerVacunas();
 	Vacuna obtenerVacuna(String nombre);
+	public Boolean existeVacuna(String nombre);
 }

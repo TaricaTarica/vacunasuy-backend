@@ -3,12 +3,15 @@ package negocio;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 
 import datatypes.DTVacuna;
+import datos.EnfermedadDatoLocal;
+import datos.ProveedorDatoLocal;
 import datos.VacunaDato;
 import entidades.Enfermedad;
 import entidades.Proveedor;
@@ -26,6 +29,10 @@ public class VacunaNegocio implements VacunaNegocioRemote, VacunaNegocioLocal {
 	
 	@Inject
 	private VacunaDato puenteDatos;
+	@EJB
+	private EnfermedadDatoLocal enfermedadDatoLocal;
+	@EJB
+	private ProveedorDatoLocal proveedorDatoLocal;
 	
     /**
      * Default constructor. 
@@ -46,11 +53,7 @@ public class VacunaNegocio implements VacunaNegocioRemote, VacunaNegocioLocal {
     	
     }
     
-    public void agregarVacuna(DTVacuna dtvacuna) {
-    	Vacuna vacuna = new Vacuna(dtvacuna);
-    	this.puenteDatos.agregarVacuna(vacuna);
-    	
-    }
+
     
     public DTVacuna obtenerVacuna(long id) {
 	    	Vacuna vac = puenteDatos.obtenerVacuna(id);
@@ -69,5 +72,23 @@ public class VacunaNegocio implements VacunaNegocioRemote, VacunaNegocioLocal {
     }
     public void agregarVacunas() {
     	puenteDatos.agregarVacunas();
+    }
+    
+    public void agregarVacuna(DTVacuna dtvacuna) throws Exception {
+    	
+    	if(puenteDatos.existeVacuna(dtvacuna.getNombre())) {
+    		throw new Exception("\nYa existe una Vacuna con el nombre ingresado");
+    	}else {
+    		Vacuna vac = new Vacuna(dtvacuna);
+    		Enfermedad enf = enfermedadDatoLocal.buscarEnfermedad(dtvacuna.getEnfermedad().getNombre());
+    		vac.setEnfermedad(enf);
+    		Proveedor pro = proveedorDatoLocal.obtenerProveedorPorNombre(dtvacuna.getProveedor().getNombre());
+    		vac.setProveedor(pro);
+    		System.out.println(enf.getNombre() + enf.getId());
+    		System.out.println(pro.getNombre() + pro.getId());
+        	this.puenteDatos.agregarVacuna(vac);
+    		
+    	}
+    	
     }
 }

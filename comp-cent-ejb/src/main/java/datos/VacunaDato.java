@@ -75,5 +75,10 @@ public class VacunaDato implements VacunaDatoRemote, VacunaDatoLocal {
 		}
 		return lista;
 	}
+	
+	public Boolean existeVacuna(String nombre) {
+		Boolean existe = (em.createQuery("Select v from Vacuna v where v.nombre = :nombre").setParameter("nombre", nombre).getResultList().size() > 0);	
+		return existe;
+	}
     
 }

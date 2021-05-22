@@ -149,14 +149,14 @@ public class VacunaBean implements  Serializable{
 		for (DTEnfermedad enf: enfermedades) {
 			if (enf.getNombre().equals(nombreEnfermedad)) {
 				enfAux = enf;
-			System.out.println(enfAux.getNombre());
+			
 			}
 		} 
 		vacuna.setEnfermedad(enfAux);
 		for (DTProveedor pro: proveedores) {
 			if (pro.getNombre().equals(nombreProveedor)) {
 				proAux = pro;
-			System.out.println(proAux.getNombre());
+			
 			}
 		} 
 		vacuna.setProveedor(proAux);
@@ -168,9 +168,7 @@ public class VacunaBean implements  Serializable{
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(),"" ));
 			
 		}
-		System.out.println(vacuna.getEnfermedad().getNombre());
-		System.out.println(vacuna.getProveedor().getNombre());
-		System.out.println(vacuna.getProveedor().getId());
+		
 		this.vacuna=null;
 		
 	}

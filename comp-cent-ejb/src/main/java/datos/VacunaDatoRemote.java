@@ -12,4 +12,5 @@ public interface VacunaDatoRemote {
 	public void agregarVacuna(Vacuna vac);
 	public List<Vacuna> obtenerVacunas();
 	public Vacuna obtenerVacuna(long id);
+	public Boolean existeVacuna(String nombre);
 }
