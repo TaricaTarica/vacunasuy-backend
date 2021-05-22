@@ -49,6 +49,10 @@ public class PlanVacunacionBean implements Serializable {
 	private String poblacion;
 	private List<String> poblaciones;
 	
+	private String nombreBoton;
+	private String estiloBoton;
+	private Boolean editar;
+	
 	@PostConstruct
 	public void init() {
 		enfermedades = enfermedadLocal.listarEnfermedades();
@@ -121,9 +125,6 @@ public class PlanVacunacionBean implements Serializable {
 	}
 
 
-	
-
-
 
 
 
@@ -168,13 +169,70 @@ public class PlanVacunacionBean implements Serializable {
 	public void setNombrePlan(String nombrePlan) {
 		this.nombrePlan = nombrePlan;
 	}
+	
+	
+
+
+	public String getnombreBoton() {
+		return nombreBoton;
+	}
+
+
+	public void setnombreBoton(String nombreBoton) {
+		this.nombreBoton = nombreBoton;
+	}
+	
+	
+
+
+	public String getEstiloBoton() {
+		return estiloBoton;
+	}
+
+
+	public void setEstiloBoton(String estiloBoton) {
+		this.estiloBoton = estiloBoton;
+	}
 
 
 	public void cargarVacunasPlan(DTPlanVacunacion planVac) {
 		vacunasEnPlan =  planVac.getVacunas();
 	}
 
-
+	public void editarPlan(DTPlanVacunacion planVac) throws Exception {
+		this.editar = true;
+		this.nombreBoton="Editar Plan";
+		this.estiloBoton="pi pi-pencil";
+		setPlanVacunacion(planVac);
+		//nombreVacuna = null;
+		nombreEnfermedad = planVac.getEnfermedad().getNombre();
+		cargarVacunas();
+		vacunasEnPlan =  planVac.getVacunas();
+		String[] arr = new String[vacunasEnPlan.size()];
+		int i = 0;
+		for (DTVacuna vacuna : vacunasEnPlan) {
+			arr[i] = vacuna.getNombre();
+			i++;
+		}
+		
+		nombreVacuna = arr;
+	}
+	
+	public void eliminarPlanSeleccionado(DTPlanVacunacion planVacunacion) throws Exception {
+		
+		
+		try {
+			planLocal.eliminarPlanVacunacion(planVacunacion);
+			this.planesVacunaciones.remove(planVacunacion);
+			planVacunacion = null;
+			 	FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Confirmado", "Plan eliminado Correctamente");
+		        FacesContext.getCurrentInstance().addMessage(null, message);
+		} catch (Exception e) {
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage());
+	        FacesContext.getCurrentInstance().addMessage(null, message);
+		}
+	}
+	
 	public void cargarVacunas() throws Exception {
         if (nombreEnfermedad != null && !nombreEnfermedad.equals("")) {
         	vacunas = enfermedadLocal.listarVacunasPorEnfermedad(nombreEnfermedad);
@@ -190,15 +248,14 @@ public class PlanVacunacionBean implements Serializable {
 	
 	public void buscarPlan () throws Exception {
 		try {
-		planVacunacion = planLocal.buscarPlanVacunacion(nombrePlan);
+		planVacunacion = planLocal.obtenerPlanVacunacion(nombrePlan);
 		} catch (Exception e) {
     		this.planVacunacion = null;
     	}
 	}
 		
 	
-	public void agregarPlanVacunacion () throws Exception {
-		
+	public void agregarEditarPlanVacunacion () throws Exception {
 		DTEnfermedad enfAux = new DTEnfermedad();
 		List<DTVacuna> vacAux = new ArrayList<DTVacuna>();
 		
@@ -223,49 +280,37 @@ public class PlanVacunacionBean implements Serializable {
 				}
 				planVacunacion.setVacunas(vacAux);
 				try {
-				planLocal.agregarPlanVacunacion(planVacunacion);
-				planesVacunaciones.add(planVacunacion);
-			    this.planVacunacion = null;
-			    PrimeFaces.current().executeScript("PF('planDialog').hide()");
-			    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Plan agregado correctamente","" ));
-				} catch (Exception e){
-					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(),"" ));
-						
+						if (editar) {
+							planLocal.editarPlanVacunacion(planVacunacion);
+							this.planVacunacion = null;
+						    PrimeFaces.current().executeScript("PF('planDialog').hide()");
+						    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Plan editado correctamente","" ));
+						}
+						else {
+								planLocal.agregarPlanVacunacion(planVacunacion);
+								planVacunacion.setId(planLocal.obtenerPlanVacunacion(planVacunacion.getNombre()).getId());
+								planesVacunaciones.add(planVacunacion);
+							    this.planVacunacion = null;
+							    PrimeFaces.current().executeScript("PF('planDialog').hide()");
+							    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Plan agregado correctamente","" ));
+							}		
+					} catch (Exception e){
+								FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(),"" ));
+									
+							
 				}
 		}
 	}
 	
 	
-	/*
-	public void agregarEnfermedad(){
-		enfermedad.setFecha(LocalDate.now());
-		final Destination destination = queue;
-		String nombre= enfermedad.getNombre();
-		int codigo= enfermedad.getCodigoEnfermedad();
-		String text = codigo+"|"+nombre;
-		 this.enfermedades.add(enfermedad);
-	     this.enfermedad = null;
-		try {
-			this.servicioLocal.agregarEnfermedad(enfermedad.getCodigoEnfermedad(),enfermedad.getNombre());
-	        this.enfermedades.add(enfermedad);
-	        this.enfermedad = null;
-		} catch (Exception e) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage()));
-			this.enfermedad = null;
-    	}
-		
-    }*/
-	/*
-	public void buscarEnfermedad(){
-		try {
-		enfermedad = this.servicioLocal.buscarEnfermedad(nombreEnfermedad);
-		} catch (Exception e) {
-    		this.enfermedad = null;
-    	}
-    }*/
-	
 	public void reiniciarPlan(){
         this.planVacunacion = new DTPlanVacunacion();
+        this.nombreEnfermedad = null;
+        this.nombreVacuna = null;
+        this.vacunas = new ArrayList<DTVacuna>();
+        this.nombreBoton="Agregar Plan";
+        this.estiloBoton="pi pi-check";
+        this.editar= false;
     }
 
 }

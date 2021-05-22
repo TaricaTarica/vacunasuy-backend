@@ -1,15 +1,14 @@
 package beans;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
-
-import org.primefaces.event.RowEditEvent;
 
 import datatypes.DTAgenda;
 import datatypes.DTPlanVacunacion;
@@ -37,9 +36,12 @@ public class GestionAgendaBean {
 	private List<String> nombresVacunatorios;
 	private List<String> nombresPlanes;
 	private List<DTPlanVacunacion> planesAgenda;
+	private String vacunatorio;
 	private String[] nombrePlan;
-	private Date HoraIni;
-	private Date HoraFin;
+	private LocalTime HoraIni;
+	private LocalTime HoraFin;
+	private LocalDate fechaIni;
+	private LocalDate fechaFin;
 	
 	@PostConstruct
 	public void inicializar() {
@@ -50,8 +52,6 @@ public class GestionAgendaBean {
 		this.nombresPlanes = planVacunacionLocal.nombresPlanes();
 		this.agendaSeleccionada = new DTAgenda();
 		this.msjError = "";
-		this.HoraIni = new Date();
-		this.HoraFin = new Date();
 		this.planesAgenda= new ArrayList<DTPlanVacunacion>();
 	}
 	
@@ -63,19 +63,19 @@ public class GestionAgendaBean {
 		this.nombrePlan = nombreplan;
 	}
 
-	public Date getHoraIni() {
+	public LocalTime getHoraIni() {
 		return HoraIni;
 	}
 
-	public void setHoraIni(Date horaIni) {
+	public void setHoraIni(LocalTime horaIni) {
 		HoraIni = horaIni;
 	}
 
-	public Date getHoraFin() {
+	public LocalTime getHoraFin() {
 		return HoraFin;
 	}
 
-	public void setHoraFin(Date horaFin) {
+	public void setHoraFin(LocalTime horaFin) {
 		HoraFin = horaFin;
 	}
 
@@ -163,15 +163,53 @@ public class GestionAgendaBean {
 	public void agregarAgenda() {
 		try {
 			this.msjError ="";
+			List<DTPlanVacunacion> planesAux = new ArrayList<DTPlanVacunacion>();
+			for (DTPlanVacunacion planes : listPlanVacunacion ) {
+				for (String nombre : nombrePlan) {
+					if (planes.getNombre().equals(nombre)) {
+						planesAux.add(planes);
+					}
+				}
+			}
+			for (DTVacunatorio vac: listVacunatorio) {
+				if (vac.getNombre().equals(vacunatorio)) {
+					this.agendaSeleccionada.setDtVacunatorio(vac);
+				}
+			}
+			this.agendaSeleccionada.setInicio(fechaIni.toString());
+			this.agendaSeleccionada.setFin(fechaFin.toString());
+			this.agendaSeleccionada.setListDtPlanVacunacion(planesAux);
+			this.agendaSeleccionada.setHoraIncio(HoraIni.getHour() * 100 + HoraIni.getMinute());
+			this.agendaSeleccionada.setHoraFin(HoraFin.getHour() * 100 + HoraFin.getMinute());
 			this.agendaLocal.agregarAgenda(agendaSeleccionada);
 			this.listAgendas.add(agendaSeleccionada);
 			this.agendaSeleccionada = null;
+			
 		} catch (Exception e) {
 			setMsjError(e.getMessage());
+			e.printStackTrace();
 		}
 	}
 	
-    public void reiniciarAgendaSeleccionada(){
+	
+	
+    public LocalDate getFechaIni() {
+		return fechaIni;
+	}
+
+	public void setFechaIni(LocalDate fechaIni) {
+		this.fechaIni = fechaIni;
+	}
+
+	public LocalDate getFechaFin() {
+		return fechaFin;
+	}
+
+	public void setFechaFin(LocalDate fechaFin) {
+		this.fechaFin = fechaFin;
+	}
+
+	public void reiniciarAgendaSeleccionada(){
         this.agendaSeleccionada = new DTAgenda();
     }
     
@@ -179,5 +217,45 @@ public class GestionAgendaBean {
     	this.planesAgenda= dtAgenda.getListDtPlanVacunacion();
 
     }
+
+	public AgendaNegocioLocal getAgendaLocal() {
+		return agendaLocal;
+	}
+
+	public void setAgendaLocal(AgendaNegocioLocal agendaLocal) {
+		this.agendaLocal = agendaLocal;
+	}
+
+	public PlanVacunacionNegocioLocal getPlanVacunacionLocal() {
+		return planVacunacionLocal;
+	}
+
+	public void setPlanVacunacionLocal(PlanVacunacionNegocioLocal planVacunacionLocal) {
+		this.planVacunacionLocal = planVacunacionLocal;
+	}
+
+	public VacunatorioNegocioLocal getVacunatorioLocal() {
+		return vacunatorioLocal;
+	}
+
+	public void setVacunatorioLocal(VacunatorioNegocioLocal vacunatorioLocal) {
+		this.vacunatorioLocal = vacunatorioLocal;
+	}
+
+	public List<DTPlanVacunacion> getPlanesAgenda() {
+		return planesAgenda;
+	}
+
+	public void setPlanesAgenda(List<DTPlanVacunacion> planesAgenda) {
+		this.planesAgenda = planesAgenda;
+	}
+
+	public String getVacunatorio() {
+		return vacunatorio;
+	}
+
+	public void setVacunatorio(String vacunatorio) {
+		this.vacunatorio = vacunatorio;
+	}
 
 }

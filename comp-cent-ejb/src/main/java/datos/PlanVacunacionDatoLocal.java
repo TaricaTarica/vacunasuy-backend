@@ -16,8 +16,11 @@ public interface PlanVacunacionDatoLocal {
 	public Boolean existePlanVacunacion(String nombre);
 	
 	public PlanVacunacion obtenerPlanVacunacion(String nombre);
+	
+	public PlanVacunacion obtenerPlanVacunacionPorId(long id);
 
-	public PlanVacunacion buscarPlanVacunacion(String nombre);
+	public void editarPlanVacunacion(PlanVacunacion plan);
 
+	public void eliminarPlanVacunacion(PlanVacunacion plan);
 
 }

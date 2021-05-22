@@ -58,6 +58,7 @@ public class ReservaREST {
             if(dtCiudadano == null) {
             	return Response
             			.status(Response.Status.NOT_FOUND)
+            			.entity("ERROR: no existe el ciudadano")
             			.build();
             }
             else {
@@ -67,22 +68,26 @@ public class ReservaREST {
         catch (NumberFormatException ex){
              return Response
             		 .status(Response.Status.BAD_REQUEST)
+            		 .entity("ERROR: la cedula debe ser numerica")
             		 .build();
         }
 		
-		DTPlanVacunacion dtPlanVacunacion = pvnl.obtenerPlanVacunacion(dtrws.getPlanVacunacion());
-		if(dtPlanVacunacion == null) {
+		DTPlanVacunacion dtPlanVacunacion;
+		try {
+			dtPlanVacunacion = pvnl.obtenerPlanVacunacion(dtrws.getPlanVacunacion());
+			dtReserva.setPlanVacunacion(dtPlanVacunacion);
+		} catch (Exception e) {
 			return Response
 					.status(Response.Status.NOT_FOUND)
+					.entity("ERROR: Plan de vacunacion no encontrado")
 					.build();
 		}
-		else {
-			dtReserva.setPlanVacunacion(dtPlanVacunacion);
-		}
+	
 		DTUbicacion dtUbicacion = dnl.obtenerDepartamentoUbicacion(dtrws.getDepartamento(), dtrws.getUbicacion());
 		if(dtUbicacion == null) {
 			return Response
 					.status(Response.Status.NOT_FOUND)
+					.entity("ERROR: Ubicacion no encontrada")
 					.build();
 		}
 		else {
@@ -93,6 +98,7 @@ public class ReservaREST {
 		rnl.crearReserva(dtReserva);
 		return Response
 				.status(Response.Status.OK)
+				.entity("INFO: Reserva creada!")
 				.build();
 	}
 	

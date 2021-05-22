@@ -33,9 +33,30 @@
 				<p:column headerText="Enfermedad">
 					<h:outputText value="#{planVacunacion.enfermedad.nombre}" />
 				</p:column>
-				<p:column headerText="Vacunas">
-						     <p:commandButton value="Vacunas" update=":dialogVac" icon="pi pi-eye" action="#{planVacunacionBean.cargarVacunasPlan(planVacunacion)}" oncomplete="PF('vacunasDialog').show()">
-						         </p:commandButton>      
+				<p:column headerText="Opciones">
+					<div style="display: flex; align-items: center;justify-content: center;">
+						     <p:commandButton id="ver" icon="pi pi-eye" styleClass="rounded-button ui-button-secondary" 
+						     				action="#{planVacunacionBean.cargarVacunasPlan(planVacunacion)}" 
+						     				update=":dialogVac" oncomplete="PF('vacunasDialog').show()" />
+								        <p:tooltip for="ver" value="Ver Vacunas" position="left"/>  
+								    <p:spacer width="5"/>    
+						      <p:commandButton id="editar" icon="pi pi-pencil" styleClass="rounded-button ui-button-secondary"
+											action="#{planVacunacionBean.editarPlan(planVacunacion)}"
+											update=":dialogForm" oncomplete="PF('planDialog').show()" />
+										 <p:tooltip for="editar" value="Editar Plan" position="left"/>	
+									<p:spacer width="5"/>
+							<p:commandButton id="eliminar" icon="pi pi-trash" styleClass="rounded-button ui-button-secondary"
+											action="#{planVacunacionBean.eliminarPlanSeleccionado(planVacunacion)}"
+											update=":eliminarplan,:PlanListarForm:PlanTabla">
+											<p:confirm header="Confirmacion" message="Estas seguro de eliminar el Plan?" icon="pi pi-exclamation-triangle"/>
+							</p:commandButton>	
+										 <p:tooltip for="eliminar" value="Eliminar Plan" position="left"/>	
+									<p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+									            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no"/>
+									            <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" />
+       								</p:confirmDialog>
+										 
+					</div>					 
 				</p:column>				
 
 				<f:facet name="footer">
@@ -45,13 +66,22 @@
 							oncomplete="PF('planDialogBuscar').show()" />
 						<p:spacer height="5px" />
 						<p:commandButton value="Agregar Plan"
+							update=":dialogForm"
 							actionListener="#{planVacunacionBean.reiniciarPlan}"
 							oncomplete="PF('planDialog').show()" />
+							
+						
 					</div>
 				</f:facet>
 			</p:dataTable>
 		</div>
 	</h:form>
+	
+	<div>
+		<h:form id="eliminarplan">
+				 <p:growl id="message" showDetail="true"/>
+		</h:form>
+	</div>	
 	
 	 <div class="card"> 
 		     <h:form id="dialogVac">
@@ -75,11 +105,11 @@
 		</div>
 
 	<p:dialog id="planDlg" widgetVar="planDialog"
-		header="Agregar Plan Vacunacion" modal="true" showEffect="fade"
+		header="Plan de Vacunacion" modal="true" showEffect="fade"
 		hideEffect="fade" resizable="false">
 
 		<h:form id="dialogForm">			
-			<p:panel header="Nuevo Plan" id="grid" style="margin-bottom:10px;">
+			<p:panel header="#{planVacunacionBean.nombreBoton}" id="grid" style="margin-bottom:10px;">
 	            <p:growl id="growl" showDetail="false" />
 	        	<p:growl id="growl-sticky" for="sticky-key" showDetail="true" sticky="true" />
 	            
@@ -122,9 +152,9 @@
 				
 	          
 				<div style="display: flex; align-items: center;justify-content: center;">
-	            <p:commandButton  value="Cargar Plan"  action="#{planVacunacionBean.agregarPlanVacunacion()}" 
+	            <p:commandButton  value="#{planVacunacionBean.nombreBoton}" action="#{planVacunacionBean.agregarEditarPlanVacunacion()}" 
 	            				update="grid,:PlanListarForm:PlanTabla"
-	                             icon="pi pi-check" /> 
+	                             icon="#{planVacunacionBean.estiloBoton}" /> 
 	            </div>
 	        </p:panel>
 	
@@ -165,8 +195,8 @@
 					<h:outputText value="#{plan.enfermedad.nombre}" />
 				</p:column>
 				<p:column headerText="Vacunas">
-						     <p:commandButton value="Vacunas" update=":dialogVac" icon="pi pi-eye" action="#{planVacunacionBean.cargarVacunasPlan(plan)}" oncomplete="PF('vacunasDialog').show()">
-						         </p:commandButton>      
+						     <p:commandButton id="ver" value="Vacunas" update=":dialogVac" icon="pi pi-eye" styleClass="rounded-button ui-button-secondary" action="#{planVacunacionBean.cargarVacunasPlan(plan)}" oncomplete="PF('vacunasDialog').show()"/>
+						          <p:tooltip for="ver" value="Ver Vacunas" position="left"/>      
 				</p:column>
 				</p:dataTable>
 			</p:outputPanel>

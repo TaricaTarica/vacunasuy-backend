@@ -7,6 +7,7 @@ import entidades.PlanVacunacion;
 import enumeradores.PoblacionObjetivo;
 
 public class DTPlanVacunacion {
+	private long id;
 	private String nombre;
 	private PoblacionObjetivo poblacionObjetivo; 
 	int edadMinima;
@@ -20,6 +21,7 @@ public class DTPlanVacunacion {
 	
 	public DTPlanVacunacion(PlanVacunacion plan) {
 		super();
+		this.id = plan.getId();
 		this.nombre = plan.getNombre();
 		this.poblacionObjetivo = plan.getPoblacionObjetivo();
 		this.edadMinima = plan.getEdadMinima();
@@ -29,6 +31,16 @@ public class DTPlanVacunacion {
 		
 		//this.enfermedad = plan.getDTEnfermedad; // para despues
 		//this.vacuna = plan.getDTVacuna; // para despues
+	}
+	
+	
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public String getNombre() {

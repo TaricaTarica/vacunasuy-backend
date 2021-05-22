@@ -62,12 +62,12 @@ public class PlanVacunacionNegocio implements PlanVacunacionNegocioRemote, PlanV
 			PlanVacunacion planVac = new PlanVacunacion(plan);
 			Enfermedad enf = enfermedadDatoLocal.buscarEnfermedad(plan.getEnfermedad().getNombre());
 			planVac.setEnfermedad(enf);
-			List<DTVacuna> vacunas = plan.getVacunas();
-			for (DTVacuna vac: vacunas) {
-				Vacuna vacuna = vacunaDatoLocal.obtenerVacuna(vac.getNombre());
-				planVac.setVacunas(vacuna);
+			List<DTVacuna> Dtvacunas = plan.getVacunas();
+			List<Vacuna> vacunas = new ArrayList<Vacuna>();
+			for (DTVacuna vac: Dtvacunas) {
+				vacunas.add(vacunaDatoLocal.obtenerVacuna(vac.getNombre()));
 			}
-			
+			planVac.setVacunas(vacunas);
 			datoLocal.agregarPlanVacunacion(planVac);
 			
 			
@@ -83,33 +83,66 @@ public class PlanVacunacionNegocio implements PlanVacunacionNegocioRemote, PlanV
 	}
 	
 	@Override
-	public DTPlanVacunacion obtenerPlanVacunacion(String nombre) {
-		PlanVacunacion planVacunacion = datoLocal.obtenerPlanVacunacion(nombre);
-		if(planVacunacion != null) {
-			DTPlanVacunacion dtPlanVacunacion = new DTPlanVacunacion(planVacunacion);
-			return dtPlanVacunacion; 
-		}
-		else {
-			return null;
-		}
-	}
-	
-
-	@Override
-	public DTPlanVacunacion buscarPlanVacunacion(String nombre)  throws Exception {
-		
+	public DTPlanVacunacion obtenerPlanVacunacion(String nombre) throws Exception {
 		if (datoLocal.existePlanVacunacion(nombre)) {
-			PlanVacunacion planVacunacion = datoLocal.buscarPlanVacunacion(nombre);
+			PlanVacunacion planVacunacion = datoLocal.obtenerPlanVacunacion(nombre);
 			DTPlanVacunacion dtPlanVacunacion = new DTPlanVacunacion(planVacunacion);
 			return dtPlanVacunacion; 
 		}
 		else {
 			throw new Exception("\nNo existe un plan con el nombre ingresado");
 		}
-		
 	}
 	
+	@Override
+	public void editarPlanVacunacion(DTPlanVacunacion plan) throws Exception {
+				
+					
+					PlanVacunacion planVacunacion = datoLocal.obtenerPlanVacunacionPorId(plan.getId());
+				
+				if (planVacunacion != null) {
+					
+					Enfermedad enf = enfermedadDatoLocal.buscarEnfermedad(plan.getEnfermedad().getNombre());
+					planVacunacion.setEnfermedad(enf);
+					
+					List<DTVacuna> Dtvacunas = plan.getVacunas();
+					List<Vacuna> vacunas = new ArrayList<Vacuna>();
+					for (DTVacuna vac: Dtvacunas) {
+						vacunas.add(vacunaDatoLocal.obtenerVacuna(vac.getNombre()));
+					}
+					planVacunacion.setVacunas(vacunas);
+					
+					planVacunacion.setNombre(plan.getNombre());
+					planVacunacion.setEdadMinima(plan.getEdadMinima());
+					planVacunacion.setEdadMaxima(plan.getEdadMaxima());
+					planVacunacion.setPoblacionObjetivo(plan.getPoblacionObjetivo());
+					
+					datoLocal.editarPlanVacunacion(planVacunacion);
+					
+				}else {
+					throw new Exception("\nNo se encontro un plan con el id ingresado");
+					
+				}
+				
+		}
+	
+	@Override
+	public void eliminarPlanVacunacion(DTPlanVacunacion plan) throws Exception {
 		
-}
+		PlanVacunacion planVacunacion = datoLocal.obtenerPlanVacunacionPorId(plan.getId());
+		if (planVacunacion != null) {
+			
+			if(planVacunacion.getAgendas().isEmpty()) {
+				datoLocal.eliminarPlanVacunacion(planVacunacion);
+			}else {
+				throw new Exception("\nNo se puede eliminar el plan, porque tiene agendas asociadas");
+			}
+			
+		}else {
+			throw new Exception("\nNo se encontro un plan con el id ingresado");
+			
+		}
+	}
 
+}
 

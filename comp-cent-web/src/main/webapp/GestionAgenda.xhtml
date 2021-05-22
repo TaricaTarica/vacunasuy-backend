@@ -39,21 +39,21 @@
 			
 			<p:column>
 
-				<p:commandButton id="ver" icon="pi pi-eye"  styleClass="rounded-button ui-button-secondary"
+			<p:commandButton id="ver" icon="pi pi-eye"  styleClass="rounded-button ui-button-secondary"
 					action="#{gestionAgendaBean.planesPorAgenda(agenda)}"
 					update=":planesDialog" oncomplete="PF('planesDialog').show()"/>
 				<p:tooltip for="ver" value="Ver Planes" position="left"/>
 				<p:spacer width="5"/>
 				
-				<p:commandButton icon="pi pi-pencil" styleClass="rounded-button ui-button-secondary"
+			<p:commandButton icon="pi pi-pencil" styleClass="rounded-button ui-button-secondary"
 					actionListener="#{gestionAgendaBean.reiniciarAgendaSeleccionada()}"
-					update=":dialogForm" oncomplete="PF('agendaEditDlg').show()" />
+					update=":planesDialog" oncomplete="PF('agendaEditDlg').show()" />
 					
 				<p:spacer width="5"/>
 				
 				<p:commandButton icon="pi pi-trash" styleClass="rounded-button ui-button-secondary"
 					actionListener="#{gestionAgendaBean.reiniciarAgendaSeleccionada()}"
-					update=":dialogForm" oncomplete="PF('eliminarDialog').show()" />
+					update=":planesDialog" oncomplete="PF('eliminarDialog').show()" />
 					
 			</p:column>
 
@@ -61,7 +61,7 @@
 				<p:spacer height="5px" />
 				<p:commandButton value="Agregar"
 					actionListener="#{gestionAgendaBean.reiniciarAgendaSeleccionada()}"
-					update=":dialogForm" oncomplete="PF('agendaDialog').show()" />
+					oncomplete="PF('agregar').show()" />
 				<h:outputText value="#{gestionAgendaBean.msjError}" />
 			</f:facet>
 
@@ -100,27 +100,32 @@
 
 	</p:dialog>
 
-	<p:dialog id="agendaDlg" widgetVar="agendaDialog"
+	
+	<p:dialog id="agregar" widgetVar="agregar"
 		header="Agregar Agenda" modal="true" showEffect="fade"
 		hideEffect="fade" resizable="false">
-		<h:form id="dialogForm">
-			<p:outputPanel id="agendaDetail" style="text-align: center">
-				<p:panelGrid id="display" columns="2" columnClasses="label, value">
 
-					<h:outputLabel for="vacunatorio" value="Vacunatorio"/>
-                	<p:selectOneMenu id="vacunatorio" value="#{gestionAgendaBean.agendaSeleccionada.dtVacunatorio}" style="width:15rem">
+		<h:form id="dialogForm">			
+			<p:panel header="Nueva Agenda" id="grid" style="margin-bottom:10px;">
+	            <p:growl id="growl" showDetail="false" />
+	        	<p:growl id="growl-sticky" for="sticky-key" showDetail="true" sticky="true" />
+	            
+		            <h:panelGrid  columns="2" cellpadding="5" styleClass="p-mb-3">
+		                
+		            <h:outputLabel for="vacunatorio" value="Vacunatorio"/>
+                	<p:selectOneMenu id="vacunatorio" value="#{gestionAgendaBean.vacunatorio}" style="width:15rem">
                    		<f:selectItem itemLabel="Seleccionar vacunatorio" itemValue="" noSelectionOption="true"/>
                     	<f:selectItems value="#{gestionAgendaBean.nombresVacunatorios}"/>
                		</p:selectOneMenu>
 									
                 	<p:outputLabel value="Fecha Inicio"/>
-                	<p:datePicker id="FechaInicio" value="#{gestionAgendaBean.agendaSeleccionada.inicio}" monthNavigator="true" yearNavigator="true" showWeek="true"/>
+                	<p:datePicker id="FechaInicio" value="#{gestionAgendaBean.fechaIni}" monthNavigator="true" yearNavigator="true" showWeek="true"/>
 
 					<p:outputLabel value="Fecha Fin"/>
-                	<p:datePicker id="FechaFin" value="#{gestionAgendaBean.agendaSeleccionada.fin}" monthNavigator="true" yearNavigator="true" showWeek="true"/>
+                	<p:datePicker id="FechaFin" value="#{gestionAgendaBean.fechaFin}" monthNavigator="true" yearNavigator="true" showWeek="true"/>
 
 
-		            <p:outputLabel for="HoraInicio" value="Hora Inicio"/>
+     	            <p:outputLabel for="HoraInicio" value="Hora Inicio"/>
 		            <p:calendar id="HoraInicio" value="#{gestionAgendaBean.horaIni}" pattern="HH:mm" timeOnly="true"/>	
 					
         			<p:outputLabel for="HoraFin" value="Hora Fin" />
@@ -131,16 +136,19 @@
                                 filter="true" filterMatchMode="startsWith" panelStyle="width: 15rem" scrollHeight="250">
             			<f:selectItems value="#{gestionAgendaBean.nombresPlanes}"/>
         			</p:selectCheckboxMenu>
-        			
-					<f:facet name="footer">
-						<p:commandButton value="Agregar"
-							actionListener="#{gestionAgendaBean.agregarAgenda()}"
-							update="display,:agendaListForm:agendaDataTable"
-							oncomplete="PF('agendaDialog').hide();" />
-					</f:facet>
-				</p:panelGrid>
-			</p:outputPanel>
+	        
+	            	</h:panelGrid>
+				
+	          
+				<div style="display: flex; align-items: center;justify-content: center;">
+	            <p:commandButton  value="Guardar"  action="#{gestionAgendaBean.agregarAgenda()}" 
+	            				update="grid,:agendaListForm:agendaDataTable"
+	                             icon="pi pi-check" /> 
+	            </div>
+	        </p:panel>
+	
 		</h:form>
+
 	</p:dialog>
 	
 </body>
