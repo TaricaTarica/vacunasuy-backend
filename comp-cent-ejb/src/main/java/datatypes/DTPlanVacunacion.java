@@ -26,8 +26,6 @@ public class DTPlanVacunacion {
 		this.poblacionObjetivo = plan.getPoblacionObjetivo();
 		this.edadMinima = plan.getEdadMinima();
 		this.edadMaxima = plan.getEdadMaxima();
-		this.enfermedad = plan.enfermedadDT();
-		this.vacunas = plan.vacunasDT();
 		
 		//this.enfermedad = plan.getDTEnfermedad; // para despues
 		//this.vacuna = plan.getDTVacuna; // para despues

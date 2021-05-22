@@ -8,7 +8,7 @@ import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
-
+import datatypes.DTEnfermedad;
 import datatypes.DTPlanVacunacion;
 import datatypes.DTVacuna;
 import datos.EnfermedadDatoLocal;
@@ -47,8 +47,17 @@ public class PlanVacunacionNegocio implements PlanVacunacionNegocioRemote, PlanV
 		List<DTPlanVacunacion> lista = new ArrayList<DTPlanVacunacion>();
 		for (PlanVacunacion plan:planes) {
 		    DTPlanVacunacion planVac = new DTPlanVacunacion(plan);
-		    lista.add(planVac);
+		    DTEnfermedad enfermedad = new DTEnfermedad(enfermedadDatoLocal.buscarEnfermedad(plan.getEnfermedad().getNombre()));
+		    planVac.setEnfermedad(enfermedad);
+		    List<Vacuna> vacunas = plan.getVacunas();
+		    List<DTVacuna> dtVacunas = new ArrayList<DTVacuna>();
+		    for (Vacuna vac: vacunas) {
+		    	DTVacuna vacuna = new DTVacuna(vac);
+		    	dtVacunas.add(vacuna);
 		    }
+		    planVac.setVacunas(dtVacunas);
+		    lista.add(planVac);
+		 }
 		return lista;
 	}
 	
@@ -87,7 +96,16 @@ public class PlanVacunacionNegocio implements PlanVacunacionNegocioRemote, PlanV
 		if (datoLocal.existePlanVacunacion(nombre)) {
 			PlanVacunacion planVacunacion = datoLocal.obtenerPlanVacunacion(nombre);
 			DTPlanVacunacion dtPlanVacunacion = new DTPlanVacunacion(planVacunacion);
-			return dtPlanVacunacion; 
+			DTEnfermedad enfermedad = new DTEnfermedad(enfermedadDatoLocal.buscarEnfermedad(planVacunacion.getEnfermedad().getNombre()));
+			    dtPlanVacunacion.setEnfermedad(enfermedad);
+			    List<Vacuna> vacunas = planVacunacion.getVacunas();
+			    List<DTVacuna> dtVacunas = new ArrayList<DTVacuna>();
+			    for (Vacuna vac: vacunas) {
+			    	DTVacuna vacuna = new DTVacuna(vac);
+			    	dtVacunas.add(vacuna);
+			    }
+			    dtPlanVacunacion.setVacunas(dtVacunas);
+			    return dtPlanVacunacion;
 		}
 		else {
 			throw new Exception("\nNo existe un plan con el nombre ingresado");
