@@ -34,7 +34,12 @@ public class Proveedor {
 		this.nombre = proveedor.getNombre();
 		this.telefono = proveedor.getTelefono();
 	}
-
+	public Proveedor(String nombre, int tel) {
+		super();
+		this.nombre = nombre;
+		this.telefono = tel;
+				
+	}
 	
 	public long getId() {
 		return id;

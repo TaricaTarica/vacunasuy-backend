@@ -13,5 +13,5 @@ public interface VacunaNegocioRemote {
 	public void agregarVacuna(String nombre, String codigo, String laboratorio, Enfermedad enf, Proveedor pro);
 	public DTVacuna obtenerVacuna(long id);
 	public List<DTVacuna> obtenerVacunas();
-	public void agregarVacunas();
+	public void agregarVacuna(DTVacuna dtvacuna);
 }

@@ -46,6 +46,12 @@ public class VacunaNegocio implements VacunaNegocioRemote, VacunaNegocioLocal {
     	
     }
     
+    public void agregarVacuna(DTVacuna dtvacuna) {
+    	Vacuna vacuna = new Vacuna(dtvacuna);
+    	this.puenteDatos.agregarVacuna(vacuna);
+    	
+    }
+    
     public DTVacuna obtenerVacuna(long id) {
 	    	Vacuna vac = puenteDatos.obtenerVacuna(id);
 	    	return new DTVacuna(vac.getNombre(), vac.getCodigo(), vac.getLaboratorio());

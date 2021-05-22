@@ -3,6 +3,7 @@ package datatypes;
 import entidades.Proveedor;
 
 public class DTProveedor {
+	private long id;
 	private String nombre;
 	private int telefono;
 
@@ -40,4 +41,24 @@ public class DTProveedor {
 		this.telefono = telefono;
 	}
 
+
+
+	@Override
+	public String toString() {
+		return nombre;
+	}
+
+
+
+	public long getId() {
+		return id;
+	}
+
+
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	
 }

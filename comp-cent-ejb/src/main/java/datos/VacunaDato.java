@@ -1,5 +1,6 @@
 package datos;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.LocalBean;
@@ -67,7 +68,12 @@ public class VacunaDato implements VacunaDatoRemote, VacunaDatoLocal {
 	@Override
 	public List<Vacuna> obtenerVacunas() {
 		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Vacuna> lista = new ArrayList<Vacuna>();
+		for (Object obj : em.createQuery("Select v from Vacuna v").getResultList()) {
+			Vacuna v = (Vacuna) obj;
+			lista.add(v);
+		}
+		return lista;
 	}
     
 }

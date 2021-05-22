@@ -8,6 +8,9 @@ public class DTVacuna {
 	private String codigo;
 	private String laboratorio;
 	
+	private DTEnfermedad enfermedad;
+	private DTProveedor proveedor;
+	
 	public DTVacuna() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -57,5 +60,21 @@ public class DTVacuna {
 	@Override
 	public String toString() {
 		return nombre;
+	}
+
+	public DTEnfermedad getEnfermedad() {
+		return enfermedad;
+	}
+
+	public void setEnfermedad(DTEnfermedad enfermedad) {
+		this.enfermedad = enfermedad;
+	}
+
+	public DTProveedor getProveedor() {
+		return proveedor;
+	}
+
+	public void setProveedor(DTProveedor proveedor) {
+		this.proveedor = proveedor;
 	}
 }
