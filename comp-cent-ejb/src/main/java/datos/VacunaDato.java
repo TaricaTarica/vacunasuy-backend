@@ -10,6 +10,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import entidades.Enfermedad;
+import entidades.Proveedor;
 import entidades.Vacuna;
 
 /**
@@ -80,5 +81,35 @@ public class VacunaDato implements VacunaDatoRemote, VacunaDatoLocal {
 		Boolean existe = (em.createQuery("Select v from Vacuna v where v.nombre = :nombre").setParameter("nombre", nombre).getResultList().size() > 0);	
 		return existe;
 	}
-    
+	
+	 @Override
+	    public void editarVacuna(Vacuna vacuna) {
+		 em.merge(vacuna);
+	 }
+	 
+	 @Override
+	    public void eliminarVacuna(Vacuna vacuna) {
+		 em.remove(vacuna);
+	 }
+	    		
+	 @Override
+	 	public Proveedor obtenerProveedorDeVacuna(String nomVac) {
+		 try {
+			 Vacuna vac = this.obtenerVacuna(nomVac);
+			 return vac.getProveedor();
+		 } catch (Exception e){
+			 return null;
+		 }
+		 
+	 }
+	 @Override
+	 	public Enfermedad obtenerEnfermedadDeVacuna(String nomVac) {
+		 try {
+			 Vacuna vac = this.obtenerVacuna(nomVac);
+			 return vac.getEnfermedad();
+		 } catch (Exception e){
+			 return null;
+		 }
+	 }
+	 
 }

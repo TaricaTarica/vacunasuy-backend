@@ -1,16 +1,20 @@
 package beans;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.primefaces.PrimeFaces;
+
 import datatypes.DTEnfermedad;
+import datatypes.DTPlanVacunacion;
 import datatypes.DTProveedor;
 import datatypes.DTVacuna;
 import negocio.EnfermedadNegocioLocal;
@@ -20,7 +24,7 @@ import negocio.VacunaNegocioLocal;
 
 
 @Named("vacunaBean")
-@RequestScoped
+@ViewScoped
 public class VacunaBean implements  Serializable{
 	
 	private static final long serialVersionUID = 1L;
@@ -44,6 +48,12 @@ public class VacunaBean implements  Serializable{
 	
 	 private String nombreEnfermedad;
 	 private String nombreProveedor;
+	 
+	 //Agrego String para saber el estado del botón
+	 
+	 private String nombreBoton;
+	 private String estiloBoton;
+	 private Boolean editar;
 		
 	 @PostConstruct
 	 public void init() {
@@ -99,9 +109,6 @@ public class VacunaBean implements  Serializable{
 	}
 	 
 
-	public void reiniciarVacuna(){
-		this.vacuna = new DTVacuna();
-	}
 
 
 	public DTEnfermedad getEnfermedad() {
@@ -141,9 +148,44 @@ public class VacunaBean implements  Serializable{
 	public void setNombreProveedor(String nombreProveedor) {
 		this.nombreProveedor = nombreProveedor;
 	}
+
+
 	
+	//Me cargo la vacuna seleccionada para modificarla
+	
+	public void editarVacunaBean(DTVacuna dtVacuna) {
+
+		this.editar = true;
+		this.nombreBoton = "Editar Vacuna";
+		this.estiloBoton = "pi pi-pencil";
+		setVacuna(dtVacuna);
+		//nombreEnfermedad = dtVacuna.getEnfermedad().getNombre();
+		DTProveedor dtpro = vacunaLocal.obtenerProveedorDeVacuna(dtVacuna.getNombre());
+		nombreProveedor = dtpro.getNombre();
+		DTEnfermedad dtenf = vacunaLocal.obtenerEnfermedadDeVacuna(dtVacuna.getNombre());
+		nombreEnfermedad = dtenf.getNombre();
+
+	}
+	
+	public void eliminarVacuna(DTVacuna vacuna) throws Exception {
+		
+		
+		System.out.println("Entre en el eliminarVacuna");
+		
+		try {
+			vacunaLocal.eliminarVacuna(vacuna.getNombre());
+			this.vacunas.remove(vacuna);
+			vacuna = null;
+		}catch (Exception e){
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage());
+	        FacesContext.getCurrentInstance().addMessage(null, message);
+		}
+		
+	}
 	
 	public void agregarVacuna() throws Exception {
+
+
 		DTProveedor proAux = new DTProveedor();
 		DTEnfermedad enfAux = new DTEnfermedad();
 		for (DTEnfermedad enf: enfermedades) {
@@ -160,18 +202,66 @@ public class VacunaBean implements  Serializable{
 			}
 		} 
 		vacuna.setProveedor(proAux);
+		
 		try {
-			vacunaLocal.agregarVacuna(vacuna);
-			vacunas.add(vacuna);
+			
+				if(editar) {
+					System.out.println("Estoy en el if del editar");
+					vacunaLocal.editarVacuna(vacuna);
+					this.vacuna=null;
+					PrimeFaces.current().executeScript("PF('VacunaDialog').hide()");
+				    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Vacuna editado correctamente","" ));
+				}else {
+					
+					System.out.println("Estoy en el else agregando vacuna");
+					vacunaLocal.agregarVacuna(vacuna);
+					vacunas.add(vacuna);
+					this.vacuna=null;
+				}
+				
 			
 		} catch (Exception e){
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(),"" ));
 			
 		}
 		
-		this.vacuna=null;
+		
 		
 	}
 
 
+	public String getNombreBoton() {
+		return nombreBoton;
+	}
+
+
+	public void setNombreBoton(String nombreBoton) {
+		this.nombreBoton = nombreBoton;
+	}
+
+
+	public String getEstiloBoton() {
+		return estiloBoton;
+	}
+
+
+	public void setEstiloBoton(String estiloBoton) {
+		this.estiloBoton = estiloBoton;
+	}
+
+
+	public void reiniciarVacuna(){
+		
+		
+		
+		this.vacuna = new DTVacuna();
+		this.nombreEnfermedad = null;
+		this.nombreProveedor = null;
+        this.nombreBoton="Agregar Vacuna";
+        this.estiloBoton="pi pi-check";
+        this.editar= false;
+	}
+
+	
+	
 }
