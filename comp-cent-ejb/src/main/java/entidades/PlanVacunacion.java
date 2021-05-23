@@ -125,30 +125,6 @@ public class PlanVacunacion {
 	}
 
 
-	public List<DTVacuna> vacunasDT (){
-		List<DTVacuna> vacDT = new ArrayList<DTVacuna>();
-		
-		for (Vacuna vac : vacunas) {
-			DTVacuna vacuna = new DTVacuna();
-			vacuna.setId(vac.getId());
-			vacuna.setCodigo(vac.getCodigo());
-			vacuna.setLaboratorio(vac.getLaboratorio());
-			vacuna.setNombre(vac.getNombre());
-			vacDT.add(vacuna);
-			
-		}
-		return vacDT;
-	}
-	
-	public DTEnfermedad enfermedadDT (){
-		DTEnfermedad enfDT = new DTEnfermedad (this.enfermedad);
-		return enfDT;
-		
-	}
-	
-	
-	
-
 	
 	
 		

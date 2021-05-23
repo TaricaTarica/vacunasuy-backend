@@ -1,5 +1,6 @@
 package negocio;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,6 +58,25 @@ public class AgendaNegocio implements AgendaNegocioRemote, AgendaNegocioLocal {
 			agenda.forEach((a)->{dtAgenda.add(new DTAgenda(a));});
 		}
 		return dtAgenda;
+	}
+	
+	@Override
+	/*Devuelve una lista con todas las agendas no vencidas*/
+	public List<DTAgenda> listarAgendasActivas(){
+		List <Agenda> agendas = (ArrayList<Agenda>)(this.agendaLocal.listarAgenda());
+		List <DTAgenda> retorno = new ArrayList<DTAgenda>(); 
+		if(!agendas.isEmpty()) {
+			for(Agenda agenda: agendas) {
+				if(agenda.getFin().isAfter(LocalDate.now())){
+					retorno.add(new DTAgenda(agenda));
+				}
+			}
+			return retorno;
+		}
+		else {
+			return null;
+		}
+		
 	}
     
 }

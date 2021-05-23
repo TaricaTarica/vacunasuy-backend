@@ -42,5 +42,22 @@ public class AgendaREST {
 	            		.build();
 	        }
 	}
+	@GET
+	@Path("/activas")
+	public Response agendasActivas() {
+		ArrayList<DTAgenda> agendas = (ArrayList<DTAgenda>) an.listarAgendasActivas();
+		if(!agendas.isEmpty()) {
+			return Response
+			.status(Response.Status.OK)
+            .entity(agendas)
+            .build(); 
+		}
+		else {
+			return Response
+					.status(Response.Status.OK)
+		            .entity("Por el momento no hay agendas activas!")
+		            .build(); 
+		}
+	}
 	
 }
