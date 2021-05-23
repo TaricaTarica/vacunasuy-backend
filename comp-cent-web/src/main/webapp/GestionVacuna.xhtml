@@ -24,11 +24,34 @@
 					<h:outputText value="#{vacuna.laboratorio}" />
 				</p:column>
 				
+				<p:column headerText="Opciones">
+					<div style="display: flex; align-items: center;justify-content: center;">
+						      <p:commandButton id="editar" icon="pi pi-pencil" styleClass="rounded-button ui-button-secondary"
+											action="#{vacunaBean.editarVacunaBean(vacuna)}"
+											update=":dialogForm" oncomplete="PF('vacunaDialog').show()" />
+										 <p:tooltip for="editar" value="Editar Vacuna" position="left"/>	
+								
+								<p:spacer width="5"/>
+								
+								<p:commandButton id="eliminar" icon="pi pi-trash" styleClass="rounded-button ui-button-secondary"
+											action="#{vacunaBean.eliminarVacuna(vacuna)}"
+											update=":eliminarvacuna,:VacunaListarForm:VacunaTabla">
+											<p:confirm header="Confirmacion" message="Estas seguro de eliminar la Vacuna?" icon="pi pi-exclamation-triangle"/>
+								 </p:commandButton>
+								 <p:tooltip for="eliminar" value="Eliminar Plan" position="left"/>
+								 <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+									            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no"/>
+									            <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" />
+       								</p:confirmDialog>
+					</div>					 
+				</p:column>	
+				
 					<f:facet name="footer">
 						<div style="display: flex; align-items: center;justify-content: center;">
 						
 							<p:commandButton value="Agregar Vacuna"
-								actionListener="#{vacunaBean.reiniciarVacuna}"
+							update=":dialogForm"
+								actionListener="#{vacunaBean.reiniciarVacuna()}"
 								oncomplete="PF('vacunaDialog').show()" />
 						</div>
 					</f:facet>
@@ -36,12 +59,27 @@
 			</div>
 		</h:form>
 		
-		<p:dialog id="vacunaDlg" widgetVar="vacunaDialog" header="Agregar Vacuna" modal="true" showEffect="fade" 
+		
+		<div>
+			<h:form id="eliminarvacuna">
+				 <p:growl id="message" showDetail="true"/>
+			</h:form>
+		</div>	
+	
+		
+		<p:dialog id="vacunaDlg" widgetVar="vacunaDialog" 
+		header="Vacuna" modal="true" showEffect="fade" 
         hideEffect="fade" resizable="false" >
+        
             <h:form id="dialogForm">
-              <p:panel header="Nueva Vacuna" style="margin-bottom:10px;">
+              <p:panel header="#{vacunaBean.nombreBoton}" id="grid" style="margin-bottom:10px;">
+              	<p:growl id="growl" showDetail="false" />
+	        	<p:growl id="growl-sticky" for="sticky-key" showDetail="true" sticky="true" />
+	        	
                 <p:outputPanel id="vacunaDetail" style="text-align: center">
+                
                     <p:panelGrid id="display" columns="4" columnClasses="label, value" >
+                    
                         <h:outputText value="Nombre Vacuna" />
                         <h:inputText value="#{vacunaBean.vacuna.nombre}" />
                            <h:outputText value="codigo de Vacuna" />
@@ -63,13 +101,15 @@
 			                </p:selectOneMenu>
                
                         <f:facet name="footer" >
-                            <p:commandButton   icon="pi pi-check" value="Agregar" actionListener="#{vacunaBean.agregarVacuna()}" 
-                             update="display,:VacunaListarForm:VacunaTabla" oncomplete="PF('vacunaDialog').hide();"/>
+                            <p:commandButton value="#{vacunaBean.nombreBoton}" actionListener="#{vacunaBean.agregarVacuna()}" 
+                             update="display,:VacunaListarForm:VacunaTabla" oncomplete="PF('vacunaDialog').hide();"
+                              icon="#{vacunaBean.estiloBoton}" />
                         </f:facet>
                     </p:panelGrid>
                 </p:outputPanel>
               </p:panel>
             </h:form>
+            
         </p:dialog>
         
 	</h:body>

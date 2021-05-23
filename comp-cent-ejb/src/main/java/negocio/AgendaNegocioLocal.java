@@ -11,5 +11,6 @@ public interface AgendaNegocioLocal {
 
 	public void agregarAgenda(DTAgenda dtAgenda);
 	public List<DTAgenda> listarAgenda();
+	public List<DTAgenda> listarAgendasActivas();
 	
 }

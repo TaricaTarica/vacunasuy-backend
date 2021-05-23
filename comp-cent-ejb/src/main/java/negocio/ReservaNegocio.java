@@ -5,6 +5,8 @@ import java.util.List;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+
+import datatypes.DTConsultaReservaCiudadano;
 import datatypes.DTReserva;
 import datos.AgendaDatoLocal;
 import datos.CiudadanoDatoLocal;
@@ -60,6 +62,17 @@ public class ReservaNegocio implements ReservaNegocioRemote, ReservaNegocioLocal
 		reserva.setAgenda(agenda);		
 		reserva.setPlanVacunacion(planVacunacion);		
 		rdl.crearReserva(reserva);		
+	}
+	@Override
+	public List<DTConsultaReservaCiudadano> ciudadanoReservas(int ci){
+		ArrayList<Reserva> reservas = (ArrayList<Reserva>) rdl.obtenerReservas();
+		List<DTConsultaReservaCiudadano> dtReservas = new ArrayList<DTConsultaReservaCiudadano>();
+		for(Reserva r: reservas) {
+			if(r.getCiudadano().getCi() == ci) {
+				dtReservas.add(new DTConsultaReservaCiudadano (r));
+			}
+		}
+		return dtReservas;
 	}
 
 }

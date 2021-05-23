@@ -8,7 +8,9 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
-
+import datatypes.DTEnfermedad;
+import datatypes.DTPlanVacunacion;
+import datatypes.DTProveedor;
 import datatypes.DTVacuna;
 import datos.EnfermedadDatoLocal;
 import datos.ProveedorDatoLocal;
@@ -41,6 +43,7 @@ public class VacunaNegocio implements VacunaNegocioRemote, VacunaNegocioLocal {
         // TODO Auto-generated constructor stub
     }
     
+    @Override
     public void agregarVacuna(String nombre, String codigo, String laboratorio, Enfermedad enf, Proveedor pro) {
     	
     	Vacuna vac= new Vacuna();
@@ -54,12 +57,13 @@ public class VacunaNegocio implements VacunaNegocioRemote, VacunaNegocioLocal {
     }
     
 
-    
+    @Override
     public DTVacuna obtenerVacuna(long id) {
 	    	Vacuna vac = puenteDatos.obtenerVacuna(id);
 	    	return new DTVacuna(vac.getNombre(), vac.getCodigo(), vac.getLaboratorio());
     }
     
+    @Override
     public List<DTVacuna> obtenerVacunas(){
     	
     	ArrayList<Vacuna> vacs = (ArrayList<Vacuna>)puenteDatos.obtenerVacunas();
@@ -70,10 +74,13 @@ public class VacunaNegocio implements VacunaNegocioRemote, VacunaNegocioLocal {
     	}
     	return dtVacs;
     }
+    
+    @Override
     public void agregarVacunas() {
     	puenteDatos.agregarVacunas();
     }
     
+    @Override
     public void agregarVacuna(DTVacuna dtvacuna) throws Exception {
     	
     	if(puenteDatos.existeVacuna(dtvacuna.getNombre())) {
@@ -84,11 +91,63 @@ public class VacunaNegocio implements VacunaNegocioRemote, VacunaNegocioLocal {
     		vac.setEnfermedad(enf);
     		Proveedor pro = proveedorDatoLocal.obtenerProveedorPorNombre(dtvacuna.getProveedor().getNombre());
     		vac.setProveedor(pro);
-    		System.out.println(enf.getNombre() + enf.getId());
-    		System.out.println(pro.getNombre() + pro.getId());
+//    		System.out.println(enf.getNombre() + enf.getId());
+//    		System.out.println(pro.getNombre() + pro.getId());
         	this.puenteDatos.agregarVacuna(vac);
     		
     	}
     	
     }
+    
+    public void editarVacuna(DTVacuna dtvacuna) throws Exception {
+    	
+    	Vacuna vacuna = puenteDatos.obtenerVacuna(dtvacuna.getNombre());
+    	
+    	if(vacuna != null) {
+    		
+    		
+    		System.out.println(dtvacuna.getEnfermedad().getNombre());	
+    		
+    		Enfermedad enf = enfermedadDatoLocal.buscarEnfermedad(dtvacuna.getEnfermedad().getNombre());
+    		vacuna.setEnfermedad(enf);
+    		Proveedor pro = proveedorDatoLocal.obtenerProveedorPorNombre(dtvacuna.getProveedor().getNombre());
+    		vacuna.setProveedor(pro);
+    		
+    		vacuna.setNombre(dtvacuna.getNombre());
+    		vacuna.setCodigo(dtvacuna.getCodigo());
+    		vacuna.setLaboratorio(dtvacuna.getLaboratorio());
+    		
+    		puenteDatos.editarVacuna(vacuna);
+    	}else {
+			throw new Exception("\nNo se encontro una Vacuna con el id ingresado");
+			
+		}
+			
+    }
+    
+    public DTProveedor obtenerProveedorDeVacuna(String nombre) {
+    	Vacuna vac = puenteDatos.obtenerVacuna(nombre);
+    	DTProveedor dtPro = new DTProveedor(vac.getProveedor());
+    	return dtPro;
+    }
+    
+    public DTEnfermedad obtenerEnfermedadDeVacuna(String nombre) {
+    	Vacuna vac = puenteDatos.obtenerVacuna(nombre);
+    	DTEnfermedad dtEnf = new DTEnfermedad(vac.getEnfermedad());
+    	return dtEnf;
+    }
+    
+    @Override
+	public void eliminarVacuna(String nombre) throws Exception{
+    	Vacuna vac = puenteDatos.obtenerVacuna(nombre);
+    	if(vac != null) {
+    		puenteDatos.eliminarVacuna(vac);
+    	}else {
+			throw new Exception("\nNo se encontro un plan con el id ingresado");
+			
+		}
+    }
+    
+    
+    
 }

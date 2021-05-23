@@ -104,4 +104,16 @@ public class EnfermedadNegocio implements EnfermedadNegocioRemote, EnfermedadNeg
 		return poblacion;
     }
 
+	
+
+    @Override
+	public void eliminarEnfermedad(String nombre) throws Exception{
+    	Enfermedad enf = datoLocal.buscarEnfermedad(nombre);
+    	if(enf != null) {
+    		datoLocal.eliminarEnfermedad(enf);
+    	}else {
+			throw new Exception("\nNo se encontro la Enfermedad con el id ingresado");
+			
+		}
+    }
 }

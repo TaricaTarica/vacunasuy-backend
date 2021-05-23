@@ -62,5 +62,10 @@ public class EnfermedadDato implements EnfermedadDatoRemote, EnfermedadDatoLocal
 
 	}
 
+	@Override
+    public void eliminarEnfermedad(Enfermedad enfermedad) {
+		em.remove(enfermedad);
+	}
+    
 
 }

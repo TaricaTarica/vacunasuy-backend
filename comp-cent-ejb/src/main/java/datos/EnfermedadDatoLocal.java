@@ -15,4 +15,5 @@ public interface EnfermedadDatoLocal {
 	public void agregarEnfermedad(Enfermedad enfermedad);
 	public Enfermedad buscarEnfermedad(String nombre);
 	public Boolean existeEnfermedad(String nombre);
+	public void eliminarEnfermedad(Enfermedad enfermedad);
 }

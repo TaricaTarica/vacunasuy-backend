@@ -1,17 +1,22 @@
 package rest;
 
+import java.util.List;
+
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.naming.NamingException;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import datatypes.DTAgenda;
 import datatypes.DTCiudadano;
+import datatypes.DTConsultaReservaCiudadano;
 import datatypes.DTPlanVacunacion;
 import datatypes.DTReserva;
 import datatypes.DTReservaWS;
@@ -100,6 +105,32 @@ public class ReservaREST {
 				.status(Response.Status.OK)
 				.entity("INFO: Reserva creada!")
 				.build();
+	}
+	@GET
+	@Path("/{ci}")
+	public Response consultaReservas(@PathParam("ci") String ci) {
+		try{
+			int numeroCi = Integer.parseInt(ci);
+			List<DTConsultaReservaCiudadano> dtReservas = rnl.ciudadanoReservas(numeroCi);
+			if(!dtReservas.isEmpty()) {
+				return Response
+						.status(Response.Status.OK)
+						.entity(dtReservas)
+						.build();
+			}
+			else {
+				return Response
+          		 .status(Response.Status.NOT_FOUND)
+          		 .entity("El ciudadano no tiene reservas")
+          		 .build();
+			}
+		}
+		catch (NumberFormatException ex){
+            return Response
+           		 .status(Response.Status.BAD_REQUEST)
+           		 .entity("Ha ocurrido un error procesando la cedula")
+           		 .build();
+       }
 	}
 	
 }

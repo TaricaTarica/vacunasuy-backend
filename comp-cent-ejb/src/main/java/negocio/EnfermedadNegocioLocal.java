@@ -13,5 +13,6 @@ public interface EnfermedadNegocioLocal {
 	public void agregarEnfermedad(String nombre) throws Exception;
 	public DTEnfermedad buscarEnfermedad(String nombre) throws Exception;
 	public List<DTVacuna> listarVacunasPorEnfermedad (String nombreEnfermedad) throws Exception;
-	public List<String> listarPoblacionObjetivo();;
+	public List<String> listarPoblacionObjetivo();
+	public void eliminarEnfermedad(String nombre) throws Exception;
 }
