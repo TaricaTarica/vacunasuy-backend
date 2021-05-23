@@ -53,4 +53,34 @@ public class ProveedorNegocio implements ProveedorNegocioRemote, ProveedorNegoci
     	}
     	return lista;
     }
+    
+
+    @Override
+    public DTProveedor obtenerProveedorPorId(long id) {
+    	Proveedor pro = mp.obtenerProveedorPorId(id);
+    	DTProveedor dtPro = new DTProveedor(pro);
+    	return dtPro;
+    }
+    public void editarProveedor(DTProveedor dtPro) throws Exception{
+    	Proveedor pro = mp.obtenerProveedorPorId(dtPro.getId());
+    	if(pro != null) {
+    		pro.setNombre(dtPro.getNombre());
+    		pro.setTelefono(dtPro.getTelefono());
+    		mp.editarProveedor(pro);
+    	}else{
+			throw new Exception("\nNo se encontro el Proveedor con el id ingresado");	
+		}
+    }
+    
+    public void eliminarProveedor(DTProveedor dtPro) throws Exception{
+    	Proveedor pro = mp.obtenerProveedorPorId(dtPro.getId());
+    	if(pro != null) {
+    		mp.eliminarProveedor(pro);
+    	}else{
+			throw new Exception("\nNo se encontro el Proveedor con el id ingresado");	
+		}
+    }
+    
+    
+    
 }

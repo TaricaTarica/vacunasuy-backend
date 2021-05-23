@@ -43,7 +43,7 @@ public class ProveedorDato implements ProveedorDatoRemote, ProveedorDatoLocal {
     	return lista;
     }
     
-    
+    @Override
     public Proveedor obtenerProveedorPorNombre(String nombre) {
     	Query query = em.createQuery("from Proveedor p where p.nombre =: nombre");
     	query.setParameter("nombre", nombre);
@@ -55,5 +55,19 @@ public class ProveedorDato implements ProveedorDatoRemote, ProveedorDatoLocal {
     	Boolean existe = (em.createQuery("Select p from Proveedor p where p.nombre = :nombre").setParameter("nombre", nombre).getResultList().size() > 0);	
 		return existe;
     }
-
+    
+    @Override
+    public Proveedor obtenerProveedorPorId(long id) {
+    	Proveedor pro = em.find(Proveedor.class, id);
+    	return pro;
+    }
+    @Override
+    public void editarProveedor(Proveedor pro) {
+    	em.merge(pro);
+    }
+    @Override
+    public void eliminarProveedor(Proveedor pro) {
+    	em.remove(pro);
+    }
+    
 }
