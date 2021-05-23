@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
@@ -61,6 +63,17 @@ public class EnfermedadBean implements Serializable{
 		this.nombre = nombre;
 	}
 
+	public void eliminarEnfermedad(DTEnfermedad dtEnfermedad) throws Exception{
+		
+		try {
+			enfermedadLocal.eliminarEnfermedad(dtEnfermedad.getNombre());
+			this.enfermedades.remove(dtEnfermedad);
+			dtEnfermedad = null;
+		}catch (Exception e){
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage());
+	        FacesContext.getCurrentInstance().addMessage(null, message);
+		}
+	}
 
 	public void agregarEnfermedad() throws Exception {
 		
