@@ -3,6 +3,8 @@ package entidades;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
+import datatypes.DTCiudadano;
+
 @Entity
 @DiscriminatorValue("ciudadano")
 public class Ciudadano extends Usuario {
@@ -18,6 +20,8 @@ public class Ciudadano extends Usuario {
 		// TODO Auto-generated constructor stub
 	}
 
-	
+	public Ciudadano(DTCiudadano dtciudadano) {
+		super(dtciudadano.getCi(),dtciudadano.getPrimerNombre(),dtciudadano.getSegundoNombre(),dtciudadano.getPrimerApellido(),dtciudadano.getSegundoApellido(),dtciudadano.getTelefono(), dtciudadano.getEmail());	
+	}	
 	
 }
