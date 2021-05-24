@@ -8,7 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -36,12 +35,6 @@ public class Vacunatorio {
 	
 	@OneToMany(mappedBy="vacunatorio",cascade=CascadeType.ALL,orphanRemoval=true)
 	private  List<Agenda> agendas;
-	
-	@ManyToMany(mappedBy="vacunatorios")
-	private List<Ciudadano> ciudadanos = new ArrayList<>();
-	
-	@ManyToMany(mappedBy="vacunatorios")
-	private List<Administrador> administradores = new ArrayList<>();
 	
 	public Vacunatorio() {
 		super();
@@ -136,22 +129,6 @@ public class Vacunatorio {
 			ubicacion.setVacunatorio(null);
 			this.ubicacion=null;
 		}
-	}
-
-	public List<Ciudadano> getCiudadanos() {
-		return ciudadanos;
-	}
-
-	public void setCiudadanos(List<Ciudadano> ciudadanos) {
-		this.ciudadanos = ciudadanos;
-	}
-
-	public List<Administrador> getAdministradores() {
-		return administradores;
-	}
-
-	public void setAdministradores(List<Administrador> administradores) {
-		this.administradores = administradores;
 	}
 	
 	public void agregarAgenda(Agenda agenda) {

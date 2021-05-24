@@ -1,36 +1,38 @@
 package entidades;
 
 
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-
 
 @Entity
-@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
+@DiscriminatorColumn(name="tipo")
 public abstract class Usuario {
 
 	@Id
 	private int ci;
 	
-	private String nombre;
+	private String primerNombre;
+	private String segundoNombre;
+	private String primerApellido;
+	private String segundoApellido;	
 	private int telefono;
 	private String email;
 	
-
 	public Usuario() {
-		// TODO Auto-generated constructor stub
+		super();
 	}
-	
 
-	public Usuario(int ci, String nombre, int telefono, String email) {
+	public Usuario(int ci, String primerNombre, String segundoNombre, String primerApellido, String segundoApellido,
+			int telefono, String email) {
 		super();
 		this.ci = ci;
-		this.nombre = nombre;
+		this.primerNombre = primerNombre;
+		this.segundoNombre = segundoNombre;
+		this.primerApellido = primerApellido;
+		this.segundoApellido = segundoApellido;
 		this.telefono = telefono;
 		this.email = email;
-
 	}
 
 	public int getCi() {
@@ -41,12 +43,36 @@ public abstract class Usuario {
 		this.ci = ci;
 	}
 
-	public String getNombre() {
-		return nombre;
+	public String getPrimerNombre() {
+		return primerNombre;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setPrimerNombre(String primerNombre) {
+		this.primerNombre = primerNombre;
+	}
+
+	public String getSegundoNombre() {
+		return segundoNombre;
+	}
+
+	public void setSegundoNombre(String segundoNombre) {
+		this.segundoNombre = segundoNombre;
+	}
+
+	public String getPrimerApellido() {
+		return primerApellido;
+	}
+
+	public void setPrimerApellido(String primerApellido) {
+		this.primerApellido = primerApellido;
+	}
+
+	public String getSegundoApellido() {
+		return segundoApellido;
+	}
+
+	public void setSegundoApellido(String segundoApellido) {
+		this.segundoApellido = segundoApellido;
 	}
 
 	public int getTelefono() {
@@ -65,4 +91,11 @@ public abstract class Usuario {
 		this.email = email;
 	}
 
+	@Override
+	public String toString() {
+		return "Usuario [ci=" + ci + ", primerNombre=" + primerNombre + ", segundoNombre=" + segundoNombre
+				+ ", primerApellido=" + primerApellido + ", segundoApellido=" + segundoApellido + ", telefono="
+				+ telefono + ", email=" + email + "]";
+	}	
+	
 }
