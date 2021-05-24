@@ -1,8 +1,8 @@
 package datatypes;
 
-import entidades.Administrador;
+import entidades.Autoridad;
 
-public class DTAdministrador {
+public class DTAutoridad {
 	
 	private int ci;	
 	private String primerNombre;
@@ -12,14 +12,14 @@ public class DTAdministrador {
 	private int telefono;
 	private String email;
 	private String usuario;
-	private String contrasenia;	
-
-	public DTAdministrador() {
-		// TODO Auto-generated constructor stub
+	private String contrasenia;
+	
+	public DTAutoridad() {
+		super();
 	}
 
-	public DTAdministrador(int ci, String primerNombre, String segundoNombre, String primerApellido,
-			String segundoApellido, int telefono, String email, String usuario, String contrasenia) {
+	public DTAutoridad(int ci, String primerNombre, String segundoNombre, String primerApellido, String segundoApellido,
+			int telefono, String email, String usuario, String contrasenia) {
 		super();
 		this.ci = ci;
 		this.primerNombre = primerNombre;
@@ -30,19 +30,20 @@ public class DTAdministrador {
 		this.email = email;
 		this.usuario = usuario;
 		this.contrasenia = contrasenia;
-	}
-	
-	public DTAdministrador(Administrador administrador) {
-		this.ci = administrador.getCi();
-		this.primerNombre = administrador.getPrimerNombre();
-		this.segundoNombre = administrador.getSegundoNombre();
-		this.primerApellido = administrador.getPrimerApellido();
-		this.segundoApellido = administrador.getSegundoApellido();
-		this.telefono = administrador.getTelefono();
-		this.email = administrador.getEmail();
-		this.usuario = administrador.getUsuario();
-		this.contrasenia = administrador.getContrasenia();		
 	}	
+
+	public DTAutoridad(Autoridad autoridad) {
+		super();
+		this.ci = autoridad.getCi();
+		this.primerNombre = autoridad.getPrimerNombre();
+		this.segundoNombre = autoridad.getSegundoNombre();
+		this.primerApellido = autoridad.getPrimerApellido();
+		this.segundoApellido = autoridad.getSegundoApellido();
+		this.telefono = autoridad.getTelefono();
+		this.email = autoridad.getEmail();
+		this.usuario = autoridad.getUsuario();
+		this.contrasenia = autoridad.getContrasenia();		
+	}
 
 	public int getCi() {
 		return ci;
@@ -118,7 +119,7 @@ public class DTAdministrador {
 
 	@Override
 	public String toString() {
-		return "DTAdministrador [ci=" + ci + ", primerNombre=" + primerNombre + ", segundoNombre=" + segundoNombre
+		return "DTAutoridad [ci=" + ci + ", primerNombre=" + primerNombre + ", segundoNombre=" + segundoNombre
 				+ ", primerApellido=" + primerApellido + ", segundoApellido=" + segundoApellido + ", telefono="
 				+ telefono + ", email=" + email + ", usuario=" + usuario + "]";
 	}	
