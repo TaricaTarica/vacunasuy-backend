@@ -96,7 +96,7 @@ public class PlanVacunacionNegocio implements PlanVacunacionNegocioRemote, PlanV
 		if (datoLocal.existePlanVacunacion(nombre)) {
 			PlanVacunacion planVacunacion = datoLocal.obtenerPlanVacunacion(nombre);
 			DTPlanVacunacion dtPlanVacunacion = new DTPlanVacunacion(planVacunacion);
-			DTEnfermedad enfermedad = new DTEnfermedad(enfermedadDatoLocal.buscarEnfermedad(planVacunacion.getEnfermedad().getNombre()));
+			DTEnfermedad enfermedad = new DTEnfermedad(planVacunacion.getEnfermedad());
 			    dtPlanVacunacion.setEnfermedad(enfermedad);
 			    List<Vacuna> vacunas = planVacunacion.getVacunas();
 			    List<DTVacuna> dtVacunas = new ArrayList<DTVacuna>();

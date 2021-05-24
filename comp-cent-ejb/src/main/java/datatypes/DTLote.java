@@ -5,9 +5,12 @@ import java.time.LocalDate;
 import entidades.Lote;
 
 public class DTLote {
-	public long id;
-	public String nombre;
-	public LocalDate fechaCreado;
+	private long id;
+	private String nombre;
+	private int cantVacunas;
+	private String fechaCreado;
+	private DTVacuna vacuna;
+	private DTLogisticaDistribucion logDistribucion;
 	//public Vacuna vacuna;
 	
 	public DTLote() {
@@ -15,18 +18,15 @@ public class DTLote {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public DTLote(long id, String nombre, LocalDate fechaCreado) {
-		super();
-		this.id = id;
-		this.nombre = nombre;
-		this.fechaCreado = fechaCreado;
-	}
+	
 	
 	public DTLote(Lote lote) {
 		super();
 		this.id = lote.getId();
 		this.nombre = lote.getNombre();
-		this.fechaCreado = lote.getFechaCreado();
+		this.cantVacunas = lote.getCantVacunas();
+		this.fechaCreado = lote.getFechaCreado().toString();
+		
 	}
 
 	public long getId() {
@@ -45,12 +45,51 @@ public class DTLote {
 		this.nombre = nombre;
 	}
 
-	public LocalDate getFechaCreado() {
+	public String getFechaCreado() {
 		return fechaCreado;
 	}
 
 	public void setFechaCreado(LocalDate fechaCreado) {
-		this.fechaCreado = fechaCreado;
+		this.fechaCreado = fechaCreado.toString();
 	}
+
+
+
+	public int getCantVacunas() {
+		return cantVacunas;
+	}
+
+
+
+	public void setCantVacunas(int cantVacunas) {
+		this.cantVacunas = cantVacunas;
+	}
+
+
+
+	public DTVacuna getVacuna() {
+		return vacuna;
+	}
+
+
+
+	public void setVacuna(DTVacuna vacuna) {
+		this.vacuna = vacuna;
+	}
+
+
+
+	public DTLogisticaDistribucion getLogDistribucion() {
+		return logDistribucion;
+	}
+
+
+
+	public void setLogDistribucion(DTLogisticaDistribucion logDistribucion) {
+		this.logDistribucion = logDistribucion;
+	}
+	
+	
+	
 
 }

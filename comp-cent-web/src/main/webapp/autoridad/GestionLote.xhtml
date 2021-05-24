@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3c.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Lote</title>
+</h:head>
+<h:body>
+	<h:form id="LoteListarForm">
+<!-- 		<p:messages id="messages" showDetail="true" closable="true"> -->
+<!-- 			<p:autoUpdate /> -->
+<!-- 		</p:messages> -->
+		<div>
+			<p:dataTable id="LoteTabla" var="lote"
+				value="#{loteBean.lotes}" paginator="true" rows="6"
+        		paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+				<f:facet name="header">Listado Lotes </f:facet>
+				
+				<p:column headerText="Nombre">
+					<h:outputText value="#{lote.nombre}" />
+				</p:column>
+				<p:column headerText="Cantidad de vacunas">
+					<h:outputText value="#{lote.cantVacunas}" />
+				</p:column>
+				<p:column headerText="Vacuna">
+					<h:outputText value="#{lote.vacuna.nombre}" />
+				</p:column>
+				<p:column headerText="Fecha creacion">
+					<h:outputText value="#{lote.fechaCreado}" />
+				</p:column>
+				<p:column headerText="Opciones">
+					<div style="display: flex; align-items: center;justify-content: center;">    
+						      <p:commandButton id="editar" icon="pi pi-pencil" styleClass="rounded-button ui-button-secondary"
+											action="#{loteBean.editarLote(lote)}"
+											update=":dialogForm" oncomplete="PF('loteDialog').show()" />
+										 <p:tooltip for="editar" value="Editar Lote" position="left"/>	
+									<p:spacer width="5"/>
+							<p:commandButton id="eliminar" icon="pi pi-trash" styleClass="rounded-button ui-button-secondary"
+											action="#{loteBean.eliminarLoteSeleccionado(lote)}"
+											update=":eliminarlote,:LoteListarForm:LoteTabla">
+											<p:confirm header="Confirmacion" message="Estas seguro de eliminar el Lote?" icon="pi pi-exclamation-triangle"/>
+							</p:commandButton>	
+										 <p:tooltip for="eliminar" value="Eliminar Lote" position="left"/>	
+									<p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+									            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no"/>
+									            <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" />
+       								</p:confirmDialog>
+										 
+					</div>					 
+				</p:column>				
+
+				<f:facet name="footer">
+					<div style="display: flex; align-items: center;justify-content: center;">
+						<p:commandButton value="Buscar"
+							actionListener="#{loteBean.reiniciarLote}"
+							oncomplete="PF('loteDialogBuscar').show()" />
+						<p:spacer height="5px" />
+						<p:commandButton value="Agregar Lote"
+							update=":dialogForm"
+							actionListener="#{loteBean.reiniciarLote}"
+							oncomplete="PF('loteDialog').show()" />
+							
+						
+					</div>
+				</f:facet>
+			</p:dataTable>
+		</div>
+	</h:form>
+	
+	<div>
+		<h:form id="eliminarlote">
+				 <p:growl id="message" showDetail="true"/>
+		</h:form>
+	</div>	
+	
+
+	<p:dialog id="loteDlg" widgetVar="loteDialog"
+		header="Lote" modal="true" showEffect="fade"
+		hideEffect="fade" resizable="false">
+
+		<h:form id="dialogForm">			
+			<p:panel header="#{loteBean.nombreBoton}" id="grid" style="margin-bottom:10px;">
+	            <p:growl id="growl" showDetail="false" />
+	        	<p:growl id="growl-sticky" for="sticky-key" showDetail="true" sticky="true" />
+	            
+		            <h:panelGrid  columns="2" cellpadding="5" styleClass="p-mb-3">
+		                
+		                <h:outputLabel for="name" value="Nombre:"/>
+		            	<p:message for="name" display="icon"> <p:inputText id="name" value="#{loteBean.lote.nombre}" required="true" requiredMessage="Debe ingresar un nombre de lote"/>  </p:message>
+		            	
+		                
+		                <h:outputLabel for="canvacunas" value="Cantidad Vacunas"/>
+		            	<p:spinner id="canvacunas" value="#{loteBean.lote.cantVacunas}" min="0" required="true"/>
+		        
+		            	
+		            	 <h:outputLabel for="vacuna" value="Vacuna:"/>
+			                <p:selectOneMenu id="vacuna" value="#{loteBean.nombreVacuna}" required="true" requiredMessage="Debe seleccionar una Vacuna" style="width:15rem">
+			                    <f:selectItem itemLabel="Seleccionar Vacuna" itemValue="" noSelectionOption="true"/>
+			                    <f:selectItems value="#{loteBean.vacunas}"/>
+			                </p:selectOneMenu>
+	        
+	            	</h:panelGrid>
+				
+	          
+				<div style="display: flex; align-items: center;justify-content: center;">
+	            <p:commandButton  value="#{loteBean.nombreBoton}" action="#{loteBean.agregarEditarLote()}" 
+	            				update="grid,:LoteListarForm:LoteTabla"
+	                             icon="#{loteBean.estiloBoton}" /> 
+	            </div>
+	        </p:panel>
+	
+		</h:form>
+
+	</p:dialog>
+
+	<p:dialog id="loteDlgBuscar" widgetVar="loteDialogBuscar"
+		header="Buscar Lote" modal="true" showEffect="fade"
+		hideEffect="fade" resizable="false">
+
+		<h:form id="dialogFormPlan">
+
+			<p:outputPanel id="PlanInfo" style="text-align: center">
+				<h:outputText value="Nombre" />
+				<h:inputText value="#{loteBean.nombreLote}" />
+					<p:commandButton value="Buscar"
+					actionListener="#{loteBean.buscarLote()}"
+					update="LoteTabla" />
+				<p:dataTable id="LoteTabla" var="lote"	value="#{loteBean.lote}">
+
+					
+				<f:facet name="header">Listado Lotes </f:facet>
+				
+				<p:column headerText="Nombre">
+					<h:outputText value="#{lote.nombre}" />
+				</p:column>
+				<p:column headerText="Cantidad de vacunas">
+					<h:outputText value="#{lote.cantVacunas}" />
+				</p:column>
+				<p:column headerText="Vacuna">
+					<h:outputText value="#{lote.vacuna.nombre}" />
+				</p:column>
+				<p:column headerText="Fecha creacion">
+					<h:outputText value="#{lote.fechaCreado}" />
+				</p:column>
+				</p:dataTable>
+			</p:outputPanel>
+		</h:form>
+
+	</p:dialog>
+
+</h:body>
+</html>

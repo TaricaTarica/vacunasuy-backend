@@ -16,10 +16,12 @@ public class Lote {
 	private long id;
 	
 	private String nombre;
+	private int cantVacunas;
 	private LocalDate fechaCreado;
 	
 	@ManyToOne
 	private Vacuna vacuna;
+	
 	
 	@ManyToOne
 	private LogisticaDistribucion logistica;
@@ -29,16 +31,12 @@ public class Lote {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Lote(String nombre, LocalDate fechaCreado) {
-		super();
-		this.nombre = nombre;
-		this.fechaCreado = fechaCreado;
-	}
 	
 	public Lote(DTLote lote) {
 		super();
 		this.nombre = lote.getNombre();
-		this.fechaCreado = lote.getFechaCreado();
+		this.cantVacunas = lote.getCantVacunas();
+		this.fechaCreado = LocalDate.parse(lote.getFechaCreado());
 	}
 
 	public long getId() {
@@ -80,5 +78,14 @@ public class Lote {
 	public void setLogistica(LogisticaDistribucion logistica) {
 		this.logistica = logistica;
 	}
+
+	public int getCantVacunas() {
+		return cantVacunas;
+	}
+
+	public void setCantVacunas(int cantVacunas) {
+		this.cantVacunas = cantVacunas;
+	}
+	
 	
 }
