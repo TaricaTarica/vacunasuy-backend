@@ -12,4 +12,7 @@ public interface ProveedorDatoLocal {
 	public Proveedor obtenerProveedorPorNombre(String nombre);
 	public Boolean existeProveedor(String nombre);
 	 public void agregarProveedor(Proveedor proveedor);
+	 public Proveedor obtenerProveedorPorId(long id);
+	 public void editarProveedor(Proveedor pro);
+	 public void eliminarProveedor(Proveedor pro);
 }

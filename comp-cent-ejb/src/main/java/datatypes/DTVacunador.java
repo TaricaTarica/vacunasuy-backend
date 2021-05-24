@@ -3,30 +3,40 @@ package datatypes;
 import entidades.Vacunador;
 
 public class DTVacunador {
-
-	private int ci;
-	private String nombre;
-	private int telefono;
-	private String Email;
-	private String Pass;
-
-	public DTVacunador() {
-		// TODO Auto-generated constructor stub
-	}
 	
-	public DTVacunador(int ci, String nombre, int telefono, String email, String pass) {
+	private int ci;	
+	private String primerNombre;
+	private String segundoNombre;
+	private String primerApellido;
+	private String segundoApellido;	
+	private int telefono;
+	private String email;
+	
+	public DTVacunador() {
+		super();
+	}
+
+	public DTVacunador(int ci, String primerNombre, String segundoNombre, String primerApellido, String segundoApellido,
+			int telefono, String email) {
 		super();
 		this.ci = ci;
-		this.nombre = nombre;
+		this.primerNombre = primerNombre;
+		this.segundoNombre = segundoNombre;
+		this.primerApellido = primerApellido;
+		this.segundoApellido = segundoApellido;
 		this.telefono = telefono;
-		Email = email;
+		this.email = email;
 	}
 	
 	public DTVacunador(Vacunador vacunador) {
+		super();
 		this.ci = vacunador.getCi();
-		this.nombre = vacunador.getNombre();
+		this.primerNombre = vacunador.getPrimerNombre();
+		this.segundoNombre = vacunador.getSegundoNombre();
+		this.primerApellido = vacunador.getPrimerApellido();
+		this.segundoApellido = vacunador.getSegundoApellido();
 		this.telefono = vacunador.getTelefono();
-		Email = vacunador.getEmail();
+		this.email = vacunador.getEmail();	
 	}
 
 	public int getCi() {
@@ -37,12 +47,36 @@ public class DTVacunador {
 		this.ci = ci;
 	}
 
-	public String getNombre() {
-		return nombre;
+	public String getPrimerNombre() {
+		return primerNombre;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setPrimerNombre(String primerNombre) {
+		this.primerNombre = primerNombre;
+	}
+
+	public String getSegundoNombre() {
+		return segundoNombre;
+	}
+
+	public void setSegundoNombre(String segundoNombre) {
+		this.segundoNombre = segundoNombre;
+	}
+
+	public String getPrimerApellido() {
+		return primerApellido;
+	}
+
+	public void setPrimerApellido(String primerApellido) {
+		this.primerApellido = primerApellido;
+	}
+
+	public String getSegundoApellido() {
+		return segundoApellido;
+	}
+
+	public void setSegundoApellido(String segundoApellido) {
+		this.segundoApellido = segundoApellido;
 	}
 
 	public int getTelefono() {
@@ -54,11 +88,18 @@ public class DTVacunador {
 	}
 
 	public String getEmail() {
-		return Email;
+		return email;
 	}
 
 	public void setEmail(String email) {
-		Email = email;
+		this.email = email;
 	}
 
+	@Override
+	public String toString() {
+		return "DTVacunador [ci=" + ci + ", primerNombre=" + primerNombre + ", segundoNombre=" + segundoNombre
+				+ ", primerApellido=" + primerApellido + ", segundoApellido=" + segundoApellido + ", telefono="
+				+ telefono + ", email=" + email + "]";
+	}	
+	
 }

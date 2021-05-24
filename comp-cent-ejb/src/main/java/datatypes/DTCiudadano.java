@@ -4,30 +4,40 @@ import entidades.Ciudadano;
 
 public class DTCiudadano {
 
-	private int ci;
-	private String nombre;
+	private int ci;	
+	private String primerNombre;
+	private String segundoNombre;
+	private String primerApellido;
+	private String segundoApellido;	
 	private int telefono;
-	private String Email;
-	private String Pass;
-
+	private String email;
+	
 	public DTCiudadano() {
+		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	public DTCiudadano(int ci, String nombre, int telefono, String email, String pass) {
+
+	public DTCiudadano(int ci, String primerNombre, String segundoNombre, String primerApellido, String segundoApellido,
+			int telefono, String email) {
 		super();
 		this.ci = ci;
-		this.nombre = nombre;
+		this.primerNombre = primerNombre;
+		this.segundoNombre = segundoNombre;
+		this.primerApellido = primerApellido;
+		this.segundoApellido = segundoApellido;
 		this.telefono = telefono;
-		Email = email;
-		Pass = pass;
+		this.email = email;
 	}
 	
-	public DTCiudadano(Ciudadano cuidadano) {
-		this.ci = cuidadano.getCi();
-		this.nombre = cuidadano.getNombre();
-		this.telefono = cuidadano.getTelefono();
-		Email = cuidadano.getEmail();
+	public DTCiudadano(Ciudadano ciudadano) {
+		super();
+		this.ci = ciudadano.getCi();
+		this.primerNombre = ciudadano.getPrimerNombre();
+		this.segundoNombre = ciudadano.getSegundoNombre();
+		this.primerApellido = ciudadano.getPrimerApellido();
+		this.segundoApellido = ciudadano.getSegundoApellido();
+		this.telefono = ciudadano.getTelefono();
+		this.email = ciudadano.getEmail();	
 	}
 
 	public int getCi() {
@@ -38,12 +48,36 @@ public class DTCiudadano {
 		this.ci = ci;
 	}
 
-	public String getNombre() {
-		return nombre;
+	public String getPrimerNombre() {
+		return primerNombre;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setPrimerNombre(String primerNombre) {
+		this.primerNombre = primerNombre;
+	}
+
+	public String getSegundoNombre() {
+		return segundoNombre;
+	}
+
+	public void setSegundoNombre(String segundoNombre) {
+		this.segundoNombre = segundoNombre;
+	}
+
+	public String getPrimerApellido() {
+		return primerApellido;
+	}
+
+	public void setPrimerApellido(String primerApellido) {
+		this.primerApellido = primerApellido;
+	}
+
+	public String getSegundoApellido() {
+		return segundoApellido;
+	}
+
+	public void setSegundoApellido(String segundoApellido) {
+		this.segundoApellido = segundoApellido;
 	}
 
 	public int getTelefono() {
@@ -55,12 +89,18 @@ public class DTCiudadano {
 	}
 
 	public String getEmail() {
-		return Email;
+		return email;
 	}
 
 	public void setEmail(String email) {
-		Email = email;
+		this.email = email;
 	}
 
-
+	@Override
+	public String toString() {
+		return "DTCiudadano [ci=" + ci + ", primerNombre=" + primerNombre + ", segundoNombre=" + segundoNombre
+				+ ", primerApellido=" + primerApellido + ", segundoApellido=" + segundoApellido + ", telefono="
+				+ telefono + ", email=" + email + "]";
+	}
+	
 }

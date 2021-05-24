@@ -18,6 +18,7 @@ public class DTProveedor {
 		super();
 		this.nombre = proveedor.getNombre();
 		this.telefono = proveedor.getTelefono();
+		this.id = proveedor.getId();
 	}
 
 

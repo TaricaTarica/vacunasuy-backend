@@ -7,7 +7,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import datatypes.DTSocioLogistico;
@@ -24,10 +23,7 @@ public class SocioLogistico {
 	
 	@OneToMany(mappedBy="socio",cascade=CascadeType.ALL,orphanRemoval=true)
 	private List<LogisticaDistribucion> logisticas = new ArrayList<>();
-	
-	@ManyToMany(mappedBy="socios")
-	private List<Administrador> administradores = new ArrayList<>();
-	
+		
 	@OneToMany(mappedBy="socio",cascade=CascadeType.ALL,orphanRemoval=true)
 	private List<Transportista> transportistas = new ArrayList<>();
 	
@@ -88,14 +84,6 @@ public class SocioLogistico {
 
 	public void setLogisticas(List<LogisticaDistribucion> logisticas) {
 		this.logisticas = logisticas;
-	}
-
-	public List<Administrador> getAdministradores() {
-		return administradores;
-	}
-
-	public void setAdministradores(List<Administrador> administradores) {
-		this.administradores = administradores;
 	}
 
 	public List<Transportista> getTransportistas() {

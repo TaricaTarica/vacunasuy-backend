@@ -6,31 +6,39 @@ import javax.persistence.Entity;
 
 
 @Entity
-//@DiscriminatorValue("Aut")
+@DiscriminatorValue("autoridad")
 public class Autoridad extends Usuario{
 
-	private String usuarioAutoridad;
-	private String contraseniaAutoridad;
+	private String usuario;
+	private String contrasenia;
 	
 	public Autoridad() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
-	public String getContraseniaAutoridad() {
-		return contraseniaAutoridad;
+	
+	public Autoridad(int ci, String primerNombre, String segundoNombre, String primerApellido, String segundoApellido,
+			int telefono, String email, String usuario, String contrasenia) {
+		super(ci, primerNombre, segundoNombre, primerApellido, segundoApellido, telefono, email);
+		// TODO Auto-generated constructor stub
+		this.usuario = usuario;
+		this.contrasenia = contrasenia;
 	}
 
-	public void setContraseniaAutoridad(String contraseniaAutoridad) {
-		this.contraseniaAutoridad = contraseniaAutoridad;
+	public String getUsuario() {
+		return usuario;
 	}
 
-	public String getUsuarioAutoridad() {
-		return usuarioAutoridad;
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
 	}
 
-	public void setUsuarioAutoridad(String usuarioAutoridad) {
-		this.usuarioAutoridad = usuarioAutoridad;
+	public String getContrasenia() {
+		return contrasenia;
 	}
 
+	public void setContrasenia(String contrasenia) {
+		this.contrasenia = contrasenia;
+	}	
+	
 }
