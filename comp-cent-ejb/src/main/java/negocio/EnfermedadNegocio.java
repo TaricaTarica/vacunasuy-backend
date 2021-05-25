@@ -12,6 +12,7 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
 import datatypes.DTEnfermedad;
+import datatypes.DTProveedor;
 import datatypes.DTVacuna;
 import datos.EnfermedadDatoLocal;
 import entidades.Enfermedad;
@@ -114,6 +115,23 @@ public class EnfermedadNegocio implements EnfermedadNegocioRemote, EnfermedadNeg
     	}else {
 			throw new Exception("\nNo se encontro la Enfermedad con el id ingresado");
 			
+		}
+    }
+    
+    @Override
+    public DTEnfermedad obtenerEnfermedadPorId(long id){
+    	Enfermedad enf= datoLocal.obtenerEnfermedadPorId(id);
+    	DTEnfermedad dtEnf = new DTEnfermedad(enf);
+    	return dtEnf;
+    }
+    
+    public void editarEnfermedad(DTEnfermedad dtEnf) throws Exception{
+    	Enfermedad enf = datoLocal.obtenerEnfermedadPorId(dtEnf.getId());
+    	if(enf != null){
+    		enf.setNombre(dtEnf.getNombre());
+    		datoLocal.editarEnfermedad(enf);
+    	}else{
+			throw new Exception("\nNo se encontro el Proveedor con el id ingresado");	
 		}
     }
 }

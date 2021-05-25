@@ -24,6 +24,12 @@
 	            
 				<p:column headerText="Opciones">
 					<div style="display: flex; align-items: center;justify-content: center;">
+								<p:commandButton id="editar" icon="pi pi-pencil" styleClass="rounded-button ui-button-secondary"
+											action="#{enfermedadBean.editarEnfermedadBean(enfermedad)}"
+											update=":dialogForm" oncomplete="PF('enfermedadDialog').show()" />
+										 <p:tooltip for="editar" value="Editar Enfermedad" position="left"/>	
+								
+								<p:spacer width="5"/>
 								
 								<p:commandButton id="eliminar" icon="pi pi-trash" styleClass="rounded-button ui-button-secondary"
 											action="#{enfermedadBean.eliminarEnfermedad(enfermedad)}"
@@ -42,10 +48,12 @@
                 <f:facet name="footer">
                     <div style="display: flex; align-items: center;justify-content: center;">
 	                    <p:spacer height="5px"/>
-	                    <p:commandButton value="Agregar" actionListener="#{enfermedadBean.reiniciarEnfermedad}"
-	                                     oncomplete="PF('enfermedadDialog').show()" />
-	                   <!--  <p:commandButton value="Buscar" actionListener="#{proveedorBean.reiniciarProveedorSeleccionada}"
-	                                     update=":buscarForm" oncomplete="PF('proveedorBuscar').show()" /> -->
+	                    
+	                    <p:commandButton value="Agregar Enfermedad"
+	                    update=":dialogForm" 
+	                    actionListener="#{enfermedadBean.reiniciarEnfermedad()}"
+	                    oncomplete="PF('enfermedadDialog').show()" />
+	                  
 	                    <p:spacer width="5" height="0"/>
 	                    
 	                    <p:commandButton value="Regresar" action="home" />
@@ -61,18 +69,21 @@
 			</h:form>
 		</div>	
           
-        <p:dialog id="enfermedadDlg" widgetVar="enfermedadDialog" header="Agregar enfermedad" modal="true" showEffect="fade" 
+        <p:dialog id="enfermedadDlg" widgetVar="enfermedadDialog" 
+        header="Enfermedad" modal="true" showEffect="fade" 
         hideEffect="fade" resizable="false" >
+        
             <h:form id="dialogForm">
-              <p:panel header="Nueva Enfermedad" style="margin-bottom:10px;">
+              <p:panel header="#{enfermedadBean.nombreBoton}"  style="margin-bottom:10px;">
                 <p:outputPanel id="enfermedadDetail" style="text-align: center">
                     <p:panelGrid id="display" columns="4" columnClasses="label, value" >
                         <h:outputText value="Nombre Enfermedad" />
                         <h:inputText value="#{enfermedadBean.enfermedad.nombre}" />
                
                         <f:facet name="footer" >
-                            <p:commandButton   icon="pi pi-check" value="Agregar" actionListener="#{enfermedadBean.agregarEnfermedad()}" 
-                             update="display,:enfermedadesListForm:EnfermedadTabla" oncomplete="PF('enfermedadDialog').hide();"/>
+                            <p:commandButton value="#{enfermedadBean.nombreBoton}"  actionListener="#{enfermedadBean.agregarEnfermedad()}" 
+                             update="display,:enfermedadesListForm:EnfermedadTabla" oncomplete="PF('enfermedadDialog').hide();"
+                             icon="#{enfermedadBean.estiloBoton}" />
                         </f:facet>
                     </p:panelGrid>
                 </p:outputPanel>

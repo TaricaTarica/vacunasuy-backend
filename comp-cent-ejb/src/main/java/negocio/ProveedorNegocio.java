@@ -10,7 +10,6 @@ import javax.inject.Inject;
 import datatypes.DTProveedor;
 import datos.ProveedorDatoLocal;
 import entidades.Proveedor;
-import entidades.Vacuna;
 
 /**
  * Session Bean implementation class ProveedorNegocio

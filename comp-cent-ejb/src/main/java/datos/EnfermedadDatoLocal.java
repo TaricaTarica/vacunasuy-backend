@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.ejb.Local;
 
-
+import datatypes.DTEnfermedad;
 import entidades.Enfermedad;
 
 
@@ -16,4 +16,6 @@ public interface EnfermedadDatoLocal {
 	public Enfermedad buscarEnfermedad(String nombre);
 	public Boolean existeEnfermedad(String nombre);
 	public void eliminarEnfermedad(Enfermedad enfermedad);
+	public Enfermedad obtenerEnfermedadPorId(long id);
+	public void editarEnfermedad(Enfermedad enf);
 }

@@ -103,7 +103,7 @@ public class ProveedorBean implements  Serializable{
 			if(editar) {
 				proveedorLocal.editarProveedor(proveedor);
 				this.proveedor = null;
-				PrimeFaces.current().executeScript("PF('VacunaDialog').hide()");
+				PrimeFaces.current().executeScript("PF('ProveedorDialog').hide()");
 			    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Proveedor editado correctamente","" ));
 			}else {
 				proveedorLocal.agregarProveedor(proveedor.getNombre(),proveedor.getTelefono());

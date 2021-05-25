@@ -5,6 +5,7 @@ package datatypes;
 import entidades.Enfermedad;
 
 public class DTEnfermedad {
+	private long id;
 	private String nombre;
 	private String fechaCreacion;	
 	
@@ -15,6 +16,7 @@ public class DTEnfermedad {
 
 	public DTEnfermedad(Enfermedad enfermedad) {
 		super();
+		this.id = enfermedad.getId();
 		this.nombre = enfermedad.getNombre();
 		this.fechaCreacion = enfermedad.getFechaCreacion().toString();
 	}
@@ -40,6 +42,16 @@ public class DTEnfermedad {
 	@Override
 	public String toString() {
 		return nombre;
+	}
+
+
+	public long getId() {
+		return id;
+	}
+
+
+	public void setId(long id) {
+		this.id = id;
 	}
 	
 	
