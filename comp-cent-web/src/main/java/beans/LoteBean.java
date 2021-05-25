@@ -172,17 +172,17 @@ public class LoteBean implements Serializable {
 	}
 	
 	
-	public void addMessage(FacesMessage.Severity severity, String summary, String detail) {
-        FacesContext.getCurrentInstance().
-                addMessage(null, new FacesMessage(severity, summary, detail));
-    }
 	
-	public void buscarLote () throws Exception {
-		try {
-		lote = loteLocal.obtenerLote(nombreLote);
-		} catch (Exception e) {
-    		this.lote = null;
-    	}
+	
+	public void buscarLote () {
+		this.lote = null;
+		for (DTLote dtLote:lotes) {
+			if (dtLote.getNombre().equals(nombreLote)) {
+				lote = dtLote;
+				break;
+			}
+		}
+	
 	}
 		
 	
@@ -227,6 +227,7 @@ public class LoteBean implements Serializable {
 	public void reiniciarLote(){
         this.lote = new DTLote();
         this.nombreVacuna = null;
+        this.nombreLote = null;
         this.nombreBoton="Agregar Lote";
         this.estiloBoton="pi pi-check";
         this.editar= false;

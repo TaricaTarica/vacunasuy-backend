@@ -55,6 +55,7 @@
 					<div style="display: flex; align-items: center;justify-content: center;">
 						<p:commandButton value="Buscar"
 							actionListener="#{loteBean.reiniciarLote}"
+							update=":dialogFormPlan"
 							oncomplete="PF('loteDialogBuscar').show()" />
 						<p:spacer height="5px" />
 						<p:commandButton value="Agregar Lote"

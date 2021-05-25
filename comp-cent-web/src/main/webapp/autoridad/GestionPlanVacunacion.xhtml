@@ -63,6 +63,7 @@
 					<div style="display: flex; align-items: center;justify-content: center;">
 						<p:commandButton value="Buscar"
 							actionListener="#{planVacunacionBean.reiniciarPlan}"
+							update=":dialogFormPlan"
 							oncomplete="PF('planDialogBuscar').show()" />
 						<p:spacer height="5px" />
 						<p:commandButton value="Agregar Plan"

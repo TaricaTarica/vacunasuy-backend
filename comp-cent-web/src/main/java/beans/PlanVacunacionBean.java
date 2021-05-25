@@ -246,12 +246,15 @@ public class PlanVacunacionBean implements Serializable {
                 addMessage(null, new FacesMessage(severity, summary, detail));
     }
 	
-	public void buscarPlan () throws Exception {
-		try {
-		planVacunacion = planLocal.obtenerPlanVacunacion(nombrePlan);
-		} catch (Exception e) {
-    		this.planVacunacion = null;
-    	}
+	public void buscarPlan ()  {
+		this.planVacunacion = null;
+		for (DTPlanVacunacion dtPlan : planesVacunaciones) {
+			if (dtPlan.getNombre().equals(nombrePlan)) {
+				planVacunacion = dtPlan;
+				break;
+			}
+		}
+	
 	}
 		
 	
@@ -305,6 +308,7 @@ public class PlanVacunacionBean implements Serializable {
 	
 	public void reiniciarPlan(){
         this.planVacunacion = new DTPlanVacunacion();
+        this.nombrePlan = null;
         this.nombreEnfermedad = null;
         this.nombreVacuna = null;
         this.vacunas = new ArrayList<DTVacuna>();
