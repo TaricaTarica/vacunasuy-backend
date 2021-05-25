@@ -15,4 +15,6 @@ public interface EnfermedadNegocioLocal {
 	public List<DTVacuna> listarVacunasPorEnfermedad (String nombreEnfermedad) throws Exception;
 	public List<String> listarPoblacionObjetivo();
 	public void eliminarEnfermedad(String nombre) throws Exception;
+	public DTEnfermedad obtenerEnfermedadPorId(long id);
+	public void editarEnfermedad(DTEnfermedad dtEnf) throws Exception;
 }

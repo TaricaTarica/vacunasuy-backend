@@ -70,7 +70,7 @@ public class VacunaNegocio implements VacunaNegocioRemote, VacunaNegocioLocal {
     	ArrayList<DTVacuna> dtVacs =  new ArrayList<DTVacuna>();
     	for(Vacuna vac : vacs)
     	{
-    		dtVacs.add(new DTVacuna(vac.getNombre(), vac.getCodigo(), vac.getLaboratorio()));
+    		dtVacs.add(new DTVacuna(vac));
     	}
     	return dtVacs;
     }
@@ -101,7 +101,7 @@ public class VacunaNegocio implements VacunaNegocioRemote, VacunaNegocioLocal {
     
     public void editarVacuna(DTVacuna dtvacuna) throws Exception {
     	
-    	Vacuna vacuna = puenteDatos.obtenerVacuna(dtvacuna.getNombre());
+    	Vacuna vacuna = puenteDatos.obtenerVacunaPorId(dtvacuna.getId());
     	
     	if(vacuna != null) {
     		

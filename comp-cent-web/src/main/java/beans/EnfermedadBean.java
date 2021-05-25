@@ -10,6 +10,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
+import org.primefaces.PrimeFaces;
+
 import datatypes.DTEnfermedad;
 import negocio.EnfermedadNegocioLocal;
 
@@ -27,6 +29,15 @@ public class EnfermedadBean implements Serializable{
 	private List<DTEnfermedad> enfermedades;
 	private String nombre;
 	
+	
+	 //Agrego String para saber el estado del botón
+	 
+	 private String nombreBoton;
+	 private String estiloBoton;
+	 private Boolean editar;
+	
+	 
+	 
 	@PostConstruct
 	public void init() {
 		this.enfermedades = enfermedadLocal.listarEnfermedades();
@@ -50,9 +61,6 @@ public class EnfermedadBean implements Serializable{
 		this.enfermedades = enfermedades;
 	}
 	
-	public void reiniciarEnfermedad(){
-        this.enfermedad = new DTEnfermedad();
-    }
 	
 
 	public String getNombre() {
@@ -80,8 +88,61 @@ public class EnfermedadBean implements Serializable{
 		//SimpleDateFormat conver = new SimpleDateFormat("dd-MM-yyyy");
 //		LocalDate fecAux=LocalDate.parse(fechaCreacion);
 //		Enfermedad enf = new Enfermedad(nombre,fecAux);
-		enfermedadLocal.agregarEnfermedad(enfermedad.getNombre());
-		enfermedades.add(enfermedad);
+		try {
+			if(editar) {
+				enfermedadLocal.editarEnfermedad(enfermedad);
+				this.enfermedad = null;
+				PrimeFaces.current().executeScript("PF('EnfermedadDialog').hide()");
+			    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Proveedor editado correctamente","" ));
+				
+			}else{
+				enfermedadLocal.agregarEnfermedad(enfermedad.getNombre());
+				enfermedades.add(enfermedad);
+				this.enfermedad = null;
+			}
+		}catch (Exception e){
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(),"" ));
+			
+		}
 	}
+	
+
+	public String getNombreBoton() {
+		return nombreBoton;
+	}
+
+	public void setNombreBoton(String nombreBoton) {
+		this.nombreBoton = nombreBoton;
+	}
+
+	public String getEstiloBoton() {
+		return estiloBoton;
+	}
+
+	public void setEstiloBoton(String estiloBoton) {
+		this.estiloBoton = estiloBoton;
+	}
+
+	public Boolean getEditar() {
+		return editar;
+	}
+
+	public void setEditar(Boolean editar) {
+		this.editar = editar;
+	}
+	
+	public void editarEnfermedadBean(DTEnfermedad dtenf) {
+		editar = true;
+		this.nombreBoton = "Editar Enfermedad";
+		this.estiloBoton = "pi pi-pencil";
+		setEnfermedad(dtenf);
+	}
+	
+	public void reiniciarEnfermedad(){
+		editar = false;   
+		this.nombreBoton = "Agregar Enfermedad";
+		this.estiloBoton = "pi pi-check";
+        this.enfermedad = new DTEnfermedad();
+    }
 	
 }

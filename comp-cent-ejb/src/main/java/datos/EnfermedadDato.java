@@ -11,6 +11,7 @@ import javax.persistence.PersistenceContext;
 
 
 import entidades.Enfermedad;
+import entidades.Proveedor;
 
 
 
@@ -66,6 +67,15 @@ public class EnfermedadDato implements EnfermedadDatoRemote, EnfermedadDatoLocal
     public void eliminarEnfermedad(Enfermedad enfermedad) {
 		em.remove(enfermedad);
 	}
-    
-
+	
+	@Override
+	public Enfermedad obtenerEnfermedadPorId(long id) {
+		Enfermedad enf = em.find(Enfermedad.class, id);
+		return enf;
+	}
+	
+	@Override
+	public void editarEnfermedad(Enfermedad enf) {
+    	em.merge(enf);
+    }
 }

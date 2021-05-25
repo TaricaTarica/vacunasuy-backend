@@ -19,5 +19,6 @@ public interface VacunaDatoLocal {
 	 public void eliminarVacuna(Vacuna vacuna);
 	public Proveedor obtenerProveedorDeVacuna(String nomVac);
 	public Enfermedad obtenerEnfermedadDeVacuna(String nomVac);
+	public Vacuna obtenerVacunaPorId(long id);
 	
 }

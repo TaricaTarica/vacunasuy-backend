@@ -112,4 +112,10 @@ public class VacunaDato implements VacunaDatoRemote, VacunaDatoLocal {
 		 }
 	 }
 	 
+	 
+	 @Override
+	    public Vacuna obtenerVacunaPorId(long id) {
+		 	Vacuna vac = em.find(Vacuna.class, id);
+		 	return vac;
+	 }
 }
