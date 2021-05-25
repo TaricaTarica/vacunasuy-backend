@@ -1,7 +1,6 @@
 package datatypes;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 
 import entidades.Reserva;
 
@@ -28,7 +27,7 @@ public class DTConsultaReservaCiudadano implements Serializable{
 			this.fecha = res.getFecha().toString();
 		}
 		
-		this.enfermedad = res.getPlanVacunacion().enfermedadDT().getNombre();
+		this.enfermedad = res.getPlanVacunacion().getEnfermedad().getNombre();
 		this.vacunatorio = res.getAgenda().getVacunatorio().getNombre();
 		
 	}

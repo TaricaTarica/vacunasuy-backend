@@ -98,4 +98,39 @@ INSERT INTO public.departamento_ubicacion(departamento_id, ubicaciones_id) VALUE
 INSERT INTO public.departamento_ubicacion(departamento_id, ubicaciones_id) VALUES (4, 16);
 INSERT INTO public.departamento_ubicacion(departamento_id, ubicaciones_id) VALUES (4, 17);
 
+--Agregamos planes de vacunacion
 
+INSERT INTO public.planvacunacion(id, edadmaxima, edadminima, nombre, poblacionobjetivo, enfermedad_id)
+    VALUES (1, 30, 10, 'Plan COVID', 'Jóvenes', 1);
+INSERT INTO public.planvacunacion(id, edadmaxima, edadminima, nombre, poblacionobjetivo, enfermedad_id)
+    VALUES (2, 50, 30, 'Plan GRIPE', 'Adultos', 2);
+INSERT INTO public.planvacunacion(id, edadmaxima, edadminima, nombre, poblacionobjetivo, enfermedad_id)
+    VALUES (3, 80, 50, 'Plan COVID', 'Adultos mayores', 2);
+
+--Agregamos vacunatorios
+
+INSERT INTO public.vacunatorio(id, codigo, nombre)
+    VALUES (1000, 'V-ART', 'Vacunatorio Artigas');
+INSERT INTO public.vacunatorio(id, codigo, nombre)
+    VALUES (1001, 'V-FLO', 'Vacunatorio Florida');
+INSERT INTO public.vacunatorio(id, codigo, nombre)
+    VALUES (1002, 'V-CAN', 'Vacunatorio Canelones');
+    
+--Agregamos vacunatorios a las ubicaciones
+update ubicacion set vacunatorio_id = 1000 where id = 1
+update ubicacion set vacunatorio_id = 1000 where id = 2
+update ubicacion set vacunatorio_id = 1000 where id = 3
+
+--Agregamos agendas
+INSERT INTO public.agenda(id, fin, horafin, horainicio, inicio, vacunatorio_id)
+    VALUES (1124, '2020-01-01', '2000', '0800', '2020-02-10', 1000);
+INSERT INTO public.agenda(id, fin, horafin, horainicio, inicio, vacunatorio_id)
+    VALUES (1123, '2022-01-01', '2000', '0800', '2023-06-11', 1000);
+INSERT INTO public.agenda(id, fin, horafin, horainicio, inicio, vacunatorio_id)
+    VALUES (1125, '2021-05-01', '2000', '0800', '2021-10-01', 1000);
+    
+--Agregamos ciudadanos
+INSERT INTO public.usuario(tipo, ci, email, primerapellido, primernombre, segundoapellido, segundonombre, telefono, contrasenia)
+    VALUES ('ciudadano', 12345678, 'juan@gmail.com', 'Perez', 'Juan', 'Perez', 'Juan', 099654123, null);
+	INSERT INTO public.usuario(tipo, ci, email, primerapellido, primernombre, segundoapellido, segundonombre, telefono, contrasenia)
+    VALUES ('ciudadano', 12345679, 'juana@gmail.com', 'Lopez', 'Juana', 'Perez', 'Juana', 099654123, null);
