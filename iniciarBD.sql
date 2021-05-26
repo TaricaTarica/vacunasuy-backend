@@ -99,13 +99,12 @@ INSERT INTO public.departamento_ubicacion(departamento_id, ubicaciones_id) VALUE
 INSERT INTO public.departamento_ubicacion(departamento_id, ubicaciones_id) VALUES (4, 17);
 
 --Agregamos planes de vacunacion
-
 INSERT INTO public.planvacunacion(id, edadmaxima, edadminima, nombre, poblacionobjetivo, enfermedad_id)
-    VALUES (1, 30, 10, 'Plan COVID', 'Jóvenes', 1);
+    VALUES (1, 30, 10, 'Plan COVID', 'Adolescentes', 1);
 INSERT INTO public.planvacunacion(id, edadmaxima, edadminima, nombre, poblacionobjetivo, enfermedad_id)
     VALUES (2, 50, 30, 'Plan GRIPE', 'Adultos', 2);
 INSERT INTO public.planvacunacion(id, edadmaxima, edadminima, nombre, poblacionobjetivo, enfermedad_id)
-    VALUES (3, 80, 50, 'Plan COVID', 'Adultos mayores', 2);
+    VALUES (3, 80, 50, 'Plan COVID', 'Mayores', 2);
 
 --Agregamos vacunatorios
 
