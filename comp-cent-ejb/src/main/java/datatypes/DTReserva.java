@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 import entidades.Reserva;
+import enumeradores.EstadoReserva;
 
 public class DTReserva implements Serializable {
 	/**
@@ -16,6 +17,7 @@ public class DTReserva implements Serializable {
 	private DTCiudadano ciudadano;
 	private DTPlanVacunacion planVacunacion;
 	private DTAgenda agenda;
+	private EstadoReserva estado;
 	
 	public DTReserva() {
 		super();
@@ -25,7 +27,8 @@ public class DTReserva implements Serializable {
 		super();
 		this.id = res.getId();
 		this.hora = res.getHora();
-		this.fecha = res.getFecha();		
+		this.fecha = res.getFecha();
+		this.estado = res.getEstado();
 	}
 
 	public DTReserva(long id, int hora, LocalDate fecha) {
@@ -83,6 +86,14 @@ public class DTReserva implements Serializable {
 
 	public void setAgenda(DTAgenda agenda) {
 		this.agenda = agenda;
+	}
+	
+	public EstadoReserva getEstado() {
+		return estado;
+	}
+
+	public void setEstado(EstadoReserva estado) {
+		this.estado = estado;
 	}
 
 	@Override

@@ -7,23 +7,22 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import entidades.Administrador;
 import entidades.Autoridad;
 
 /**
- * Session Bean implementation class AutoridadDatos
+ * Session Bean implementation class AutoridadDato
  */
 @Stateless
 @LocalBean
-public class AutoridadDatos implements AutoridadDatosLocal {
-	
+public class AutoridadDato implements AutoridadDatoLocal {
+
 	@PersistenceContext(name = "comp-centPersistenceUnit")
 	private EntityManager em;
 
     /**
      * Default constructor. 
      */
-    public AutoridadDatos() {
+    public AutoridadDato() {
         // TODO Auto-generated constructor stub
     }
 
@@ -40,6 +39,13 @@ public class AutoridadDatos implements AutoridadDatosLocal {
 	@Override
 	public List<Autoridad> obtenerAutoridades() {
 		return em.createQuery("SELECT a FROM Autoridad a", Autoridad.class).getResultList();
+	}
+	
+	@Override
+	public Boolean existeAutoridad(String nombre) {
+		Boolean existe = (em.createQuery("Select a from Autoridad a where a.nombre = :nombre").setParameter("nombre", nombre).getResultList().size() > 0);	
+		return existe;
+
 	}
 
 	@Override

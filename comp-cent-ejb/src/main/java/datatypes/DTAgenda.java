@@ -58,6 +58,7 @@ public class DTAgenda {
 		this.listDtPlanVacunacion = new ArrayList<DTPlanVacunacion>();
 		for (PlanVacunacion planes : agenda.getPlanes()) {
 			DTPlanVacunacion plan = new DTPlanVacunacion(planes);
+			plan.setEnfermedad(new DTEnfermedad(planes.getEnfermedad()));
 			this.listDtPlanVacunacion.add(plan);
 		}
 	}
