@@ -33,8 +33,6 @@ public class CiudadanoDato implements CiudadanoDatoRemote, CiudadanoDatoLocal {
     public Ciudadano obtenerCiudadano(int ci) {
 	    Ciudadano ciudadano = em.find(Ciudadano.class, ci);
 		return ciudadano;
-    }
-    
-    
+    }    
 
 }
