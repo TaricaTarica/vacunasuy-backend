@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.Local;
 
 import entidades.Lote;
+import entidades.Reserva;
 
 @Local
 public interface LoteDatoLocal {

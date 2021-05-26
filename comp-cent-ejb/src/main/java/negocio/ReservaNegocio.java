@@ -16,6 +16,7 @@ import entidades.Agenda;
 import entidades.Ciudadano;
 import entidades.PlanVacunacion;
 import entidades.Reserva;
+import enumeradores.EstadoReserva;
 
 /**
  * Session Bean implementation class ReservaNegocio
@@ -60,7 +61,8 @@ public class ReservaNegocio implements ReservaNegocioRemote, ReservaNegocioLocal
 		PlanVacunacion planVacunacion = pvdl.obtenerPlanVacunacion(res.getPlanVacunacion().getNombre());
 		reserva.setCiudadano(ciudadano);
 		reserva.setAgenda(agenda);		
-		reserva.setPlanVacunacion(planVacunacion);		
+		reserva.setPlanVacunacion(planVacunacion);	
+		reserva.setEstado(EstadoReserva.Pendiente);
 		rdl.crearReserva(reserva);		
 	}
 	@Override
@@ -73,6 +75,13 @@ public class ReservaNegocio implements ReservaNegocioRemote, ReservaNegocioLocal
 			}
 		}
 		return dtReservas;
+	}
+	@Override
+	public void cancelarReserva(String idReserva){
+		long id = Long.parseLong(idReserva);
+		Reserva reserva = rdl.obtenerReserva(id);
+		reserva.setEstado(EstadoReserva.Cancelada);
+		rdl.editarReserva(reserva);
 	}
 
 }

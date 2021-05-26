@@ -17,4 +17,6 @@ public interface ReservaNegocioLocal {
 	
 	public List<DTConsultaReservaCiudadano> ciudadanoReservas(int ci);
 	
+	public void cancelarReserva(String idReserva);
+	
 }

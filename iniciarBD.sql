@@ -134,7 +134,11 @@ INSERT INTO public.usuario(tipo, ci, email, primerapellido, primernombre, segund
 	INSERT INTO public.usuario(tipo, ci, email, primerapellido, primernombre, segundoapellido, segundonombre, telefono, contrasenia)
     VALUES ('ciudadano', 12345679, 'juana@gmail.com', 'Lopez', 'Juana', 'Perez', 'Juana', 099654123, null);
 --Agregamos relacion agenda_planvacunacion
-    INSERT INTO public.agenda_planvacunacion(agendas_id, planes_id)
-    VALUES (1125, 1); 
-    INSERT INTO public.agenda_planvacunacion(agendas_id, planes_id)
-    VALUES (1125, 2); 
+INSERT INTO public.agenda_planvacunacion(agendas_id, planes_id)
+VALUES (1125, 1); 
+INSERT INTO public.agenda_planvacunacion(agendas_id, planes_id)
+VALUES (1125, 2); 
+INSERT INTO public.agenda_planvacunacion(agendas_id, planes_id)
+VALUES (1123, 1); 
+INSERT INTO public.agenda_planvacunacion(agendas_id, planes_id)
+    VALUES (1123, 3); 

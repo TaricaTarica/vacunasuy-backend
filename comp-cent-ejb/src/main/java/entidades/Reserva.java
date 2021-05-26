@@ -2,11 +2,14 @@ package entidades;
 
 import java.time.LocalDate;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 import datatypes.DTReserva;
+import enumeradores.EstadoReserva;
 
 @Entity
 public class Reserva {
@@ -15,6 +18,8 @@ public class Reserva {
 	private long id;
 	private int hora;
 	private LocalDate fecha;
+	@Enumerated(value = EnumType.STRING)
+	private EstadoReserva estado;
 	
 	@ManyToOne
 	private Ciudadano ciudadano;
@@ -34,6 +39,7 @@ public class Reserva {
 		super();
 		this.hora = res.getHora();
 		this.fecha = res.getFecha();
+		this.estado = res.getEstado();
 	}	
 
 	public Reserva(int hora, LocalDate fecha, Ciudadano ciudadano, Agenda agenda, PlanVacunacion planVacunacion) {
@@ -91,6 +97,14 @@ public class Reserva {
 
 	public void setPlanVacunacion(PlanVacunacion planVacunacion) {
 		this.planVacunacion = planVacunacion;
+	}
+
+	public EstadoReserva getEstado() {
+		return estado;
+	}
+
+	public void setEstado(EstadoReserva estado) {
+		this.estado = estado;
 	}
 
 	@Override

@@ -12,6 +12,7 @@ public class DTConsultaReservaCiudadano implements Serializable{
 	private String fecha;	
 	private String enfermedad;
 	private String vacunatorio;
+	private String estado;
 	
 	public DTConsultaReservaCiudadano() {
 		super();
@@ -29,6 +30,7 @@ public class DTConsultaReservaCiudadano implements Serializable{
 		
 		this.enfermedad = res.getPlanVacunacion().getEnfermedad().getNombre();
 		this.vacunatorio = res.getAgenda().getVacunatorio().getNombre();
+		this.estado = res.getEstado().name();
 		
 	}
 	public long getId() {
@@ -61,6 +63,12 @@ public class DTConsultaReservaCiudadano implements Serializable{
 	}
 	public void setVacunatorio(String vacunatorio) {
 		this.vacunatorio = vacunatorio;
+	}
+	public String getEstado() {
+		return estado;
+	}
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
 	
 }
