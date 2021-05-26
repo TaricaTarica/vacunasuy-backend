@@ -115,6 +115,21 @@
 
     <dependencyManagement>
         <dependencies>
+        
+        <!-- ELASTIC TEST -->
+        <!-- https://mvnrepository.com/artifact/org.bsc.bean/beanmanager -->
+
+        <dependency>
+		    <groupId>org.bsc.bean</groupId>
+		    <artifactId>beanmanager</artifactId>
+		    <version>1.4.1</version>
+		    <type>pom</type>
+		</dependency>
+        
+        <!-- FIN TEST -->
+        
+        
+        
 
             <!-- Define the version of the EJB jar so that we don't need
                 to repeat ourselves in every module -->
