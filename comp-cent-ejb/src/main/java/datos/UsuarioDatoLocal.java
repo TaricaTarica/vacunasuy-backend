@@ -10,5 +10,6 @@ public interface UsuarioDatoLocal {
 	public Boolean existeUsuario(int ci);
 
 	public Usuario obtenerUsuarioPorCI(int ci);
+	
 
 }

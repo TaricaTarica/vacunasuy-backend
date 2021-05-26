@@ -15,5 +15,7 @@ public interface UsuarioNegocioLocal {
 	public List<DTCiudadano> mostrarCiudadanos();
 
 	public void actualizarDatos(Usuario user) throws Exception;
+	
+	public boolean autenticarUsuario (int ci, String pass);
 
 }
