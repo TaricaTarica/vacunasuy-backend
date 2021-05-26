@@ -35,5 +35,14 @@ public class ReservaDato implements ReservaDatoRemote, ReservaDatoLocal {
 	public void crearReserva(Reserva res) {
 		em.persist(res);		
 	}
+	@Override
+	public Reserva obtenerReserva(long id) {
+		Reserva reserva = em.find(Reserva.class, id);
+		return reserva;
+	}
+	@Override
+	public void editarReserva(Reserva res) {
+		em.merge(res);
+	}
 
 }

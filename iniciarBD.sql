@@ -104,7 +104,7 @@ INSERT INTO public.planvacunacion(id, edadmaxima, edadminima, nombre, poblaciono
 INSERT INTO public.planvacunacion(id, edadmaxima, edadminima, nombre, poblacionobjetivo, enfermedad_id)
     VALUES (2, 50, 30, 'Plan GRIPE', 'Adultos', 2);
 INSERT INTO public.planvacunacion(id, edadmaxima, edadminima, nombre, poblacionobjetivo, enfermedad_id)
-    VALUES (3, 80, 50, 'Plan COVID', 'Mayores', 2);
+    VALUES (3, 80, 50, 'Plan COVID Mayores', 'Mayores', 2);
 
 --Agregamos vacunatorios
 
@@ -116,20 +116,29 @@ INSERT INTO public.vacunatorio(id, codigo, nombre)
     VALUES (1002, 'V-CAN', 'Vacunatorio Canelones');
     
 --Agregamos vacunatorios a las ubicaciones
-update ubicacion set vacunatorio_id = 1000 where id = 1
-update ubicacion set vacunatorio_id = 1000 where id = 2
-update ubicacion set vacunatorio_id = 1000 where id = 3
+update ubicacion set vacunatorio_id = 1000 where id = 1;
+update ubicacion set vacunatorio_id = 1001 where id = 2;
+update ubicacion set vacunatorio_id = 1002 where id = 3;
 
 --Agregamos agendas
 INSERT INTO public.agenda(id, fin, horafin, horainicio, inicio, vacunatorio_id)
     VALUES (1124, '2020-01-01', '2000', '0800', '2020-02-10', 1000);
 INSERT INTO public.agenda(id, fin, horafin, horainicio, inicio, vacunatorio_id)
-    VALUES (1123, '2022-01-01', '2000', '0800', '2023-06-11', 1000);
+    VALUES (1123, '2023-06-11', '2000', '0800', '2022-01-01 ', 1001);
 INSERT INTO public.agenda(id, fin, horafin, horainicio, inicio, vacunatorio_id)
-    VALUES (1125, '2021-05-01', '2000', '0800', '2021-10-01', 1000);
+    VALUES (1125, '2021-10-01', '2000', '0800', '2021-05-01', 1001);
     
 --Agregamos ciudadanos
 INSERT INTO public.usuario(tipo, ci, email, primerapellido, primernombre, segundoapellido, segundonombre, telefono, contrasenia)
     VALUES ('ciudadano', 12345678, 'juan@gmail.com', 'Perez', 'Juan', 'Perez', 'Juan', 099654123, null);
 	INSERT INTO public.usuario(tipo, ci, email, primerapellido, primernombre, segundoapellido, segundonombre, telefono, contrasenia)
     VALUES ('ciudadano', 12345679, 'juana@gmail.com', 'Lopez', 'Juana', 'Perez', 'Juana', 099654123, null);
+--Agregamos relacion agenda_planvacunacion
+INSERT INTO public.agenda_planvacunacion(agendas_id, planes_id)
+VALUES (1125, 1); 
+INSERT INTO public.agenda_planvacunacion(agendas_id, planes_id)
+VALUES (1125, 2); 
+INSERT INTO public.agenda_planvacunacion(agendas_id, planes_id)
+VALUES (1123, 1); 
+INSERT INTO public.agenda_planvacunacion(agendas_id, planes_id)
+    VALUES (1123, 3); 
