@@ -1,7 +1,12 @@
 package negocio;
 
+import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+
+import datatypes.DTAutoridad;
+import datos.AutoridadDatoLocal;
+import entidades.Autoridad;
 
 /**
  * Session Bean implementation class AutoridadNegocio
@@ -10,11 +15,13 @@ import javax.ejb.Stateless;
 @LocalBean
 public class AutoridadNegocio implements AutoridadNegocioRemote, AutoridadNegocioLocal {
 
-    /**
-     * Default constructor. 
-     */
+	@EJB
+	private AutoridadDatoLocal datoLocal ;
+	
     public AutoridadNegocio() {
         // TODO Auto-generated constructor stub
     }
+    
+    
 
 }
