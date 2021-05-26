@@ -25,7 +25,7 @@ public class DTReserva implements Serializable {
 		super();
 		this.id = res.getId();
 		this.hora = res.getHora();
-		this.fecha = res.getFecha();		
+		this.fecha = res.getFecha();
 	}
 
 	public DTReserva(long id, int hora, LocalDate fecha) {

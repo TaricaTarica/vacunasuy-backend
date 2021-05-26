@@ -65,6 +65,11 @@ public class VacunatorioNegocio implements VacunatorioNegocioRemote, Vacunatorio
 						&& (fechaActual.isBefore(a.getFin()) || fechaActual.isEqual(a.getFin()))) {
 					retorno = new DTAgenda(a);
 				}
+				else{
+					if(fechaActual.isBefore(a.getFin())) {
+						retorno = new DTAgenda(a);
+					}
+				}
 			}
 
 			return retorno;

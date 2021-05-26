@@ -98,6 +98,7 @@ public class ReservaREST {
 		else {
 			DTVacunatorio dtVacunatorio = dtUbicacion.getVacunatorio();
 			DTAgenda dtAgenda = vnl.obtenerAgendaActiva(dtVacunatorio.getId());
+			System.out.println(dtAgenda);
 			dtReserva.setAgenda(dtAgenda);
 		}
 		rnl.crearReserva(dtReserva);
