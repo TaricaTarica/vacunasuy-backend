@@ -1,11 +1,15 @@
 package datos;
 
+import java.util.List;
+
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import entidades.Autoridad;
 import entidades.Ciudadano;
+import entidades.PlanVacunacion;
 
 /**
  * Session Bean implementation class CiudadanoDato
@@ -34,5 +38,16 @@ public class CiudadanoDato implements CiudadanoDatoRemote, CiudadanoDatoLocal {
 	    Ciudadano ciudadano = em.find(Ciudadano.class, ci);
 		return ciudadano;
     }    
+    
+    @Override
+	public List<Ciudadano> obtenerCiudadanos() {
+		return em.createQuery("SELECT a FROM Ciudadano a", Ciudadano.class).getResultList();
+	}
+    
+    @Override
+    public void editarCiudadano(Ciudadano ciudadano) {
+		em.merge(ciudadano);
+			
+    }
 
 }
