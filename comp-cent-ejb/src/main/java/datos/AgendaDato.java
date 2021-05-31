@@ -45,5 +45,28 @@ public class AgendaDato implements AgendaDatoRemote, AgendaDatoLocal {
 		// TODO Auto-generated method stub
 		return em.find(Agenda.class, id);
 	}
-    
+	
+	@Override
+	public void editarAgenda(Agenda agenda) {
+		em.merge(agenda);
+	}
+
+	@Override
+	public void eliminarAgenda(Agenda agenda) {
+		em.remove(agenda);
+	}
+	
+	@Override
+	public Boolean agendaSuperpuesta(Agenda agenda) {
+		List<Agenda> listAgenda = em.createQuery("Select a from Agenda a where a.vacunatorio.id = :id",Agenda.class).setParameter("id",agenda.getVacunatorio().getId()).getResultList();
+		for (Agenda ag : listAgenda) {
+			if ((agenda.getInicio().isAfter(ag.getInicio()) && agenda.getInicio().isBefore(ag.getFin())) || 
+					(agenda.getFin().isAfter(ag.getInicio()) && agenda.getFin().isBefore(ag.getFin())) || 
+					(agenda.getInicio().isEqual(ag.getFin())) || (agenda.getFin().isEqual(ag.getInicio())) ||
+					(agenda.getInicio().isBefore(ag.getInicio()) && agenda.getFin().isAfter(ag.getFin()))) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

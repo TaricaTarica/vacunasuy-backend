@@ -3,7 +3,6 @@ package entidades;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,10 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-
 import datatypes.DTAgenda;
-import datatypes.DTPlanVacunacion;
-import datatypes.DTVacunatorio;
 
 @Entity
 public class Agenda {
@@ -55,7 +51,7 @@ public class Agenda {
 		super();
 		this.inicio = LocalDate.parse(agenda.getInicio());
 		this.fin = LocalDate.parse(agenda.getFin());
-		this.horaInicio = agenda.getHoraIncio();
+		this.horaInicio = agenda.getHoraInicio();
 		this.horaFin = agenda.getHoraFin();
 		/*
 		 * this.planes = new ArrayList<PlanVacunacion>(); this.vacunatorio = new
@@ -66,11 +62,11 @@ public class Agenda {
 		}*/
 	}
 
-	public int getHoraIncio() {
+	public int getHoraInicio() {
 		return horaInicio;
 	}
 
-	public void setHoraIncio(int horaInicio) {
+	public void setHoraInicio(int horaInicio) {
 		this.horaInicio = horaInicio;
 	}
 
