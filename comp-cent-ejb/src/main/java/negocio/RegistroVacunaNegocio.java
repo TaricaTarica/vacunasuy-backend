@@ -48,6 +48,8 @@ public class RegistroVacunaNegocio implements RegistroVacunaNegocioLocal {
         		//dtCert.setPeriodoInmunidad(vac.getPeriodoInmunidad());
         		dtCert.setIdEnfermedad(String.valueOf(vac.getEnfermedad().getId()));
         		dtCert.setNombreEnfermedad(vac.getEnfermedad().getNombre());
+        		listCert.add(dtCert);
+        		
         	}
     	}
     	return listCert;

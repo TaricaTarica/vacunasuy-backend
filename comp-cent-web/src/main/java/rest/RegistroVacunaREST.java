@@ -33,6 +33,7 @@ public class RegistroVacunaREST {
 	@Path("/ciudadano/{ci}")
 	public Response getCertificadosPorCi(@PathParam("ci") String ci) {
 		if (ci != null && !ci.equals("")) {
+			System.out.println("Estoy dentro del if de la cedla distinto null");
 			List<DTCertificado> listDTCert = regVacLocal.obtenerCertificados(ci);
 	    	
 	        if (!listDTCert.isEmpty()) {
