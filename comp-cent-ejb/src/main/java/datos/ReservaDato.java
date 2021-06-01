@@ -44,5 +44,10 @@ public class ReservaDato implements ReservaDatoRemote, ReservaDatoLocal {
 	public void editarReserva(Reserva res) {
 		em.merge(res);
 	}
+	
+	@Override
+	public Boolean existeReserva(long idAgenda) {
+		return em.createQuery("Select r from Reserva r where r.agenda.id = :id", Reserva.class).setParameter("id", idAgenda).getResultList().size() > 0;
+	}
 
 }

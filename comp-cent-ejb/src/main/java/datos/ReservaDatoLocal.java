@@ -16,5 +16,7 @@ public interface ReservaDatoLocal {
 	public Reserva obtenerReserva(long id);
 	
 	public void editarReserva(Reserva res);
+	
+	public Boolean existeReserva(long idAgenda);
 
 }
