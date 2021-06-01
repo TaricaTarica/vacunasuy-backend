@@ -97,6 +97,7 @@ public class EnfermedadBean implements Serializable{
 				
 			}else{
 				enfermedadLocal.agregarEnfermedad(enfermedad.getNombre());
+				enfermedad.setId(enfermedadLocal.buscarEnfermedad(enfermedad.getNombre()).getId());
 				enfermedades.add(enfermedad);
 				this.enfermedad = null;
 			}

@@ -18,7 +18,7 @@ import entidades.Administrador;
 import entidades.Autoridad;
 import entidades.Usuario;
 
-@WebFilter(urlPatterns = {"/admin/*", "/autoridad/*", "/home.xhtml"})
+@WebFilter(urlPatterns = {"/login.xhtml","/administrador/*", "/autoridad/*", "/home.xhtml"})
 public class SessionFilter implements Filter {
 	
 	private ServletContext ctx;
@@ -41,21 +41,53 @@ public class SessionFilter implements Filter {
 		Usuario currentUser = (Usuario) session.getAttribute("currentUser");
 		
 		if (currentUser != null) {
-			if (currentUser instanceof Administrador && (uri.contains("admin") || uri.endsWith("home.xhtml") || !uri.endsWith("html"))) {
+			
+			System.out.println(uri.contains("login"));
+			System.out.println(uri);
+			
+			if(uri.contains("login")) {
+				System.out.println("entre a login");
+				
+				if (currentUser instanceof Administrador) {
+					System.out.println("Estoy en el if login Administrador");
+					res.sendRedirect("/comp-cent-web/administrador/home.xhtml");
+				} else {
+					if (currentUser instanceof Autoridad) {
+						System.out.println("Estoy en el if de login autoridad");
+						res.sendRedirect("/comp-cent-web/autoridad/home.xhtml");
+					}
+					
+				}
+				
+			}
+			
+			
+			
+			
+			
+			if (currentUser instanceof Administrador && (uri.contains("administrador"))) {
+				System.out.println("Estoy en el if de Administrador");
 				success = true;
 				chain.doFilter(request, response);
 			} else {
-				if (currentUser instanceof Autoridad && (uri.contains("autoridad") || uri.endsWith("home.xhtml") || !uri.endsWith("html"))) {
+				if (currentUser instanceof Autoridad && (uri.contains("autoridad"))) {
+					
+					System.out.println("Estoy en el if de Autoridad");
 					success = true;
 					chain.doFilter(request, response);
 				}
 			}
 			 
 			if (!success) {
-				res.sendRedirect((uri.contains("admin") || uri.contains("gerente")) ? "../noAutorizado.xhtml" : "noAutorizado.xhtml");
+				res.sendRedirect((uri.contains("administrador") || uri.contains("autoridad")) ? "../noAutorizado.xhtml" : "noAutorizado.xhtml");
 			}
 		} else {
-			res.sendRedirect((uri.contains("admin") || uri.contains("gerente")) ? "../login.xhtml" : "login.xhtml");
+			if(!uri.contains("login")) {
+			System.out.println(uri);
+			res.sendRedirect((uri.contains("administrador") || uri.contains("autoridad")) ? "../login.xhtml" : "login.xhtml");
+			}else {
+				chain.doFilter(request, response);
+			}
 		}
 		
 	}

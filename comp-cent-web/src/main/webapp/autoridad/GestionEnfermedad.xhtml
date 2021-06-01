@@ -8,6 +8,10 @@
 	<title>Enfermedades</title>
 </h:head>
 <h:body>
+
+				
+
+
         <h:form id="enfermedadesListForm">
             <p:messages id="messages" showDetail="true" closable="true">
 				<p:autoUpdate />
@@ -81,7 +85,7 @@
                         <h:inputText value="#{enfermedadBean.enfermedad.nombre}" />
                
                         <f:facet name="footer" >
-                            <p:commandButton value="#{enfermedadBean.nombreBoton}"  actionListener="#{enfermedadBean.agregarEnfermedad()}" 
+                            <p:commandButton value="#{enfermedadBean.nombreBoton}"  action="#{enfermedadBean.agregarEnfermedad()}" 
                              update="display,:enfermedadesListForm:EnfermedadTabla" oncomplete="PF('enfermedadDialog').hide();"
                              icon="#{enfermedadBean.estiloBoton}" />
                         </f:facet>

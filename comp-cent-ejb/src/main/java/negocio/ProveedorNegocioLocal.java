@@ -14,4 +14,5 @@ public interface ProveedorNegocioLocal {
 	 public DTProveedor obtenerProveedorPorId(long id);
 	 public void editarProveedor(DTProveedor dtPro) throws Exception;
 	 public void eliminarProveedor(DTProveedor dtPro) throws Exception;
+	 public DTProveedor obtenerProveedor(String nombre) throws Exception;
 }

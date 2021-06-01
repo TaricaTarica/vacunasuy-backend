@@ -107,6 +107,7 @@ public class ProveedorBean implements  Serializable{
 			    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Proveedor editado correctamente","" ));
 			}else {
 				proveedorLocal.agregarProveedor(proveedor.getNombre(),proveedor.getTelefono());
+				proveedor.setId(proveedorLocal.obtenerProveedor(proveedor.getNombre()).getId());
 				proveedores.add(proveedor);
 				this.proveedor = null;
 			}
@@ -120,7 +121,8 @@ public class ProveedorBean implements  Serializable{
 	public void eliminarProveedor(DTProveedor dtProveedor) throws Exception {
 		try {
 			proveedorLocal.eliminarProveedor(dtProveedor);
-			this.proveedores.remove(telProveedor);
+			this.proveedores.remove(dtProveedor);
+			dtProveedor = null;
 		}catch (Exception e){
 			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage());
 	        FacesContext.getCurrentInstance().addMessage(null, message);

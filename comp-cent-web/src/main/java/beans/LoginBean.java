@@ -3,8 +3,9 @@ package beans;
 import java.io.Serializable;
 
 import javax.ejb.EJB;
+import javax.enterprise.context.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 import entidades.Usuario;
@@ -13,9 +14,11 @@ import negocio.AutoridadNegocioLocal;
 import negocio.SessionBeanLocal;
 
 @Named("loginBean")
-@ViewScoped
+@SessionScoped
 public class LoginBean implements Serializable {
 
+	
+	private static final long serialVersionUID = 1L;
 	
 	
 	@EJB
@@ -26,9 +29,20 @@ public class LoginBean implements Serializable {
 	private AutoridadNegocioLocal  autoridadLocal;
 	
 	private int ci;
+	public int getCi() {
+		return ci;
+	}
+
+	public void setCi(int ci) {
+		this.ci = ci;
+	}
+
+
+
 	private String contrasenia;
 	private String mensaje;	
 	private String sessionToken;
+	private String url;
 	
 	
 	private Usuario currentUser;
@@ -65,26 +79,53 @@ public class LoginBean implements Serializable {
 		this.sessionToken = sessionToken;
 	}
 	
-	
-	
-	public String login() {
-		boolean res = sessionBeanLocal.iniciarSesion(ci, contrasenia);
-		if (res) {
-			if (administradorLocal.obtenerAdministradorPorCi(ci)!=null) {
-				currentUser = administradorLocal.obtenerAdministradorPorCi(ci);
-			}else if(autoridadLocal.obtenerAutoridadPorCi(ci)!= null) {
-				currentUser = autoridadLocal.obtenerAutoridadPorCi(ci);
-			}
-			// guardo el usuario logueado en sesión
-			session.setAttribute("currentUser", currentUser);
-			return "exito";
-		} else {
-			this.mensaje = "Usuario inexistente o las credenciales son incorrectas.";
-			return "fallo";
-			
-		}
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
 	}
 	
 	
+	
+	
+	public String login() {
+		
+//		FacesContext fc = FacesContext.getCurrentInstance();
+//		ExternalContext ec = fc.getExternalContext();
+//		
+//		
+//		try {
+//	        ec.redirect(url);
+//	} catch (IOException ex) {
+//	        Logger.getLogger(Navigation.class.getName()).log(Level.SEVERE, null, ex);
+//	}
+//			
+		
+		
+		boolean res = sessionBeanLocal.iniciarSesion(ci, contrasenia);
+		String redirect = "";
+		if (res) {
+			if (administradorLocal.obtenerAdministradorPorCi(ci)!=null) {
+				currentUser = administradorLocal.obtenerAdministradorPorCi(ci);
+				redirect ="/administrador/home?faces-redirect=true";
+			}else if(autoridadLocal.obtenerAutoridadPorCi(ci)!= null) {
+				currentUser = autoridadLocal.obtenerAutoridadPorCi(ci);
+				redirect ="/autoridad/home?faces-redirect=true";
+			}
+			// guardo el usuario logueado en sesión
+			session.setAttribute("currentUser", currentUser);
+//			System.out.println("usuario y contraseña Correcta");
+			return redirect;
+		} else {
+			this.mensaje = "Usuario inexistente o las credenciales son incorrectas.";
+			System.out.println("no se pudo entrar al login");
+			return "login?faces-redirect=true";
+			
+		}
+		
+	}
+
 
 }
