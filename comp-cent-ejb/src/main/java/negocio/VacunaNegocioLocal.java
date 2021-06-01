@@ -12,7 +12,7 @@ import entidades.Proveedor;
 
 @Local
 public interface VacunaNegocioLocal {
-	public void agregarVacuna(String nombre, String codigo, String laboratorio, Enfermedad enf, Proveedor pro);
+	public void agregarVacuna(String nombre, String codigo, String laboratorio, Enfermedad enf, Proveedor pro, int dosis, int periodoInmune);
 	public DTVacuna obtenerVacuna(long id);
 	public List<DTVacuna> obtenerVacunas();
 	public void agregarVacunas();

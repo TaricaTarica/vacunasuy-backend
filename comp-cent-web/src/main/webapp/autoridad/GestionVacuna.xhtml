@@ -87,7 +87,10 @@
                         <h:inputText value="#{vacunaBean.vacuna.codigo}" />
                            <h:outputText value="Nombre de Laboratorio" />
                         <h:inputText value="#{vacunaBean.vacuna.laboratorio}" />
-                        
+                        <h:outputText value="Cantidad de dosis" />
+                        <h:inputText value="#{vacunaBean.vacuna.dosis}" />
+                        <h:outputText value="Período de inmunidad" />
+                        <h:inputText value="#{vacunaBean.vacuna.periodoInmune}" />
                         
                        <h:outputLabel for="enfermedad" value="Enfermedad:"/>
 			                <p:selectOneMenu id="enfermedad" value="#{vacunaBean.nombreEnfermedad}" required="true" requiredMessage="Debe seleccionar un Porveedor" style="width:15rem">

@@ -10,7 +10,7 @@ import entidades.Proveedor;
 
 @Remote
 public interface VacunaNegocioRemote {
-	public void agregarVacuna(String nombre, String codigo, String laboratorio, Enfermedad enf, Proveedor pro);
+	public void agregarVacuna(String nombre, String codigo, String laboratorio, Enfermedad enf, Proveedor pro, int dosis, int periodoInmune) ;
 	public DTVacuna obtenerVacuna(long id);
 	public List<DTVacuna> obtenerVacunas();
 	public void agregarVacuna(DTVacuna dtvacuna)throws Exception;
