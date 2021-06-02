@@ -83,5 +83,9 @@ public class ReservaNegocio implements ReservaNegocioRemote, ReservaNegocioLocal
 		reserva.setEstado(EstadoReserva.Cancelada);
 		rdl.editarReserva(reserva);
 	}
+	
+	public Boolean existeReservaPorAgenda (long idAgenda) {
+		return rdl.existeReserva(idAgenda);
+	}
 
 }

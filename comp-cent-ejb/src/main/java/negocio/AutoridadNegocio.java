@@ -6,6 +6,7 @@ import javax.ejb.Stateless;
 
 import datatypes.DTAutoridad;
 import datos.AutoridadDatoLocal;
+import entidades.Administrador;
 import entidades.Autoridad;
 
 /**
@@ -22,6 +23,10 @@ public class AutoridadNegocio implements AutoridadNegocioRemote, AutoridadNegoci
         // TODO Auto-generated constructor stub
     }
     
+    
+    public Autoridad obtenerAutoridadPorCi (int ci) {
+    	return datoLocal.obtenerAutoridadPorCI(ci);
+    }
     
 
 }

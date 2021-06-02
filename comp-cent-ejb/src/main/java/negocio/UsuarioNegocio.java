@@ -45,6 +45,8 @@ public class UsuarioNegocio implements UsuarioNegocioRemote, UsuarioNegocioLocal
    @EJB
    private UsuarioDatoLocal usuarioDato; 
    
+  
+   
    
     public UsuarioNegocio() {
         // TODO Auto-generated constructor stub
@@ -123,6 +125,27 @@ public class UsuarioNegocio implements UsuarioNegocioRemote, UsuarioNegocioLocal
 	 	
 	 	return lista;
 	}
+    
+    
+   	@Override
+   	public boolean autenticarUsuario (int ci, String pass) {
+   		try {
+	   		if (administradorDato.obtenerAdministradorPorCI(ci) != null  )
+	   			//return administradorDato.obtenerAdministradorPorCI(ci).getContrasenia().equals(hashPassword(pass));
+	   			return administradorDato.obtenerAdministradorPorCI(ci).getContrasenia().equals(pass);
+	   		else if (autoridadDato.obtenerAutoridadPorCI(ci) != null)
+	   			//return autoridadDato.obtenerAutoridadPorCI(ci).getContrasenia().equals(hashPassword(pass));
+	   			return autoridadDato.obtenerAutoridadPorCI(ci).getContrasenia().equals(pass);
+	   		else
+	   			return false; /* El usuario no existe en la base de datos */
+   		}catch (Exception e) {
+			
+   			System.out.println("ERROR: No se pudo obtener el hash MD5 para la password.");
+			return false;
+		}
+
+   	}
+    
     
     @Override
 	public List<DTAdministrador> mostrarAdministradores(){

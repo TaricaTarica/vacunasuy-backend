@@ -53,7 +53,7 @@ public class DTAgenda {
 		this.inicio = agenda.getInicio().toString();
 		this.fin = agenda.getFin().toString();
 		this.dtVacunatorio = new DTVacunatorio(agenda.getVacunatorio().getNombre(),agenda.getVacunatorio().getCodigo());
-		this.horaInicio = agenda.getHoraIncio();
+		this.horaInicio = agenda.getHoraInicio();
 		this.horaFin = agenda.getHoraFin();
 		this.listDtPlanVacunacion = new ArrayList<DTPlanVacunacion>();
 		for (PlanVacunacion planes : agenda.getPlanes()) {
@@ -87,11 +87,11 @@ public class DTAgenda {
 		this.fin = fin;
 	}
 
-	public int getHoraIncio() {
+	public int getHoraInicio() {
 		return horaInicio;
 	}
 
-	public void setHoraIncio(int horaInicio) {
+	public void setHoraInicio(int horaInicio) {
 		this.horaInicio = horaInicio;
 	}
 

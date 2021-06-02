@@ -19,4 +19,5 @@ public interface ReservaNegocioLocal {
 	
 	public void cancelarReserva(String idReserva);
 	
+	public Boolean existeReservaPorAgenda (long idAgenda);
 }

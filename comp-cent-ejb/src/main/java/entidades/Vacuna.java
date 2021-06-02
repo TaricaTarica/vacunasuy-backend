@@ -21,7 +21,10 @@ public class Vacuna {
 	private String nombre;
 	private String codigo;
 	private String laboratorio;
+	private int dosis;
+	private int periodoInmune;
 	
+
 	@ManyToOne
 	private Enfermedad enfermedad;
 	
@@ -47,12 +50,14 @@ public class Vacuna {
 		this.laboratorio = vacuna.getLaboratorio();
 	}
 	
-	public Vacuna(String nombre, String codigo, String laboratorio) {
+	public Vacuna(String nombre, String codigo, String laboratorio, int dosis, int periodoInmune) {
 		super();
 		this.nombre = nombre;
 		this.codigo = codigo;
 		this.laboratorio = laboratorio;
-	}
+		this.dosis = dosis;
+		this.periodoInmune = periodoInmune;
+		}
 
 
 	public long getId() {
@@ -102,6 +107,22 @@ public class Vacuna {
 
 	public void setProveedor(Proveedor proveedor) {
 		this.proveedor = proveedor;
+	}
+
+	public int getDosis() {
+		return dosis;
+	}
+
+	public void setDosis(int dosis) {
+		this.dosis = dosis;
+	}
+
+	public int getPeriodoInmune() {
+		return periodoInmune;
+	}
+
+	public void setPeriodoInmune(int periodoInmune) {
+		this.periodoInmune = periodoInmune;
 	}
 
 	public void agregarLote(Lote lote) {

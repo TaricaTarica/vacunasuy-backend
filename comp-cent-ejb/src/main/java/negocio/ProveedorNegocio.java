@@ -7,6 +7,7 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
+import datatypes.DTPlanVacunacion;
 import datatypes.DTProveedor;
 import datos.ProveedorDatoLocal;
 import entidades.Proveedor;
@@ -79,7 +80,15 @@ public class ProveedorNegocio implements ProveedorNegocioRemote, ProveedorNegoci
 			throw new Exception("\nNo se encontro el Proveedor con el id ingresado");	
 		}
     }
-    
-    
-    
+    @Override
+	public DTProveedor obtenerProveedor(String nombre) throws Exception {
+    	if(mp.existeProveedor(nombre)) {
+    		Proveedor proveedor = mp.obtenerProveedorPorNombre(nombre);
+    		DTProveedor dtProveedor = new DTProveedor(proveedor);
+    		return dtProveedor;
+    	}else {
+			throw new Exception("\nNo existe un plan con el nombre ingresado");
+		}
+    	
+    }
 }

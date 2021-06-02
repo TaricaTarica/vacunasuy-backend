@@ -208,15 +208,19 @@ public class VacunaBean implements  Serializable{
 				if(editar) {
 					System.out.println("Estoy en el if del editar");
 					vacunaLocal.editarVacuna(vacuna);
-					this.vacuna=null;
+//					this.vacuna=null;
+					this.init();
+					
 					PrimeFaces.current().executeScript("PF('VacunaDialog').hide()");
 				    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Vacuna editado correctamente","" ));
 				}else {
 					
 					System.out.println("Estoy en el else agregando vacuna");
 					vacunaLocal.agregarVacuna(vacuna);
-					vacunas.add(vacuna);
-					this.vacuna=null;
+//					vacunas.add(vacuna);
+//					this.vacuna=null;
+					this.init();
+					
 				}
 				
 			

@@ -12,6 +12,7 @@ import datatypes.DTAgenda;
 import datatypes.DTPlanVacunacion;
 import datos.AgendaDatoLocal;
 import datos.PlanVacunacionDatoLocal;
+import datos.ReservaDatoLocal;
 import datos.VacunatorioDatoLocal;
 import entidades.Agenda;
 import entidades.PlanVacunacion;
@@ -30,6 +31,8 @@ public class AgendaNegocio implements AgendaNegocioRemote, AgendaNegocioLocal {
 	private VacunatorioDatoLocal vacunatorioLocal;
 	@EJB
 	private PlanVacunacionDatoLocal planLocal;
+	@EJB
+	private ReservaDatoLocal reservaLocal;
     /**
      * Default constructor. 
      */
@@ -37,18 +40,22 @@ public class AgendaNegocio implements AgendaNegocioRemote, AgendaNegocioLocal {
         // TODO Auto-generated constructor stub
     }
 
-	public void agregarAgenda(DTAgenda dtAgenda) {
+	public void agregarAgenda(DTAgenda dtAgenda) throws Exception {
 		Agenda agenda = new Agenda(dtAgenda);
 		Vacunatorio vacunatorio = vacunatorioLocal.obtenerVacunatorio(dtAgenda.getDtVacunatorio().getId());
 		agenda.setVacunatorio(vacunatorio);
-		List<DTPlanVacunacion> planes = dtAgenda.getListDtPlanVacunacion();
-		List<PlanVacunacion> planesAux = new ArrayList<PlanVacunacion>();
-		for (DTPlanVacunacion plan : planes) {
-			PlanVacunacion planVac = planLocal.obtenerPlanVacunacion(plan.getNombre());
-			planesAux.add(planVac);
+		if (!agendaLocal.agendaSuperpuesta(agenda)) {
+			List<DTPlanVacunacion> planes = dtAgenda.getListDtPlanVacunacion();
+			List<PlanVacunacion> planesAux = new ArrayList<PlanVacunacion>();
+			for (DTPlanVacunacion plan : planes) {
+				PlanVacunacion planVac = planLocal.obtenerPlanVacunacion(plan.getNombre());
+				planesAux.add(planVac);
+			}
+			agenda.setPlanes(planesAux);
+			this.agendaLocal.agregarAgenda(agenda);
+		} else {
+			throw new Exception("\n No se puede crear agenda, se superponen las fechas con otra agenda para ese vacunatorio");
 		}
-		agenda.setPlanes(planesAux);
-		this.agendaLocal.agregarAgenda(agenda);
 	}
 	
 	public List<DTAgenda> listarAgenda(){
@@ -78,5 +85,47 @@ public class AgendaNegocio implements AgendaNegocioRemote, AgendaNegocioLocal {
 		}
 		
 	}
-    
+	
+	@Override
+	public void editarAgenda (DTAgenda dtAgenda) throws Exception {
+		Agenda agenda = agendaLocal.obtenerAgendaPorId(dtAgenda.getId());
+		Agenda ag = new Agenda(dtAgenda);
+		if (agenda != null) {
+			Vacunatorio vac = vacunatorioLocal.obtenerVacunatorio(dtAgenda.getDtVacunatorio().getId());
+			agenda.setVacunatorio(vac);
+			ag.setVacunatorio(vac);
+			if (!agendaLocal.agendaSuperpuesta(ag)) {
+				agenda.setInicio(LocalDate.parse(dtAgenda.getInicio()));
+				agenda.setFin(LocalDate.parse(dtAgenda.getFin()));
+				agenda.setHoraInicio(dtAgenda.getHoraInicio());
+				agenda.setHoraFin(agenda.getHoraFin());
+	
+				List<DTPlanVacunacion> dtPlan = dtAgenda.getListDtPlanVacunacion();
+				List<PlanVacunacion> planes = new ArrayList<PlanVacunacion>();
+				for (DTPlanVacunacion plan: dtPlan) {
+					planes.add(planLocal.obtenerPlanVacunacionPorId(plan.getId()));
+				}
+				agenda.setPlanes(planes);
+				agendaLocal.editarAgenda(agenda);
+			} else {
+				throw new Exception("\n No se puede modificar agenda, se superponen las fechas con otra agenda para ese vacunatorio");
+			}
+		} else {
+			throw new Exception("\nNo se encontro una agenda con el id ingresado");
+		}
+	}
+	
+	@Override
+	public void eliminarAgenda (DTAgenda dtAgenda) throws Exception {
+		Agenda agenda = agendaLocal.obtenerAgendaPorId(dtAgenda.getId());
+		if (agenda != null) {
+			if (!reservaLocal.existeReserva(agenda.getId())) {
+				agendaLocal.eliminarAgenda(agenda);
+			} else {
+				throw new Exception("\nNo se puede eliminar la agenda, porque tiene reservas asociadas");
+			}
+		} else {
+			throw new Exception("\nNo se encontro un agenda con el id ingresado");
+		}
+	}
 }

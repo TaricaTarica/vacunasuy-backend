@@ -44,12 +44,14 @@ public class VacunaNegocio implements VacunaNegocioRemote, VacunaNegocioLocal {
     }
     
     @Override
-    public void agregarVacuna(String nombre, String codigo, String laboratorio, Enfermedad enf, Proveedor pro) {
+    public void agregarVacuna(String nombre, String codigo, String laboratorio, Enfermedad enf, Proveedor pro, int dosis, int periodoInmune) {
     	
     	Vacuna vac= new Vacuna();
     	vac.setNombre(nombre);
     	vac.setCodigo(codigo);
     	vac.setLaboratorio(laboratorio);
+    	vac.setDosis(dosis);
+    	vac.setPeriodoInmune(periodoInmune);
     	
     	
     	puenteDatos.agregarVacuna(vac);
@@ -91,6 +93,8 @@ public class VacunaNegocio implements VacunaNegocioRemote, VacunaNegocioLocal {
     		vac.setEnfermedad(enf);
     		Proveedor pro = proveedorDatoLocal.obtenerProveedorPorNombre(dtvacuna.getProveedor().getNombre());
     		vac.setProveedor(pro);
+    		vac.setDosis(dtvacuna.getDosis());
+    		vac.setPeriodoInmune(dtvacuna.getPeriodoInmune());
 //    		System.out.println(enf.getNombre() + enf.getId());
 //    		System.out.println(pro.getNombre() + pro.getId());
         	this.puenteDatos.agregarVacuna(vac);
@@ -116,6 +120,8 @@ public class VacunaNegocio implements VacunaNegocioRemote, VacunaNegocioLocal {
     		vacuna.setNombre(dtvacuna.getNombre());
     		vacuna.setCodigo(dtvacuna.getCodigo());
     		vacuna.setLaboratorio(dtvacuna.getLaboratorio());
+    		vacuna.setDosis(dtvacuna.getDosis());
+    		vacuna.setPeriodoInmune(dtvacuna.getPeriodoInmune());
     		
     		puenteDatos.editarVacuna(vacuna);
     	}else {

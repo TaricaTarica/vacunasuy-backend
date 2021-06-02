@@ -7,6 +7,9 @@ public class DTVacuna {
 	private String nombre;
 	private String codigo;
 	private String laboratorio;
+	private int dosis;
+	private int periodoInmune;
+	
 	
 	private DTEnfermedad enfermedad;
 	private DTProveedor proveedor;
@@ -22,6 +25,8 @@ public class DTVacuna {
 		this.nombre = vacuna.getNombre();
 		this.codigo = vacuna.getCodigo();
 		this.laboratorio = vacuna.getLaboratorio();
+		this.dosis = vacuna.getDosis();
+		this.periodoInmune = vacuna.getPeriodoInmune();
 	}
 	
 	public DTVacuna(String nombre, String codigo, String laboratorio) {
@@ -77,4 +82,22 @@ public class DTVacuna {
 	public void setProveedor(DTProveedor proveedor) {
 		this.proveedor = proveedor;
 	}
+
+	public int getDosis() {
+		return dosis;
+	}
+
+	public void setDosis(int dosis) {
+		this.dosis = dosis;
+	}
+
+	public int getPeriodoInmune() {
+		return periodoInmune;
+	}
+
+	public void setPeriodoInmune(int periodoInmune) {
+		this.periodoInmune = periodoInmune;
+	}
+	
+	
 }
