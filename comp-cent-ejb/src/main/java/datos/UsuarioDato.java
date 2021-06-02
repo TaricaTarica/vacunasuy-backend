@@ -4,8 +4,6 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
-
 import entidades.Usuario;
 
 /**
@@ -34,5 +32,16 @@ public class UsuarioDato implements UsuarioDatoLocal {
     @Override
 	public Usuario obtenerUsuarioPorCI(int ci) {
 		return em.find(Usuario.class, ci);	
+	}
+    
+    @Override
+    public void eliminarUsuario (int ci) {
+    	
+    	em.remove(em.find(Usuario.class, ci));
+    }
+    
+    @Override
+	public void editarUsuario(Usuario usuario) {
+		em.merge(usuario);		
 	}
 }

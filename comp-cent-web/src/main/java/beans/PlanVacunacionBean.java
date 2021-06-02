@@ -247,13 +247,11 @@ public class PlanVacunacionBean implements Serializable {
     }
 	
 	public void buscarPlan ()  {
-		this.planVacunacion = null;
-		for (DTPlanVacunacion dtPlan : planesVacunaciones) {
-			if (dtPlan.getNombre().equals(nombrePlan)) {
-				planVacunacion = dtPlan;
-				break;
-			}
-		}
+		try {
+			planVacunacion = planLocal.obtenerPlanVacunacion(nombrePlan);
+			} catch (Exception e) {
+	    		this.planVacunacion = null;
+	    	}
 	
 	}
 		

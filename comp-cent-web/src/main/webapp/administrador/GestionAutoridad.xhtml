@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3c.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Gestion de Autoridades</title>
+</h:head>
+<h:body>
+	<h:form id="AutoridadListarForm">
+<!-- 		<p:messages id="messages" showDetail="true" closable="true"> -->
+<!-- 			<p:autoUpdate /> -->
+<!-- 		</p:messages> -->
+		<div>
+			<p:dataTable id="AutoridadTabla" var="aut"
+				value="#{autoridadBean.autoridades}" paginator="true" rows="6"
+        		paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+				<f:facet name="header">Listado de Autoridades </f:facet>
+				
+				<p:column headerText="Cedula">
+					<h:outputText value="#{aut.ci}" />
+				</p:column>
+				<p:column headerText="Nombre">
+					<h:outputText value="#{aut.primerNombre}" />
+				</p:column>
+				<p:column headerText="Apellido">
+					<h:outputText value="#{aut.primerApellido}" />
+				</p:column>
+				<p:column headerText="Email">
+					<h:outputText value="#{aut.email}" />
+				</p:column>
+				<p:column headerText="Telefono">
+					<h:outputText value="#{aut.telefono}" />
+				</p:column>
+				<p:column headerText="Opciones">
+					<div style="display: flex; align-items: center;justify-content: center;">    
+						      <p:commandButton id="cambiar" icon="pi pi-unlock" styleClass="rounded-button ui-button-secondary"
+											action="#{autoridadBean.setAutoridadSeleccionado(aut)}"
+											update=":dialogFormAutoridadContraseña" oncomplete="PF('autoridadContraseñaDialog').show()" />
+										 <p:tooltip for="cambiar" value="Cambiar Contraseña" position="left"/>	
+									<p:spacer width="5"/>
+						      <p:commandButton id="editar" icon="pi pi-pencil" styleClass="rounded-button ui-button-secondary"
+											action="#{autoridadBean.editarAutoridad(aut)}"
+											update=":dialogForm" oncomplete="PF('autoridadDialog').show()" />
+										 <p:tooltip for="editar" value="Editar Autoridad" position="left"/>	
+									<p:spacer width="5"/>
+							<p:commandButton id="eliminar" icon="pi pi-trash" styleClass="rounded-button ui-button-secondary"
+											action="#{autoridadBean.eliminarAutoridadSeleccionado(aut)}"
+											update=":eliminarautoridad,:AutoridadListarForm:AutoridadTabla">
+											<p:confirm header="Confirmacion" message="Estas seguro de eliminar el usuario Autoridad?" icon="pi pi-exclamation-triangle"/>
+							</p:commandButton>	
+										 <p:tooltip for="eliminar" value="Eliminar Autoridad" position="left"/>	
+									<p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+									            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no"/>
+									            <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" />
+       								</p:confirmDialog>
+										 
+					</div>					 
+				</p:column>				
+
+				<f:facet name="footer">
+					<div style="display: flex; align-items: center;justify-content: center;">
+						<p:commandButton value="Buscar"
+							actionListener="#{autoridadBean.reiniciarAutoridadSeleccionado}"
+							update=":dialogFormAutoridad"
+							oncomplete="PF('autoridadDialogBuscar').show()" />
+						<p:spacer height="5px" />
+						<p:commandButton value="Agregar Autoridad"
+							update=":dialogForm"
+							actionListener="#{autoridadBean.reiniciarAutoridadSeleccionado}"
+							oncomplete="PF('autoridadDialog').show()" />
+							
+						
+					</div>
+				</f:facet>
+			</p:dataTable>
+		</div>
+	</h:form>
+	
+	<div>
+		<h:form id="eliminarautoridad">
+				 <p:growl id="message" showDetail="true"/>
+		</h:form>
+	</div>	
+	
+	<p:dialog id="autoridadDlgContraseña" widgetVar="autoridadContraseñaDialog"
+		header="Cambiar Contraseña Autoridad" modal="true" showEffect="fade"
+		hideEffect="fade" resizable="false">
+
+		<h:form id="dialogFormAutoridadContraseña">
+
+			<p:outputPanel id="AutoridadContraseña" style="text-align: center">
+				<p:growl id="growl" showDetail="false" />
+	        	<p:growl id="growl-sticky" for="sticky-key" showDetail="true" sticky="true" />
+	        	
+				<h:outputText value="Nueva Contraseña" />
+				<h:inputText value="#{autoridadBean.contrasenia}" />		
+			</p:outputPanel>
+			<p:spacer width="5"/>
+					<div style="display: flex; align-items: center;justify-content: center;">
+					<p:commandButton width="5" value="Aceptar"
+					actionListener="#{autoridadBean.cambiarContraseniaAutoridad}" 
+					update="AutoridadContraseña"/>
+					</div>
+		</h:form>
+
+	</p:dialog>
+	
+	<p:dialog id="autoridadDlg" widgetVar="autoridadDialog"
+		header="Gestion de Autoridades" modal="true" showEffect="fade"
+		hideEffect="fade" resizable="false">
+
+		<h:form id="dialogForm">			
+			<p:panel header="#{autoridadBean.nombreBoton}" id="grid" style="margin-bottom:10px;">
+	            <p:growl id="growl" showDetail="false" />
+	        	<p:growl id="growl-sticky" for="sticky-key" showDetail="true" sticky="true" />
+	            
+		            <h:panelGrid  columns="2" cellpadding="5" styleClass="p-mb-3">
+		                
+		                 <h:outputLabel for="ci" value="Cedula Identidad:"/>
+		            	<p:message for="ci" display="icon"> <p:inputText type="number" id="ci" value="#{autoridadBean.autoridadSeleccionado.ci}" disabled="#{autoridadBean.enabled}" required="true" requiredMessage="Debe ingresar un numero de cedula (incluyendo digito verificador)"/>  </p:message>
+		            	
+		                <h:outputLabel for="name" value="Nombre:"/>
+		            	<p:message for="name" display="icon"> <p:inputText id="name" value="#{autoridadBean.autoridadSeleccionado.primerNombre}" required="true" requiredMessage="Debe ingresar un nombre"/>  </p:message>
+		            	
+		            	 <h:outputLabel for="name2" value="Segundo Nombre:"/>
+		            	<p:message for="name2" display="icon"> <p:inputText id="name2" value="#{autoridadBean.autoridadSeleccionado.segundoNombre}"/>  </p:message>
+		            	
+		            	<h:outputLabel for="apellido" value="Apellido:"/>
+		            	<p:message for="apellido" display="icon"> <p:inputText id="apellido" value="#{autoridadBean.autoridadSeleccionado.primerApellido}" />  </p:message>
+		            	
+		            	
+		            	<h:outputLabel for="apellido2" value="Segundo Apellido:"/>
+		            	<p:message for="apellido2" display="icon"> <p:inputText id="apellido2" value="#{autoridadBean.autoridadSeleccionado.segundoApellido}" />  </p:message>
+		            	
+		            	 <h:outputLabel for="telefono" value="Telefono:"/>
+		            	<p:message for="telefono" display="icon"> <p:inputText type="number" id="telefono" value="#{autoridadBean.autoridadSeleccionado.telefono}" />  </p:message>
+		            	
+		            	 <h:outputLabel for="mail" value="Mail:"/>
+		            	<p:message for="mail" display="icon"> <p:inputText id="mail" value="#{autoridadBean.autoridadSeleccionado.email}" validatorMessage="Formato invalido Email"> <f:validateRegex
+        pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" /> </p:inputText> </p:message>
+		            	
+		            	 <h:outputLabel for="contrasenia" rendered="#{!autoridadBean.enabled}" value="Contraseña:"/>
+		            	<p:message for="contrasenia" display="icon"> <p:inputText id="contrasenia"  rendered="#{!autoridadBean.enabled}" value="#{autoridadBean.contrasenia}" required="true" requiredMessage="Debe ingresar una contraseña"/>  </p:message>
+	        
+	            	</h:panelGrid>
+				
+	          
+				<div style="display: flex; align-items: center;justify-content: center;">
+	            <p:commandButton  value="#{autoridadBean.nombreBoton}" action="#{autoridadBean.agregarEditarAutoridad()}" 
+	            				update="grid,:AutoridadListarForm:AutoridadTabla"
+	                             icon="#{autoridadBean.estiloBoton}" /> 
+	            </div>
+	        </p:panel>
+	
+		</h:form>
+
+	</p:dialog>
+
+	<p:dialog id="autoridadDlgBuscar" widgetVar="autoridadDialogBuscar"
+		header="Buscar Autoridad" modal="true" showEffect="fade"
+		hideEffect="fade" resizable="false">
+
+		<h:form id="dialogFormAutoridad">
+
+			<p:outputPanel id="AutoridadInfo" style="text-align: center">
+				<h:outputText value="Cedula" />
+				<h:inputText value="#{autoridadBean.cedulaUsuario}" />
+					<p:commandButton value="Buscar"
+					actionListener="#{autoridadBean.buscarAutoridad()}"
+					update="AutoridadTabla" />
+				<p:dataTable id="AutoridadTabla" var="aut"	value="#{autoridadBean.autoridadSeleccionado}">
+
+					
+				<f:facet name="header">Administrador </f:facet>
+				
+				<p:column headerText="Cedula">
+					<h:outputText value="#{aut.ci}" />
+				</p:column>
+				<p:column headerText="Nombre">
+					<h:outputText value="#{aut.primerNombre}" />
+				</p:column>
+				<p:column headerText="Apellido">
+					<h:outputText value="#{aut.primerApellido}" />
+				</p:column>
+				<p:column headerText="Email">
+					<h:outputText value="#{aut.email}" />
+				</p:column>
+				<p:column headerText="Telefono">
+					<h:outputText value="#{aut.telefono}" />
+				</p:column>
+				</p:dataTable>
+			</p:outputPanel>
+		</h:form>
+
+	</p:dialog>
+
+</h:body>
+</html>

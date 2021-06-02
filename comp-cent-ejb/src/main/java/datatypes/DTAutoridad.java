@@ -41,7 +41,6 @@ public class DTAutoridad {
 		this.segundoApellido = autoridad.getSegundoApellido();
 		this.telefono = autoridad.getTelefono();
 		this.email = autoridad.getEmail();
-		this.usuario = autoridad.getUsuario();
 		this.contrasenia = autoridad.getContrasenia();		
 	}
 

@@ -40,7 +40,6 @@ public class DTAdministrador {
 		this.segundoApellido = administrador.getSegundoApellido();
 		this.telefono = administrador.getTelefono();
 		this.email = administrador.getEmail();
-		this.usuario = administrador.getUsuario();
 		this.contrasenia = administrador.getContrasenia();		
 	}	
 

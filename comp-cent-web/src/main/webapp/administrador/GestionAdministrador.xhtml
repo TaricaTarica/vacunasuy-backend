@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3c.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Gestion de Administradores</title>
+</h:head>
+<h:body>
+	<h:form id="AdminListarForm">
+<!-- 		<p:messages id="messages" showDetail="true" closable="true"> -->
+<!-- 			<p:autoUpdate /> -->
+<!-- 		</p:messages> -->
+		<div>
+			<p:dataTable id="AdminTabla" var="admin"
+				value="#{administradorBean.administradores}" paginator="true" rows="6"
+        		paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+				<f:facet name="header">Listado de Administradores </f:facet>
+				
+				<p:column headerText="Cedula">
+					<h:outputText value="#{admin.ci}" />
+				</p:column>
+				<p:column headerText="Nombre">
+					<h:outputText value="#{admin.primerNombre}" />
+				</p:column>
+				<p:column headerText="Apellido">
+					<h:outputText value="#{admin.primerApellido}" />
+				</p:column>
+				<p:column headerText="Email">
+					<h:outputText value="#{admin.email}" />
+				</p:column>
+				<p:column headerText="Telefono">
+					<h:outputText value="#{admin.telefono}" />
+				</p:column>
+				<p:column headerText="Opciones">
+					<div style="display: flex; align-items: center;justify-content: center;">    
+						      <p:commandButton id="cambiar" icon="pi pi-unlock" styleClass="rounded-button ui-button-secondary"
+											action="#{administradorBean.setAdminSeleccionado(admin)}"
+											update=":dialogFormAdminContraseña" oncomplete="PF('adminContraseñaDialog').show()" />
+										 <p:tooltip for="cambiar" value="Cambiar Contraseña" position="left"/>	
+									<p:spacer width="5"/>
+						      <p:commandButton id="editar" icon="pi pi-pencil" styleClass="rounded-button ui-button-secondary"
+											action="#{administradorBean.editarAdministrador(admin)}"
+											update=":dialogForm" oncomplete="PF('adminDialog').show()" />
+										 <p:tooltip for="editar" value="Editar Administrador" position="left"/>	
+									<p:spacer width="5"/>
+							<p:commandButton id="eliminar" icon="pi pi-trash" styleClass="rounded-button ui-button-secondary"
+											action="#{administradorBean.eliminarAdminSeleccionado(admin)}"
+											update=":eliminaradmin,:AdminListarForm:AdminTabla">
+											<p:confirm header="Confirmacion" message="Estas seguro de eliminar el usuario Administrador?" icon="pi pi-exclamation-triangle"/>
+							</p:commandButton>	
+										 <p:tooltip for="eliminar" value="Eliminar Administrador" position="left"/>	
+									<p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+									            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no"/>
+									            <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" />
+       								</p:confirmDialog>
+										 
+					</div>					 
+				</p:column>				
+
+				<f:facet name="footer">
+					<div style="display: flex; align-items: center;justify-content: center;">
+						<p:commandButton value="Buscar"
+							actionListener="#{administradorBean.reiniciarAdminSeleccionado}"
+							update=":dialogFormAdmin"
+							oncomplete="PF('adminDialogBuscar').show()" />
+						<p:spacer height="5px" />
+						<p:commandButton value="Agregar Administrador"
+							update=":dialogForm"
+							actionListener="#{administradorBean.reiniciarAdminSeleccionado}"
+							oncomplete="PF('adminDialog').show()" />
+							
+						
+					</div>
+				</f:facet>
+			</p:dataTable>
+		</div>
+	</h:form>
+	
+	<div>
+		<h:form id="eliminaradmin">
+				 <p:growl id="message" showDetail="true"/>
+		</h:form>
+	</div>	
+	
+	<p:dialog id="adminDlgContraseña" widgetVar="adminContraseñaDialog"
+		header="Cambiar Contraseña Administrador" modal="true" showEffect="fade"
+		hideEffect="fade" resizable="false">
+
+		<h:form id="dialogFormAdminContraseña">
+
+			<p:outputPanel id="AdminContraseña" style="text-align: center">
+				<p:growl id="growl" showDetail="false" />
+	        	<p:growl id="growl-sticky" for="sticky-key" showDetail="true" sticky="true" />
+	        	
+				<h:outputText value="Nueva Contraseña" />
+				<h:inputText value="#{administradorBean.contrasenia}" />		
+			</p:outputPanel>
+			<p:spacer width="5"/>
+					<div style="display: flex; align-items: center;justify-content: center;">
+					<p:commandButton width="5" value="Aceptar"
+					actionListener="#{administradorBean.cambiarContraseniaAdministrador}" 
+					update="AdminContraseña"/>
+					</div>
+		</h:form>
+
+	</p:dialog>
+	
+	<p:dialog id="adminDlg" widgetVar="adminDialog"
+		header="Gestion de Administradores" modal="true" showEffect="fade"
+		hideEffect="fade" resizable="false">
+
+		<h:form id="dialogForm">			
+			<p:panel header="#{administradorBean.nombreBoton}" id="grid" style="margin-bottom:10px;">
+	            <p:growl id="growl" showDetail="false" />
+	        	<p:growl id="growl-sticky" for="sticky-key" showDetail="true" sticky="true" />
+	            
+		            <h:panelGrid  columns="2" cellpadding="5" styleClass="p-mb-3">
+		                
+		                 <h:outputLabel for="ci" value="Cedula Identidad:"/>
+		            	<p:message for="ci" display="icon"> <p:inputText type="number" id="ci" value="#{administradorBean.adminSeleccionado.ci}" disabled="#{administradorBean.enabled}" required="true" requiredMessage="Debe ingresar un numero de cedula (incluyendo digito verificador)"/>  </p:message>
+		            	
+		                <h:outputLabel for="name" value="Nombre:"/>
+		            	<p:message for="name" display="icon"> <p:inputText id="name" value="#{administradorBean.adminSeleccionado.primerNombre}" required="true" requiredMessage="Debe ingresar un nombre"/>  </p:message>
+		            	
+		            	 <h:outputLabel for="name2" value="Segundo Nombre:"/>
+		            	<p:message for="name2" display="icon"> <p:inputText id="name2" value="#{administradorBean.adminSeleccionado.segundoNombre}"/>  </p:message>
+		            	
+		            	<h:outputLabel for="apellido" value="Apellido:"/>
+		            	<p:message for="apellido" display="icon"> <p:inputText id="apellido" value="#{administradorBean.adminSeleccionado.primerApellido}" />  </p:message>
+		            	
+		            	
+		            	<h:outputLabel for="apellido2" value="Segundo Apellido:"/>
+		            	<p:message for="apellido2" display="icon"> <p:inputText id="apellido2" value="#{administradorBean.adminSeleccionado.segundoApellido}" />  </p:message>
+		            	
+		            	 <h:outputLabel for="telefono" value="Telefono:"/>
+		            	<p:message for="telefono" display="icon"> <p:inputText type="number" id="telefono" value="#{administradorBean.adminSeleccionado.telefono}" />  </p:message>
+		            	
+		            	 <h:outputLabel for="mail" value="Mail:"/>
+		            	<p:message for="mail" display="icon"> <p:inputText id="mail" value="#{administradorBean.adminSeleccionado.email}" validatorMessage="Formato invalido Email"> <f:validateRegex
+        pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" /> </p:inputText> </p:message>
+		            	
+		            	 <h:outputLabel for="contrasenia" rendered="#{!administradorBean.enabled}" value="Contraseña:"/>
+		            	<p:message for="contrasenia" display="icon"> <p:inputText id="contrasenia"  rendered="#{!administradorBean.enabled}" value="#{administradorBean.contrasenia}" required="true" requiredMessage="Debe ingresar una contraseña"/>  </p:message>
+	        
+	            	</h:panelGrid>
+				
+	          
+				<div style="display: flex; align-items: center;justify-content: center;">
+	            <p:commandButton  value="#{administradorBean.nombreBoton}" action="#{administradorBean.agregarEditarAdministrador()}" 
+	            				update="grid,:AdminListarForm:AdminTabla"
+	                             icon="#{administradorBean.estiloBoton}" /> 
+	            </div>
+	        </p:panel>
+	
+		</h:form>
+
+	</p:dialog>
+
+	<p:dialog id="adminDlgBuscar" widgetVar="adminDialogBuscar"
+		header="Buscar Administrador" modal="true" showEffect="fade"
+		hideEffect="fade" resizable="false">
+
+		<h:form id="dialogFormAdmin">
+
+			<p:outputPanel id="AdminInfo" style="text-align: center">
+				<h:outputText value="Cedula" />
+				<h:inputText value="#{administradorBean.cedulaUsuario}" />
+					<p:commandButton value="Buscar"
+					actionListener="#{administradorBean.buscarAdministrador()}"
+					update="AdminTabla" />
+				<p:dataTable id="AdminTabla" var="admin"	value="#{administradorBean.adminSeleccionado}">
+
+					
+				<f:facet name="header">Administrador </f:facet>
+				
+				<p:column headerText="Cedula">
+					<h:outputText value="#{admin.ci}" />
+				</p:column>
+				<p:column headerText="Nombre">
+					<h:outputText value="#{admin.primerNombre}" />
+				</p:column>
+				<p:column headerText="Apellido">
+					<h:outputText value="#{admin.primerApellido}" />
+				</p:column>
+				<p:column headerText="Email">
+					<h:outputText value="#{admin.email}" />
+				</p:column>
+				<p:column headerText="Telefono">
+					<h:outputText value="#{admin.telefono}" />
+				</p:column>
+				</p:dataTable>
+			</p:outputPanel>
+		</h:form>
+
+	</p:dialog>
+
+</h:body>
+</html>

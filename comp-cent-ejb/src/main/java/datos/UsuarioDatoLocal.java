@@ -11,4 +11,8 @@ public interface UsuarioDatoLocal {
 
 	public Usuario obtenerUsuarioPorCI(int ci);
 
+	public void eliminarUsuario(int ci);
+
+	public void editarUsuario(Usuario usuario);
+
 }

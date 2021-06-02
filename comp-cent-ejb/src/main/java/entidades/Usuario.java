@@ -18,11 +18,25 @@ public abstract class Usuario {
 	private String segundoApellido;	
 	private int telefono;
 	private String email;
+	private String contrasenia;
 	
 	public Usuario() {
 		super();
 	}
 
+	public Usuario(int ci, String primerNombre, String segundoNombre, String primerApellido, String segundoApellido,
+			int telefono, String email, String contrasenia) {
+		super();
+		this.ci = ci;
+		this.primerNombre = primerNombre;
+		this.segundoNombre = segundoNombre;
+		this.primerApellido = primerApellido;
+		this.segundoApellido = segundoApellido;
+		this.telefono = telefono;
+		this.email = email;
+		this.contrasenia = contrasenia;
+	}
+	
 	public Usuario(int ci, String primerNombre, String segundoNombre, String primerApellido, String segundoApellido,
 			int telefono, String email) {
 		super();
@@ -33,6 +47,7 @@ public abstract class Usuario {
 		this.segundoApellido = segundoApellido;
 		this.telefono = telefono;
 		this.email = email;
+		
 	}
 
 	public int getCi() {
@@ -91,11 +106,21 @@ public abstract class Usuario {
 		this.email = email;
 	}
 
+	public String getContrasenia() {
+		return contrasenia;
+	}
+
+	public void setContrasenia(String contrasenia) {
+		this.contrasenia = contrasenia;
+	}
+
 	@Override
 	public String toString() {
 		return "Usuario [ci=" + ci + ", primerNombre=" + primerNombre + ", segundoNombre=" + segundoNombre
 				+ ", primerApellido=" + primerApellido + ", segundoApellido=" + segundoApellido + ", telefono="
-				+ telefono + ", email=" + email + "]";
-	}	
+				+ telefono + ", email=" + email + ", contrasenia=" + contrasenia + "]";
+	}
+
+	
 	
 }

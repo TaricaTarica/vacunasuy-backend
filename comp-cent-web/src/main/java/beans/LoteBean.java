@@ -175,13 +175,11 @@ public class LoteBean implements Serializable {
 	
 	
 	public void buscarLote () {
-		this.lote = null;
-		for (DTLote dtLote:lotes) {
-			if (dtLote.getNombre().equals(nombreLote)) {
-				lote = dtLote;
-				break;
-			}
-		}
+		try {
+			lote = loteLocal.obtenerLote(nombreLote);
+			} catch (Exception e) {
+	    		this.lote = null;
+	    	}
 	
 	}
 		

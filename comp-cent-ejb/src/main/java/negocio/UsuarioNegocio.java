@@ -10,8 +10,10 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.xml.bind.DatatypeConverter;
 
+import datatypes.DTAdministrador;
+import datatypes.DTAutoridad;
 import datatypes.DTCiudadano;
-
+import datatypes.DTContrasenia;
 import datos.AdministradorDatoLocal;
 import datos.AutoridadDatoLocal;
 import datos.CiudadanoDatoLocal;
@@ -53,20 +55,17 @@ public class UsuarioNegocio implements UsuarioNegocioRemote, UsuarioNegocioLocal
     	
     	
 		if (!usuarioDato.existeUsuario(user.getCi())) {
-			
-			
-			try {
+			if((user instanceof Autoridad)){
 				Autoridad aut = (Autoridad)user;
+				
 				try {
 				aut.setContrasenia(hashPassword(aut.getContrasenia()));
 				autoridadDato.guardarAutoridad(aut);
 				} catch (NoSuchAlgorithmException e2) {
 					throw new Exception("\nOcurrio un error interno, vuelva a intentar");
 				}
-				
-			} catch(Exception e) {
-				try {
-					Administrador admin = (Administrador)user;
+			} else {
+				Administrador admin = (Administrador)user;	
 					try {
 					admin.setContrasenia(hashPassword(admin.getContrasenia()));
 					administradorDato.guardarAdministrador(admin);
@@ -74,12 +73,7 @@ public class UsuarioNegocio implements UsuarioNegocioRemote, UsuarioNegocioLocal
 						throw new Exception("\nOcurrio un error interno, vuelva a intentar");
 					}
 					
-				} catch(Exception e1) {
-					e.printStackTrace();
-					e1.printStackTrace();
-					throw new Exception("\nOcurrio un error interno, vuelva a intentar");
 				}
-			}
 			
 		}else {
 			throw new Exception("\nYa existe un usuario para la cedula ingresada");
@@ -100,14 +94,14 @@ public class UsuarioNegocio implements UsuarioNegocioRemote, UsuarioNegocioLocal
 	public void actualizarDatos(Usuario user) throws Exception {
 		
 		if (usuarioDato.existeUsuario(user.getCi())) {	
-			if((user.getClass() == Ciudadano.class)){
-				ciudadanoDato.editarCiudadano((Ciudadano)user);
-			}
-			if ((user.getClass() == Administrador.class)) {
-				administradorDato.editarAdministrador((Administrador)user);	
-				}
-			else {
+			
+			if((user instanceof Autoridad)){
 				autoridadDato.editarAutoridad((Autoridad)user);
+			} else if ((user instanceof Administrador )) {
+				administradorDato.editarAdministrador((Administrador)user);	
+			}
+			else {
+				ciudadanoDato.editarCiudadano((Ciudadano)user);
 			}
 		
 		}else {
@@ -128,5 +122,80 @@ public class UsuarioNegocio implements UsuarioNegocioRemote, UsuarioNegocioLocal
 	 	}
 	 	
 	 	return lista;
+	}
+    
+    @Override
+	public List<DTAdministrador> mostrarAdministradores(){
+	 	List<Administrador> administradores = administradorDato.obtenerAdministradores();
+	 	
+	 	List<DTAdministrador> lista = new ArrayList<DTAdministrador>();
+	 	for(Administrador a : administradores) {
+	 		DTAdministrador dtAdministrador = new DTAdministrador(a);
+	 		lista.add(dtAdministrador);
+	 	}
+	 	
+	 	return lista;
+	}
+
+	@Override
+	public List<DTAutoridad> mostrarAutoridades() {
+		List<Autoridad> autoridades = autoridadDato.obtenerAutoridades();
+	 	
+	 	List<DTAutoridad> lista = new ArrayList<DTAutoridad>();
+	 	for(Autoridad a : autoridades) {
+	 		DTAutoridad dtAutoridad = new DTAutoridad(a);
+	 		lista.add(dtAutoridad);
+	 	}
+	 	
+	 	return lista;
+	}
+	
+	@Override
+	public DTAdministrador obtenerAdministrador(int cedula) throws Exception {
+		Administrador admin = administradorDato.obtenerAdministradorPorCI(cedula);
+		if (admin == null) {
+			throw new Exception("\nNo se encontro un usuario con la cedula ingresado");
+		} else {
+			DTAdministrador dtAdmin = new DTAdministrador(admin);
+			return dtAdmin;
+		}
+			
+	}
+	
+	@Override
+	public DTAutoridad obtenerAutoridad(int cedula) throws Exception {
+		Autoridad aut = autoridadDato.obtenerAutoridadPorCI(cedula);
+		if (aut == null) {
+			throw new Exception("\nNo se encontro un usuario con la cedula ingresado");
+		} else {
+			DTAutoridad dtAut = new DTAutoridad(aut);
+			return dtAut;
+		}
+			
+	}
+	
+	@Override
+	public void eliminarUsuario(int cedula) throws Exception {
+		if (usuarioDato.existeUsuario(cedula)) {
+				usuarioDato.eliminarUsuario(cedula);
+		}else {
+			throw new Exception("\nNo se encontro un usuario con la cedula ingresado");
+		}
+	}
+	
+	@Override
+	public void editarContraseniaUsuario (DTContrasenia editarContrasenia) throws Exception {
+		if (usuarioDato.existeUsuario(editarContrasenia.getCi())) {
+			Usuario user = usuarioDato.obtenerUsuarioPorCI(editarContrasenia.getCi());
+				
+				try {
+						user.setContrasenia(hashPassword(editarContrasenia.getContrasenia()));
+						usuarioDato.editarUsuario(user);
+					} catch (NoSuchAlgorithmException e2) {
+						throw new Exception("\nOcurrio un error interno, vuelva a intentar");
+					}
+		}else {
+			throw new Exception("\nNo se encontro un usuario con la cedula ingresada");
+		}
 	}
 }

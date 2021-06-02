@@ -15,7 +15,5 @@ public interface AutoridadDatoLocal {
 	
 	public List<Autoridad> obtenerAutoridades();
 	
-	public Autoridad obtenerAutoridadPorCI(int ci);
-
-	public Boolean existeAutoridad(String nombre);	
+	public Autoridad obtenerAutoridadPorCI(int ci);	
 }
