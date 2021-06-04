@@ -1,5 +1,6 @@
 package beans;
 
+import java.io.IOException;
 import java.io.Serializable;
 
 import javax.ejb.EJB;
@@ -7,6 +8,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import entidades.Usuario;
 import negocio.AdministradorNegocioLocal;
@@ -125,6 +127,25 @@ public class LoginBean implements Serializable {
 			
 		}
 		
+	}
+	
+	
+	
+	public String logout() {
+		currentUser = null;
+		session.removeAttribute("currentUser");
+		HttpServletRequest origRequest = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
+		String redirectUri = "login.xhtml";
+		if (origRequest.getRequestURI().contains("administrador") || origRequest.getRequestURI().contains("autoridad"))
+			redirectUri = "../"+redirectUri;
+		try {
+			FacesContext.getCurrentInstance().getExternalContext().redirect(redirectUri);
+			FacesContext.getCurrentInstance().responseComplete();
+			return "login";
+		} catch (IOException e) {
+			//e.printStackTrace();
+			return "login";
+		}
 	}
 
 

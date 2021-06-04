@@ -131,11 +131,11 @@ public class UsuarioNegocio implements UsuarioNegocioRemote, UsuarioNegocioLocal
    	public boolean autenticarUsuario (int ci, String pass) {
    		try {
 	   		if (administradorDato.obtenerAdministradorPorCI(ci) != null  )
-	   			//return administradorDato.obtenerAdministradorPorCI(ci).getContrasenia().equals(hashPassword(pass));
-	   			return administradorDato.obtenerAdministradorPorCI(ci).getContrasenia().equals(pass);
+	   			return administradorDato.obtenerAdministradorPorCI(ci).getContrasenia().equals(hashPassword(pass));
+	   			//return administradorDato.obtenerAdministradorPorCI(ci).getContrasenia().equals(pass);
 	   		else if (autoridadDato.obtenerAutoridadPorCI(ci) != null)
-	   			//return autoridadDato.obtenerAutoridadPorCI(ci).getContrasenia().equals(hashPassword(pass));
-	   			return autoridadDato.obtenerAutoridadPorCI(ci).getContrasenia().equals(pass);
+	   			return autoridadDato.obtenerAutoridadPorCI(ci).getContrasenia().equals(hashPassword(pass));
+	   			//return autoridadDato.obtenerAutoridadPorCI(ci).getContrasenia().equals(pass);
 	   		else
 	   			return false; /* El usuario no existe en la base de datos */
    		}catch (Exception e) {
