@@ -6,6 +6,10 @@ import datatypes.DTCiudadano;
 
 @Local
 public interface CiudadanoNegocioLocal {
+	
 	public void agregarCiudadano(DTCiudadano dtCiudadano);
+	
 	public DTCiudadano obtenerCiudadano(int ci);
+	
+	public boolean existeCiudadano(int ci);
 }

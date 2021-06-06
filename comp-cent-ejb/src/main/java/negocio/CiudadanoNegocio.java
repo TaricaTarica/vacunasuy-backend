@@ -25,11 +25,13 @@ public class CiudadanoNegocio implements CiudadanoNegocioRemote, CiudadanoNegoci
         // TODO Auto-generated constructor stub
     }
     
+    @Override
     public void agregarCiudadano(DTCiudadano dtCiudadano){
     	Ciudadano ciudadano = new Ciudadano(dtCiudadano);
     	this.cdl.agregarCiudadano(ciudadano);
     }
     
+    @Override
     public DTCiudadano obtenerCiudadano(int ci) {
     	Ciudadano ciudadano = cdl.obtenerCiudadano(ci);
     	if(ciudadano != null) {
@@ -40,6 +42,11 @@ public class CiudadanoNegocio implements CiudadanoNegocioRemote, CiudadanoNegoci
     		return null;
     	}
     	
+    }
+    
+    @Override
+    public boolean existeCiudadano(int ci) {
+    	return cdl.existeCiudadano(ci);
     }
 
 }
