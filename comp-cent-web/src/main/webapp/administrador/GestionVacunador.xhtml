@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3c.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Gestion de Vacunadores</title>
+</h:head>
+<h:body>
+	<h:form id="VacunadorListarForm">
+<!-- 		<p:messages id="messages" showDetail="true" closable="true"> -->
+<!-- 			<p:autoUpdate /> -->
+<!-- 		</p:messages> -->
+		<div>
+			<p:dataTable id="VacunadorTabla" var="vac"
+				value="#{vacunadorBean.vacunadores}" paginator="true" rows="6"
+        		paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+				<f:facet name="header">Listado de Vacunadores </f:facet>
+				
+				<p:column headerText="Cedula">
+					<h:outputText value="#{vac.ci}" />
+				</p:column>
+				<p:column headerText="Nombre">
+					<h:outputText value="#{vac.primerNombre}" />
+				</p:column>
+				<p:column headerText="Apellido">
+					<h:outputText value="#{vac.primerApellido}" />
+				</p:column>
+				<p:column headerText="Email">
+					<h:outputText value="#{vac.email}" />
+				</p:column>
+				<p:column headerText="Telefono">
+					<h:outputText value="#{vac.telefono}" />
+				</p:column>
+				<p:column headerText="Opciones">
+					<div style="display: flex; align-items: center;justify-content: center;"> 
+						      <p:commandButton id="editar" icon="pi pi-pencil" styleClass="rounded-button ui-button-secondary"
+											action="#{vacunadorBean.setVacunadorSeleccionado(vac)}"
+											update=":dialogForm" oncomplete="PF('vacunadorDialog').show()" />
+										 <p:tooltip for="editar" value="Editar Vacunador" position="left"/>	
+									<p:spacer width="5"/>
+							<p:commandButton id="eliminar" icon="pi pi-trash" styleClass="rounded-button ui-button-secondary"
+											action="#{vacunadorBean.eliminarVacunadorSeleccionado(vac)}"
+											update=":eliminarvacunador,:VacunadorListarForm:VacunadorTabla">
+											<p:confirm header="Confirmacion" message="Estas seguro de eliminar el usuario Vacunador?" icon="pi pi-exclamation-triangle"/>
+							</p:commandButton>	
+										 <p:tooltip for="eliminar" value="Eliminar Vacunador" position="left"/>	
+									<p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+									            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no"/>
+									            <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" />
+       								</p:confirmDialog>
+										 
+					</div>					 
+				</p:column>				
+
+				<f:facet name="footer">
+					<div style="display: flex; align-items: center;justify-content: center;">
+						<p:commandButton value="Buscar"
+							actionListener="#{vacunadorBean.reiniciarVacunadorSeleccionado}"
+							update=":dialogFormVacunador"
+							oncomplete="PF('vacunadorDialogBuscar').show()" />
+							
+						
+					</div>
+				</f:facet>
+			</p:dataTable>
+		</div>
+	</h:form>
+	
+	<div>
+		<h:form id="eliminarvacunador">
+				 <p:growl id="message" showDetail="true"/>
+		</h:form>
+	</div>	
+
+	
+	<p:dialog id="vacunadorDlg" widgetVar="vacunadorDialog"
+		header="Gestion de Vacunadores" modal="true" showEffect="fade"
+		hideEffect="fade" resizable="false">
+
+		<h:form id="dialogForm">			
+			<p:panel header="Editar Vacunador" id="grid" style="margin-bottom:10px;">
+	            <p:growl id="growl" showDetail="false" />
+	        	<p:growl id="growl-sticky" for="sticky-key" showDetail="true" sticky="true" />
+	            
+		            <h:panelGrid  columns="2" cellpadding="5" styleClass="p-mb-3">
+		                
+		                 <h:outputLabel for="ci" value="Cedula Identidad:"/>
+		            	<p:message for="ci" display="icon"> <p:inputText type="number" id="ci" value="#{autoridadBean.autoridadSeleccionado.ci}" disabled="#{autoridadBean.enabled}" required="true" requiredMessage="Debe ingresar un numero de cedula (incluyendo digito verificador)"/>  </p:message>
+		            	
+		                <h:outputLabel for="name" value="Nombre:"/>
+		            	<p:message for="name" display="icon"> <p:inputText id="name" value="#{autoridadBean.autoridadSeleccionado.primerNombre}" required="true" requiredMessage="Debe ingresar un nombre"/>  </p:message>
+		            	
+		            	 <h:outputLabel for="name2" value="Segundo Nombre:"/>
+		            	<p:message for="name2" display="icon"> <p:inputText id="name2" value="#{autoridadBean.autoridadSeleccionado.segundoNombre}"/>  </p:message>
+		            	
+		            	<h:outputLabel for="apellido" value="Apellido:"/>
+		            	<p:message for="apellido" display="icon"> <p:inputText id="apellido" value="#{autoridadBean.autoridadSeleccionado.primerApellido}" />  </p:message>
+		            	
+		            	
+		            	<h:outputLabel for="apellido2" value="Segundo Apellido:"/>
+		            	<p:message for="apellido2" display="icon"> <p:inputText id="apellido2" value="#{autoridadBean.autoridadSeleccionado.segundoApellido}" />  </p:message>
+		            	
+		            	 <h:outputLabel for="telefono" value="Telefono:"/>
+		            	<p:message for="telefono" display="icon"> <p:inputText type="number" id="telefono" value="#{autoridadBean.autoridadSeleccionado.telefono}" />  </p:message>
+		            	
+		            	 <h:outputLabel for="mail" value="Mail:"/>
+		            	<p:message for="mail" display="icon"> <p:inputText id="mail" value="#{autoridadBean.autoridadSeleccionado.email}" validatorMessage="Formato invalido Email"> <f:validateRegex
+        pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" /> </p:inputText> </p:message>
+		            	
+		          
+	            	</h:panelGrid>
+				
+	          
+				<div style="display: flex; align-items: center;justify-content: center;">
+	            <p:commandButton  value="Editar Vacunador" action="#{vacunadorBean.editarVacunador()}" 
+	            				update="grid,:VacunadorListarForm:VacunadorTabla"
+	                             icon="" /> 
+	            </div>
+	        </p:panel>
+	
+		</h:form>
+
+	</p:dialog>
+
+	<p:dialog id="vacunadorDlgBuscar" widgetVar="vacunadorDialogBuscar"
+		header="Buscar Vacunador" modal="true" showEffect="fade"
+		hideEffect="fade" resizable="false">
+
+		<h:form id="dialogFormVacunador">
+
+			<p:outputPanel id="VacunadorInfo" style="text-align: center">
+				<h:outputText value="Cedula" />
+				<h:inputText value="#{vacunadorBean.cedulaUsuario}" />
+					<p:commandButton value="Buscar"
+					actionListener="#{vacunadorBean.buscarVacunador()}"
+					update="VacunadorTabla" />
+				<p:dataTable id="VacunadorTabla" var="vac"	value="#{vacunadorBean.vacunadorSeleccionado}">
+
+					
+				<f:facet name="header">Vacunador </f:facet>
+				
+				<p:column headerText="Cedula">
+					<h:outputText value="#{vac.ci}" />
+				</p:column>
+				<p:column headerText="Nombre">
+					<h:outputText value="#{vac.primerNombre}" />
+				</p:column>
+				<p:column headerText="Apellido">
+					<h:outputText value="#{vac.primerApellido}" />
+				</p:column>
+				<p:column headerText="Email">
+					<h:outputText value="#{vac.email}" />
+				</p:column>
+				<p:column headerText="Telefono">
+					<h:outputText value="#{vac.telefono}" />
+				</p:column>
+				</p:dataTable>
+			</p:outputPanel>
+		</h:form>
+
+	</p:dialog>
+
+</h:body>
+</html>

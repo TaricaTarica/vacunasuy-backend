@@ -97,9 +97,7 @@ public class DTVacunador {
 
 	@Override
 	public String toString() {
-		return "DTVacunador [ci=" + ci + ", primerNombre=" + primerNombre + ", segundoNombre=" + segundoNombre
-				+ ", primerApellido=" + primerApellido + ", segundoApellido=" + segundoApellido + ", telefono="
-				+ telefono + ", email=" + email + "]";
+		return Integer.toString(ci);
 	}	
 	
 }

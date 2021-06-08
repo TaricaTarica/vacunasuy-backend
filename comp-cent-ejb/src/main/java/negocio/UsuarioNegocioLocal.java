@@ -8,6 +8,7 @@ import datatypes.DTAdministrador;
 import datatypes.DTAutoridad;
 import datatypes.DTCiudadano;
 import datatypes.DTContrasenia;
+import datatypes.DTVacunador;
 import entidades.Usuario;
 
 @Local
@@ -32,5 +33,9 @@ public interface UsuarioNegocioLocal {
 	public void editarContraseniaUsuario(DTContrasenia editarContrasenia) throws Exception;
 
 	public DTAutoridad obtenerAutoridad(int cedula) throws Exception;
+
+	public DTVacunador obtenerVacunador(int cedula) throws Exception;
+
+	public List<DTVacunador> mostrarVacunadores();
 
 }

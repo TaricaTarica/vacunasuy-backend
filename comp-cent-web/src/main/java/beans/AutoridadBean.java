@@ -163,7 +163,7 @@ public class AutoridadBean implements Serializable {
 	public void reiniciarAutoridadSeleccionado () {
 		this.autoridadSeleccionado = new DTAutoridad();
 		this.cedulaUsuario = 0;
-		this.nombreBoton="Agregar Administrador";
+		this.nombreBoton="Agregar Autoridad";
         this.estiloBoton="pi pi-check";
 		this.editar= false;
 		this.enabled= false;

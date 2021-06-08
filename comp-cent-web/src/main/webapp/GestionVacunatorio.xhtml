@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3c.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Gestion de Vacunatorios</title>
+</h:head>
+<h:body>
+	<h:form id="VacunatorioListarForm">
+<!-- 		<p:messages id="messages" showDetail="true" closable="true"> -->
+<!-- 			<p:autoUpdate /> -->
+<!-- 		</p:messages> -->
+		<div>
+			<p:dataTable id="VacunatorioTabla" var="vac"
+				value="#{vacunatorioBean.vacunatorios}" paginator="true" rows="6"
+        		paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+				<f:facet name="header">Listado de Vacunatorios </f:facet>
+				
+				<p:column headerText="Codigo">
+					<h:outputText value="#{vac.codigo}" />
+				</p:column>
+				<p:column headerText="Nombre">
+					<h:outputText value="#{vac.nombre}" />
+				</p:column>
+				<p:column headerText="Cantidad de Vacunadores">
+					<h:outputText value="#{vac.cantidadVacunadores}" />
+				</p:column>
+				
+				<p:column headerText="Opciones">
+					<div style="display: flex; align-items: center;justify-content: center;"> 
+						      <p:commandButton id="asignar" icon="pi pi-pencil" styleClass="rounded-button ui-button-secondary"
+											action="#{vacunatorioBean.setVacunatorioSeleccionado}"
+											update=":dialogForm" oncomplete="PF('asignarVacunadoresDialog').show()" />
+										 <p:tooltip for="asignar" value="Asignar Vacunadores" position="left"/>	
+												 
+					</div>					 
+				</p:column>				
+
+				<f:facet name="footer">
+					<div style="display: flex; align-items: center;justify-content: center;">
+						<p:commandButton value="Buscar"
+							actionListener="#{vacunatorioBean.reiniciarVacunatorioSeleccionado}"/> 
+<!-- 							update=":dialogFormVacunatorio" -->
+<!-- 							oncomplete="PF('vacunatorioDialogBuscar').show()"--> 
+							
+					</div>
+				</f:facet>
+			</p:dataTable>
+		</div>
+	</h:form>
+	
+	
+
+	
+	<p:dialog id="asignarVacunadoresDlg" widgetVar="asignarVacunadoresDialog"
+		header="Gestion de Vacunatorios" modal="true" showEffect="fade"
+		hideEffect="fade" resizable="false">
+
+		<h:form id="dialogForm">			
+			<p:panel header="Asignar Vacunadores" id="grid" style="margin-bottom:10px;">
+	            <p:growl id="growl" showDetail="false" />
+	        	<p:growl id="growl-sticky" for="sticky-key" showDetail="true" sticky="true" />
+	            
+		            <h:panelGrid  columns="2" cellpadding="5" styleClass="p-mb-3">
+		                
+		                 <h:outputLabel for="Vac" value="Vacunadores:"/>
+		                <p:selectCheckboxMenu id="Vac" value="#{vacunatorioBean.cedulaVacunadores}" required="true" requiredMessage="Debe seleccionar al menos un Vacunador" label="Seleccionar Vacunadores" style="width: 15rem"
+		                                filter="true" filterMatchMode="startsWith" panelStyle="width: 15rem" scrollHeight="250">
+		            		<f:selectItems value="#{vacunatorioBean.vacunadores}"/>
+	        			</p:selectCheckboxMenu>
+		                
+		                 <h:outputLabel for="fecha" value="Fecha"/>
+                	<p:datePicker id="fechao" value="#{vacunatorioBean.fecha}" monthNavigator="true" yearNavigator="true" showWeek="true" required="true" requiredMessage="Debe seleccionar una fecha de asignacion"/>
+
+		                  
+	            	</h:panelGrid>
+				
+	          
+				<div style="display: flex; align-items: center;justify-content: center;">
+	            <p:commandButton  value="Asignar Vacunadores" action="#{vacunatorioBean.asignarVacunadores()}" 
+	            				update="grid,:VacunatorioListarForm:VacunatorioTabla"
+	                             icon="" /> 
+	            </div>
+	        </p:panel>
+	
+		</h:form>
+
+	</p:dialog>
+
+	
+</h:body>
+</html>

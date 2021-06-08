@@ -14,11 +14,14 @@ import datatypes.DTAdministrador;
 import datatypes.DTAutoridad;
 import datatypes.DTCiudadano;
 import datatypes.DTContrasenia;
+import datatypes.DTVacunador;
 import datos.AdministradorDatoLocal;
 import datos.AutoridadDatoLocal;
 import datos.CiudadanoDatoLocal;
 import datos.UsuarioDatoLocal;
+import datos.VacunadorDatoLocal;
 import entidades.Usuario;
+import entidades.Vacunador;
 import entidades.Ciudadano;
 
 import entidades.Administrador;
@@ -44,6 +47,9 @@ public class UsuarioNegocio implements UsuarioNegocioRemote, UsuarioNegocioLocal
    
    @EJB
    private UsuarioDatoLocal usuarioDato; 
+   
+   @EJB
+   private VacunadorDatoLocal vacunadorDato;
    
   
    
@@ -131,11 +137,11 @@ public class UsuarioNegocio implements UsuarioNegocioRemote, UsuarioNegocioLocal
    	public boolean autenticarUsuario (int ci, String pass) {
    		try {
 	   		if (administradorDato.obtenerAdministradorPorCI(ci) != null  )
-	   			return administradorDato.obtenerAdministradorPorCI(ci).getContrasenia().equals(hashPassword(pass));
-	   			//return administradorDato.obtenerAdministradorPorCI(ci).getContrasenia().equals(pass);
+	   			//return administradorDato.obtenerAdministradorPorCI(ci).getContrasenia().equals(hashPassword(pass));
+	   			return administradorDato.obtenerAdministradorPorCI(ci).getContrasenia().equals(pass);
 	   		else if (autoridadDato.obtenerAutoridadPorCI(ci) != null)
-	   			return autoridadDato.obtenerAutoridadPorCI(ci).getContrasenia().equals(hashPassword(pass));
-	   			//return autoridadDato.obtenerAutoridadPorCI(ci).getContrasenia().equals(pass);
+	   			//return autoridadDato.obtenerAutoridadPorCI(ci).getContrasenia().equals(hashPassword(pass));
+	   			return autoridadDato.obtenerAutoridadPorCI(ci).getContrasenia().equals(pass);
 	   		else
 	   			return false; /* El usuario no existe en la base de datos */
    		}catch (Exception e) {
@@ -158,6 +164,31 @@ public class UsuarioNegocio implements UsuarioNegocioRemote, UsuarioNegocioLocal
 	 	}
 	 	
 	 	return lista;
+	}
+    
+    @Override
+	public List<DTVacunador> mostrarVacunadores() {
+		List<Vacunador> vacunadores = vacunadorDato.obtenerVacunadores();
+	 	
+	 	List<DTVacunador> lista = new ArrayList<DTVacunador>();
+	 	for(Vacunador a : vacunadores) {
+	 		DTVacunador dtVacunador = new DTVacunador(a);
+	 		lista.add(dtVacunador);
+	 	}
+	 	
+	 	return lista;
+	}
+    
+    @Override
+	public DTVacunador obtenerVacunador(int cedula) throws Exception {
+		Vacunador vac = vacunadorDato.obteneVacunadorPorCI(cedula);
+		if (vac == null) {
+			throw new Exception("\nNo se encontro un usuario con la cedula ingresado");
+		} else {
+			DTVacunador dtVac = new DTVacunador(vac);
+			return dtVac;
+		}
+			
 	}
 
 	@Override
