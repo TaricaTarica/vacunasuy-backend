@@ -114,13 +114,7 @@ public class LoteNegocio implements LoteNegocioRemote, LoteNegocioLocal {
 		
 		Lote lote = datoLocal.obtenerLotePorId(dtLote.getId());
 		if (lote != null) {
-			
-			if(lote.getLogistica() == null) {
-				datoLocal.eliminarLote(lote);
-			}else {
-				throw new Exception("\nNo se puede eliminar el lote, porque tiene una Logistica de distribucion asociadas");
-			}
-			
+			datoLocal.eliminarLote(lote);
 		}else {
 			throw new Exception("\nNo se encontro un lote con el id ingresado");
 			
