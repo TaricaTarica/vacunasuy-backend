@@ -7,9 +7,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import entidades.Autoridad;
 import entidades.Ciudadano;
-import entidades.PlanVacunacion;
 
 /**
  * Session Bean implementation class CiudadanoDato
@@ -48,6 +46,16 @@ public class CiudadanoDato implements CiudadanoDatoRemote, CiudadanoDatoLocal {
     public void editarCiudadano(Ciudadano ciudadano) {
 		em.merge(ciudadano);
 			
+    }
+    @Override
+    public boolean existeCiudadano(int ci) {
+    	 Ciudadano ciudadano = em.find(Ciudadano.class, ci);
+    	 if(ciudadano != null){
+    		return true;
+    	 }
+    	 else {
+    		 return false;
+    	 }
     }
 
 }

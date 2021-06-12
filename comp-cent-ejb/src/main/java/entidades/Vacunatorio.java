@@ -19,6 +19,7 @@ public class Vacunatorio {
 	@GeneratedValue
 	private long id;
 	private String nombre;
+	private int cantidadVacunadores;
 	private String codigo;
 	
 	@OneToMany(mappedBy="vacunatorio",cascade=CascadeType.ALL,orphanRemoval=true)
@@ -45,12 +46,15 @@ public class Vacunatorio {
 		super();
 		this.nombre = vacunatorio.getNombre();
 		this.codigo = vacunatorio.getCodigo();
+		this.cantidadVacunadores = vacunatorio.getCantidadVacunadores();
 	}
 	
-	public Vacunatorio(String nombre, String codigo, String laboratorio) {
+	public Vacunatorio(String nombre, String codigo, int cantVac) {
 		super();
 		this.nombre = nombre;
 		this.codigo = codigo;
+		this.cantidadVacunadores= cantVac;
+		
 	}
 
 	public long getId() {
@@ -107,6 +111,15 @@ public class Vacunatorio {
 
 	public void setAgendas(List<Agenda> agendas) {
 		this.agendas = agendas;
+	}
+	
+
+	public int getCantidadVacunadores() {
+		return cantidadVacunadores;
+	}
+
+	public void setCantidadVacunadores(int cantidadVacunadores) {
+		this.cantidadVacunadores = cantidadVacunadores;
 	}
 
 	public void agregarLogistica(LogisticaDistribucion logistica) {

@@ -16,5 +16,7 @@ public interface CiudadanoDatoLocal {
 	public List<Ciudadano> obtenerCiudadanos();
 
 	public void editarCiudadano(Ciudadano ciudadano);
+	
+	public boolean existeCiudadano(int ci);
 
 }

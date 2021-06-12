@@ -8,6 +8,7 @@ public class DTVacunatorio {
 	private long id;
 	private String nombre;
 	private String codigo;
+	private int cantidadVacunadores;
 	private List<DTAgenda> agendas;
 	
 	public DTVacunatorio() {
@@ -20,7 +21,7 @@ public class DTVacunatorio {
 		this.id = vacunatorio.getId();
 		this.nombre = vacunatorio.getNombre();
 		this.codigo = vacunatorio.getCodigo();
-		 
+		this.cantidadVacunadores = vacunatorio.getCantidadVacunadores();
 	}
 	
 	public DTVacunatorio(String nombre, String codigo) {
@@ -54,6 +55,14 @@ public class DTVacunatorio {
 
 	public void setAgendas(List<DTAgenda> agendas) {
 		this.agendas = agendas;
+	}
+
+	public int getCantidadVacunadores() {
+		return cantidadVacunadores;
+	}
+
+	public void setCantidadVacunadores(int cantidadVacunadores) {
+		this.cantidadVacunadores = cantidadVacunadores;
 	}
 	
 
