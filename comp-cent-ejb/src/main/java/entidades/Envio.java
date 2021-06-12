@@ -2,23 +2,32 @@ package entidades;
 
 import java.time.LocalDate;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 import datatypes.DTEnvio;
 
+@Entity
 public class Envio {
 	@Id 
 	@GeneratedValue
 	private long id;
 	private String estado;
 	private LocalDate fechaCreacion;
+	
+	@OneToOne
 	private Lote lote;
+	@OneToOne
 	private Vacunatorio vacunatorio;
+	@OneToOne
 	private SocioLogistico socioLogistico;
 	
 	
-	
+	public Envio(){
+		super();
+	}
 	
 	public Envio(long id, String estado, LocalDate fechaCreacion, Lote lote, Vacunatorio vacunatorio, SocioLogistico socioLogistico){
 		super();

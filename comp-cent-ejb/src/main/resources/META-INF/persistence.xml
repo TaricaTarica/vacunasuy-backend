@@ -40,6 +40,7 @@
       <class>entidades.Vacuna</class>
       <class>entidades.Vacunador</class>
       <class>entidades.Vacunatorio</class>
+      <class>entidades.Envio</class>
 
 	  <exclude-unlisted-classes>false</exclude-unlisted-classes>
       <properties>
