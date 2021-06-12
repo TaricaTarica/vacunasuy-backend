@@ -13,4 +13,6 @@ public interface RegistroVacunaDatoLocal {
 	
 	public List<RegistroVacuna> obtenerRegistroPorCi (int ci);
 	
+	public List<RegistroVacuna> obtenerRegistro();
+	
 }

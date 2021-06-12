@@ -43,4 +43,14 @@ public class RegistroVacunaDato implements RegistroVacunaDatoLocal {
 	}
     
     
+    @Override
+	public List<RegistroVacuna> obtenerRegistro(){
+    	ArrayList<RegistroVacuna> lista = new ArrayList<RegistroVacuna>();
+    	for(Object obj : em.createQuery("Select r from RegistroVacuna r").getResultList()) {
+    		RegistroVacuna r = (RegistroVacuna) obj;
+    		lista.add(r);
+    	}
+    	
+    	return lista;
+    }
 }

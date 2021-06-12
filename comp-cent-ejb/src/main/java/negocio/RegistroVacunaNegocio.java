@@ -55,4 +55,8 @@ public class RegistroVacunaNegocio implements RegistroVacunaNegocioLocal {
     	return listCert;
     }
 
+    public List<RegistroVacuna> listarRegistros(){
+    	List<RegistroVacuna> registros = registroVacunaDatoLocal.obtenerRegistro();
+		return registros;
+    }
 }
