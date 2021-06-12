@@ -23,9 +23,6 @@ public class Lote {
 	private Vacuna vacuna;
 	
 	
-	@ManyToOne
-	private LogisticaDistribucion logistica;
-	
 	public Lote() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -69,14 +66,6 @@ public class Lote {
 
 	public void setVacuna(Vacuna vacuna) {
 		this.vacuna = vacuna;
-	}
-
-	public LogisticaDistribucion getLogistica() {
-		return logistica;
-	}
-
-	public void setLogistica(LogisticaDistribucion logistica) {
-		this.logistica = logistica;
 	}
 
 	public int getCantVacunas() {

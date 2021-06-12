@@ -22,8 +22,6 @@ public class Vacunatorio {
 	private int cantidadVacunadores;
 	private String codigo;
 	
-	@OneToMany(mappedBy="vacunatorio",cascade=CascadeType.ALL,orphanRemoval=true)
-	private List<LogisticaDistribucion> logisticas = new ArrayList<>();
 	
 	@OneToMany(cascade=CascadeType.ALL,orphanRemoval=true)
 	private List<Puesto> puestos = new ArrayList<>();
@@ -80,14 +78,6 @@ public class Vacunatorio {
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
 	}
-	
-	public List<LogisticaDistribucion> getLogisticas() {
-		return logisticas;
-	}
-
-	public void setLogisticas(List<LogisticaDistribucion> logisticas) {
-		this.logisticas = logisticas;
-	}
 
 	public List<Puesto> getPuestos() {
 		return puestos;
@@ -122,16 +112,6 @@ public class Vacunatorio {
 		this.cantidadVacunadores = cantidadVacunadores;
 	}
 
-	public void agregarLogistica(LogisticaDistribucion logistica) {
-		logisticas.add(logistica);
-		logistica.setVacunatorio(this);
-	}
-	
-	public void eliminarLogistica(LogisticaDistribucion logistica) {
-		logisticas.remove(logistica);
-		logistica.setVacunatorio(null);
-	}
-	
 	public void agregarUbicacion(Ubicacion ub) {
 		ub.setVacunatorio(this);
 		this.ubicacion = ub;

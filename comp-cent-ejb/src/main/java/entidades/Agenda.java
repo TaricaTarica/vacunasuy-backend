@@ -25,9 +25,6 @@ public class Agenda {
 	private int horaInicio;
 	private int horaFin;
 	
-	@OneToMany(mappedBy="agenda",cascade=CascadeType.ALL,orphanRemoval=true)
-	private List<Evento> eventos = new ArrayList<>();
-	
 	@ManyToOne
 	private Vacunatorio vacunatorio;
 	
@@ -101,14 +98,6 @@ public class Agenda {
 	public void setFin(LocalDate fin) {
 		this.fin = fin;
 	}
-	
-	public List<Evento> getEventos() {
-		return eventos;
-	}
-
-	public void setEventos(List<Evento> eventos) {
-		this.eventos = eventos;
-	}
 
 	public List<PlanVacunacion> getPlanes() {
 		return planes;
@@ -116,15 +105,6 @@ public class Agenda {
 
 	public void setPlanes(List<PlanVacunacion> planes) {
 		this.planes = planes;
-	}
-
-	public void agregarEvento(Evento evento) {
-		eventos.add(evento);
-		evento.setAgenda(this);
-	}
-	public void eliminarEvento(Evento evento) {
-		eventos.remove(evento);
-		evento.setAgenda(null);
 	}
 
 	public Vacunatorio getVacunatorio() {

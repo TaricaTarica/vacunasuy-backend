@@ -10,7 +10,6 @@ public class DTLote {
 	private int cantVacunas;
 	private String fechaCreado;
 	private DTVacuna vacuna;
-	private DTLogisticaDistribucion logDistribucion;
 	//public Vacuna vacuna;
 	
 	public DTLote() {
@@ -77,19 +76,5 @@ public class DTLote {
 		this.vacuna = vacuna;
 	}
 
-
-
-	public DTLogisticaDistribucion getLogDistribucion() {
-		return logDistribucion;
-	}
-
-
-
-	public void setLogDistribucion(DTLogisticaDistribucion logDistribucion) {
-		this.logDistribucion = logDistribucion;
-	}
-	
-	
-	
 
 }

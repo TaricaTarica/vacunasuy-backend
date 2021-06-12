@@ -1,14 +1,9 @@
 package entidades;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-
 import datatypes.DTSocioLogistico;
 
 @Entity
@@ -17,15 +12,9 @@ public class SocioLogistico {
 	@Id 
 	@GeneratedValue
 	private long id;
+	@Column(unique = true)
+	private String codigo;
 	private String nombre;
-	private String matricula;
-	private String transportista;
-	
-	@OneToMany(mappedBy="socio",cascade=CascadeType.ALL,orphanRemoval=true)
-	private List<LogisticaDistribucion> logisticas = new ArrayList<>();
-		
-	@OneToMany(mappedBy="socio",cascade=CascadeType.ALL,orphanRemoval=true)
-	private List<Transportista> transportistas = new ArrayList<>();
 	
 	public SocioLogistico() {
 		super();
@@ -35,15 +24,13 @@ public class SocioLogistico {
 	public SocioLogistico(DTSocioLogistico socioLogistico) {
 		super();
 		this.nombre = socioLogistico.getNombre();
-		this.matricula = socioLogistico.getMatricula();
-		this.transportista = socioLogistico.getTransportista();
+		this.codigo = socioLogistico.getCodigo();
 	}
 	
-	public SocioLogistico(String nombre, String matricula, String transportista) {
+	public SocioLogistico(String nombre, String codigo) {
 		super();
 		this.nombre = nombre;
-		this.matricula = matricula;
-		this.transportista = transportista;
+		this.codigo = codigo;
 	}
 
 	public long getId() {
@@ -62,53 +49,12 @@ public class SocioLogistico {
 		this.nombre = nombre;
 	}
 
-	public String getMatricula() {
-		return matricula;
+	public String getCodigo() {
+		return codigo;
 	}
 
-	public void setMatricula(String matricula) {
-		this.matricula = matricula;
-	}
-
-	public String getTransportista() {
-		return transportista;
-	}
-
-	public void setTransportista(String transportista) {
-		this.transportista = transportista;
-	}
-	
-	public List<LogisticaDistribucion> getLogisticas() {
-		return logisticas;
-	}
-
-	public void setLogisticas(List<LogisticaDistribucion> logisticas) {
-		this.logisticas = logisticas;
-	}
-
-	public List<Transportista> getTransportistas() {
-		return transportistas;
-	}
-
-	public void setTransportistas(List<Transportista> transportistas) {
-		this.transportistas = transportistas;
-	}
-
-	public void agregarLogistica(LogisticaDistribucion logistica) {
-		logisticas.add(logistica);
-		logistica.setSocio(this);
-	}
-	public void eliminarLogistica(LogisticaDistribucion logistica) {
-		logisticas.remove(logistica);
-		logistica.setSocio(null);
-	}
-	public void agregarTransportista(Transportista transportista) {
-		transportistas.add(transportista);
-		transportista.setSocio(this);
-	}
-	public void eliminarTransportista(Transportista transportista) {
-		transportistas.remove(transportista);
-		transportista.setSocio(null);
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
 	}
 	
 }

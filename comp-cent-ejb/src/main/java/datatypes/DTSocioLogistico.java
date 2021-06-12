@@ -5,9 +5,7 @@ import entidades.SocioLogistico;
 public class DTSocioLogistico {
 	private long id;
 	private String nombre;
-	private String matricula;
-	private String transportista;
-	
+	private String codigo;
 
 
 	public DTSocioLogistico() {
@@ -19,15 +17,13 @@ public class DTSocioLogistico {
 		super();
 		this.id = socioLogistico.getId();
 		this.nombre = socioLogistico.getNombre();
-		this.matricula = socioLogistico.getMatricula();
-		this.transportista = socioLogistico.getTransportista();
+		this.codigo = socioLogistico.getCodigo();
 	}
 	
-	public DTSocioLogistico(String nombre, String matricula, String transportista) {
+	public DTSocioLogistico(String nombre, String codigo) {
 		super();
 		this.nombre = nombre;
-		this.matricula = matricula;
-		this.transportista = transportista;
+		this.codigo = codigo;
 	}
 
 	public long getId() {
@@ -46,20 +42,12 @@ public class DTSocioLogistico {
 		this.nombre = nombre;
 	}
 
-	public String getMatricula() {
-		return matricula;
+	public String getCodigo() {
+		return codigo;
 	}
 
-	public void setMatricula(String matricula) {
-		this.matricula = matricula;
-	}
-
-	public String getTransportista() {
-		return transportista;
-	}
-
-	public void setTransportista(String transportista) {
-		this.transportista = transportista;
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
 	}
 
 }

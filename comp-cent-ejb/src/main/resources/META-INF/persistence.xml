@@ -30,7 +30,6 @@
       <class>entidades.Autoridad</class>
       <class>entidades.Ciudadano</class>
       <class>entidades.Enfermedad</class>   
-      <class>entidades.LogisticaDistribucion</class>   
       <class>entidades.Lote</class>
       <class>entidades.PlanVacunacion</class>
       <class>entidades.Proveedor</class>      
