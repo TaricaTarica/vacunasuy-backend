@@ -22,10 +22,6 @@ public class Vacunatorio {
 	private int cantidadVacunadores;
 	private String codigo;
 	
-	
-	@OneToMany(cascade=CascadeType.ALL,orphanRemoval=true)
-	private List<Puesto> puestos = new ArrayList<>();
-	
 	@OneToOne(mappedBy="vacunatorio",
 			cascade=CascadeType.ALL,
 			orphanRemoval=true,
@@ -79,13 +75,6 @@ public class Vacunatorio {
 		this.codigo = codigo;
 	}
 
-	public List<Puesto> getPuestos() {
-		return puestos;
-	}
-
-	public void setPuestos(List<Puesto> puestos) {
-		this.puestos = puestos;
-	}
 
 	public Ubicacion getUbicacion() {
 		return ubicacion;
