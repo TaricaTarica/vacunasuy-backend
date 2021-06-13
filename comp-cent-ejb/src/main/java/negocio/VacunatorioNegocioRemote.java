@@ -9,7 +9,7 @@ import datatypes.DTVacunatorio;
 @Remote
 public interface VacunatorioNegocioRemote {
 
-	public void agregarVacunatorio(DTVacunatorio dtVacunatorio);
+	public void agregarVacunatorio(DTVacunatorio dtVacunatorio) throws Exception;
 	public List<DTVacunatorio> listarVacunatorio();
 	public List<String> nombresVacunatorios();
 	

@@ -8,8 +8,9 @@ public class DTVacunatorio {
 	private long id;
 	private String nombre;
 	private String codigo;
-	private int cantidadVacunadores;
+	private int cantidadPuestos;
 	private List<DTAgenda> agendas;
+	private DTUbicacion ubicacion;
 	
 	public DTVacunatorio() {
 		super();
@@ -21,7 +22,8 @@ public class DTVacunatorio {
 		this.id = vacunatorio.getId();
 		this.nombre = vacunatorio.getNombre();
 		this.codigo = vacunatorio.getCodigo();
-		this.cantidadVacunadores = vacunatorio.getCantidadVacunadores();
+		this.cantidadPuestos = vacunatorio.getCantidadPuestos();
+		this.ubicacion = new DTUbicacion();
 	}
 	
 	public DTVacunatorio(String nombre, String codigo) {
@@ -57,13 +59,23 @@ public class DTVacunatorio {
 		this.agendas = agendas;
 	}
 
-	public int getCantidadVacunadores() {
-		return cantidadVacunadores;
+	public int getCantidadPuestos() {
+		return cantidadPuestos;
 	}
 
-	public void setCantidadVacunadores(int cantidadVacunadores) {
-		this.cantidadVacunadores = cantidadVacunadores;
+	public void setCantidadPuestos(int cantidadPuestos) {
+		this.cantidadPuestos = cantidadPuestos;
 	}
+
+	public DTUbicacion getUbicacion() {
+		return ubicacion;
+	}
+
+	public void setUbicacion(DTUbicacion ubicacion) {
+		this.ubicacion = ubicacion;
+	}
+
+
 	
 
 	

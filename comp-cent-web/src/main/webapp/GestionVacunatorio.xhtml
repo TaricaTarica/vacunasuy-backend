@@ -24,16 +24,28 @@
 				<p:column headerText="Nombre">
 					<h:outputText value="#{vac.nombre}" />
 				</p:column>
-				<p:column headerText="Cantidad de Vacunadores">
-					<h:outputText value="#{vac.cantidadVacunadores}" />
+				<p:column headerText="Cantidad de Puestos">
+					<h:outputText value="#{vac.cantidadPuestos}" />
 				</p:column>
 				
 				<p:column headerText="Opciones">
 					<div style="display: flex; align-items: center;justify-content: center;"> 
-						      <p:commandButton id="asignar" icon="pi pi-pencil" styleClass="rounded-button ui-button-secondary"
-											action="#{vacunatorioBean.setVacunatorioSeleccionado}"
-											update=":dialogForm" oncomplete="PF('asignarVacunadoresDialog').show()" />
-										 <p:tooltip for="asignar" value="Asignar Vacunadores" position="left"/>	
+						       <p:commandButton id="editar" icon="pi pi-pencil" styleClass="rounded-button ui-button-secondary"
+											action="#{vacunatorioBean.editarVacunatorio(vac)}"
+											update=":dialogForm2" oncomplete="PF('editarVacunatorioDialog').show()" />
+										 <p:tooltip for="editar" value="Editar Plan" position="left"/>	
+									<p:spacer width="5"/>
+									<p:commandButton id="eliminar" icon="pi pi-trash" styleClass="rounded-button ui-button-secondary"
+											action="#{vacunatorioBean.eliminarVacunatorioSeleccionado(vac)}"
+											update=":eliminarvacunatorio,:VacunatorioListarForm:VacunatorioTabla">
+											<p:confirm header="Confirmacion" message="Estas seguro de eliminar el Vacunatorio?" icon="pi pi-exclamation-triangle"/>
+							</p:commandButton>	
+										 <p:tooltip for="eliminar" value="Eliminar Vacunatorio" position="left"/>	
+									<p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+									            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no"/>
+									            <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" />
+       								</p:confirmDialog>
+							
 												 
 					</div>					 
 				</p:column>				
@@ -44,6 +56,11 @@
 							actionListener="#{vacunatorioBean.reiniciarVacunatorioSeleccionado}"/> 
 <!-- 							update=":dialogFormVacunatorio" -->
 <!-- 							oncomplete="PF('vacunatorioDialogBuscar').show()"--> 
+						<p:spacer height="5px" />
+						<p:commandButton value="Agregar Vacunatorio"
+							update=":dialogForm"
+							actionListener="#{vacunatorioBean.reiniciarVacunatorioSeleccionado}"
+							oncomplete="PF('vacunatorioDialog').show()" />
 							
 					</div>
 				</f:facet>
@@ -51,43 +68,97 @@
 		</div>
 	</h:form>
 	
+	<div>
+		<h:form id="eliminarvacunatorio">
+				 <p:growl id="message" showDetail="true"/>
+		</h:form>
+	</div>
 	
-
-	
-	<p:dialog id="asignarVacunadoresDlg" widgetVar="asignarVacunadoresDialog"
-		header="Gestion de Vacunatorios" modal="true" showEffect="fade"
+<p:dialog id="vacunatorioDlg" widgetVar="vacunatorioDialog"
+		header="Vacunatorio" modal="true" showEffect="fade"
 		hideEffect="fade" resizable="false">
 
 		<h:form id="dialogForm">			
-			<p:panel header="Asignar Vacunadores" id="grid" style="margin-bottom:10px;">
+			<p:panel header="#{planVacunacionBean.nombreBoton}" id="grid" style="margin-bottom:10px;">
 	            <p:growl id="growl" showDetail="false" />
 	        	<p:growl id="growl-sticky" for="sticky-key" showDetail="true" sticky="true" />
 	            
 		            <h:panelGrid  columns="2" cellpadding="5" styleClass="p-mb-3">
 		                
-		                 <h:outputLabel for="Vac" value="Vacunadores:"/>
-		                <p:selectCheckboxMenu id="Vac" value="#{vacunatorioBean.cedulaVacunadores}" required="true" requiredMessage="Debe seleccionar al menos un Vacunador" label="Seleccionar Vacunadores" style="width: 15rem"
-		                                filter="true" filterMatchMode="startsWith" panelStyle="width: 15rem" scrollHeight="250">
-		            		<f:selectItems value="#{vacunatorioBean.vacunadores}"/>
-	        			</p:selectCheckboxMenu>
+		                <h:outputLabel for="name" value="Nombre:"/>
+		            	<p:message for="name" display="icon"> <p:inputText id="name" value="#{vacunatorioBean.vacunatorioSeleccionado.nombre}" required="true" requiredMessage="Debe ingresar un nombre de Plan"/>  </p:message>
+		            	
+		            	<h:outputLabel for="codigo" value="Codigo:"/>
+		            	<p:message for="codigo" display="icon"> <p:inputText id="codigo" value="#{vacunatorioBean.vacunatorioSeleccionado.codigo}" required="true" requiredMessage="Debe ingresar un codigo para el vacunatorio"/>  </p:message>
+		            	
 		                
-		                 <h:outputLabel for="fecha" value="Fecha"/>
-                	<p:datePicker id="fechao" value="#{vacunatorioBean.fecha}" monthNavigator="true" yearNavigator="true" showWeek="true" required="true" requiredMessage="Debe seleccionar una fecha de asignacion"/>
-
-		                  
+		                <h:outputLabel for="cantidadpuestos" value="Cantidad de Puestos"/>
+		            	<p:spinner id="cantidadpuestos" value="#{vacunatorioBean.vacunatorioSeleccionado.cantidadPuestos}" min="0" required="true"/>
+		        
+		            	
+		            	 <h:outputLabel for="departamento" value="Departamento:"/>
+			                <p:selectOneMenu id="departamento" value="#{vacunatorioBean.nombreDepartamento}" required="true" requiredMessage="Debe seleccionar un Departamento" style="width:15rem">
+			                     <p:ajax listener="#{vacunatorioBean.cargarUbicaciones}" update="ubicacion"/>
+			                    <f:selectItem itemLabel="Seleccionar Departamento" itemValue="" noSelectionOption="true"/>
+			                    <f:selectItems value="#{vacunatorioBean.departamentos}"/>
+			                </p:selectOneMenu>
+		        
+		
+		                <h:outputLabel for="ubicacion" value="Ubicacion:"/>
+		                <p:selectOneMenu id="ubicacion" value="#{vacunatorioBean.nombreUbicacion}" required="true" requiredMessage="Debe seleccionar una Vacuna" style="width: 15rem">
+		                     <f:selectItem itemLabel="Seleccionar Ubicacion" itemValue="" noSelectionOption="true"/>         
+		            		<f:selectItems value="#{vacunatorioBean.ubicaciones}"/>
+	        			</p:selectOneMenu>
+	        
 	            	</h:panelGrid>
 				
 	          
 				<div style="display: flex; align-items: center;justify-content: center;">
-	            <p:commandButton  value="Asignar Vacunadores" action="#{vacunatorioBean.asignarVacunadores()}" 
+	            <p:commandButton  value="#{vacunatorioBean.nombreBoton}" action="#{vacunatorioBean.agregarVacunatorio()}" 
 	            				update="grid,:VacunatorioListarForm:VacunatorioTabla"
-	                             icon="" /> 
+	                             icon="#{VacunatorioBean.estiloBoton}" /> 
 	            </div>
 	        </p:panel>
 	
 		</h:form>
 
-	</p:dialog>
+	</p:dialog>	
+	
+<p:dialog id="editarVacunatorioDlg" widgetVar="editarVacunatorioDialog"
+		header="Vacunatorio" modal="true" showEffect="fade"
+		hideEffect="fade" resizable="false">
+
+		<h:form id="dialogForm2">			
+			<p:panel header="#{planVacunacionBean.nombreBoton}" id="grid" style="margin-bottom:10px;">
+	            <p:growl id="growl" showDetail="false" />
+	        	<p:growl id="growl-sticky" for="sticky-key" showDetail="true" sticky="true" />
+	            
+		            <h:panelGrid  columns="2" cellpadding="5" styleClass="p-mb-3">
+		                
+		                <h:outputLabel for="name" value="Nombre:"/>
+		            	<p:message for="name" display="icon"> <p:inputText id="name" value="#{vacunatorioBean.vacunatorioSeleccionado.nombre}" required="true" requiredMessage="Debe ingresar un nombre de Plan"/>  </p:message>
+		            	
+		            	<h:outputLabel for="codigo" value="Codigo:"/>
+		            	<p:message for="codigo" display="icon"> <p:inputText id="codigo" value="#{vacunatorioBean.vacunatorioSeleccionado.codigo}" required="true" requiredMessage="Debe ingresar un codigo para el vacunatorio"/>  </p:message>
+		            	
+		                
+		                <h:outputLabel for="cantidadpuestos" value="Cantidad de Puestos"/>
+		            	<p:spinner id="cantidadpuestos" value="#{vacunatorioBean.vacunatorioSeleccionado.cantidadPuestos}" min="0" required="true"/>
+		            	    
+	            	</h:panelGrid>
+				
+	          
+				<div style="display: flex; align-items: center;justify-content: center;">
+	            <p:commandButton  value="#{vacunatorioBean.nombreBoton}" action="#{vacunatorioBean.editarVacunatorio()}" 
+	            				update="grid,:VacunatorioListarForm:VacunatorioTabla"
+	                             icon="#{VacunatorioBean.estiloBoton}" /> 
+	            </div>
+	        </p:panel>
+	
+		</h:form>
+
+	</p:dialog>	
+
 
 	
 </h:body>

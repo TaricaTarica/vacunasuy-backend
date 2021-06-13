@@ -51,6 +51,10 @@ public class Ubicacion {
 		this.vacunatorio = vacunatorio;
 	}
 	
+	public void eliminarVacunatorio () {
+		this.vacunatorio = new Vacunatorio();
+	}
+	
 	
 
 }

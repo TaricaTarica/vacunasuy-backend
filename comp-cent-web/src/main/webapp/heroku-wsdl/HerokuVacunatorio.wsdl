@@ -1,0 +1,227 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<wsdl:definitions
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:tns="http://webServiceSoap/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:ns1="http://schemas.xmlsoap.org/soap/http"
+	name="VacunatorioServicioService"
+	targetNamespace="http://webServiceSoap/">
+	<wsdl:types>
+		<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+			xmlns:tns="http://webServiceSoap/" elementFormDefault="unqualified"
+			targetNamespace="http://webServiceSoap/" version="1.0">
+			<xs:element name="asignarVacunadores"
+				type="tns:asignarVacunadores" />
+			<xs:element name="asignarVacunadoresResponse"
+				type="tns:asignarVacunadoresResponse" />
+			<xs:element name="consultarLugarVacunador"
+				type="tns:consultarLugarVacunador" />
+			<xs:element name="consultarLugarVacunadorResponse"
+				type="tns:consultarLugarVacunadorResponse" />
+			<xs:element name="consultarVacunadoresPuestosVacXFecha"
+				type="tns:consultarVacunadoresPuestosVacXFecha" />
+			<xs:element
+				name="consultarVacunadoresPuestosVacXFechaResponse"
+				type="tns:consultarVacunadoresPuestosVacXFechaResponse" />
+			<xs:element name="listarVacunatorios"
+				type="tns:listarVacunatorios" />
+			<xs:element name="listarVacunatoriosResponse"
+				type="tns:listarVacunatoriosResponse" />
+			<xs:complexType name="listarVacunatorios">
+				<xs:sequence />
+			</xs:complexType>
+			<xs:complexType name="listarVacunatoriosResponse">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" minOccurs="0"
+						name="return" type="xs:int" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="asignarVacunadores">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="arg0" type="xs:string" />
+					<xs:element minOccurs="0" name="arg1" type="xs:string" />
+					<xs:element maxOccurs="unbounded" minOccurs="0"
+						name="arg2" type="xs:int" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="asignarVacunadoresResponse">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="return"
+						type="tns:dtMsjVacunatorio" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="dtMsjVacunatorio">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="mensaje"
+						type="xs:string" />
+					<xs:element maxOccurs="unbounded" minOccurs="0"
+						name="vacunadoresNoAsignados" nillable="true" type="xs:int" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType
+				name="consultarVacunadoresPuestosVacXFecha">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="arg0" type="xs:string" />
+					<xs:element minOccurs="0" name="arg1" type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType
+				name="consultarVacunadoresPuestosVacXFechaResponse">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" minOccurs="0"
+						name="return" type="xs:int" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="consultarLugarVacunador">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="arg0" type="xs:string" />
+					<xs:element name="arg1" type="xs:int" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="consultarLugarVacunadorResponse">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" minOccurs="0"
+						name="return" type="tns:dtInformacionVacunador" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="dtInformacionVacunador">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="fecha" type="xs:string" />
+					<xs:element name="puesto" type="xs:int" />
+				</xs:sequence>
+			</xs:complexType>
+		</xs:schema>
+	</wsdl:types>
+	<wsdl:message
+		name="consultarVacunadoresPuestosVacXFechaResponse">
+		<wsdl:part
+			element="tns:consultarVacunadoresPuestosVacXFechaResponse"
+			name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="listarVacunatorios">
+		<wsdl:part element="tns:listarVacunatorios"
+			name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="asignarVacunadores">
+		<wsdl:part element="tns:asignarVacunadores"
+			name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="consultarVacunadoresPuestosVacXFecha">
+		<wsdl:part
+			element="tns:consultarVacunadoresPuestosVacXFecha" name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="asignarVacunadoresResponse">
+		<wsdl:part element="tns:asignarVacunadoresResponse"
+			name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="consultarLugarVacunadorResponse">
+		<wsdl:part element="tns:consultarLugarVacunadorResponse"
+			name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="listarVacunatoriosResponse">
+		<wsdl:part element="tns:listarVacunatoriosResponse"
+			name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="consultarLugarVacunador">
+		<wsdl:part element="tns:consultarLugarVacunador"
+			name="parameters">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:portType name="VacunatorioServicio">
+		<wsdl:operation name="listarVacunatorios">
+			<wsdl:input message="tns:listarVacunatorios"
+				name="listarVacunatorios">
+			</wsdl:input>
+			<wsdl:output message="tns:listarVacunatoriosResponse"
+				name="listarVacunatoriosResponse">
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="asignarVacunadores">
+			<wsdl:input message="tns:asignarVacunadores"
+				name="asignarVacunadores">
+			</wsdl:input>
+			<wsdl:output message="tns:asignarVacunadoresResponse"
+				name="asignarVacunadoresResponse">
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation
+			name="consultarVacunadoresPuestosVacXFecha">
+			<wsdl:input
+				message="tns:consultarVacunadoresPuestosVacXFecha"
+				name="consultarVacunadoresPuestosVacXFecha">
+			</wsdl:input>
+			<wsdl:output
+				message="tns:consultarVacunadoresPuestosVacXFechaResponse"
+				name="consultarVacunadoresPuestosVacXFechaResponse">
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="consultarLugarVacunador">
+			<wsdl:input message="tns:consultarLugarVacunador"
+				name="consultarLugarVacunador">
+			</wsdl:input>
+			<wsdl:output
+				message="tns:consultarLugarVacunadorResponse"
+				name="consultarLugarVacunadorResponse">
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="VacunatorioServicioServiceSoapBinding"
+		type="tns:VacunatorioServicio">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="listarVacunatorios">
+			<soap:operation soapAction="" style="document" />
+			<wsdl:input name="listarVacunatorios">
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="listarVacunatoriosResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="asignarVacunadores">
+			<soap:operation soapAction="" style="document" />
+			<wsdl:input name="asignarVacunadores">
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="asignarVacunadoresResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation
+			name="consultarVacunadoresPuestosVacXFecha">
+			<soap:operation soapAction="" style="document" />
+			<wsdl:input name="consultarVacunadoresPuestosVacXFecha">
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output
+				name="consultarVacunadoresPuestosVacXFechaResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="consultarLugarVacunador">
+			<soap:operation soapAction="" style="document" />
+			<wsdl:input name="consultarLugarVacunador">
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="consultarLugarVacunadorResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="VacunatorioServicioService">
+		<wsdl:port
+			binding="tns:VacunatorioServicioServiceSoapBinding"
+			name="VacunatorioServicioPort">
+			<soap:address
+				location="https://periferico-vacunatorio.herokuapp.com/periferico-vacunatorio/VacunatorioServicio" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

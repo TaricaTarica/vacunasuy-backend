@@ -40,4 +40,26 @@ public class VacunatorioDato implements VacunatorioDatoRemote, VacunatorioDatoLo
 	public Vacunatorio obtenerVacunatorio(long id) {
 		return em.find(Vacunatorio.class, id);
 	}
+	
+	public Vacunatorio obtenerVacunatorioPorCodigo( String codigo) {
+		Vacunatorio vacunatorio = (em.createQuery("Select p from Vacunatorio p where p.codigo = :codigo", Vacunatorio.class).setParameter("codigo", codigo).getSingleResult());
+    	return vacunatorio;
+	}
+	public Boolean existeVacunatorio(String codigo) {
+		Boolean existe = (em.createQuery("Select p from Vacunatorio p where p.codigo = :codigo").setParameter("codigo", codigo).getResultList().size() > 0);	
+		return existe;
+
+
+	}
+
+	@Override
+	public void editarVacunatorio(Vacunatorio vac) {
+		em.merge(vac);
+		
+	}
+
+	@Override
+	public void eliminarVacunatorio(Vacunatorio vac) {
+		em.remove(vac);
+	}
 }

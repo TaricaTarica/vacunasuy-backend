@@ -35,7 +35,8 @@ public class DepartamentoDato implements DepartamentoDatoRemote, DepartamentoDat
 	public List<Departamento> obtenerDepartamentos(){
     	return em.createNamedQuery("Departamento.obtenerDepartamentos", Departamento.class).getResultList();
     }
-        
+    
+    @Override
     public Departamento obtenerDepartamentoPorNombre(String nombre) {
     	Query query = em.createQuery("from Departamento d where d.descripcion =: descripcion");
     	query.setParameter("descripcion", nombre);
@@ -67,5 +68,7 @@ public class DepartamentoDato implements DepartamentoDatoRemote, DepartamentoDat
     		return null;
     	}
     }
+
+
 
 }

@@ -15,4 +15,7 @@ public interface DepartamentoDatoLocal {
     
     public Ubicacion obtenerDepartamentoUbicacion(String descDepartamento, String descUbicacion);
 
+	public Departamento obtenerDepartamentoPorNombre(String nombre);
+
+
 }
