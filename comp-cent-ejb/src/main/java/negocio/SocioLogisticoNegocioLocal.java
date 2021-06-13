@@ -1,5 +1,7 @@
 package negocio;
 
+import java.util.List;
+
 import javax.ejb.Local;
 
 import datatypes.DTSocioLogistico;
@@ -16,5 +18,7 @@ public interface SocioLogisticoNegocioLocal {
 	public Boolean existeSocioLogistico(String codigo);
 	
 	public DTSocioLogistico obtenerSocioLogistico(String codigo) throws Exception;
+	
+	public List<DTSocioLogistico> listarSocioLogistico();
 	
 }
