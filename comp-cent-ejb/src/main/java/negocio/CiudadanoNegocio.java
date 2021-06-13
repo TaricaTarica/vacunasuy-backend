@@ -9,7 +9,6 @@ import datos.CiudadanoDatoLocal;
 import entidades.Ciudadano;
 
 
-
 /**
  * Session Bean implementation class CiudadanoNegocio
  */
@@ -28,9 +27,7 @@ public class CiudadanoNegocio implements CiudadanoNegocioLocal {
     }
     
     @Override
-    public void agregarCiudadano(DTCiudadano dtCiudadano){
-    	
-    	
+    public void agregarCiudadano(DTCiudadano dtCiudadano){	
     	Ciudadano ciudadano = new Ciudadano(dtCiudadano);
     	this.cdl.agregarCiudadano(ciudadano);
     }
