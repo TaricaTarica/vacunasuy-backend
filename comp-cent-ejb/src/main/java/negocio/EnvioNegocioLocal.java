@@ -9,4 +9,5 @@ import datatypes.DTEnvio;
 @Local
 public interface EnvioNegocioLocal {
 	public List<DTEnvio> listarEnvios();
+	public List<DTEnvio> listarEnviosPorSocioLogistico(String cod);
 }

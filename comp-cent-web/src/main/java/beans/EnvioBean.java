@@ -8,9 +8,11 @@ import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
+import datatypes.DTEnvio;
 import datatypes.DTLote;
 import datatypes.DTSocioLogistico;
 import datatypes.DTVacunatorio;
+import negocio.EnvioNegocioLocal;
 import negocio.LoteNegocioLocal;
 import negocio.SocioLogisticoNegocioLocal;
 import negocio.VacunatorioNegocioLocal;
@@ -21,6 +23,9 @@ public class EnvioBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@EJB
+	private EnvioNegocioLocal envioLocal;
+	
+	@EJB
 	private LoteNegocioLocal loteLocal;
 
 	@EJB
@@ -28,6 +33,9 @@ public class EnvioBean implements Serializable{
 
 	@EJB
 	private VacunatorioNegocioLocal vacunatorioLocal;
+	
+	private DTEnvio envio;
+	private List<DTEnvio> envios;
 	
 	private DTLote lote;
 	private List<DTLote> lotes;
@@ -48,8 +56,12 @@ public class EnvioBean implements Serializable{
 	 
 	 @PostConstruct
 	public void init() {
+		 
+		 this.envios = envioLocal.listarEnvios();
 		 this.lotes = loteLocal.listarLotes();
 //		 this.socioLogistico = socioLocal.
+		 this.vacunatorios = vacunatorioLocal.listarVacunatorio();
+		 
 		 
 	 }
 
@@ -201,6 +213,30 @@ public class EnvioBean implements Serializable{
 
 	public void setEditar(Boolean editar) {
 		this.editar = editar;
+	}
+
+
+
+	public DTEnvio getEnvio() {
+		return envio;
+	}
+
+
+
+	public List<DTEnvio> getEnvios() {
+		return envios;
+	}
+
+
+
+	public void setEnvio(DTEnvio envio) {
+		this.envio = envio;
+	}
+
+
+
+	public void setEnvios(List<DTEnvio> envios) {
+		this.envios = envios;
 	}
 	
 	 

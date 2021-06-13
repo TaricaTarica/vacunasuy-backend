@@ -9,8 +9,10 @@ import javax.ejb.Stateless;
 
 import datatypes.DTEnfermedad;
 import datatypes.DTEnvio;
+import datatypes.DTUbicacion;
 import datos.EnvioDatoLocal;
 import entidades.Envio;
+import entidades.Ubicacion;
 
 /**
  * Session Bean implementation class EnvioNegocio
@@ -41,7 +43,15 @@ public class EnvioNegocio implements EnvioNegocioLocal {
     	
     }
     
-    
-    
+    @Override
+	public List<DTEnvio> listarEnviosPorSocioLogistico(String cod){
+    	List<Envio> envios =  envioLocal.listarEnviosPorSocioLogistico(cod);
+		List<DTEnvio> lista = new ArrayList<DTEnvio>();
+		for(Envio en: envios) {
+    		DTEnvio envio = new DTEnvio(en);
+    		lista.add(envio);
+    	}
+    	return lista;
+    }
 
 }

@@ -8,8 +8,9 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
-import entidades.Enfermedad;
+
 import entidades.Envio;
 
 /**
@@ -54,4 +55,11 @@ public class EnvioDato implements EnvioDatoLocal {
 		return lista;
 	}
 
+	@Override
+	public List<Envio> listarEnviosPorSocioLogistico(String cod){
+		
+		TypedQuery query = em.createQuery("Select e from Envio e Where e.socioLogistico.codigo =:codigo", Envio.class);
+		query.setParameter("codigo", cod);
+		return query.getResultList();
+	}
 }
