@@ -11,6 +11,7 @@ public class DTCiudadano {
 	private String segundoApellido;	
 	private int telefono;
 	private String email;
+	private String tipo;
 	
 	public DTCiudadano() {
 		super();
@@ -18,7 +19,7 @@ public class DTCiudadano {
 	}
 
 	public DTCiudadano(int ci, String primerNombre, String segundoNombre, String primerApellido, String segundoApellido,
-			int telefono, String email) {
+			int telefono, String email, String tipo) {
 		super();
 		this.ci = ci;
 		this.primerNombre = primerNombre;
@@ -27,6 +28,7 @@ public class DTCiudadano {
 		this.segundoApellido = segundoApellido;
 		this.telefono = telefono;
 		this.email = email;
+		this.tipo = tipo;
 	}
 	
 	public DTCiudadano(Ciudadano ciudadano) {
@@ -37,7 +39,8 @@ public class DTCiudadano {
 		this.primerApellido = ciudadano.getPrimerApellido();
 		this.segundoApellido = ciudadano.getSegundoApellido();
 		this.telefono = ciudadano.getTelefono();
-		this.email = ciudadano.getEmail();	
+		this.email = ciudadano.getEmail();
+		this.tipo = ciudadano.getTipo();
 	}
 
 	public int getCi() {
@@ -94,6 +97,14 @@ public class DTCiudadano {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 
 	@Override

@@ -8,6 +8,8 @@ import datatypes.DTCiudadano;
 import datos.CiudadanoDatoLocal;
 import entidades.Ciudadano;
 
+
+
 /**
  * Session Bean implementation class CiudadanoNegocio
  */
@@ -27,7 +29,8 @@ public class CiudadanoNegocio implements CiudadanoNegocioRemote, CiudadanoNegoci
     
     @Override
     public void agregarCiudadano(DTCiudadano dtCiudadano){
-    	//Acá tendría que pedirle los datos del ciudadano a agesic(fnac y tipo)
+    	
+    	
     	Ciudadano ciudadano = new Ciudadano(dtCiudadano);
     	this.cdl.agregarCiudadano(ciudadano);
     }
