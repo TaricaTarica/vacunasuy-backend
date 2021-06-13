@@ -45,18 +45,18 @@
 				<p:tooltip for="ver" value="Ver Planes" position="left"/>
 				<p:spacer width="5"/>
 				
-			<p:commandButton icon="pi pi-pencil" styleClass="rounded-button ui-button-secondary"
+			<p:commandButton id="editar" icon="pi pi-pencil" styleClass="rounded-button ui-button-secondary"
 					actionListener="#{gestionAgendaBean.editarAgenda(agenda)}"
 					update=":dialogForm" oncomplete="PF('agregar').show()" />
-					
+					<p:tooltip for="editar" value="Editar Agenda" position="left"/>	
 				<p:spacer width="5"/>
 				
 				<p:commandButton id="eliminar" icon="pi pi-trash" styleClass="rounded-button ui-button-secondary"
 					actionListener="#{gestionAgendaBean.eliminarAgenda(agenda)}"
 					update=":eliminarAgenda,:agendaListForm:agendaDataTable">
-					<p:confirm header="Confirmacion" message="Estas seguro de eliminar el Plan?" icon="pi pi-exclamation-triangle"/>
+					<p:confirm header="Confirmacion" message="Estas seguro de eliminar la Agenda?" icon="pi pi-exclamation-triangle"/>
 				</p:commandButton>	
-					<p:tooltip for="eliminar" value="Eliminar Plan" position="left"/>	
+					<p:tooltip for="eliminar" value="Eliminar Agenda" position="left"/>	
 					<p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
 				    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no"/>
 				    <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" />
