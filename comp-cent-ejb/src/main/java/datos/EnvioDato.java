@@ -63,13 +63,13 @@ public class EnvioDato implements EnvioDatoLocal {
 	public List<Envio> listarEnviosPorSocioLogistico(String cod){
 		
 		
-//		TypedQuery<Envio> query = em.createQuery("Select e from Envio e Where e.estado =:estado AND e.socioLogistico.codigo =:codigo", Envio.class);
-//		query.setParameter("codigo", cod);
-//		query.setParameter("estado", EstadoEnvio.Procesado);
+		TypedQuery<Envio> query = em.createQuery("Select e from Envio e Where e.estado =:estado AND e.socioLogistico.codigo =:codigo", Envio.class);
+		query.setParameter("codigo", cod);
+		query.setParameter("estado", EstadoEnvio.Procesado);
 		
-		//return query.getResultList();
+		return query.getResultList();
 		
-		return  em.createQuery("Select e from Envio e", Envio.class).getResultList();
+		//return  em.createQuery("Select e from Envio e", Envio.class).getResultList();
 	}
 
 	@Override
