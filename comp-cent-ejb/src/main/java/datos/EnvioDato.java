@@ -61,8 +61,10 @@ public class EnvioDato implements EnvioDatoLocal {
 	@Override
 	public List<Envio> listarEnviosPorSocioLogistico(String cod){
 		
-		TypedQuery<Envio> query = em.createQuery("Select e from Envio e Where e.socioLogistico.codigo =:codigo", Envio.class);
+		
+		TypedQuery<Envio> query = em.createQuery("Select e from Envio e Where e.estado =:estado AND e.socioLogistico.codigo =:codigo", Envio.class);
 		query.setParameter("codigo", cod);
+		query.setParameter("estado", EstadoEnvio.Procesado);
 		return query.getResultList();
 	}
 
