@@ -51,7 +51,9 @@ public class EnvioNegocio implements EnvioNegocioLocal {
     }
     
     public void cambiarEstadoEnvio(EstadoEnvio estado, long idEnvio) {
-    	envioLocal.cambiarEstadoEnvio(estado, idEnvio);
+    	Envio envio = envioLocal.obtenerEnvio(idEnvio);
+    	envio.setEstado(estado);
+    	envioLocal.editarEnvio(envio);
     }
 
 }

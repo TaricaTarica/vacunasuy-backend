@@ -3,8 +3,11 @@ package entidades;
 import java.time.LocalDate;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import datatypes.DTEnvio;
@@ -15,14 +18,15 @@ public class Envio {
 	@Id 
 	@GeneratedValue
 	private long id;
+	@Enumerated(value = EnumType.STRING)
 	private EstadoEnvio estado; 
-	private LocalDate fechaCreacion;
+	private LocalDate fechaCreacion = LocalDate.now();;
 	
 	@OneToOne
 	private Lote lote;
-	@OneToOne
+	@ManyToOne
 	private Vacunatorio vacunatorio;
-	@OneToOne
+	@ManyToOne
 	private SocioLogistico socioLogistico;
 	
 	
@@ -30,27 +34,15 @@ public class Envio {
 		super();
 	}
 	
-	public Envio(long id, EstadoEnvio estado, LocalDate fechaCreacion, Lote lote, Vacunatorio vacunatorio, SocioLogistico socioLogistico){
+	public Envio(long id, EstadoEnvio estado, Lote lote, Vacunatorio vacunatorio, SocioLogistico socioLogistico){
 		super();
 		this.estado = estado;
-		this.fechaCreacion = fechaCreacion;
 		this.id = id;
 		this.socioLogistico = socioLogistico;
 		this.vacunatorio = vacunatorio;
-		this.lote = lote;
+		this.lote = lote;		
+	}
 		
-	}
-	
-	public Envio(DTEnvio envio) {
-		super();
-		this.estado = envio.getEstado();
-		this.fechaCreacion = envio.getFechaCreacion();
-		this.id = envio.getId();
-		this.socioLogistico = envio.getSocioLogistico();
-		this.vacunatorio = envio.getVacunatorio();
-		this.lote = envio.getLote();
-	}
-	
 	public long getId() {
 		return id;
 	}

@@ -27,38 +27,16 @@
                             <h:outputText value="#{envio.fechaCreacion}" />
                 </p:column>
 	            
-	            
-				<p:column headerText="Opciones">
-					<div style="display: flex; align-items: center;justify-content: center;">
-								<p:commandButton id="editar" icon="pi pi-pencil" styleClass="rounded-button ui-button-secondary"
-											action="#{enfermedadBean.editarEnfermedadBean(enfermedad)}"
-											update=":dialogForm" oncomplete="PF('enfermedadDialog').show()" />
-										 <p:tooltip for="editar" value="Editar Enfermedad" position="left"/>	
-								
-								<p:spacer width="5"/>
-								
-								<p:commandButton id="eliminar" icon="pi pi-trash" styleClass="rounded-button ui-button-secondary"
-											action="#{enfermedadBean.eliminarEnfermedad(enfermedad)}"
-											update=":eliminarenfermedad,:enfermedadesListForm:EnfermedadTabla">
-											<p:confirm header="Confirmacion" message="Estas seguro de eliminar la Enfermedad?" icon="pi pi-exclamation-triangle"/>
-								 </p:commandButton>
-								 <p:tooltip for="eliminar" value="Eliminar Enfermedad" position="left"/>
-								 <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
-									            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no"/>
-									            <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" />
-       								</p:confirmDialog>
-					</div>					 
-				</p:column>	
 				
 
                 <f:facet name="footer">
                     <div style="display: flex; align-items: center;justify-content: center;">
 	                    <p:spacer height="5px"/>
 	                    
-	                    <p:commandButton value="Agregar Enfermedad"
+	                    <p:commandButton value="Agregar Envio"
 	                    update=":dialogForm" 
 	                    actionListener="#{enfermedadBean.reiniciarEnfermedad()}"
-	                    oncomplete="PF('enfermedadDialog').show()" />
+	                    oncomplete="PF('envioDialog').show()" />
 	                  
 	                    <p:spacer width="5" height="0"/>
 	                    

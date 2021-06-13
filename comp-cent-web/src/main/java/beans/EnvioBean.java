@@ -248,6 +248,14 @@ public class EnvioBean implements Serializable{
         this.envio = new DTEnvio();
     }
 	
-	 
+//	public void agregarEnvio() throws Exception {
+//		
+//		try {
+//			if(editar) {
+//				//Funcion para editar el envio.
+//			}else {
+//				envioLocal
+//			}
+//	}
 
 }

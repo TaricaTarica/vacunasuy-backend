@@ -13,6 +13,7 @@ import javax.persistence.TypedQuery;
 
 import entidades.Envio;
 import entidades.Lote;
+import entidades.PlanVacunacion;
 import entidades.Vacuna;
 import enumeradores.EstadoEnvio;
 
@@ -62,16 +63,18 @@ public class EnvioDato implements EnvioDatoLocal {
 	public List<Envio> listarEnviosPorSocioLogistico(String cod){
 		
 		
-		TypedQuery<Envio> query = em.createQuery("Select e from Envio e Where e.estado =:estado AND e.socioLogistico.codigo =:codigo", Envio.class);
-		query.setParameter("codigo", cod);
-		query.setParameter("estado", EstadoEnvio.Procesado);
-		return query.getResultList();
+//		TypedQuery<Envio> query = em.createQuery("Select e from Envio e Where e.estado =:estado AND e.socioLogistico.codigo =:codigo", Envio.class);
+//		query.setParameter("codigo", cod);
+//		query.setParameter("estado", EstadoEnvio.Procesado);
+		
+		//return query.getResultList();
+		
+		return  em.createQuery("Select e from Envio e", Envio.class).getResultList();
 	}
 
 	@Override
-	public void cambiarEstadoEnvio(EstadoEnvio estado, long idEnvio) {
-	    Envio envio = em.find(Envio.class, idEnvio);
-	    envio.setEstado(estado);
-	    em.merge(estado);	
+	public Envio obtenerEnvio(long id) {
+		return em.find(Envio.class, id);
 	}
+
 }

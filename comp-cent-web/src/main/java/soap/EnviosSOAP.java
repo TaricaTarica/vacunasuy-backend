@@ -17,6 +17,7 @@ public class EnviosSOAP {
 	@WebMethod 
 	public void cambiarEstadoEnvio(String codigoSocioLogistico, String estado, long codigoEnvio) {	
 		EstadoEnvio estadoEnvio = EstadoEnvio.Entransito;
+		
 		try {
 			switch(estado) {
 			  case "Entransito":
@@ -25,7 +26,8 @@ public class EnviosSOAP {
 			  case "Entregado":
 				  estadoEnvio = EstadoEnvio.Entregado;
 				  break;
-			}			
+			}		
+			System.out.println(estadoEnvio);
 			enl.cambiarEstadoEnvio(estadoEnvio, codigoEnvio);
 		} catch (Exception e) {
 			 System.out.println("Error camiar estado");

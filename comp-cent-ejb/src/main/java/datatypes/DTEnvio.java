@@ -1,5 +1,6 @@
 package datatypes;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 import entidades.Envio;
@@ -8,42 +9,29 @@ import entidades.SocioLogistico;
 import entidades.Vacunatorio;
 import enumeradores.EstadoEnvio;
 
-public class DTEnvio {
+public class DTEnvio implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private long id;
 	private EstadoEnvio estado;
-	private LocalDate fechaCreacion;
-	private Lote lote;
-	private Vacunatorio vacunatorio;
-	private SocioLogistico socioLogistico;
-
 
 	public DTEnvio() {
 		super();
 	}
 	
-	public DTEnvio( long id, EstadoEnvio estado,	 LocalDate fechaCreacion, Lote lote, Vacunatorio vacunatorio, SocioLogistico socioLogistico) {
+	public DTEnvio( long id, EstadoEnvio estado) {
 		super();
 		this.id = id;
 		this.estado = estado;
-		this.fechaCreacion = fechaCreacion;
-		this.lote = lote;
-		this.vacunatorio = vacunatorio;
-		this.socioLogistico = socioLogistico;
-		
-		
 	}
 	
 	public DTEnvio(Envio env) {
 		super();
 		this.id = env.getId();
 		this.estado = env.getEstado();
-		this.fechaCreacion = env.getFechaCreacion();
-		this.lote = env.getLote();
-		this.vacunatorio = env.getVacunatorio();
-		this.socioLogistico = env.getSocioLogistico();
-		
-		
 	}
 
 	public long getId() {
@@ -52,36 +40,12 @@ public class DTEnvio {
 	public EstadoEnvio getEstado() {
 		return estado;
 	}
-	public LocalDate getFechaCreacion() {
-		return fechaCreacion;
-	}
-	public Lote getLote() {
-		return lote;
-	}
-	public Vacunatorio getVacunatorio() {
-		return vacunatorio;
-	}
-	public SocioLogistico getSocioLogistico() {
-		return socioLogistico;
-	}
+
 	public void setId(long id) {
 		this.id = id;
 	}
 	public void setEstado(EstadoEnvio estado) {
 		this.estado = estado;
 	}
-	public void setFechaCreacion(LocalDate fechaCreacion) {
-		this.fechaCreacion = fechaCreacion;
-	}
-	public void setLote(Lote lote) {
-		this.lote = lote;
-	}
-	public void setVacunatorio(Vacunatorio vacunatorio) {
-		this.vacunatorio = vacunatorio;
-	}
-	public void setSocioLogistico(SocioLogistico socioLogistico) {
-		this.socioLogistico = socioLogistico;
-	}
-	
 	
 }

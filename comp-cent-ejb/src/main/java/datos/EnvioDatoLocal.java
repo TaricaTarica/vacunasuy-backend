@@ -11,8 +11,7 @@ import enumeradores.EstadoEnvio;
 public interface EnvioDatoLocal {
 	public void guardarEnvio(Envio envio);
 	public void editarEnvio(Envio envio);
+	public Envio obtenerEnvio(long id);
 	public List<Envio> listarEnvios();
 	public List<Envio> listarEnviosPorSocioLogistico(String cod);
-	public void cambiarEstadoEnvio(EstadoEnvio estado, long idEnvio);
-
 }
