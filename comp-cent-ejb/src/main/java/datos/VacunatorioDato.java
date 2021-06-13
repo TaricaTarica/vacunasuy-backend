@@ -2,7 +2,6 @@ package datos;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -14,7 +13,7 @@ import entidades.Vacunatorio;
  */
 @Stateless
 @LocalBean
-public class VacunatorioDato implements VacunatorioDatoRemote, VacunatorioDatoLocal {
+public class VacunatorioDato implements VacunatorioDatoLocal {
 
 	@PersistenceContext(name = "comp-centPersistenceUnit")
 	private EntityManager em;

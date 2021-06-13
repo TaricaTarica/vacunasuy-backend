@@ -1,13 +1,8 @@
 package datos;
 
 import java.util.List;
-
 import javax.ejb.Local;
-
-import datatypes.DTEnfermedad;
 import entidades.Enfermedad;
-
-
 
 @Local
 public interface EnfermedadDatoLocal {
