@@ -1,12 +1,8 @@
 package datatypes;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 
 import entidades.Envio;
-import entidades.Lote;
-import entidades.SocioLogistico;
-import entidades.Vacunatorio;
 import enumeradores.EstadoEnvio;
 
 public class DTEnvio implements Serializable{

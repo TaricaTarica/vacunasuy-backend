@@ -1,5 +1,5 @@
 package enumeradores;
 
 public enum EstadoEnvio {
-	Procesado, Entransito, Entregado
+	Pendiente, Entransito, Entregado
 }

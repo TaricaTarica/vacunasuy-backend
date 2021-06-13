@@ -12,9 +12,6 @@ import javax.persistence.TypedQuery;
 
 
 import entidades.Envio;
-import entidades.Lote;
-import entidades.PlanVacunacion;
-import entidades.Vacuna;
 import enumeradores.EstadoEnvio;
 
 /**
@@ -65,7 +62,7 @@ public class EnvioDato implements EnvioDatoLocal {
 		
 		TypedQuery<Envio> query = em.createQuery("Select e from Envio e Where e.estado =:estado AND e.socioLogistico.codigo =:codigo", Envio.class);
 		query.setParameter("codigo", cod);
-		query.setParameter("estado", EstadoEnvio.Procesado);
+		query.setParameter("estado", EstadoEnvio.Pendiente);
 		
 		return query.getResultList();
 		
