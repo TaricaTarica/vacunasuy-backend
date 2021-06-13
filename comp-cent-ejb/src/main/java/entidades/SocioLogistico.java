@@ -23,6 +23,7 @@ public class SocioLogistico {
 	
 	public SocioLogistico(DTSocioLogistico socioLogistico) {
 		super();
+		this.id = socioLogistico.getId();
 		this.nombre = socioLogistico.getNombre();
 		this.codigo = socioLogistico.getCodigo();
 	}

@@ -329,7 +329,7 @@ public class GestionAgendaBean implements Serializable {
 		setEditar(true);
 	}
 	
-	public void eliminarAgenda (DTAgenda dtAgenda) throws Exception {
+	public void eliminarAgenda (DTAgenda dtAgenda) {
 		try {
 			agendaLocal.eliminarAgenda(dtAgenda);
 			this.inicializar();

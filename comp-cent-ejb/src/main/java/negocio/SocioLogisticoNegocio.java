@@ -31,13 +31,15 @@ public class SocioLogisticoNegocio implements SocioLogisticoNegocioLocal {
 		if (socioDato.existeSocioLogistico(dtSocio.getCodigo())) {
 			throw new Exception("\nYa existe ese socio logistico");
 		} else {
-			socioDato.agregarSocioLogistico(socioDato.obtenerSocioLogistico(dtSocio.getCodigo()));
+			socioDato.agregarSocioLogistico(new SocioLogistico(dtSocio));
 		}
 	}
 	
 	public void editarSocioLogistico(DTSocioLogistico dtSocio) throws Exception {
 		SocioLogistico socio = socioDato.obtenerSocioLogisticoPorId(dtSocio.getId());
 		if ( socio != null) {
+			socio.setCodigo(dtSocio.getCodigo());
+			socio.setNombre(dtSocio.getNombre());
 			socioDato.editarSocioLogistico(socio);
 		} else {
 			throw new Exception("\nNo existe el socio logistico");

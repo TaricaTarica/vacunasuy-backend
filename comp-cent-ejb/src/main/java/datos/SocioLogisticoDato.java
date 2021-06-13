@@ -45,19 +45,19 @@ public class SocioLogisticoDato implements SocioLogisticoDatoLocal {
     @Override
 	public Boolean existeSocioLogistico(String codigo) {
 		return em.createQuery("select sl from SocioLogistico sl where sl.codigo =:codigo")
-				.setParameter("codigo", codigo).getResultList().size()>0;
+			.setParameter("codigo", codigo).getResultList().size()>0;
 	}
 	
     @Override
 	public SocioLogistico obtenerSocioLogistico(String codigo) {
-		return (SocioLogistico) em.createNativeQuery("select sl from SocioLogistico sl where sl.codigo =:codigo", SocioLogistico.class)
-				.setParameter("codigo", codigo).getSingleResult();
+    	return em.createQuery("select sl from SocioLogistico sl where sl.codigo = :codigo", SocioLogistico.class)
+    		.setParameter("codigo", codigo).getSingleResult();
 	}
 
     @Override
 	public SocioLogistico obtenerSocioLogisticoPorId(long id) {
-		return (SocioLogistico) em.createNativeQuery("select sl from SocioLogistico sl where sl.id =:id", SocioLogistico.class)
-				.setParameter("id", id).getSingleResult();
+		return em.createQuery("select sl from SocioLogistico sl where sl.id = :id", SocioLogistico.class)
+			.setParameter("id", id).getSingleResult();
 	}
     
     @Override
