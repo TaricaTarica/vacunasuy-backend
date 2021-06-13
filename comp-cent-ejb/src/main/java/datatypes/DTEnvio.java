@@ -6,11 +6,12 @@ import entidades.Envio;
 import entidades.Lote;
 import entidades.SocioLogistico;
 import entidades.Vacunatorio;
+import enumeradores.EstadoEnvio;
 
 public class DTEnvio {
 	
 	private long id;
-	private String estado;
+	private EstadoEnvio estado;
 	private LocalDate fechaCreacion;
 	private Lote lote;
 	private Vacunatorio vacunatorio;
@@ -21,7 +22,7 @@ public class DTEnvio {
 		super();
 	}
 	
-	public DTEnvio( long id, String estado,	 LocalDate fechaCreacion, Lote lote, Vacunatorio vacunatorio, SocioLogistico socioLogistico) {
+	public DTEnvio( long id, EstadoEnvio estado,	 LocalDate fechaCreacion, Lote lote, Vacunatorio vacunatorio, SocioLogistico socioLogistico) {
 		super();
 		this.id = id;
 		this.estado = estado;
@@ -48,7 +49,7 @@ public class DTEnvio {
 	public long getId() {
 		return id;
 	}
-	public String getEstado() {
+	public EstadoEnvio getEstado() {
 		return estado;
 	}
 	public LocalDate getFechaCreacion() {
@@ -66,7 +67,7 @@ public class DTEnvio {
 	public void setId(long id) {
 		this.id = id;
 	}
-	public void setEstado(String estado) {
+	public void setEstado(EstadoEnvio estado) {
 		this.estado = estado;
 	}
 	public void setFechaCreacion(LocalDate fechaCreacion) {

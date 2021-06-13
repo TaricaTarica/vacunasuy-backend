@@ -2,17 +2,13 @@ package negocio;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
-
-import datatypes.DTEnfermedad;
 import datatypes.DTEnvio;
-import datatypes.DTUbicacion;
 import datos.EnvioDatoLocal;
 import entidades.Envio;
-import entidades.Ubicacion;
+import enumeradores.EstadoEnvio;
 
 /**
  * Session Bean implementation class EnvioNegocio
@@ -52,6 +48,10 @@ public class EnvioNegocio implements EnvioNegocioLocal {
     		lista.add(envio);
     	}
     	return lista;
+    }
+    
+    public void cambiarEstadoEnvio(EstadoEnvio estado, long idEnvio) {
+    	envioLocal.cambiarEstadoEnvio(estado, idEnvio);
     }
 
 }
