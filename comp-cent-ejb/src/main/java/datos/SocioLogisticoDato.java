@@ -34,7 +34,7 @@ public class SocioLogisticoDato implements SocioLogisticoDatoLocal {
 	
     @Override
 	public void editarSocioLogistico(SocioLogistico socio) {
-		em.merge(socio);
+    		em.merge(socio);
 	}
 	
     @Override

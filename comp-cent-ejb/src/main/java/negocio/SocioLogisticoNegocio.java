@@ -36,13 +36,22 @@ public class SocioLogisticoNegocio implements SocioLogisticoNegocioLocal {
 	}
 	
 	public void editarSocioLogistico(DTSocioLogistico dtSocio) throws Exception {
-		SocioLogistico socio = socioDato.obtenerSocioLogisticoPorId(dtSocio.getId());
-		if ( socio != null) {
+		if (socioDato.existeSocioLogistico(dtSocio.getCodigo())){
+			SocioLogistico socio = socioDato.obtenerSocioLogistico(dtSocio.getCodigo());
+			if (socio.getId() != dtSocio.getId()) {
+				throw new Exception("\nYa existe un socio con ese codigo");
+			}
 			socio.setCodigo(dtSocio.getCodigo());
 			socio.setNombre(dtSocio.getNombre());
 			socioDato.editarSocioLogistico(socio);
 		} else {
-			throw new Exception("\nNo existe el socio logistico");
+			SocioLogistico socio = socioDato.obtenerSocioLogisticoPorId(dtSocio.getId());
+			if ( socio == null) {
+				throw new Exception("\nNo existe el socio logistico");
+			}
+			socio.setCodigo(dtSocio.getCodigo());
+			socio.setNombre(dtSocio.getNombre());
+			socioDato.editarSocioLogistico(socio);
 		}
 	}
 	
