@@ -8,10 +8,11 @@ import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
-import entidades.Lote;
-import entidades.SocioLogistico;
-import entidades.Vacunatorio;
+import datatypes.DTLote;
+import datatypes.DTSocioLogistico;
+import datatypes.DTVacunatorio;
 import negocio.LoteNegocioLocal;
+import negocio.SocioLogisticoNegocioLocal;
 import negocio.VacunatorioNegocioLocal;
 
 @Named("envioBean")
@@ -22,20 +23,20 @@ public class EnvioBean implements Serializable{
 	@EJB
 	private LoteNegocioLocal loteLocal;
 
-//	@EJB
-//	private socio;
+	@EJB
+	private SocioLogisticoNegocioLocal socioLocal;
 
 	@EJB
 	private VacunatorioNegocioLocal vacunatorioLocal;
 	
-	private Lote lote;
-	private List<Lote> lotes;
+	private DTLote lote;
+	private List<DTLote> lotes;
 	
-	private SocioLogistico socioLogistico;
-	private List<SocioLogistico> socioLogisticos;
+	private DTSocioLogistico socioLogistico;
+	private List<DTSocioLogistico> socioLogisticos;
 	
-	private Vacunatorio vacunatorio;
-	private List<Vacunatorio> vacunatorios;
+	private DTVacunatorio vacunatorio;
+	private List<DTVacunatorio> vacunatorios;
 	
 	 //Agrego String para saber el estado del botón
 	 
@@ -47,64 +48,161 @@ public class EnvioBean implements Serializable{
 	 
 	 @PostConstruct
 	public void init() {
-		 
+		 this.lotes = loteLocal.listarLotes();
+//		 this.socioLogistico = socioLocal.
 		 
 	 }
-	public Lote getLote() {
+
+
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+
+
+	public LoteNegocioLocal getLoteLocal() {
+		return loteLocal;
+	}
+
+
+
+	public SocioLogisticoNegocioLocal getSocioLocal() {
+		return socioLocal;
+	}
+
+
+
+	public VacunatorioNegocioLocal getVacunatorioLocal() {
+		return vacunatorioLocal;
+	}
+
+
+
+	public DTLote getLote() {
 		return lote;
 	}
-	public List<Lote> getLotes() {
+
+
+
+	public List<DTLote> getLotes() {
 		return lotes;
 	}
-	public SocioLogistico getSocioLogistico() {
+
+
+
+	public DTSocioLogistico getSocioLogistico() {
 		return socioLogistico;
 	}
-	public List<SocioLogistico> getSocioLogisticos() {
+
+
+
+	public List<DTSocioLogistico> getSocioLogisticos() {
 		return socioLogisticos;
 	}
-	public Vacunatorio getVacunatorio() {
+
+
+
+	public DTVacunatorio getVacunatorio() {
 		return vacunatorio;
 	}
-	public List<Vacunatorio> getVacunatorios() {
+
+
+
+	public List<DTVacunatorio> getVacunatorios() {
 		return vacunatorios;
 	}
+
+
+
 	public String getNombreBoton() {
 		return nombreBoton;
 	}
+
+
+
 	public String getEstiloBoton() {
 		return estiloBoton;
 	}
+
+
+
 	public Boolean getEditar() {
 		return editar;
 	}
-	public void setLote(Lote lote) {
+
+
+
+	public void setLoteLocal(LoteNegocioLocal loteLocal) {
+		this.loteLocal = loteLocal;
+	}
+
+
+
+	public void setSocioLocal(SocioLogisticoNegocioLocal socioLocal) {
+		this.socioLocal = socioLocal;
+	}
+
+
+
+	public void setVacunatorioLocal(VacunatorioNegocioLocal vacunatorioLocal) {
+		this.vacunatorioLocal = vacunatorioLocal;
+	}
+
+
+
+	public void setLote(DTLote lote) {
 		this.lote = lote;
 	}
-	public void setLotes(List<Lote> lotes) {
+
+
+
+	public void setLotes(List<DTLote> lotes) {
 		this.lotes = lotes;
 	}
-	public void setSocioLogistico(SocioLogistico socioLogistico) {
+
+
+
+	public void setSocioLogistico(DTSocioLogistico socioLogistico) {
 		this.socioLogistico = socioLogistico;
 	}
-	public void setSocioLogisticos(List<SocioLogistico> socioLogisticos) {
+
+
+
+	public void setSocioLogisticos(List<DTSocioLogistico> socioLogisticos) {
 		this.socioLogisticos = socioLogisticos;
 	}
-	public void setVacunatorio(Vacunatorio vacunatorio) {
+
+
+
+	public void setVacunatorio(DTVacunatorio vacunatorio) {
 		this.vacunatorio = vacunatorio;
 	}
-	public void setVacunatorios(List<Vacunatorio> vacunatorios) {
+
+
+
+	public void setVacunatorios(List<DTVacunatorio> vacunatorios) {
 		this.vacunatorios = vacunatorios;
 	}
+
+
+
 	public void setNombreBoton(String nombreBoton) {
 		this.nombreBoton = nombreBoton;
 	}
+
+
+
 	public void setEstiloBoton(String estiloBoton) {
 		this.estiloBoton = estiloBoton;
 	}
+
+
+
 	public void setEditar(Boolean editar) {
 		this.editar = editar;
 	}
-	 
+	
 	 
 	 
 

@@ -1,9 +1,13 @@
 package datos;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
 
 import entidades.SocioLogistico;
 
@@ -55,5 +59,17 @@ public class SocioLogisticoDato implements SocioLogisticoDatoLocal {
 		return (SocioLogistico) em.createNativeQuery("select sl from SocioLogistico sl where sl.id =:id", SocioLogistico.class)
 				.setParameter("id", id).getSingleResult();
 	}
+    
+    @Override
+	public List<SocioLogistico> listarSocioLogistico() {
+    	ArrayList<SocioLogistico> lista = new ArrayList<SocioLogistico>();
+		for (Object obj : em.createQuery("Select e from SocioLogistico e").getResultList()) {
+			SocioLogistico e = (SocioLogistico) obj;
+			lista.add(e);
+		}
+
+		return lista;
+    }
+    
     
 }

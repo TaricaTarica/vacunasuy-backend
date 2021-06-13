@@ -1,5 +1,7 @@
 package datos;
 
+import java.util.List;
+
 import javax.ejb.Local;
 
 import entidades.SocioLogistico;
@@ -18,5 +20,7 @@ public interface SocioLogisticoDatoLocal {
 	public SocioLogistico obtenerSocioLogistico(String codigo);
 	
 	public SocioLogistico obtenerSocioLogisticoPorId(long id);
+	
+	public List<SocioLogistico> listarSocioLogistico();
 	
 }
