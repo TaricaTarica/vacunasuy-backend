@@ -1,5 +1,8 @@
 package negocio;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -60,6 +63,15 @@ public class SocioLogisticoNegocio implements SocioLogisticoNegocioLocal {
 		} else {
 			throw new Exception("\nNo se encontro un socio logistico con el codigo ingresado");
 		}
+	}
+	
+	public List<DTSocioLogistico> listarSocioLogistico(){
+		List<SocioLogistico> listaSocios = socioDato.listarSocioLogistico();
+		List<DTSocioLogistico> listaDtSocios = new ArrayList<DTSocioLogistico>();
+		for (SocioLogistico socio : listaSocios) {
+			listaDtSocios.add(new DTSocioLogistico(socio));
+		}
+		return listaDtSocios;
 	}
 	
 }
