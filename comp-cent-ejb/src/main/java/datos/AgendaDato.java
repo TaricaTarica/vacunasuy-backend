@@ -15,7 +15,7 @@ import entidades.Agenda;
  */
 @Stateless
 @LocalBean
-public class AgendaDato implements AgendaDatoRemote, AgendaDatoLocal {
+public class AgendaDato implements AgendaDatoLocal {
 
 	@PersistenceContext(name = "comp-centPersistenceUnit")
 	private EntityManager em;

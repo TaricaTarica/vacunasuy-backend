@@ -13,7 +13,7 @@ import entidades.Reserva;
  */
 @Stateless
 @LocalBean
-public class ReservaDato implements ReservaDatoRemote, ReservaDatoLocal {
+public class ReservaDato implements ReservaDatoLocal {
 
 	@PersistenceContext(name = "comp-centPersistenceUnit")
 	private EntityManager em;

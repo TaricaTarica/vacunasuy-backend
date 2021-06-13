@@ -12,7 +12,7 @@ import entidades.Ubicacion;
  */
 @Stateless
 @LocalBean
-public class UbicacionDato implements UbicacionDatoRemote, UbicacionDatoLocal {
+public class UbicacionDato implements UbicacionDatoLocal {
 
 	@PersistenceContext(name = "comp-centPersistenceUnit")
 	private EntityManager em;
