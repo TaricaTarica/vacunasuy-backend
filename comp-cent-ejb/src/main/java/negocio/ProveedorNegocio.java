@@ -2,12 +2,9 @@ package negocio;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-
-import datatypes.DTPlanVacunacion;
 import datatypes.DTProveedor;
 import datos.ProveedorDatoLocal;
 import entidades.Proveedor;
@@ -17,7 +14,7 @@ import entidades.Proveedor;
  */
 @Stateless
 @LocalBean
-public class ProveedorNegocio implements ProveedorNegocioRemote, ProveedorNegocioLocal {
+public class ProveedorNegocio implements ProveedorNegocioLocal {
 	
 	
 	@Inject

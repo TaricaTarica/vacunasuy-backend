@@ -18,7 +18,7 @@ import entidades.Ubicacion;
  */
 @Stateless
 @LocalBean
-public class DepartamentoNegocio implements DepartamentoNegocioRemote, DepartamentoNegocioLocal {
+public class DepartamentoNegocio implements DepartamentoNegocioLocal {
 	
 	@Inject
 	DepartamentoDatoLocal md;

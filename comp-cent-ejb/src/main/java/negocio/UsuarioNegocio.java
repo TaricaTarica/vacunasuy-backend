@@ -34,7 +34,7 @@ import entidades.Autoridad;
  */
 @Stateless
 @LocalBean
-public class UsuarioNegocio implements UsuarioNegocioRemote, UsuarioNegocioLocal {
+public class UsuarioNegocio implements UsuarioNegocioLocal {
 
    @EJB
    private AutoridadDatoLocal autoridadDato; 

@@ -15,7 +15,7 @@ import entidades.Ciudadano;
  */
 @Stateless
 @LocalBean
-public class CiudadanoNegocio implements CiudadanoNegocioRemote, CiudadanoNegocioLocal {
+public class CiudadanoNegocio implements CiudadanoNegocioLocal {
 
 	@EJB
 	private CiudadanoDatoLocal cdl;

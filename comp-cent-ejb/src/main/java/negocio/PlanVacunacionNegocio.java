@@ -24,7 +24,7 @@ import entidades.Vacuna;
  */
 @Stateless
 @LocalBean
-public class PlanVacunacionNegocio implements PlanVacunacionNegocioRemote, PlanVacunacionNegocioLocal {
+public class PlanVacunacionNegocio implements PlanVacunacionNegocioLocal {
 
 	@EJB
 	private PlanVacunacionDatoLocal datoLocal;
