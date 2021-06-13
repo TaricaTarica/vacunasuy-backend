@@ -23,7 +23,7 @@ import entidades.Vacunatorio;
  */
 @Stateless
 @LocalBean
-public class AgendaNegocio implements AgendaNegocioRemote, AgendaNegocioLocal {
+public class AgendaNegocio implements AgendaNegocioLocal {
 
 	@EJB
 	private AgendaDatoLocal agendaLocal;

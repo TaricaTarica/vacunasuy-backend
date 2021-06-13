@@ -3,32 +3,23 @@ package negocio;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
-
 import datatypes.DTAgenda;
-import datatypes.DTEnfermedad;
-import datatypes.DTPlanVacunacion;
-import datatypes.DTVacuna;
 import datatypes.DTVacunatorio;
-import datos.DepartamentoDatoLocal;
 import datos.UbicacionDatoLocal;
 import datos.VacunatorioDatoLocal;
 import entidades.Agenda;
-import entidades.PlanVacunacion;
 import entidades.Ubicacion;
-import entidades.Vacuna;
 import entidades.Vacunatorio;
-
 
 /**
  * Session Bean implementation class VacunatorioNegocio
  */
 @Stateless
 @LocalBean
-public class VacunatorioNegocio implements VacunatorioNegocioRemote, VacunatorioNegocioLocal {
+public class VacunatorioNegocio implements VacunatorioNegocioLocal {
 
 	@EJB
 	private VacunatorioDatoLocal vacunatorioLocal; 
