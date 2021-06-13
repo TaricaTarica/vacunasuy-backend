@@ -8,6 +8,7 @@ import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
+import datatypes.DTEnfermedad;
 import datatypes.DTEnvio;
 import datatypes.DTLote;
 import datatypes.DTSocioLogistico;
@@ -240,6 +241,13 @@ public class EnvioBean implements Serializable{
 	}
 	
 	 
+	public void reiniciarEnfermedad(){
+		editar = false;   
+		this.nombreBoton = "Agregar Enfermedad";
+		this.estiloBoton = "pi pi-check";
+        this.envio = new DTEnvio();
+    }
+	
 	 
 
 }
