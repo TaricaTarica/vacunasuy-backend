@@ -58,5 +58,11 @@ public class VacunatorioVacunador {
 		this.fecha = fecha;
 	}
 
-	
+	public VacunatorioVacunador(Vacunatorio vacunatorio, Vacunador vacunador, LocalDate fecha) {
+		super();
+		this.vacunatorio = vacunatorio;
+		this.vacunador = vacunador;
+		this.fecha = fecha;
+	}
+
 }

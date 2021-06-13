@@ -3,6 +3,8 @@ package entidades;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
+import datatypes.DTVacunador;
+
 @Entity
 @DiscriminatorValue("vacunador")
 public class Vacunador extends Usuario {
@@ -16,6 +18,6 @@ public class Vacunador extends Usuario {
 			int telefono, String email) {
 		super(ci, primerNombre, segundoNombre, primerApellido, segundoApellido, telefono, email);
 		// TODO Auto-generated constructor stub
-	}	
+	}
 
 }
