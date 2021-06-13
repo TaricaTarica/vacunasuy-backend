@@ -1,5 +1,5 @@
 
-package servicios;
+package agesicsoap;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlElementDecl;

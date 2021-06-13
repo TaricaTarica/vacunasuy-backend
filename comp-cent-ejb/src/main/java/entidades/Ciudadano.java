@@ -1,5 +1,7 @@
 package entidades;
 
+import java.time.LocalDate;
+
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
@@ -9,7 +11,8 @@ import datatypes.DTCiudadano;
 @DiscriminatorValue("ciudadano")
 public class Ciudadano extends Usuario {
 	
-	String tipo;
+	private String tipoCiudadano;
+	private LocalDate fnac;
 
 	public Ciudadano() {
 		super();
@@ -17,22 +20,32 @@ public class Ciudadano extends Usuario {
 	}
 
 	public Ciudadano(int ci, String primerNombre, String segundoNombre, String primerApellido, String segundoApellido,
-			int telefono, String email, String tipo) {
+			int telefono, String email, String tipoCiudadano, LocalDate fnac) {
 		super(ci, primerNombre, segundoNombre, primerApellido, segundoApellido, telefono, email);
-		this.tipo = tipo;
+		this.tipoCiudadano = tipoCiudadano;
+		this.fnac = fnac;
 	}
 
 	public Ciudadano(DTCiudadano dtciudadano) {
 		super(dtciudadano.getCi(),dtciudadano.getPrimerNombre(),dtciudadano.getSegundoNombre(),dtciudadano.getPrimerApellido(),dtciudadano.getSegundoApellido(),dtciudadano.getTelefono(), dtciudadano.getEmail());	
-		this.tipo = dtciudadano.getTipo();
+		this.tipoCiudadano = dtciudadano.getTipoCiudadano();
+		this.fnac = LocalDate.parse(dtciudadano.getFnac());
 	}
 
-	public String getTipo() {
-		return tipo;
+	public String getTipoCiudadano() {
+		return tipoCiudadano;
 	}
 
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
+	public void setTipoCiudadano(String tipoCiudadano) {
+		this.tipoCiudadano = tipoCiudadano;
+	}
+
+	public LocalDate getFnac() {
+		return fnac;
+	}
+
+	public void setFnac(LocalDate fnac) {
+		this.fnac = fnac;
 	}
 	
 }
