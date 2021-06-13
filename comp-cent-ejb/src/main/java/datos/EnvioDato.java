@@ -12,6 +12,9 @@ import javax.persistence.TypedQuery;
 
 
 import entidades.Envio;
+import entidades.Lote;
+import entidades.Vacuna;
+import enumeradores.EstadoEnvio;
 
 /**
  * Session Bean implementation class EnvioDato
@@ -58,8 +61,15 @@ public class EnvioDato implements EnvioDatoLocal {
 	@Override
 	public List<Envio> listarEnviosPorSocioLogistico(String cod){
 		
-		TypedQuery query = em.createQuery("Select e from Envio e Where e.socioLogistico.codigo =:codigo", Envio.class);
+		TypedQuery<Envio> query = em.createQuery("Select e from Envio e Where e.socioLogistico.codigo =:codigo", Envio.class);
 		query.setParameter("codigo", cod);
 		return query.getResultList();
+	}
+
+	@Override
+	public void cambiarEstadoEnvio(EstadoEnvio estado, long idEnvio) {
+	    Envio envio = em.find(Envio.class, idEnvio);
+	    envio.setEstado(estado);
+	    em.merge(estado);	
 	}
 }

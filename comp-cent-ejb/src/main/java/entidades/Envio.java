@@ -8,13 +8,14 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
 import datatypes.DTEnvio;
+import enumeradores.EstadoEnvio;
 
 @Entity
 public class Envio {
 	@Id 
 	@GeneratedValue
 	private long id;
-	private String estado;
+	private EstadoEnvio estado; 
 	private LocalDate fechaCreacion;
 	
 	@OneToOne
@@ -29,7 +30,7 @@ public class Envio {
 		super();
 	}
 	
-	public Envio(long id, String estado, LocalDate fechaCreacion, Lote lote, Vacunatorio vacunatorio, SocioLogistico socioLogistico){
+	public Envio(long id, EstadoEnvio estado, LocalDate fechaCreacion, Lote lote, Vacunatorio vacunatorio, SocioLogistico socioLogistico){
 		super();
 		this.estado = estado;
 		this.fechaCreacion = fechaCreacion;
@@ -53,7 +54,7 @@ public class Envio {
 	public long getId() {
 		return id;
 	}
-	public String getEstado() {
+	public EstadoEnvio getEstado() {
 		return estado;
 	}
 	public LocalDate getFechaCreacion() {
@@ -71,7 +72,7 @@ public class Envio {
 	public void setId(long id) {
 		this.id = id;
 	}
-	public void setEstado(String estado) {
+	public void setEstado(EstadoEnvio estado) {
 		this.estado = estado;
 	}
 	public void setFechaCreacion(LocalDate fechaCreacion) {
