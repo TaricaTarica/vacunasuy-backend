@@ -44,8 +44,8 @@ public class RegistroVacunaNegocio implements RegistroVacunaNegocioLocal {
         		dtCert.setNombreVacuna(vac.getNombre());
         		dtCert.setLaboratorioVacuna(vac.getLaboratorio());
         		dtCert.setCodigoVacuna(vac.getCodigo());
-        		//dtCert.setCantDosis(vac.getCantDosis());
-        		//dtCert.setPeriodoInmunidad(vac.getPeriodoInmunidad());
+        		dtCert.setCantDosis(String.valueOf(vac.getDosis()));
+        		dtCert.setPeriodoInmunidad(String.valueOf(vac.getPeriodoInmune()));
         		dtCert.setIdEnfermedad(String.valueOf(vac.getEnfermedad().getId()));
         		dtCert.setNombreEnfermedad(vac.getEnfermedad().getNombre());
         		listCert.add(dtCert);
@@ -55,4 +55,8 @@ public class RegistroVacunaNegocio implements RegistroVacunaNegocioLocal {
     	return listCert;
     }
 
+    public List<RegistroVacuna> listarRegistros(){
+    	List<RegistroVacuna> registros = registroVacunaDatoLocal.obtenerRegistro();
+		return registros;
+    }
 }
