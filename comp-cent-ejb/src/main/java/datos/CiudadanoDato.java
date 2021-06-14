@@ -14,7 +14,7 @@ import entidades.Ciudadano;
  */
 @Stateless
 @LocalBean
-public class CiudadanoDato implements CiudadanoDatoRemote, CiudadanoDatoLocal {
+public class CiudadanoDato implements CiudadanoDatoLocal {
 
 	@PersistenceContext(name = "comp-centPersistenceUnit")
 	private EntityManager em;

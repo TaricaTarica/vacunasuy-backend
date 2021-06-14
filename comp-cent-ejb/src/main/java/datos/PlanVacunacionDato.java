@@ -2,13 +2,10 @@ package datos;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
-import entidades.Enfermedad;
 import entidades.PlanVacunacion;
 
 /**
@@ -16,7 +13,7 @@ import entidades.PlanVacunacion;
  */
 @Stateless
 @LocalBean
-public class PlanVacunacionDato implements PlanVacunacionDatoRemote, PlanVacunacionDatoLocal {
+public class PlanVacunacionDato implements PlanVacunacionDatoLocal {
 
 	@PersistenceContext(name = "comp-centPersistenceUnit")
 	private EntityManager em;

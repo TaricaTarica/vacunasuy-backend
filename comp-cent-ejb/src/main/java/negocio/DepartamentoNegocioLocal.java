@@ -13,5 +13,7 @@ public interface DepartamentoNegocioLocal {
     public List<DTUbicacion> obtenerDepartamentoUbicaciones(String nombre);
     
     public DTUbicacion obtenerDepartamentoUbicacion(String descDepartamento, String descUbicacion);
+
+	public DTDepartamento obtenerDepartamentoPorUbicacion(long idUbicacion);
     
 }

@@ -2,14 +2,11 @@ package negocio;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-
 import datatypes.DTEnfermedad;
-import datatypes.DTPlanVacunacion;
 import datatypes.DTProveedor;
 import datatypes.DTVacuna;
 import datos.EnfermedadDatoLocal;
@@ -24,7 +21,7 @@ import entidades.Vacuna;
  */
 @Stateless
 @LocalBean
-public class VacunaNegocio implements VacunaNegocioRemote, VacunaNegocioLocal {
+public class VacunaNegocio implements VacunaNegocioLocal {
 
 	@SuppressWarnings("unused")
 	private static final long serialVersionUID = 1L;

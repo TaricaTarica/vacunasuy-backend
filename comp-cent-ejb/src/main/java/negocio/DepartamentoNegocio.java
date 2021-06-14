@@ -18,7 +18,7 @@ import entidades.Ubicacion;
  */
 @Stateless
 @LocalBean
-public class DepartamentoNegocio implements DepartamentoNegocioRemote, DepartamentoNegocioLocal {
+public class DepartamentoNegocio implements DepartamentoNegocioLocal {
 	
 	@Inject
 	DepartamentoDatoLocal md;
@@ -41,9 +41,10 @@ public class DepartamentoNegocio implements DepartamentoNegocioRemote, Departame
 	public List<DTUbicacion> obtenerDepartamentoUbicaciones(String nombre) {
 		List<Ubicacion> ubicaciones =  md.obtenerDepartamentoUbicaciones(nombre);
 		List<DTUbicacion> dTUbicaciones = new ArrayList<DTUbicacion>();
-		ubicaciones.forEach( (u) -> { dTUbicaciones.add( new DTUbicacion(u.getDescripcion())) ; } );
+		ubicaciones.forEach( (u) -> { dTUbicaciones.add( new DTUbicacion(u.getDescripcion(),u.getId())) ; } );
 		return dTUbicaciones;
 	}
+
 	@Override
 	public DTUbicacion obtenerDepartamentoUbicacion(String descDepartamento, String descUbicacion) {
 		Ubicacion ubicacion = md.obtenerDepartamentoUbicacion(descDepartamento, descUbicacion);
@@ -56,5 +57,19 @@ public class DepartamentoNegocio implements DepartamentoNegocioRemote, Departame
 		}
 	}
 	
+	@Override
+	public DTDepartamento obtenerDepartamentoPorUbicacion(long idUbicacion) {
+		ArrayList<Departamento> departamentos = (ArrayList<Departamento>) md.obtenerDepartamentos();
+		DTDepartamento departamento = new DTDepartamento();
+		for (Departamento dpto : departamentos) {
+			for (Ubicacion ubi: dpto.getUbicaciones()) {
+				if (ubi.getId() == idUbicacion) {
+					departamento.setDescripcion(dpto.getDescripcion());
+				}
+			}
+		}
+		return departamento;
+		
+	}
 
 }

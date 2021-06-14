@@ -8,7 +8,7 @@ import javax.ejb.Stateless;
  */
 @Stateless
 @LocalBean
-public class VacunadorNegocio implements VacunadorNegocioRemote, VacunadorNegocioLocal {
+public class VacunadorNegocio implements VacunadorNegocioLocal {
 
     /**
      * Default constructor. 

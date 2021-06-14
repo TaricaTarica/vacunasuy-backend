@@ -23,7 +23,7 @@ import enumeradores.EstadoReserva;
  */
 @Stateless
 @LocalBean
-public class ReservaNegocio implements ReservaNegocioRemote, ReservaNegocioLocal {
+public class ReservaNegocio implements ReservaNegocioLocal {
 	
 	@Inject
 	ReservaDatoLocal rdl;	

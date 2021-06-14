@@ -8,12 +8,13 @@ import datatypes.DTCiudadano;
 import datos.CiudadanoDatoLocal;
 import entidades.Ciudadano;
 
+
 /**
  * Session Bean implementation class CiudadanoNegocio
  */
 @Stateless
 @LocalBean
-public class CiudadanoNegocio implements CiudadanoNegocioRemote, CiudadanoNegocioLocal {
+public class CiudadanoNegocio implements CiudadanoNegocioLocal {
 
 	@EJB
 	private CiudadanoDatoLocal cdl;
@@ -26,8 +27,7 @@ public class CiudadanoNegocio implements CiudadanoNegocioRemote, CiudadanoNegoci
     }
     
     @Override
-    public void agregarCiudadano(DTCiudadano dtCiudadano){
-    	//Acá tendría que pedirle los datos del ciudadano a agesic(fnac y tipo)
+    public void agregarCiudadano(DTCiudadano dtCiudadano){	
     	Ciudadano ciudadano = new Ciudadano(dtCiudadano);
     	this.cdl.agregarCiudadano(ciudadano);
     }

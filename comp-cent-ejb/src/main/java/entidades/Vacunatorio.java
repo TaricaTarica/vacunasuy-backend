@@ -19,7 +19,7 @@ public class Vacunatorio {
 	@GeneratedValue
 	private long id;
 	private String nombre;
-	private int cantidadVacunadores;
+	private int cantidadPuestos;
 	private String codigo;
 	
 	@OneToOne(mappedBy="vacunatorio",
@@ -40,14 +40,14 @@ public class Vacunatorio {
 		super();
 		this.nombre = vacunatorio.getNombre();
 		this.codigo = vacunatorio.getCodigo();
-		this.cantidadVacunadores = vacunatorio.getCantidadVacunadores();
+		this.cantidadPuestos = vacunatorio.getCantidadPuestos();
 	}
 	
-	public Vacunatorio(String nombre, String codigo, int cantVac) {
+	public Vacunatorio(String nombre, String codigo, int cantPuestos) {
 		super();
 		this.nombre = nombre;
 		this.codigo = codigo;
-		this.cantidadVacunadores= cantVac;
+		this.cantidadPuestos= cantPuestos;
 		
 	}
 
@@ -93,12 +93,13 @@ public class Vacunatorio {
 	}
 	
 
-	public int getCantidadVacunadores() {
-		return cantidadVacunadores;
+
+	public int getCantidadPuestos() {
+		return cantidadPuestos;
 	}
 
-	public void setCantidadVacunadores(int cantidadVacunadores) {
-		this.cantidadVacunadores = cantidadVacunadores;
+	public void setCantidadPuestos(int cantidadPuestos) {
+		this.cantidadPuestos = cantidadPuestos;
 	}
 
 	public void agregarUbicacion(Ubicacion ub) {

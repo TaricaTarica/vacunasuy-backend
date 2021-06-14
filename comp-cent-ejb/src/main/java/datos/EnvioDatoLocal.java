@@ -1,11 +1,8 @@
 package datos;
 
 import java.util.List;
-
 import javax.ejb.Local;
-
 import entidades.Envio;
-import enumeradores.EstadoEnvio;
 
 @Local
 public interface EnvioDatoLocal {

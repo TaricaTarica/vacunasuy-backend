@@ -2,21 +2,18 @@ package datos;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
 import entidades.Lote;
-
 
 /**
  * Session Bean implementation class LoteDato
  */
 @Stateless
 @LocalBean
-public class LoteDato implements LoteDatoRemote, LoteDatoLocal {
+public class LoteDato implements LoteDatoLocal {
 
 	@PersistenceContext(name = "comp-centPersistenceUnit")
 	private EntityManager em;

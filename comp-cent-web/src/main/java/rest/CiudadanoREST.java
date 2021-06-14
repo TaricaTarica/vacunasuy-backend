@@ -14,6 +14,9 @@ import javax.ws.rs.core.Response;
 
 import datatypes.DTCiudadano;
 import negocio.CiudadanoNegocioLocal;
+import servicios.DtPersona;
+import servicios.ServicioAgesic;
+import servicios.ServicioAgesicService;
 
 @RequestScoped
 @Path("/ciudadano")
@@ -31,7 +34,9 @@ public class CiudadanoREST {
 	@POST
 	public Response agregarCiudadano(DTCiudadano c) {
 		try {
-			if(cnl.existeCiudadano(c.getCi())){
+				ServicioAgesic servicioAgesic = new ServicioAgesicService().getServicioAgesicPort();
+				DtPersona personaAgesic = servicioAgesic.obtenerPersona(c.getCi());
+				
 				DTCiudadano ciudadano = new DTCiudadano();
 				ciudadano.setCi(c.getCi());
 				ciudadano.setEmail(c.getEmail());
@@ -39,23 +44,18 @@ public class CiudadanoREST {
 				ciudadano.setSegundoNombre(c.getSegundoNombre());
 				ciudadano.setPrimerApellido(c.getPrimerApellido());
 				ciudadano.setSegundoApellido(c.getSegundoApellido());
+				ciudadano.setFnac(personaAgesic.getFnac());
+				ciudadano.setTipoCiudadano(personaAgesic.getTipo());
 				cnl.agregarCiudadano(ciudadano);
 				return Response
 		           		 .status(Response.Status.BAD_REQUEST)
 		           		 .entity("Creado")
 		           		 .build();
-			}
-			else {
-				return Response
-		           		 .status(Response.Status.BAD_REQUEST)
-		           		 .entity("El usuario ya existe")
-		           		 .build();
-			}
 		}
 		catch(Exception e){
 			return Response
 	           		 .status(Response.Status.BAD_REQUEST)
-	           		 .entity("Ha ocurrido un error procesando la cedula")
+	           		 .entity("Error creando el ciudadano")
 	           		 .build();
 		}
 	}

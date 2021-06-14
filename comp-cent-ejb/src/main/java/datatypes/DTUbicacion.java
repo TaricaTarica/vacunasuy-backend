@@ -13,6 +13,8 @@ public class DTUbicacion implements Serializable {
 	
 	private String description;
 	
+	private long id;
+	
 	private DTVacunatorio vacunatorio;
 
 	public DTUbicacion() {
@@ -20,9 +22,10 @@ public class DTUbicacion implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public DTUbicacion(String description) {
+	public DTUbicacion(String description, long id) {
 		super();
 		this.description = description;
+		this.id = id;
 	}
 	
 	public DTUbicacion(Ubicacion ubicacion) {
@@ -44,6 +47,17 @@ public class DTUbicacion implements Serializable {
 
 	public void setVacunatorio(DTVacunatorio vacunatorio) {
 		this.vacunatorio = vacunatorio;
+	}
+	
+
+
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	@Override

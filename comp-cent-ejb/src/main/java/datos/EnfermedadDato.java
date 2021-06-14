@@ -1,26 +1,19 @@
 package datos;
 
-
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
-
 import entidades.Enfermedad;
-import entidades.Proveedor;
-
-
 
 /**
  * Session Bean implementation class EnfermedadDato
  */
 @Stateless
 @LocalBean
-public class EnfermedadDato implements EnfermedadDatoRemote, EnfermedadDatoLocal {
+public class EnfermedadDato implements EnfermedadDatoLocal {
 
 	@PersistenceContext(name = "comp-centPersistenceUnit")
 	private EntityManager em;

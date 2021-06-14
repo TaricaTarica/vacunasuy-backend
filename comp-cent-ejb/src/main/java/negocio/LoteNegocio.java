@@ -22,7 +22,7 @@ import entidades.Vacuna;
  */
 @Stateless
 @LocalBean
-public class LoteNegocio implements LoteNegocioRemote, LoteNegocioLocal {
+public class LoteNegocio implements LoteNegocioLocal {
 
 	/* Para luego
 	@EJB
