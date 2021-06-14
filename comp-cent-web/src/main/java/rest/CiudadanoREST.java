@@ -14,10 +14,9 @@ import javax.ws.rs.core.Response;
 
 import datatypes.DTCiudadano;
 import negocio.CiudadanoNegocioLocal;
-
-import agesicsoap.ServicioAgesic;
-import agesicsoap.ServicioAgesicService;
-import agesicsoap.DtPersona;
+import servicios.DtPersona;
+import servicios.ServicioAgesic;
+import servicios.ServicioAgesicService;
 
 @RequestScoped
 @Path("/ciudadano")
@@ -35,13 +34,8 @@ public class CiudadanoREST {
 	@POST
 	public Response agregarCiudadano(DTCiudadano c) {
 		try {
-			
-				System.out.println("Entro al rest");
 				ServicioAgesic servicioAgesic = new ServicioAgesicService().getServicioAgesicPort();
-				System.out.println("Creo sergicio");
 				DtPersona personaAgesic = servicioAgesic.obtenerPersona(c.getCi());
-				
-				System.out.println("Tengo persona");
 				
 				DTCiudadano ciudadano = new DTCiudadano();
 				ciudadano.setCi(c.getCi());

@@ -1,5 +1,5 @@
 
-package agesicsoap;
+package servicios;
 
 import javax.jws.WebMethod;
 import javax.jws.WebParam;

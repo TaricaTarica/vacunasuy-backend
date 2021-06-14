@@ -1,5 +1,5 @@
 
-package agesicsoap;
+package servicios;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -17,7 +17,7 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "ServicioAgesicService", targetNamespace = "http://servicios/", wsdlLocation = "https://agesic-nodo.herokuapp.com/agesic-nodo/ServicioAgesic?wsdl")
+@WebServiceClient(name = "ServicioAgesicService", targetNamespace = "http://servicios/", wsdlLocation = "http://localhost:8080/comp-cent-web/heroku-wsdl/HerokuAgesic.wsdl")
 public class ServicioAgesicService
     extends Service
 {
@@ -30,7 +30,7 @@ public class ServicioAgesicService
         URL url = null;
         WebServiceException e = null;
         try {
-            url = new URL("https://agesic-nodo.herokuapp.com/agesic-nodo/ServicioAgesic?wsdl");
+            url = new URL("http://localhost:8080/comp-cent-web/heroku-wsdl/HerokuAgesic.wsdl");
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }
