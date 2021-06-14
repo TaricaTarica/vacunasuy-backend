@@ -10,7 +10,7 @@
  
      <h:body>
  
-		<h:form id="envioListForm">
+		<h:form id="EnvioListForm">
             <p:messages id="messages" showDetail="true" closable="true">
 				<p:autoUpdate />
 			</p:messages>
@@ -23,9 +23,7 @@
                 <p:column headerText="Estado">
                             <h:outputText value="#{envio.estado}" />
                 </p:column>
-	             <p:column headerText="Fecha de Envio">
-                            <h:outputText value="#{envio.fechaCreacion}" />
-                </p:column>
+	             
 	            
 				
 
@@ -35,7 +33,7 @@
 	                    
 	                    <p:commandButton value="Agregar Envio"
 	                    update=":dialogForm" 
-	                    actionListener="#{enfermedadBean.reiniciarEnfermedad()}"
+	                    actionListener="#{envioBean.reiniciarEnvio()}"
 	                    oncomplete="PF('envioDialog').show()" />
 	                  
 	                    <p:spacer width="5" height="0"/>
@@ -46,6 +44,56 @@
             </p:dataTable>
             </div>
         </h:form>
+        
+        
+        <p:dialog id="envioDlg" widgetVar="envioDialog" 
+		header="Envio" modal="true" showEffect="fade" 
+        hideEffect="fade" resizable="false" >
+        
+            <h:form id="dialogForm">
+              <p:panel header="#{envioBean.nombreBoton}" id="grid" style="margin-bottom:10px;">
+              	<p:growl id="growl" showDetail="false" />
+	        	<p:growl id="growl-sticky" for="sticky-key" showDetail="true" sticky="true" />
+	        	
+                <p:outputPanel id="envioDetail" style="text-align: center">
+                
+                    <p:panelGrid id="display" columns="4" columnClasses="label, value" >
+                    
+                       <h:outputLabel for="estado" value="Estado:"/>
+			                <p:selectOneMenu id="estado" value="#{envioBean.envio.estado}" required="true" requiredMessage="Debe seleccionar un Estado" style="width:15rem">
+			                    <f:selectItem itemLabel="Selecciona Estado" itemValue="" noSelectionOption="true"/>
+			                    <f:selectItems value="#{envioBean.estados}"/>
+			                </p:selectOneMenu>
+			                
+			           <h:outputLabel for="vacunatorio" value="Vacunatorio:"/>
+			                <p:selectOneMenu id="vacunatorio" value="#{envioBean.nombreVacunatorio}" required="true" requiredMessage="Debe seleccionar un Vacunatorio" style="width:15rem">
+			                    <f:selectItem itemLabel="Selecciona Vacunatorio" noSelectionOption="true"/>
+			                    <f:selectItems value="#{envioBean.vacunatorios}"/>
+			                </p:selectOneMenu>
+			                
+			           <h:outputLabel for="lote" value="Lote:"/>
+			                <p:selectOneMenu id="lote" value="#{envioBean.nombreLote}" required="true" requiredMessage="Debe seleccionar un Lote" style="width:15rem">
+			                    <f:selectItem itemLabel="Selecciona Lote" noSelectionOption="true"/>
+			                    <f:selectItems value="#{envioBean.lotes}"/>
+			                </p:selectOneMenu>
+			                
+			           <h:outputLabel for="socioLogistico" value="SocioLogistico:"/>
+			                <p:selectOneMenu id="socioLogistico" value="#{envioBean.nombreSocioLogistico}" required="true" requiredMessage="Debe seleccionar un Socio Logistico" style="width:15rem">
+			                    <f:selectItem itemLabel="Selecciona Socio Logistico" noSelectionOption="true"/>
+			                    <f:selectItems value="#{envioBean.socioLogisticos}"/>
+			                </p:selectOneMenu>
+               
+                        <f:facet name="footer" >
+                            <p:commandButton value="#{envioBean.nombreBoton}" actionListener="#{envioBean.agregarEnvio()}" 
+                             update="display,:EnvioListForm:EnvioTabla" oncomplete="PF('envioDialog').hide();"
+                              icon="#{envioBean.estiloBoton}" />
+                        </f:facet>
+                    </p:panelGrid>
+                </p:outputPanel>
+              </p:panel>
+            </h:form>
+            
+        </p:dialog>
         
      </h:body>
 

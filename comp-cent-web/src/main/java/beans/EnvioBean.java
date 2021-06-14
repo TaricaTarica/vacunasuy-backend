@@ -8,7 +8,7 @@ import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
-import datatypes.DTEnfermedad;
+
 import datatypes.DTEnvio;
 import datatypes.DTLote;
 import datatypes.DTSocioLogistico;
@@ -35,6 +35,11 @@ public class EnvioBean implements Serializable{
 	@EJB
 	private VacunatorioNegocioLocal vacunatorioLocal;
 	
+	private List<String> estados;
+	private String nombreVacunatorio;
+	private String nombreSocioLogistico;
+	private String nombreLote;
+	
 	private DTEnvio envio;
 	private List<DTEnvio> envios;
 	
@@ -60,9 +65,13 @@ public class EnvioBean implements Serializable{
 		 
 		 this.envios = envioLocal.listarEnvios();
 		 this.lotes = loteLocal.listarLotes();
-//		 this.socioLogistico = socioLocal.
+		 this.socioLogisticos = socioLocal.listarSocioLogistico();
 		 this.vacunatorios = vacunatorioLocal.listarVacunatorio();
-		 
+		 this.setEstados(envioLocal.listarEstado());
+		 this.envio = new DTEnvio();
+		 this.lote = new DTLote();
+		 this.socioLogistico = new DTSocioLogistico();
+		 this.vacunatorio = new DTVacunatorio();
 		 
 	 }
 
@@ -240,22 +249,96 @@ public class EnvioBean implements Serializable{
 		this.envios = envios;
 	}
 	
-	 
-	public void reiniciarEnfermedad(){
+
+
+	public List<String> getEstados() {
+		return estados;
+	}
+
+
+
+	public void setEstados(List<String> estados) {
+		this.estados = estados;
+	}
+
+
+
+	public String getNombreVacunatorio() {
+		return nombreVacunatorio;
+	}
+
+
+
+	public void setNombreVacunatorio(String nombreVacunatorio) {
+		this.nombreVacunatorio = nombreVacunatorio;
+	}
+
+
+
+	public String getNombreSocioLogistico() {
+		return nombreSocioLogistico;
+	}
+
+
+
+	public void setNombreSocioLogistico(String nombreSocioLogistico) {
+		this.nombreSocioLogistico = nombreSocioLogistico;
+	}
+
+
+
+	public String getNombreLote() {
+		return nombreLote;
+	}
+
+
+
+	public void setNombreLote(String nombreLote) {
+		this.nombreLote = nombreLote;
+	}
+
+	public void reiniciarEnvio(){
 		editar = false;   
-		this.nombreBoton = "Agregar Enfermedad";
+		this.nombreBoton = "Agregar Envio";
 		this.estiloBoton = "pi pi-check";
         this.envio = new DTEnvio();
+        this.nombreLote = null;
+        this.nombreSocioLogistico = null;
+        this.nombreVacunatorio = null;
     }
 	
-//	public void agregarEnvio() throws Exception {
-//		
-//		try {
-//			if(editar) {
-//				//Funcion para editar el envio.
-//			}else {
-//				envioLocal
-//			}
-//	}
+	public void agregarEnvio() throws Exception {
+		
+		
+		
+		for (DTVacunatorio vac: vacunatorios) {
+			if (vac.getNombre().equals(nombreVacunatorio)) {
+				vacunatorio = vac;
+			
+			}
+		} 
+		lote = loteLocal.obtenerLote(nombreLote);
+		
+		for (DTSocioLogistico soc: socioLogisticos) {
+			if (soc.getNombre().equals(nombreSocioLogistico)) {
+				socioLogistico = soc;
+			}
+		} 
+		
+		try {
+			if(editar) {
+				//Funcion para editar el envio.
+			}else {
+				//Funcion para Agregar Envio
+						
+				envioLocal.AgregarEnvio(envio, lote, vacunatorio, socioLogistico);
+				this.init();
+			}
+		}catch (Exception e) {
+				// TODO: handle exception
+		}
+	}
+
+
 
 }

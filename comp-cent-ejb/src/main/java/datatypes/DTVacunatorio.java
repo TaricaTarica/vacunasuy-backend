@@ -64,8 +64,13 @@ public class DTVacunatorio {
 	public void setCantidadVacunadores(int cantidadVacunadores) {
 		this.cantidadVacunadores = cantidadVacunadores;
 	}
-	
 
+	@Override
+	public String toString() {
+		return getNombre();
+	}
+	
+	
 	
 	
 	

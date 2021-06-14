@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
-
+import datatypes.DTEnvio;
 import enumeradores.EstadoEnvio;
 
 @Entity
@@ -34,13 +34,16 @@ public class Envio {
 		super();
 	}
 	
-	public Envio(long id, EstadoEnvio estado, Lote lote, Vacunatorio vacunatorio, SocioLogistico socioLogistico){
+	public Envio(EstadoEnvio estado, Lote lote, Vacunatorio vacunatorio, SocioLogistico socioLogistico){
 		super();
 		this.estado = estado;
-		this.id = id;
 		this.socioLogistico = socioLogistico;
 		this.vacunatorio = vacunatorio;
 		this.lote = lote;		
+	}
+	
+	public Envio(DTEnvio dtEnvio) {
+		this.estado = dtEnvio.getEstado();
 	}
 		
 	public long getId() {
