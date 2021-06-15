@@ -2,7 +2,10 @@ package datos;
 
 import java.util.List;
 import javax.ejb.Local;
+
+import datatypes.DTVistaEnvio;
 import entidades.Envio;
+import entidades.Lote;
 
 @Local
 public interface EnvioDatoLocal {
@@ -11,4 +14,7 @@ public interface EnvioDatoLocal {
 	public Envio obtenerEnvio(long id);
 	public List<Envio> listarEnvios();
 	public List<Envio> listarEnviosPorSocioLogistico(String cod);
+	public List<Lote> listarLotesPendientesDeEnviar();
+	public List<DTVistaEnvio> ListarEnviosVista();
+	public boolean ExisteLote(Lote lote);
 }

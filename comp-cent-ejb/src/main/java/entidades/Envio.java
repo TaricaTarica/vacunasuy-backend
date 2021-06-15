@@ -45,7 +45,7 @@ public class Envio {
 	public Envio(DTEnvio dtEnvio) {
 		this.estado = dtEnvio.getEstado();
 	}
-		
+	
 	public long getId() {
 		return id;
 	}

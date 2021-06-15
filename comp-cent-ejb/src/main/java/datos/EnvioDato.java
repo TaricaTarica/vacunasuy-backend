@@ -1,6 +1,7 @@
 package datos;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 
@@ -10,8 +11,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
-
+import datatypes.DTLote;
+import datatypes.DTSocioLogistico;
+import datatypes.DTVacunatorio;
+import datatypes.DTVistaEnvio;
+import entidades.Agenda;
 import entidades.Envio;
+import entidades.Lote;
 import enumeradores.EstadoEnvio;
 
 /**
@@ -74,4 +80,44 @@ public class EnvioDato implements EnvioDatoLocal {
 		return em.find(Envio.class, id);
 	}
 
+	@Override
+	public List<Lote> listarLotesPendientesDeEnviar(){
+		
+		List<Lote> lotes = new ArrayList<Lote>();
+		TypedQuery<Envio> query = em.createQuery("Select e from Envio e", Envio.class);
+		//query.setParameter("estado", EstadoEnvio.Pendiente); Where e.estado =:estado
+		for (Object obj : query.getResultList()) {
+			Envio e = (Envio) obj;
+			lotes.add(e.getLote());
+		}
+		return lotes;
+		
+		//return  em.createQuery("Select e from Envio e", Envio.class).getResultList();
+	}
+	
+	@Override
+	public boolean ExisteLote(Lote lote) {
+	
+		Boolean existe = (em.createQuery("Select e from Envio e where e.lote.id= :lote").setParameter("lote", lote.getId()).getResultList().size() > 0);	
+		return existe;
+	}
+	
+	@Override
+	public List<DTVistaEnvio> ListarEnviosVista(){
+		List<DTVistaEnvio> lista = new ArrayList<DTVistaEnvio>();
+		List<Envio> envios = listarEnvios();
+		for(Envio v : envios) {
+			DTVistaEnvio envio = new DTVistaEnvio(v.getId(), v.getEstado());
+			DTVacunatorio vacunatorio = new DTVacunatorio(v.getVacunatorio());
+			envio.setVacunatorio(vacunatorio);
+			DTLote lote = new DTLote(v.getLote());
+			envio.setLote(lote);
+			DTSocioLogistico socioLogistico = new DTSocioLogistico(v.getSocioLogistico());
+			envio.setSocioLogistico(socioLogistico);
+			lista.add(envio);
+			
+		}
+		return lista;
+	}
+	
 }

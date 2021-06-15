@@ -17,4 +17,5 @@ public interface EnvioNegocioLocal {
 	public void cambiarEstadoEnvio(EstadoEnvio estado, long idEnvio);
 	public void AgregarEnvio(DTEnvio envio, DTLote lote,  DTVacunatorio vacunatorio, DTSocioLogistico dtSocio ) throws Exception;
 	public List<String> listarEstado ();
+	public List<DTLote> listarLotePendientesDeEnviar ();
 }

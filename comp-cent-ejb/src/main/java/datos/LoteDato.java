@@ -38,6 +38,7 @@ public class LoteDato implements LoteDatoLocal {
 
 		return lista;
 	}
+
 	
 	@Override
 	public Lote obtenerLote (String nombre) {

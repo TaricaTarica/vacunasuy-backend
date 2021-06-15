@@ -21,7 +21,6 @@ import entidades.Lote;
 import entidades.SocioLogistico;
 import entidades.Vacunatorio;
 import enumeradores.EstadoEnvio;
-import enumeradores.PoblacionObjetivo;
 
 /**
  * Session Bean implementation class EnvioNegocio
@@ -100,5 +99,19 @@ public class EnvioNegocio implements EnvioNegocioLocal {
 		
 		return estados;
     }
+	
+	@Override
+	public List<DTLote> listarLotePendientesDeEnviar () {
+		List<Lote> lotesAux2 = loteLocal.listarLotes();
+		List<DTLote> lotes = new ArrayList<DTLote>();
+		for(Lote l :lotesAux2) {
+			if(!envioLocal.ExisteLote(l)) {
+				DTLote dtLote = new DTLote(l);
+				lotes.add(dtLote);
+			}
+		}
+		return lotes;
+    }
+	
 
 }
