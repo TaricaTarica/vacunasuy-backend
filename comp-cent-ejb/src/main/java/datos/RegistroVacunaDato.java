@@ -1,5 +1,6 @@
 package datos;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import entidades.RegistroVacuna;
+import entidades.Vacuna;
 
 /**
  * Session Bean implementation class RegistroVacunaDato
@@ -50,7 +52,27 @@ public class RegistroVacunaDato implements RegistroVacunaDatoLocal {
     		RegistroVacuna r = (RegistroVacuna) obj;
     		lista.add(r);
     	}
-    	
     	return lista;
     }
+    
+    @Override
+	public int cantRegistroPorMes(Vacuna vacuna, int mes, int anio){
+    	LocalDate fechaIni = LocalDate.of(anio, mes, 1);
+    	LocalDate fechaFin = LocalDate.now();
+    	if (mes == 12) {
+    		fechaFin = LocalDate.of(anio + 1, 1, 1);
+    	} else {
+    		fechaFin = LocalDate.of(anio, mes + 1, 1);
+    	}
+    	List<RegistroVacuna> listRegistros = em.createQuery("Select rv from RegistroVacuna rv where rv.vacuna.id = :id and rv.fecha between :fechaIni and :fechaFin",RegistroVacuna.class)
+    		.setParameter("id", vacuna.getId())
+    		.setParameter("fechaIni",fechaIni)
+    		.setParameter("fechaFin",fechaFin).getResultList();
+    	if (listRegistros == null) {
+    		return 0;
+    	} else {
+    		return listRegistros.size();
+    	}
+    }
+    
 }

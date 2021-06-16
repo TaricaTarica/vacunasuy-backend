@@ -1,13 +1,16 @@
 package negocio;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
 import datatypes.DTCertificado;
+import datatypes.DTVacuna;
 import datos.RegistroVacunaDatoLocal;
 import datos.VacunaDatoLocal;
 import entidades.RegistroVacuna;
@@ -59,4 +62,14 @@ public class RegistroVacunaNegocio implements RegistroVacunaNegocioLocal {
     	List<RegistroVacuna> registros = registroVacunaDatoLocal.obtenerRegistro();
 		return registros;
     }
+    
+    public List<Integer> obtenerCantVac(DTVacuna vacuna, int anio) {
+    	Vacuna vac = vacunaDatoLocal.obtenerVacunaPorId(vacuna.getId());
+    	List<Integer> listaCantidadXMes = new ArrayList<Integer>();
+    	for (int i=1; i<=12; i++){
+    		listaCantidadXMes.add(registroVacunaDatoLocal.cantRegistroPorMes(vac, i, anio));
+    	} ;
+    	return listaCantidadXMes;
+    }
+    
 }

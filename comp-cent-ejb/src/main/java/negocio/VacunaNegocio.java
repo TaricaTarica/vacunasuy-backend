@@ -59,7 +59,7 @@ public class VacunaNegocio implements VacunaNegocioLocal {
     @Override
     public DTVacuna obtenerVacuna(long id) {
 	    	Vacuna vac = puenteDatos.obtenerVacuna(id);
-	    	return new DTVacuna(vac.getNombre(), vac.getCodigo(), vac.getLaboratorio());
+	    	return new DTVacuna(vac);
     }
     
     @Override

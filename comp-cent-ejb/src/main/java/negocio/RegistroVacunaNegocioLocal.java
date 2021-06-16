@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.Local;
 
 import datatypes.DTCertificado;
+import datatypes.DTVacuna;
 import entidades.RegistroVacuna;
 
 @Local
@@ -12,4 +13,6 @@ public interface RegistroVacunaNegocioLocal {
 	public List<DTCertificado> obtenerCertificados(String ci);
 	
 	 public List<RegistroVacuna> listarRegistros();
+	 
+	 public List<Integer> obtenerCantVac(DTVacuna vacuna, int anio);
 }
