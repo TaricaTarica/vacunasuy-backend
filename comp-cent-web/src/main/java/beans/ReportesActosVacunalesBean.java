@@ -1,7 +1,6 @@
 package beans;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -46,6 +45,8 @@ public class ReportesActosVacunalesBean implements Serializable{
 	private List<DTVacuna> listaVacunas;
 	private List<String> nombreVacunas;
 	private String vac;
+	private List<Integer> cantidadVacunadosPorSexo;
+	private List<Integer> cantidadVacunadosPorEdad;
 
     private LineChartModel lineModel;
 	private PieChartModel pieModel;
@@ -58,6 +59,8 @@ public class ReportesActosVacunalesBean implements Serializable{
     @PostConstruct
     public void init() {
         this.cantidadVacunados = new ArrayList<Integer>();
+        this.cantidadVacunadosPorSexo = new ArrayList<Integer>();
+        this.cantidadVacunadosPorEdad = new ArrayList<Integer>();
 		this.listaVacunas = vacunaLocal.obtenerVacunas();
 		this.nombreVacunas = vacunaLocal.nombresVacunas();
 		createLineModel();
@@ -74,6 +77,8 @@ public class ReportesActosVacunalesBean implements Serializable{
             for (int cant : cantidadVacunados) {
             	values.add(cant);
             }
+        } else {
+        	values.add(0);
         }
         dataSet.setData(values);
         dataSet.setFill(false);
@@ -120,28 +125,29 @@ public class ReportesActosVacunalesBean implements Serializable{
         this.lineModel = lineModel;
     }
     
-    private void createPieModel() {
+	private void createPieModel() {
         pieModel = new PieChartModel();
         ChartData data = new ChartData();
-
         PieChartDataSet dataSet = new PieChartDataSet();
         List<Number> values = new ArrayList<>();
-        values.add(300);
-        values.add(50);
-        values.add(100);
+        if (cantidadVacunadosPorSexo != null) {
+            for (Integer cantPorSexo: cantidadVacunadosPorSexo) {
+            	values.add(cantPorSexo);
+            }
+        } else {
+        	values.add(0);
+        }
         dataSet.setData(values);
 
         List<String> bgColors = new ArrayList<>();
         bgColors.add("rgb(255, 99, 132)");
         bgColors.add("rgb(54, 162, 235)");
-        bgColors.add("rgb(255, 205, 86)");
         dataSet.setBackgroundColor(bgColors);
 
         data.addChartDataSet(dataSet);
         List<String> labels = new ArrayList<>();
-        labels.add("Red");
-        labels.add("Blue");
-        labels.add("Yellow");
+        labels.add("Mujeres");
+        labels.add("Hombres");
         data.setLabels(labels);
 
         pieModel.setData(data);
@@ -160,16 +166,17 @@ public class ReportesActosVacunalesBean implements Serializable{
         ChartData data = new ChartData();
 
         BarChartDataSet barDataSet = new BarChartDataSet();
-        barDataSet.setLabel("My First Dataset");
+        barDataSet.setLabel("Vacunados");
 
         List<Number> values = new ArrayList<>();
-        values.add(65);
-        values.add(59);
-        values.add(80);
-        values.add(81);
-        values.add(56);
-        values.add(55);
-        values.add(40);
+        if (cantidadVacunadosPorEdad != null) {
+        	for (Integer cantXEdad :cantidadVacunadosPorEdad) {
+        		values.add(cantXEdad);
+        	}
+        } else {
+        	values.add(0);
+        }
+
         barDataSet.setData(values);
 
         List<String> bgColor = new ArrayList<>();
@@ -196,13 +203,13 @@ public class ReportesActosVacunalesBean implements Serializable{
         data.addChartDataSet(barDataSet);
 
         List<String> labels = new ArrayList<>();
-        labels.add("January");
-        labels.add("February");
-        labels.add("March");
-        labels.add("April");
-        labels.add("May");
-        labels.add("June");
-        labels.add("July");
+        labels.add("0 - 11");
+        labels.add("12 - 17");
+        labels.add("18 - 25");
+        labels.add("26 - 40");
+        labels.add("41 - 60");
+        labels.add("61 - 75");
+        labels.add("Mayores de 76");
         data.setLabels(labels);
         barModel.setData(data);
 
@@ -219,7 +226,7 @@ public class ReportesActosVacunalesBean implements Serializable{
 
         Title title = new Title();
         title.setDisplay(true);
-        title.setText("Bar Chart");
+        title.setText("Por rango de edades");
         options.setTitle(title);
 
         Legend legend = new Legend();
@@ -296,6 +303,23 @@ public class ReportesActosVacunalesBean implements Serializable{
 		this.vac = vac;
 	}
 
+
+	public List<Integer> getCantidadVacunadosPorSexo() {
+		return cantidadVacunadosPorSexo;
+	}
+
+	public void setCantidadVacunadosPorSexo(List<Integer> cantidadVacunadosPorSexo) {
+		this.cantidadVacunadosPorSexo = cantidadVacunadosPorSexo;
+	}
+
+	public List<Integer> getCantidadVacunadosPorEdad() {
+		return cantidadVacunadosPorEdad;
+	}
+
+	public void setCantidadVacunadosPorEdad(List<Integer> cantidadVacunadosPorEdad) {
+		this.cantidadVacunadosPorEdad = cantidadVacunadosPorEdad;
+	}
+
 	public void obtenerVacunadosXAnio() {
 		this.vacuna = new DTVacuna();
 		for (DTVacuna dtVacuna : listaVacunas) {
@@ -305,6 +329,10 @@ public class ReportesActosVacunalesBean implements Serializable{
 		}
 		this.cantidadVacunados = registroLocal.obtenerCantVac(vacuna, anio);
 		createLineModel();
+		this.cantidadVacunadosPorSexo = registroLocal.cantRegistroPorSexo(vacuna, anio);
+		createPieModel();
+		this.cantidadVacunadosPorEdad = registroLocal.cantRegistroPorEdad(vacuna, anio);
+		createBarModel();
 		this.vacuna = new DTVacuna();
 		this.anio = 0;
 	}

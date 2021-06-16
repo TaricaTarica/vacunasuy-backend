@@ -8,6 +8,7 @@ import datatypes.DTCertificado;
 import datatypes.DTVacuna;
 import entidades.RegistroVacuna;
 
+
 @Local
 public interface RegistroVacunaNegocioLocal {
 	public List<DTCertificado> obtenerCertificados(String ci);
@@ -15,4 +16,8 @@ public interface RegistroVacunaNegocioLocal {
 	 public List<RegistroVacuna> listarRegistros();
 	 
 	 public List<Integer> obtenerCantVac(DTVacuna vacuna, int anio);
+	 
+	 public List<Integer> cantRegistroPorSexo(DTVacuna vacuna, int anio);
+	 
+	 public List<Integer> cantRegistroPorEdad(DTVacuna vacuna, int anio);
 }

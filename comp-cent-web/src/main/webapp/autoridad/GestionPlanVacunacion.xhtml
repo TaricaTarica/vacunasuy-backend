@@ -8,6 +8,36 @@
 	<title>Plan de Vacunacion</title>
 </h:head>
 <h:body>
+
+<h2>VacunasUy</h2>
+        <div class="card">
+    	<h:form>
+        	<p:growl id="messages"/>
+
+        <p:menubar>
+            <p:submenu label="Gestion" icon="pi pi-fw pi-pencil">
+                <p:menuitem value="Agenda" icon="pi pi-fw pi-align-left" url="GestionAgenda.xhtml"/>
+                <p:menuitem value="Enfermedad" icon="pi pi-fw pi-align-right" url="GestionEnfermedad.xhtml"/>
+                <p:menuitem value="Envios" icon="pi pi-fw pi-align-center" url="GestionEnvio.xhtml"/>
+                <p:menuitem value="Lotes" icon="pi pi-fw pi-align-justify" url="GestionLote.xhtml"/>
+                <p:menuitem value="Planes Vacunacion" icon="pi pi-fw pi-align-justify" url="GestionPlanVacunacion.xhtml"/>
+                <p:menuitem value="Proveedor" icon="pi pi-fw pi-align-justify" url="GestionProveedor.xhtml"/>
+                <p:menuitem value="Vacuna" icon="pi pi-fw pi-align-justify" url="GestionVacuna.xhtml"/>
+            </p:submenu>
+
+			<p:submenu label="Reportes" icon="pi pi-fw pi-pencil">
+                <p:menuitem value="Actos Vacunales" icon="pi pi-fw pi-align-left" url="ReportesActosVacunales.xhtml"/>
+                <p:menuitem value="Stock Dosis" icon="pi pi-fw pi-align-right" url="ReportesStockDosis.xhtml"/>
+
+            </p:submenu>
+
+            <f:facet name="options">
+                <p:commandButton value="logOut" action="#{loginBean.logout()}" />
+            </f:facet>
+        </p:menubar>
+    </h:form>
+	</div>
+
 	<h:form id="PlanListarForm">
 <!-- 		<p:messages id="messages" showDetail="true" closable="true"> -->
 <!-- 			<p:autoUpdate /> -->
