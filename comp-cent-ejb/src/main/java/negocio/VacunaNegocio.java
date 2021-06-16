@@ -151,6 +151,13 @@ public class VacunaNegocio implements VacunaNegocioLocal {
 		}
     }
     
-    
+	@Override
+	public List<String> nombresVacunas() {
+		
+		List<DTVacuna> vacunas = obtenerVacunas();
+		List<String> nombres = new ArrayList<String>();
+		vacunas.forEach((v)->{nombres.add(v.getNombre());});
+		return nombres;
+    }
     
 }

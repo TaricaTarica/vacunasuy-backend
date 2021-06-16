@@ -7,14 +7,56 @@
 <h:head>
 	<title>Reportes Actos Vacunales</title>
 </h:head>
+
 <style type="text/css">
     .ui-chart {
         margin-bottom: 50px;
     }
 </style>
+
 <body>
-	<div class="card">
- 	   <p:lineChart model="#{reportesACBean.lineModel}" style="width: 100%; height: 500px;"/>
-	</div>
+	<h:form id="reporteListForm">
+		<p:growl id="messages" showDetail="true" />
+		<p:messages />
+		<f:facet name="header"> Reportes de Actos Vacunales </f:facet>
+		<p:panel header="Formulario" id="grid" style="margin-bottom:10px;">
+			<h:panelGrid columns="5" cellpadding="5" styleClass="p-mb-3">
+				
+				<h:outputLabel for="vacuna" value="Vacuna" />
+				<p:selectOneMenu id="vacuna" value="#{reportesACBean.vac}" required="true" requiredMessage="Debe seleccionar un vacuna" style="width:15rem">
+					<f:selectItem itemLabel="Seleccionar vacuna" itemValue="" noSelectionOption="true" />
+					<f:selectItems value="#{reportesACBean.nombreVacunas}" />
+				</p:selectOneMenu>
+
+               	<h:outputLabel for="anio" value="Año"/>
+               	<p:inputNumber id="anio" value="#{reportesACBean.anio}" required="true" requiredMessage="Debe seleccionar un año" style="width:15rem"/>
+
+				<p:commandButton value="Ver reportes"
+					actionListener="#{reportesACBean.obtenerVacunadosXAnio()}"
+					update= "messages,:reporteCantVac"/>
+
+			
+			</h:panelGrid>
+		</p:panel>
+	</h:form>
+	
+	<h:form id="reporteCantVac">
+		<div class="card">
+ 	   		<p:lineChart model="#{reportesACBean.lineModel}" style="width: 100%; height: 500px;"/>
+		</div>
+	</h:form>
+	
+	<h:form id="reportePorSexo">
+		<div class="card">
+ 	   		<p:pieChart model="#{reportesACBean.pieModel}" style="width: 100%; height: 500px;"/>
+		</div>
+	</h:form>
+	
+	<h:form id="reportePorEdad">
+		<div class="card">
+    		<p:barChart model="#{reportesACBean.barModel}" style="width: 100%; height: 500px;"/>
+		</div>
+	</h:form>
+	
 </body>
 </html>

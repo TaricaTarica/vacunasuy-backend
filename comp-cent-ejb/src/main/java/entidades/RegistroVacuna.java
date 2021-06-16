@@ -25,7 +25,7 @@ public class RegistroVacuna {
 			updatable=false
 	)
 	private Ciudadano ciudadano;
-	
+	@Id
 	private LocalDate fecha;
 
 	public RegistroVacuna() {
