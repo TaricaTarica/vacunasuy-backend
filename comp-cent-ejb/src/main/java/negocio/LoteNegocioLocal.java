@@ -18,5 +18,6 @@ public interface LoteNegocioLocal {
 	public void agregarLote(DTLote dtLote) throws Exception;
 
 	public List<DTLote> listarLotes();
+	
 
 }

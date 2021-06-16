@@ -13,18 +13,27 @@ import datatypes.DTEnvio;
 import datatypes.DTLote;
 import datatypes.DTSocioLogistico;
 import datatypes.DTVacunatorio;
+import datatypes.DTVistaEnvio;
+import datos.EnvioDatoLocal;
+import enumeradores.EstadoEnvio;
 import negocio.EnvioNegocioLocal;
 import negocio.LoteNegocioLocal;
 import negocio.SocioLogisticoNegocioLocal;
 import negocio.VacunatorioNegocioLocal;
+import negocio.VistaEnvioNegocioLocal;
 
 @Named("envioBean")
 @ViewScoped
 public class EnvioBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
+	
+	@EJB
+	private VistaEnvioNegocioLocal vistaLocal;
 	@EJB
 	private EnvioNegocioLocal envioLocal;
+	@EJB
+	private EnvioDatoLocal datoEnvioLocal;
 	
 	@EJB
 	private LoteNegocioLocal loteLocal;
@@ -40,8 +49,12 @@ public class EnvioBean implements Serializable{
 	private String nombreSocioLogistico;
 	private String nombreLote;
 	
+	private EstadoEnvio estado;
+	
 	private DTEnvio envio;
 	private List<DTEnvio> envios;
+	//private List<Envio> enviosEntidad;
+	private List<DTVistaEnvio> listaEnvios;
 	
 	private DTLote lote;
 	private List<DTLote> lotes;
@@ -63,8 +76,9 @@ public class EnvioBean implements Serializable{
 	 @PostConstruct
 	public void init() {
 		 
-		 this.envios = envioLocal.listarEnvios();
-		 this.lotes = loteLocal.listarLotes();
+		 this.setListaEnvios(vistaLocal.listarEnvios());
+		// this.enviosEntidad = datoEnvioLocal.listarEnvios();
+		 this.lotes = envioLocal.listarLotePendientesDeEnviar();
 		 this.socioLogisticos = socioLocal.listarSocioLogistico();
 		 this.vacunatorios = vacunatorioLocal.listarVacunatorio();
 		 this.setEstados(envioLocal.listarEstado());
@@ -297,6 +311,41 @@ public class EnvioBean implements Serializable{
 		this.nombreLote = nombreLote;
 	}
 
+	
+
+
+	public EstadoEnvio getEstado() {
+		return estado;
+	}
+
+
+
+	public void setEstado(EstadoEnvio estado) {
+		this.estado = estado;
+	}
+
+	public List<DTVistaEnvio> getListaEnvios() {
+		return listaEnvios;
+	}
+
+
+
+	public void setListaEnvios(List<DTVistaEnvio> listaEnvios) {
+		this.listaEnvios = listaEnvios;
+	}
+
+
+
+//	public List<Envio> getEnviosEntidad() {
+//		return enviosEntidad;
+//	}
+//
+//
+//
+//	public void setEnviosEntidad(List<Envio> enviosEntidad) {
+//		this.enviosEntidad = enviosEntidad;
+//	}
+	
 	public void reiniciarEnvio(){
 		editar = false;   
 		this.nombreBoton = "Agregar Envio";
@@ -330,7 +379,7 @@ public class EnvioBean implements Serializable{
 				//Funcion para editar el envio.
 			}else {
 				//Funcion para Agregar Envio
-						
+				envio.setEstado(estado.Pendiente);
 				envioLocal.AgregarEnvio(envio, lote, vacunatorio, socioLogistico);
 				this.init();
 			}
@@ -338,7 +387,6 @@ public class EnvioBean implements Serializable{
 				// TODO: handle exception
 		}
 	}
-
 
 
 }

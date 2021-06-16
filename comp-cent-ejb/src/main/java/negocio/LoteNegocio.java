@@ -52,6 +52,7 @@ public class LoteNegocio implements LoteNegocioLocal {
 		 }
 		return lista;
 	}
+    
 	
 	@Override
 	public void agregarLote(DTLote dtLote) throws Exception {
