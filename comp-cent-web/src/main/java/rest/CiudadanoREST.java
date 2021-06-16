@@ -77,5 +77,26 @@ public class CiudadanoREST {
 	           		 .build();
 		}
 	}
+	@GET
+	@Path("/perfil/{ci}")
+	public Response perfilCiudadano(@PathParam("ci") String ci) {
+		try {
+			int numeroCi = Integer.parseInt(ci);
+			
+			ServicioAgesic servicioAgesic = new ServicioAgesicService().getServicioAgesicPort();
+			DtPersona perfilCiudadano = servicioAgesic.obtenerPersona(numeroCi);
+			
+			return Response
+					.status(Response.Status.OK)
+					.entity(perfilCiudadano)
+					.build();
+		}
+		catch(NumberFormatException ex){
+			return Response
+	           		 .status(Response.Status.BAD_REQUEST)
+	           		 .entity("Ha ocurrido un error procesando la cedula")
+	           		 .build();
+		}
+	}
 	
 }
