@@ -69,7 +69,6 @@ public class DepartamentoNegocio implements DepartamentoNegocioLocal {
 			}
 		}
 		return departamento;
-		
 	}
 
 }

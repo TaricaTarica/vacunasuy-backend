@@ -12,7 +12,6 @@ import datos.AgendaDatoLocal;
 import datos.CiudadanoDatoLocal;
 import datos.PlanVacunacionDatoLocal;
 import datos.ReservaDatoLocal;
-import entidades.Agenda;
 import entidades.Ciudadano;
 import entidades.PlanVacunacion;
 import entidades.Reserva;
@@ -57,10 +56,8 @@ public class ReservaNegocio implements ReservaNegocioLocal {
 	public void crearReserva(DTReserva res) {
 		Reserva reserva = new Reserva(res);
 		Ciudadano ciudadano = cdl.obtenerCiudadano(res.getCiudadano().getCi());
-		Agenda agenda = adl.obtenerAgendaPorId(res.getAgenda().getId());
 		PlanVacunacion planVacunacion = pvdl.obtenerPlanVacunacion(res.getPlanVacunacion().getNombre());
 		reserva.setCiudadano(ciudadano);
-		reserva.setAgenda(agenda);		
 		reserva.setPlanVacunacion(planVacunacion);	
 		reserva.setEstado(EstadoReserva.Pendiente);
 		rdl.crearReserva(reserva);		

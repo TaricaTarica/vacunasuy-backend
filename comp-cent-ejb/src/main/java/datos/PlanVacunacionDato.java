@@ -1,5 +1,7 @@
 package datos;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.LocalBean;
@@ -71,5 +73,22 @@ public class PlanVacunacionDato implements PlanVacunacionDatoLocal {
     	return planVacunacion;
     }
     
+    @Override
+    public List<PlanVacunacion> obtenerPlanesVacunacionObjetivoEdad(String poblacionObjetivo, String fnac){
+    	List<PlanVacunacion> planesVacunacion = this.listarPlanesDeVacunacion();
+    	List<PlanVacunacion> retorno = new ArrayList<>();
+    	
+    	int edad = Period.between(LocalDate.parse(fnac), LocalDate.now()).getYears();
+    	
+    	for(PlanVacunacion p: planesVacunacion) {
+    		if(
+    			p.getPoblacionObjetivo().toString().equals(poblacionObjetivo) &&
+    			(p.getEdadMinima() < edad && edad < p.getEdadMaxima())
+    		){
+    			retorno.add(p);
+    		}
+    	}
+    	return retorno;
+    }
 
 }

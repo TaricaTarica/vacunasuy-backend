@@ -1,7 +1,7 @@
 package enumeradores;
 
 public enum PoblacionObjetivo {
-	Niños,Adolescentes, Adultos, Mayores
+	Niños,Adolescentes, Joven, Adultos, Mayores, Riesgo, Salud, Educacion, Policia
 }
 
 

@@ -23,4 +23,5 @@ public interface PlanVacunacionDatoLocal {
 
 	public void eliminarPlanVacunacion(PlanVacunacion plan);
 
+	public List<PlanVacunacion> obtenerPlanesVacunacionObjetivoEdad(String poblacionObjetivo, String fnac);
 }

@@ -22,6 +22,6 @@ public interface PlanVacunacionNegocioLocal {
 
 	public void eliminarPlanVacunacion(DTPlanVacunacion plan) throws Exception;
 
-	 
+	public List<DTPlanVacunacion> obtenerPlanesVacunacionObjetivoEdad(String poblacionObjetivo, String fnac);
 
 }

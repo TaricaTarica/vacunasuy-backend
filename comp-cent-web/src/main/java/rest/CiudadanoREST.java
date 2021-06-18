@@ -33,9 +33,6 @@ public class CiudadanoREST {
 
 	}
 
-	        
-
-		
 	@POST
 	public Response agregarCiudadano(DTCiudadano c) {
 		try {

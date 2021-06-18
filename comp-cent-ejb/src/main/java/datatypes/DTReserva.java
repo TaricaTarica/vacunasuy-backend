@@ -18,6 +18,8 @@ public class DTReserva implements Serializable {
 	private DTPlanVacunacion planVacunacion;
 	private DTAgenda agenda;
 	private EstadoReserva estado;
+	private DTDepartamento departamento;
+	private DTUbicacion ubicacion;
 	
 	public DTReserva() {
 		super();
@@ -94,6 +96,22 @@ public class DTReserva implements Serializable {
 
 	public void setEstado(EstadoReserva estado) {
 		this.estado = estado;
+	}
+	
+	public DTDepartamento getDepartamento() {
+		return departamento;
+	}
+
+	public void setDepartamento(DTDepartamento departamento) {
+		this.departamento = departamento;
+	}
+
+	public DTUbicacion getUbicacion() {
+		return ubicacion;
+	}
+
+	public void setUbicacion(DTUbicacion ubicacion) {
+		this.ubicacion = ubicacion;
 	}
 
 	@Override
