@@ -136,7 +136,7 @@ public class ReservaREST {
 			rnl.cancelarReserva(idReserva);
 			return Response
 					.status(Response.Status.OK)
-					.entity("OK")
+					.entity(new Gson().toJson("INFO: Reserva cancelada"))
 					.build();
 		}
 		catch (Exception e) {
