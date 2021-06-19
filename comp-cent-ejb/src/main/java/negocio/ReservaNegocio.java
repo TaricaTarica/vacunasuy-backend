@@ -10,11 +10,14 @@ import datatypes.DTConsultaReservaCiudadano;
 import datatypes.DTReserva;
 import datos.AgendaDatoLocal;
 import datos.CiudadanoDatoLocal;
+import datos.DepartamentoDatoLocal;
 import datos.PlanVacunacionDatoLocal;
 import datos.ReservaDatoLocal;
 import entidades.Ciudadano;
+import entidades.Departamento;
 import entidades.PlanVacunacion;
 import entidades.Reserva;
+import entidades.Ubicacion;
 import enumeradores.EstadoReserva;
 
 /**
@@ -36,7 +39,11 @@ public class ReservaNegocio implements ReservaNegocioLocal {
 	
 	@Inject
 	PlanVacunacionDatoLocal pvdl;
-
+	
+	
+	@Inject
+	DepartamentoDatoLocal ddl;
+	
     /**
      * Default constructor. 
      */
@@ -57,9 +64,13 @@ public class ReservaNegocio implements ReservaNegocioLocal {
 		Reserva reserva = new Reserva(res);
 		Ciudadano ciudadano = cdl.obtenerCiudadano(res.getCiudadano().getCi());
 		PlanVacunacion planVacunacion = pvdl.obtenerPlanVacunacion(res.getPlanVacunacion().getNombre());
+		Ubicacion ubicacion = ddl.obtenerDepartamentoUbicacion(res.getDepartamento().getDescripcion(), res.getUbicacion().getDescription());
+		Departamento departamento = ddl.obtenerDepartamentoPorNombre(res.getDepartamento().getDescripcion());
 		reserva.setCiudadano(ciudadano);
 		reserva.setPlanVacunacion(planVacunacion);	
 		reserva.setEstado(EstadoReserva.Pendiente);
+		reserva.setDepartamento(departamento);
+		reserva.setUbicacion(ubicacion);
 		rdl.crearReserva(reserva);		
 	}
 	@Override
