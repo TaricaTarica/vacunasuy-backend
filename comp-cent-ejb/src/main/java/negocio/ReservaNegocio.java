@@ -79,7 +79,16 @@ public class ReservaNegocio implements ReservaNegocioLocal {
 		List<DTConsultaReservaCiudadano> dtReservas = new ArrayList<DTConsultaReservaCiudadano>();
 		for(Reserva r: reservas) {
 			if(r.getCiudadano().getCi() == ci) {
-				dtReservas.add(new DTConsultaReservaCiudadano (r));
+				DTConsultaReservaCiudadano  dtcrc = new DTConsultaReservaCiudadano (r);
+				dtcrc.setEnfermedad(r.getPlanVacunacion().getEnfermedad().getNombre());
+				if(r.getAgenda() != null) {
+					dtcrc.setVacunatorio(r.getAgenda().getVacunatorio().getNombre());
+				}
+				else {
+					dtcrc.setVacunatorio("N/A");
+				}
+				dtReservas.add(dtcrc);
+				
 			}
 		}
 		return dtReservas;

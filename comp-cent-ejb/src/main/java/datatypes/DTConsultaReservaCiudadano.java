@@ -22,14 +22,11 @@ public class DTConsultaReservaCiudadano implements Serializable{
 		this.id = res.getId();
 		this.hora = res.getHora();
 		if(res.getFecha() == null) {
-			this.fecha = "PENDIENTE";
+			this.fecha = "N/A";
 		}
 		else {
 			this.fecha = res.getFecha().toString();
 		}
-		
-		this.enfermedad = res.getPlanVacunacion().getEnfermedad().getNombre();
-		this.vacunatorio = res.getAgenda().getVacunatorio().getNombre();
 		this.estado = res.getEstado().name();
 		
 	}
