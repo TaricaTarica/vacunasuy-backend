@@ -8,6 +8,7 @@ import javax.naming.NamingException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -59,6 +60,22 @@ public class AgendaREST {
 		            .build(); 
 		}
 	}
-
+	@GET
+	@Path("/count-activas/{id}")
+	public Response countAgendasActivasHoy(@PathParam("id")long vacunaId) {
+		try {
+			return Response
+					.status(Response.Status.OK)
+		            .entity(an.countAgendasActivasHoy(vacunaId))
+		            .build();
+		}
+		catch(Exception e){
+			return Response
+					.status(Response.Status.OK)
+		            .entity("Error")
+		            .build();
+		}
+	}
+	
 	
 }

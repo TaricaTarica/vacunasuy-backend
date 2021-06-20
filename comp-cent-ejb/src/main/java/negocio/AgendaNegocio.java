@@ -143,7 +143,7 @@ public class AgendaNegocio implements AgendaNegocioLocal {
 		LocalDate hoy = LocalDate.now();
 		for(Agenda a: agendas) {
 			if(
-					(a.getInicio().equals(hoy) || a.getInicio().isAfter(hoy)) &&
+					(a.getInicio().equals(hoy) || a.getInicio().isBefore(hoy)) &&
 					(a.getFin().equals(hoy) || a.getFin().isBefore(hoy))
 			){
 				List<PlanVacunacion> planes = a.getPlanes();
