@@ -24,4 +24,6 @@ public interface ReservaNegocioLocal {
 	public Boolean existeReservaPorAgenda (long idAgenda);
 	
 	public List<DTReservaVacunatorio> obtenerReservasVacunatorio (LocalDate fecha, long idVac);
+	
+	public int countAgendadosHoy(long vacunaId);
 }

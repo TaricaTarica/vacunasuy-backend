@@ -7,9 +7,7 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
-import datatypes.DTCiudadano;
 import datatypes.DTConsultaReservaCiudadano;
-import datatypes.DTPlanVacunacion;
 import datatypes.DTReserva;
 import datatypes.DTReservaVacunatorio;
 import datos.AgendaDatoLocal;
@@ -137,6 +135,23 @@ public class ReservaNegocio implements ReservaNegocioLocal {
 				
 		}
 		return null;
+	}
+	
+	@Override
+	public int countAgendadosHoy(long vacunaId) {
+		int retorno = 0;
+		ArrayList<Reserva> reservas = (ArrayList<Reserva>) rdl.obtenerReservas();
+		for(Reserva r: reservas) {
+			if(
+					r.getEstado().equals(EstadoReserva.Agendado) &&
+					r.getFecha().equals(LocalDate.now()) &&
+					r.getVacuna().getId() == vacunaId
+			){
+				retorno++;
+			}
+		}
+		
+		return retorno;
 	}
 
 }
