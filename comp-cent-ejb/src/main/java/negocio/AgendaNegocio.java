@@ -16,6 +16,7 @@ import datos.ReservaDatoLocal;
 import datos.VacunatorioDatoLocal;
 import entidades.Agenda;
 import entidades.PlanVacunacion;
+import entidades.Vacuna;
 import entidades.Vacunatorio;
 
 /**
@@ -133,5 +134,29 @@ public class AgendaNegocio implements AgendaNegocioLocal {
 	public Agenda obtenerAgendaActiva(long idVac, LocalDate fecha) {
 		Agenda agenda = agendaLocal.obtenerAgendaActivaVacunatorio(idVac, fecha);
 		return agenda;
+	}
+	
+	@Override
+	public int countAgendasActivasHoy(long vacunaId) {
+		List<Agenda> agendas = agendaLocal.listarAgenda();
+		int retorno = 0;
+		LocalDate hoy = LocalDate.now();
+		for(Agenda a: agendas) {
+			if(
+					(a.getInicio().equals(hoy) || a.getInicio().isAfter(hoy)) &&
+					(a.getFin().equals(hoy) || a.getFin().isBefore(hoy))
+			){
+				List<PlanVacunacion> planes = a.getPlanes();
+				for(PlanVacunacion pv: planes) {
+					List<Vacuna> vacunas = pv.getVacunas();
+					for(Vacuna v: vacunas) {
+						if(v.getId() == vacunaId) {
+							retorno++;
+						}
+					}
+				}
+			}
+		}
+		return retorno;
 	}
 }
