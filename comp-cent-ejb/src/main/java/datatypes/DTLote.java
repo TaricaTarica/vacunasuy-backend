@@ -77,4 +77,13 @@ public class DTLote {
 	}
 
 
+
+	@Override
+	public String toString() {
+		return getNombre();
+	}
+	
+	
+
+
 }

@@ -32,6 +32,12 @@ public class Reserva {
 	
 	@ManyToOne
 	private PlanVacunacion planVacunacion;
+	
+	@ManyToOne
+	private Departamento departamento;
+	
+	@ManyToOne
+	private Ubicacion ubicacion;
 
 	public Reserva() {
 		super();
@@ -45,13 +51,18 @@ public class Reserva {
 		this.estado = res.getEstado();
 	}	
 
-	public Reserva(int hora, LocalDate fecha, Ciudadano ciudadano, Agenda agenda, PlanVacunacion planVacunacion) {
+	public Reserva(long id, int hora, LocalDate fecha, EstadoReserva estado, Ciudadano ciudadano, Agenda agenda,
+			PlanVacunacion planVacunacion, Departamento departamento, Ubicacion ubicacion) {
 		super();
+		this.id = id;
 		this.hora = hora;
 		this.fecha = fecha;
+		this.estado = estado;
 		this.ciudadano = ciudadano;
 		this.agenda = agenda;
 		this.planVacunacion = planVacunacion;
+		this.departamento = departamento;
+		this.ubicacion = ubicacion;
 	}
 
 	public long getId() {
@@ -116,6 +127,22 @@ public class Reserva {
 
 	public void setVacuna(Vacuna vacuna) {
 		this.vacuna = vacuna;
+	}
+
+	public Departamento getDepartamento() {
+		return departamento;
+	}
+
+	public void setDepartamento(Departamento departamento) {
+		this.departamento = departamento;
+	}
+
+	public Ubicacion getUbicacion() {
+		return ubicacion;
+	}
+
+	public void setUbicacion(Ubicacion ubicacion) {
+		this.ubicacion = ubicacion;
 	}
 
 	@Override

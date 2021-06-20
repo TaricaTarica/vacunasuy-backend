@@ -1,14 +1,13 @@
 package datos;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
-
 import entidades.PlanVacunacion;
 
 /**
@@ -16,7 +15,7 @@ import entidades.PlanVacunacion;
  */
 @Stateless
 @LocalBean
-public class PlanVacunacionDato implements PlanVacunacionDatoRemote, PlanVacunacionDatoLocal {
+public class PlanVacunacionDato implements PlanVacunacionDatoLocal {
 
 	@PersistenceContext(name = "comp-centPersistenceUnit")
 	private EntityManager em;
@@ -74,5 +73,22 @@ public class PlanVacunacionDato implements PlanVacunacionDatoRemote, PlanVacunac
     	return planVacunacion;
     }
     
+    @Override
+    public List<PlanVacunacion> obtenerPlanesVacunacionObjetivoEdad(String poblacionObjetivo, String fnac){
+    	List<PlanVacunacion> planesVacunacion = this.listarPlanesDeVacunacion();
+    	List<PlanVacunacion> retorno = new ArrayList<>();
+    	
+    	int edad = Period.between(LocalDate.parse(fnac), LocalDate.now()).getYears();
+    	
+    	for(PlanVacunacion p: planesVacunacion) {
+    		if(
+    			p.getPoblacionObjetivo().toString().equals(poblacionObjetivo) &&
+    			(p.getEdadMinima() < edad && edad < p.getEdadMaxima())
+    		){
+    			retorno.add(p);
+    		}
+    	}
+    	return retorno;
+    }
 
 }

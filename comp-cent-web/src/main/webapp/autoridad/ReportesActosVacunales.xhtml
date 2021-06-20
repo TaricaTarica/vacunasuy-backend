@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3c.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Reportes Actos Vacunales</title>
+</h:head>
+
+<style type="text/css">
+    .ui-chart {
+        margin-bottom: 50px;
+    }
+</style>
+
+<body>
+<h2>VacunasUy</h2>
+        <div class="card">
+    	<h:form>
+        	<p:growl id="messages"/>
+
+        <p:menubar>
+            <p:submenu label="Gestion" icon="pi pi-fw pi-pencil">
+                <p:menuitem value="Agenda" icon="pi pi-fw pi-align-left" url="GestionAgenda.xhtml"/>
+                <p:menuitem value="Enfermedad" icon="pi pi-fw pi-align-right" url="GestionEnfermedad.xhtml"/>
+                <p:menuitem value="Envios" icon="pi pi-fw pi-align-center" url="GestionEnvio.xhtml"/>
+                <p:menuitem value="Lotes" icon="pi pi-fw pi-align-justify" url="GestionLote.xhtml"/>
+                <p:menuitem value="Planes Vacunacion" icon="pi pi-fw pi-align-justify" url="GestionPlanVacunacion.xhtml"/>
+                <p:menuitem value="Proveedor" icon="pi pi-fw pi-align-justify" url="GestionProveedor.xhtml"/>
+                <p:menuitem value="Vacuna" icon="pi pi-fw pi-align-justify" url="GestionVacuna.xhtml"/>
+            </p:submenu>
+
+			<p:submenu label="Reportes" icon="pi pi-fw pi-pencil">
+                <p:menuitem value="Actos Vacunales" icon="pi pi-fw pi-align-left" url="ReportesActosVacunales.xhtml"/>
+                <p:menuitem value="Stock Dosis" icon="pi pi-fw pi-align-right" url="ReportesStockDosis.xhtml"/>
+
+            </p:submenu>
+
+            <f:facet name="options">
+                <p:commandButton value="logOut" action="#{loginBean.logout()}" />
+            </f:facet>
+        </p:menubar>
+    </h:form>
+	</div>
+
+
+	<h:form id="reporteListForm">
+		<p:growl id="messages" showDetail="true" />
+		<p:messages />
+		<f:facet name="header"> Reportes de Actos Vacunales </f:facet>
+		<p:panel header="Formulario" id="grid" style="margin-bottom:10px;">
+			<h:panelGrid columns="5" cellpadding="5" styleClass="p-mb-3">
+				
+				<h:outputLabel for="vacuna" value="Vacuna" />
+				<p:selectOneMenu id="vacuna" value="#{reportesACBean.vac}" required="true" requiredMessage="Debe seleccionar un vacuna" style="width:15rem">
+					<f:selectItem itemLabel="Seleccionar vacuna" itemValue="" noSelectionOption="true" />
+					<f:selectItems value="#{reportesACBean.nombreVacunas}" />
+				</p:selectOneMenu>
+
+               	<h:outputLabel for="anio" value="Año"/>
+               	<p:inputNumber id="anio" value="#{reportesACBean.anio}" required="true" requiredMessage="Debe seleccionar un año" style="width:15rem"/>
+
+				<p:commandButton value="Ver reportes"
+					actionListener="#{reportesACBean.obtenerVacunadosXAnio()}"
+					update= "messages,:reporteCantVac,:reportePorSexo,:reportePorEdad"/>
+
+			
+			</h:panelGrid>
+		</p:panel>
+	</h:form>
+	
+	<h:form id="reporteCantVac">
+		<div class="card">
+ 	   		<p:lineChart model="#{reportesACBean.lineModel}" style="width: 100%; height: 500px;"/>
+		</div>
+	</h:form>
+	
+	<h:form id="reportePorSexo">
+		<div class="card">
+ 	   		<p:pieChart model="#{reportesACBean.pieModel}" style="width: 100%; height: 500px;"/>
+		</div>
+	</h:form>
+	
+	<h:form id="reportePorEdad">
+		<div class="card">
+    		<p:barChart model="#{reportesACBean.barModel}" style="width: 100%; height: 500px;"/>
+		</div>
+	</h:form>
+	
+</body>
+</html>

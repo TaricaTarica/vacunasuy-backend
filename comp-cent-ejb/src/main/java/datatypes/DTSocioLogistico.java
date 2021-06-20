@@ -50,4 +50,9 @@ public class DTSocioLogistico {
 		this.codigo = codigo;
 	}
 
+	@Override
+	public String toString() {
+		return getNombre();
+	}
+
 }

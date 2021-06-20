@@ -15,20 +15,19 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import datatypes.DTAgenda;
+import com.google.gson.Gson;
+
 import datatypes.DTCiudadano;
 import datatypes.DTConsultaReservaCiudadano;
+import datatypes.DTDepartamento;
 import datatypes.DTPlanVacunacion;
 import datatypes.DTReserva;
 import datatypes.DTReservaWS;
 import datatypes.DTUbicacion;
-import datatypes.DTVacunatorio;
 import negocio.CiudadanoNegocioLocal;
 import negocio.DepartamentoNegocioLocal;
 import negocio.PlanVacunacionNegocioLocal;
 import negocio.ReservaNegocioLocal;
-import negocio.VacunatorioNegocioLocal;
-
 
 @RequestScoped
 @Path("/reserva")
@@ -48,9 +47,6 @@ public class ReservaREST {
 	@Inject 
 	private DepartamentoNegocioLocal dnl;
 	
-	@Inject
-	private VacunatorioNegocioLocal vnl;
-	
 	public ReservaREST() throws NamingException {		
 
 	}
@@ -64,7 +60,7 @@ public class ReservaREST {
             if(dtCiudadano == null) {
             	return Response
             			.status(Response.Status.NOT_FOUND)
-            			.entity("ERROR: no existe el ciudadano")
+            			.entity(new Gson().toJson("ERROR: no existe el ciudadano"))
             			.build();
             }
             else {
@@ -74,7 +70,7 @@ public class ReservaREST {
         catch (NumberFormatException ex){
              return Response
             		 .status(Response.Status.BAD_REQUEST)
-            		 .entity("ERROR: la cedula debe ser numerica")
+            		 .entity(new Gson().toJson("ERROR: la cedula debe ser numerica"))
             		 .build();
         }
 		
@@ -85,27 +81,26 @@ public class ReservaREST {
 		} catch (Exception e) {
 			return Response
 					.status(Response.Status.NOT_FOUND)
-					.entity("ERROR: Plan de vacunacion no encontrado")
+					.entity(new Gson().toJson("ERROR: Plan de vacunacion no encontrado"))
 					.build();
 		}
 	
 		DTUbicacion dtUbicacion = dnl.obtenerDepartamentoUbicacion(dtrws.getDepartamento(), dtrws.getUbicacion());
-		if(dtUbicacion == null) {
+		DTDepartamento dtDepartamento = new DTDepartamento(dtrws.getDepartamento());
+		if(dtUbicacion == null || dtDepartamento == null) {
 			return Response
 					.status(Response.Status.NOT_FOUND)
-					.entity("ERROR: Ubicacion no encontrada")
+					.entity(new Gson().toJson("ERROR: Ubicacion o departamento no encontrado"))
 					.build();
 		}
 		else {
-			DTVacunatorio dtVacunatorio = dtUbicacion.getVacunatorio();
-			DTAgenda dtAgenda = vnl.obtenerAgendaActiva(dtVacunatorio.getId());
-			System.out.println(dtAgenda);
-			dtReserva.setAgenda(dtAgenda);
+			dtReserva.setUbicacion(dtUbicacion);
+			dtReserva.setDepartamento(dtDepartamento);
 		}
 		rnl.crearReserva(dtReserva);
 		return Response
 				.status(Response.Status.OK)
-				.entity("INFO: Reserva creada!")
+				.entity(new Gson().toJson("INFO: Reserva creada!"))
 				.build();
 	}
 	@GET
@@ -141,7 +136,7 @@ public class ReservaREST {
 			rnl.cancelarReserva(idReserva);
 			return Response
 					.status(Response.Status.OK)
-					.entity("OK")
+					.entity(new Gson().toJson("INFO: Reserva cancelada"))
 					.build();
 		}
 		catch (Exception e) {

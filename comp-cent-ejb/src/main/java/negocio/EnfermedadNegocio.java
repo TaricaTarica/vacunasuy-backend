@@ -2,31 +2,25 @@ package negocio;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
-
 import datatypes.DTEnfermedad;
-import datatypes.DTProveedor;
 import datatypes.DTVacuna;
 import datos.EnfermedadDatoLocal;
 import entidades.Enfermedad;
 import entidades.Vacuna;
 import enumeradores.PoblacionObjetivo;
 
-
-
 /**
  * Session Bean implementation class EnfermedadNegocio
  */
 @Stateless
 @LocalBean
-public class EnfermedadNegocio implements EnfermedadNegocioRemote, EnfermedadNegocioLocal {
+public class EnfermedadNegocio implements EnfermedadNegocioLocal {
 
 	@EJB
 	private EnfermedadDatoLocal datoLocal;

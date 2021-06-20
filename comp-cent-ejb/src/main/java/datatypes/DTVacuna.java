@@ -99,5 +99,4 @@ public class DTVacuna {
 		this.periodoInmune = periodoInmune;
 	}
 	
-	
 }

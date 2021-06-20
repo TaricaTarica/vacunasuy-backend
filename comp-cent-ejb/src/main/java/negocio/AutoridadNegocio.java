@@ -3,10 +3,7 @@ package negocio;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
-
-import datatypes.DTAutoridad;
 import datos.AutoridadDatoLocal;
-import entidades.Administrador;
 import entidades.Autoridad;
 
 /**
@@ -14,7 +11,7 @@ import entidades.Autoridad;
  */
 @Stateless
 @LocalBean
-public class AutoridadNegocio implements AutoridadNegocioRemote, AutoridadNegocioLocal {
+public class AutoridadNegocio implements AutoridadNegocioLocal {
 
 	@EJB
 	private AutoridadDatoLocal datoLocal ;

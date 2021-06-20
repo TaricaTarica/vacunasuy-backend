@@ -89,6 +89,12 @@ public class DTVacunatorio {
 
 	
 
+	@Override
+	public String toString() {
+		return getNombre();
+	}
+	
+	
 	
 	
 	

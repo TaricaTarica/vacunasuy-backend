@@ -1,11 +1,8 @@
 package negocio;
 
 import java.util.List;
-
 import javax.ejb.Local;
-
 import datatypes.DTProveedor;
-import entidades.Vacuna;
 
 @Local
 public interface ProveedorNegocioLocal {

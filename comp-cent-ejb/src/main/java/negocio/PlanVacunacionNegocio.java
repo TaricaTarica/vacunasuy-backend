@@ -24,7 +24,7 @@ import entidades.Vacuna;
  */
 @Stateless
 @LocalBean
-public class PlanVacunacionNegocio implements PlanVacunacionNegocioRemote, PlanVacunacionNegocioLocal {
+public class PlanVacunacionNegocio implements PlanVacunacionNegocioLocal {
 
 	@EJB
 	private PlanVacunacionDatoLocal datoLocal;
@@ -160,6 +160,16 @@ public class PlanVacunacionNegocio implements PlanVacunacionNegocioRemote, PlanV
 			throw new Exception("\nNo se encontro un plan con el id ingresado");
 			
 		}
+	}
+	
+	@Override
+	public List<DTPlanVacunacion> obtenerPlanesVacunacionObjetivoEdad(String poblacionObjetivo, String fnac){
+		List<PlanVacunacion> planes = datoLocal.obtenerPlanesVacunacionObjetivoEdad(poblacionObjetivo, fnac);
+		List<DTPlanVacunacion> retorno = new ArrayList<>();
+		for(PlanVacunacion p: planes) {
+			retorno.add(new DTPlanVacunacion(p));
+		}
+		return retorno;
 	}
 
 }

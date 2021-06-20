@@ -14,14 +14,17 @@ import datatypes.DTReserva;
 import datatypes.DTReservaVacunatorio;
 import datos.AgendaDatoLocal;
 import datos.CiudadanoDatoLocal;
+import datos.DepartamentoDatoLocal;
 import datos.PlanVacunacionDatoLocal;
 import datos.ReservaDatoLocal;
 import datos.VacunatorioDatoLocal;
 import entidades.Agenda;
 import entidades.Ciudadano;
+import entidades.Departamento;
 import entidades.PlanVacunacion;
 import entidades.Reserva;
 import entidades.Vacunatorio;
+import entidades.Ubicacion;
 import enumeradores.EstadoReserva;
 
 /**
@@ -29,7 +32,7 @@ import enumeradores.EstadoReserva;
  */
 @Stateless
 @LocalBean
-public class ReservaNegocio implements ReservaNegocioRemote, ReservaNegocioLocal {
+public class ReservaNegocio implements ReservaNegocioLocal {
 	
 	@Inject
 	ReservaDatoLocal rdl;
@@ -48,7 +51,11 @@ public class ReservaNegocio implements ReservaNegocioRemote, ReservaNegocioLocal
 	
 	@Inject
 	PlanVacunacionDatoLocal pvdl;
-
+	
+	
+	@Inject
+	DepartamentoDatoLocal ddl;
+	
     /**
      * Default constructor. 
      */
@@ -68,12 +75,14 @@ public class ReservaNegocio implements ReservaNegocioRemote, ReservaNegocioLocal
 	public void crearReserva(DTReserva res) {
 		Reserva reserva = new Reserva(res);
 		Ciudadano ciudadano = cdl.obtenerCiudadano(res.getCiudadano().getCi());
-		Agenda agenda = adl.obtenerAgendaPorId(res.getAgenda().getId());
 		PlanVacunacion planVacunacion = pvdl.obtenerPlanVacunacion(res.getPlanVacunacion().getNombre());
+		Ubicacion ubicacion = ddl.obtenerDepartamentoUbicacion(res.getDepartamento().getDescripcion(), res.getUbicacion().getDescription());
+		Departamento departamento = ddl.obtenerDepartamentoPorNombre(res.getDepartamento().getDescripcion());
 		reserva.setCiudadano(ciudadano);
-		reserva.setAgenda(agenda);		
 		reserva.setPlanVacunacion(planVacunacion);	
 		reserva.setEstado(EstadoReserva.Pendiente);
+		reserva.setDepartamento(departamento);
+		reserva.setUbicacion(ubicacion);
 		rdl.crearReserva(reserva);		
 	}
 	@Override
@@ -82,7 +91,16 @@ public class ReservaNegocio implements ReservaNegocioRemote, ReservaNegocioLocal
 		List<DTConsultaReservaCiudadano> dtReservas = new ArrayList<DTConsultaReservaCiudadano>();
 		for(Reserva r: reservas) {
 			if(r.getCiudadano().getCi() == ci) {
-				dtReservas.add(new DTConsultaReservaCiudadano (r));
+				DTConsultaReservaCiudadano  dtcrc = new DTConsultaReservaCiudadano (r);
+				dtcrc.setEnfermedad(r.getPlanVacunacion().getEnfermedad().getNombre());
+				if(r.getAgenda() != null) {
+					dtcrc.setVacunatorio(r.getAgenda().getVacunatorio().getNombre());
+				}
+				else {
+					dtcrc.setVacunatorio("N/A");
+				}
+				dtReservas.add(dtcrc);
+				
 			}
 		}
 		return dtReservas;

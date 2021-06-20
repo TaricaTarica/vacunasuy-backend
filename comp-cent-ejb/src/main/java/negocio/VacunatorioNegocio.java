@@ -39,13 +39,12 @@ import entidades.Ubicacion;
 import entidades.Vacunador;
 import entidades.Vacunatorio;
 
-
 /**
  * Session Bean implementation class VacunatorioNegocio
  */
 @Stateless
 @LocalBean
-public class VacunatorioNegocio implements VacunatorioNegocioRemote, VacunatorioNegocioLocal {
+public class VacunatorioNegocio implements VacunatorioNegocioLocal {
 
 	@Resource
 	TimerService timerService;

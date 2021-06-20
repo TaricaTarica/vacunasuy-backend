@@ -17,7 +17,7 @@ import entidades.Ubicacion;
  */
 @Stateless
 @LocalBean
-public class DepartamentoDato implements DepartamentoDatoRemote, DepartamentoDatoLocal {
+public class DepartamentoDato implements DepartamentoDatoLocal {
 
 	
 	@PersistenceContext(name = "comp-centPersistenceUnit")

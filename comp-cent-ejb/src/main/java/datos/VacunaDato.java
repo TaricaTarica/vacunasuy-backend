@@ -2,13 +2,10 @@ package datos;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-
 import entidades.Enfermedad;
 import entidades.Proveedor;
 import entidades.Vacuna;
@@ -18,7 +15,7 @@ import entidades.Vacuna;
  */
 @Stateless
 @LocalBean
-public class VacunaDato implements VacunaDatoRemote, VacunaDatoLocal {
+public class VacunaDato implements VacunaDatoLocal {
 
 	
 	

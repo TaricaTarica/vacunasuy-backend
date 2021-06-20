@@ -1,11 +1,17 @@
 package entidades;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 public class RegistroVacunaID implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private long vacuna;
 	private int ciudadano;
 	private long vacunatorio;
+	private LocalDate fecha;
 	
 	public RegistroVacunaID() {
 		super();
@@ -34,6 +40,14 @@ public class RegistroVacunaID implements Serializable{
 
 	public void setCiudadano(int ciudadano) {
 		this.ciudadano = ciudadano;
+	}
+
+	public LocalDate getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(LocalDate fecha) {
+		this.fecha = fecha;
 	}
 
 	@Override

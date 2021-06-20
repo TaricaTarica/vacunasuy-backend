@@ -12,7 +12,7 @@ import entidades.Administrador;
  */
 @Stateless
 @LocalBean
-public class AdministradorNegocio implements AdministradorNegocioRemote, AdministradorNegocioLocal {
+public class AdministradorNegocio implements AdministradorNegocioLocal {
 
 	
 	

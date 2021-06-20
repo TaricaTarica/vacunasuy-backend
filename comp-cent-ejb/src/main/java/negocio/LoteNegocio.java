@@ -22,7 +22,7 @@ import entidades.Vacuna;
  */
 @Stateless
 @LocalBean
-public class LoteNegocio implements LoteNegocioRemote, LoteNegocioLocal {
+public class LoteNegocio implements LoteNegocioLocal {
 
 	/* Para luego
 	@EJB
@@ -52,6 +52,7 @@ public class LoteNegocio implements LoteNegocioRemote, LoteNegocioLocal {
 		 }
 		return lista;
 	}
+    
 	
 	@Override
 	public void agregarLote(DTLote dtLote) throws Exception {

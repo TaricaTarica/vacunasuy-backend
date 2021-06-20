@@ -11,6 +11,8 @@ public class DTCiudadano {
 	private String segundoApellido;	
 	private int telefono;
 	private String email;
+	private String tipoCiudadano;
+	private String fnac;
 	
 	public DTCiudadano() {
 		super();
@@ -18,7 +20,7 @@ public class DTCiudadano {
 	}
 
 	public DTCiudadano(int ci, String primerNombre, String segundoNombre, String primerApellido, String segundoApellido,
-			int telefono, String email) {
+			int telefono, String email, String tipoCiudadano, String fnac) {
 		super();
 		this.ci = ci;
 		this.primerNombre = primerNombre;
@@ -27,6 +29,8 @@ public class DTCiudadano {
 		this.segundoApellido = segundoApellido;
 		this.telefono = telefono;
 		this.email = email;
+		this.tipoCiudadano = tipoCiudadano;
+		this.fnac = fnac;
 	}
 	
 	public DTCiudadano(Ciudadano ciudadano) {
@@ -37,7 +41,9 @@ public class DTCiudadano {
 		this.primerApellido = ciudadano.getPrimerApellido();
 		this.segundoApellido = ciudadano.getSegundoApellido();
 		this.telefono = ciudadano.getTelefono();
-		this.email = ciudadano.getEmail();	
+		this.email = ciudadano.getEmail();
+		this.tipoCiudadano = ciudadano.getTipoCiudadano();
+		this.fnac = ciudadano.getFnac().toString();
 	}
 
 	public int getCi() {
@@ -94,6 +100,22 @@ public class DTCiudadano {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getTipoCiudadano() {
+		return tipoCiudadano;
+	}
+
+	public void setTipoCiudadano(String tipoCiudadano) {
+		this.tipoCiudadano = tipoCiudadano;
+	}
+
+	public String getFnac() {
+		return fnac;
+	}
+
+	public void setFnac(String fnac) {
+		this.fnac = fnac;
 	}
 
 	@Override
