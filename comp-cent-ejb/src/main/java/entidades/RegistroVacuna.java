@@ -8,6 +8,8 @@ import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import datatypes.DTRegistroVacuna;
+
 @Entity
 @IdClass(RegistroVacunaID.class)
 public class RegistroVacuna {
@@ -26,12 +28,30 @@ public class RegistroVacuna {
 	)
 	private Ciudadano ciudadano;
 	
+	@Id
+	@ManyToOne
+	@JoinColumn(
+			insertable=false,
+			updatable=false
+	)
+	private Vacunatorio vacunatorio;
+	
 	private LocalDate fecha;
 
 	public RegistroVacuna() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+
+	public RegistroVacuna(Vacuna vacuna, Ciudadano ciudadano, Vacunatorio vacunatorio, LocalDate fecha) {
+		super();
+		this.vacuna = vacuna;
+		this.ciudadano = ciudadano;
+		this.vacunatorio = vacunatorio;
+		this.fecha = fecha;
+	}
+
 
 	public Vacuna getVacuna() {
 		return vacuna;
@@ -55,6 +75,25 @@ public class RegistroVacuna {
 
 	public void setFecha(LocalDate fecha) {
 		this.fecha = fecha;
+	}
+
+	public Vacunatorio getVacunatorio() {
+		return vacunatorio;
+	}
+
+	public void setVacunatorio(Vacunatorio vacunatorio) {
+		this.vacunatorio = vacunatorio;
+	}
+	
+	public DTRegistroVacuna getDT () {
+		DTRegistroVacuna dt = new DTRegistroVacuna ();
+		dt.setCedula(ciudadano.getCi());
+		dt.setIdVacuna(vacuna.getId());
+		dt.setIdVacunatorio(vacunatorio.getId());
+		dt.setFecha(fecha.toString());
+		
+		return dt;
+		
 	}
 	
 	

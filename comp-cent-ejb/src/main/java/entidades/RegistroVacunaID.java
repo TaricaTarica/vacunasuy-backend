@@ -5,10 +5,19 @@ import java.io.Serializable;
 public class RegistroVacunaID implements Serializable{
 	private long vacuna;
 	private int ciudadano;
+	private long vacunatorio;
 	
 	public RegistroVacunaID() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+	public long getVacunatorio() {
+		return vacunatorio;
+	}
+
+	public void setVacunatorio(long vacunatorio) {
+		this.vacunatorio = vacunatorio;
 	}
 
 	public long getVacuna() {

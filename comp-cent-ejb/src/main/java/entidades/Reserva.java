@@ -25,6 +25,9 @@ public class Reserva {
 	private Ciudadano ciudadano;
 	
 	@ManyToOne
+	private Vacuna vacuna;
+	
+	@ManyToOne
 	private Agenda agenda;
 	
 	@ManyToOne
@@ -105,6 +108,14 @@ public class Reserva {
 
 	public void setEstado(EstadoReserva estado) {
 		this.estado = estado;
+	}
+
+	public Vacuna getVacuna() {
+		return vacuna;
+	}
+
+	public void setVacuna(Vacuna vacuna) {
+		this.vacuna = vacuna;
 	}
 
 	@Override

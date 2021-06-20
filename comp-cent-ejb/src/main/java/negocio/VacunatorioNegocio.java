@@ -1,25 +1,42 @@
 package negocio;
 
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+
+import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
+import javax.ejb.Schedule;
 import javax.ejb.Stateless;
+import javax.ejb.Timer;
+import javax.ejb.TimerService;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
+import org.springframework.web.util.UriComponentsBuilder;
 
 import datatypes.DTAgenda;
-import datatypes.DTEnfermedad;
-import datatypes.DTPlanVacunacion;
-import datatypes.DTVacuna;
+import datatypes.DTAsignarVacunadores;
 import datatypes.DTVacunatorio;
-import datos.DepartamentoDatoLocal;
 import datos.UbicacionDatoLocal;
 import datos.VacunatorioDatoLocal;
 import entidades.Agenda;
-import entidades.PlanVacunacion;
 import entidades.Ubicacion;
-import entidades.Vacuna;
+import entidades.Vacunador;
 import entidades.Vacunatorio;
 
 
@@ -30,6 +47,9 @@ import entidades.Vacunatorio;
 @LocalBean
 public class VacunatorioNegocio implements VacunatorioNegocioRemote, VacunatorioNegocioLocal {
 
+	@Resource
+	TimerService timerService;
+	
 	@EJB
 	private VacunatorioDatoLocal vacunatorioLocal; 
 	
@@ -130,7 +150,7 @@ public class VacunatorioNegocio implements VacunatorioNegocioRemote, Vacunatorio
 		if (vac != null) {
 			if (vac.getAgendas().isEmpty()) {
 				Ubicacion ubi = this.ubicacionLocal.obtenerUbicacionPorId(vacunatorio.getUbicacion().getId());
-				//ubi.eliminarVacunatorio();
+				ubi.eliminarVacunatorio();
 				this.ubicacionLocal.actualizarVacunatorio(ubi);
 				vacunatorioLocal.eliminarVacunatorio(vac);
 			}else 
@@ -143,5 +163,44 @@ public class VacunatorioNegocio implements VacunatorioNegocioRemote, Vacunatorio
 			
 		
 	}
+
+	public void setTimer(long interval) {
+    	timerService.createTimer(interval, "Seteando timer");
+    }
+    
+    @Schedule(second="59", minute="*/3", hour="0-23", dayOfWeek="*", month="*", year="*", info="TimerSocioLogistico")
+    private void asignarVacunadores(final Timer t) {
+    	
+    	List<Integer> vacunadores = new ArrayList<Integer>();
+    		vacunadores.add(4804);
+    		vacunadores.add(4805);
+    		String fecha = "2021-06-20";
+    	DTAsignarVacunadores vac = new DTAsignarVacunadores(fecha,vacunadores);
+    	
+    	//String url = "http://localhost:8080/periferico-vacunatorio/rest/vacunatorio/asignarVacunadores";
+    	
+    	// Cliente para la conexión
+        Client client = ClientBuilder.newClient();
+       /*UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(url)
+                .queryParam("fecha", "2021-06-19")
+                .queryParam("cedula", 56789);
+     */
+    // Definición de URL
+       WebTarget target = client.target("https://periferico-vacunatorio.herokuapp.com/periferico-vacunatorio/rest/vacunatorio" + "/asignarVacunadores");
+    
+       /* 
+     // Definición de URL
+        WebTarget target = client.target(builder.buildAndExpand().toUri());
+        
+        String response = target.request(MediaType.APPLICATION_JSON).get(String.class);
+        System.out.println("puesto" + response);
+ 	*/
+        // Recogemos el resultado en una variable String
+       String response1 = target.request().post(Entity.entity(vac, MediaType.APPLICATION_JSON), String.class);
+      System.out.println("response: "+ response1);
 	
-}
+    	
+    }
+    
+    }
+

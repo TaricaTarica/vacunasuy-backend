@@ -11,6 +11,7 @@ public class DTVacunatorio {
 	private int cantidadPuestos;
 	private List<DTAgenda> agendas;
 	private DTUbicacion ubicacion;
+	private String dominio;
 	
 	public DTVacunatorio() {
 		super();
@@ -24,6 +25,7 @@ public class DTVacunatorio {
 		this.codigo = vacunatorio.getCodigo();
 		this.cantidadPuestos = vacunatorio.getCantidadPuestos();
 		this.ubicacion = new DTUbicacion();
+		this.dominio = vacunatorio.getDominio();
 	}
 	
 	public DTVacunatorio(String nombre, String codigo) {
@@ -74,6 +76,15 @@ public class DTVacunatorio {
 	public void setUbicacion(DTUbicacion ubicacion) {
 		this.ubicacion = ubicacion;
 	}
+
+	public String getDominio() {
+		return dominio;
+	}
+
+	public void setDominio(String dominio) {
+		this.dominio = dominio;
+	}
+	
 
 
 	

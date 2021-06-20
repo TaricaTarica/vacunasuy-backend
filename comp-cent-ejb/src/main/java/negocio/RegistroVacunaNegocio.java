@@ -1,5 +1,6 @@
 package negocio;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,10 +9,15 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
 import datatypes.DTCertificado;
+import datatypes.DTRegistroVacuna;
+import datos.CiudadanoDatoLocal;
 import datos.RegistroVacunaDatoLocal;
 import datos.VacunaDatoLocal;
+import datos.VacunatorioDatoLocal;
+import entidades.Ciudadano;
 import entidades.RegistroVacuna;
 import entidades.Vacuna;
+import entidades.Vacunatorio;
 
 /**
  * Session Bean implementation class RegistroVacunaNegocio
@@ -24,6 +30,10 @@ public class RegistroVacunaNegocio implements RegistroVacunaNegocioLocal {
 	private RegistroVacunaDatoLocal registroVacunaDatoLocal;
 	@EJB
 	private VacunaDatoLocal vacunaDatoLocal;
+	@EJB
+	private VacunatorioDatoLocal vacunatorioDatoLocal;
+	@EJB
+	private CiudadanoDatoLocal ciudadanoDatoLocal;
 
     /**
      * Default constructor. 
@@ -58,5 +68,13 @@ public class RegistroVacunaNegocio implements RegistroVacunaNegocioLocal {
     public List<RegistroVacuna> listarRegistros(){
     	List<RegistroVacuna> registros = registroVacunaDatoLocal.obtenerRegistro();
 		return registros;
+    }
+    
+    public void altaRegistroVacuna (DTRegistroVacuna regVacuna) {
+    	Ciudadano usuario = ciudadanoDatoLocal.obtenerCiudadano(regVacuna.getCedula());
+    	Vacunatorio vacunatorio = vacunatorioDatoLocal.obtenerVacunatorio(regVacuna.getIdVacunatorio());
+    	Vacuna vacuna = vacunaDatoLocal.obtenerVacunaPorId(regVacuna.getIdVacuna());
+    	RegistroVacuna registroVac = new RegistroVacuna(vacuna, usuario,vacunatorio, LocalDate.parse(regVacuna.getFecha()));
+    	registroVacunaDatoLocal.agregarRegistroVacuna(registroVac);
     }
 }

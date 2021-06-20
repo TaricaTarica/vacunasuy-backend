@@ -128,4 +128,10 @@ public class AgendaNegocio implements AgendaNegocioRemote, AgendaNegocioLocal {
 			throw new Exception("\nNo se encontro un agenda con el id ingresado");
 		}
 	}
+	
+	@Override
+	public Agenda obtenerAgendaActiva(long idVac, LocalDate fecha) {
+		Agenda agenda = agendaLocal.obtenerAgendaActivaVacunatorio(idVac, fecha);
+		return agenda;
+	}
 }

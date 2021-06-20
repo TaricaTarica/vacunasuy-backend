@@ -1,5 +1,6 @@
 package datos;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.ejb.Local;
@@ -18,5 +19,7 @@ public interface ReservaDatoLocal {
 	public void editarReserva(Reserva res);
 	
 	public Boolean existeReserva(long idAgenda);
+
+	public List<Reserva> obtenerReservasAgenda(LocalDate fecha, long id);
 
 }

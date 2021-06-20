@@ -1,8 +1,14 @@
 package datatypes;
 
+import java.io.Serializable;
+
 import entidades.Puesto;
 
-public class DTPuesto {
+public class DTPuesto implements Serializable  {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private long id;
 	private String codigo;
 	
@@ -36,6 +42,11 @@ public class DTPuesto {
 
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
+	}
+
+	@Override
+	public String toString() {
+		return "DTPuesto [id=" + id + ", codigo=" + codigo + "]";
 	}
 
 	
