@@ -25,16 +25,7 @@ public class EnviosSOAP {
 	@Inject
 	ReservaNegocioLocal reservaNegocio;
 	
-	@WebMethod 
-	public void altaRegistroVacuna(DTRegistroVacuna regVacuna) {
-		registroNegocio.altaRegistroVacuna(regVacuna);
-	}
 	
-	@WebMethod 
-	public List<DTReservaVacunatorio> obtenerReservasVacunatorio (String fecha, long idVac){
-		return reservaNegocio.obtenerReservasVacunatorio(LocalDate.parse(fecha), idVac);
-	}
-
 	@WebMethod 
 	public void cambiarEstadoEnvio(String codigoSocioLogistico, String estado, long codigoEnvio) {	
 		EstadoEnvio estadoEnvio = EstadoEnvio.Entransito;

@@ -162,14 +162,13 @@ public class VacunatorioNegocio implements VacunatorioNegocioLocal {
 			
 		
 	}
-
 	public void setTimer(long interval) {
     	timerService.createTimer(interval, "Seteando timer");
     }
-    
+   
     @Schedule(second="59", minute="*/3", hour="0-23", dayOfWeek="*", month="*", year="*", info="TimerSocioLogistico")
     private void asignarVacunadores(final Timer t) {
-    	
+    /*
     	List<Integer> vacunadores = new ArrayList<Integer>();
     		vacunadores.add(4804);
     		vacunadores.add(4805);
@@ -185,7 +184,7 @@ public class VacunatorioNegocio implements VacunatorioNegocioLocal {
                 .queryParam("cedula", 56789);
      */
     // Definición de URL
-       WebTarget target = client.target("https://periferico-vacunatorio.herokuapp.com/periferico-vacunatorio/rest/vacunatorio" + "/asignarVacunadores");
+      // WebTarget target = client.target("https://periferico-vacunatorio.herokuapp.com/periferico-vacunatorio/rest/vacunatorio" + "/asignarVacunadores");
     
        /* 
      // Definición de URL
@@ -195,8 +194,8 @@ public class VacunatorioNegocio implements VacunatorioNegocioLocal {
         System.out.println("puesto" + response);
  	*/
         // Recogemos el resultado en una variable String
-       String response1 = target.request().post(Entity.entity(vac, MediaType.APPLICATION_JSON), String.class);
-      System.out.println("response: "+ response1);
+     //  String response1 = target.request().post(Entity.entity(vac, MediaType.APPLICATION_JSON), String.class);
+      //System.out.println("response: "+ response1);
 	
     	
     }
