@@ -36,6 +36,7 @@ public class RegistroVacuna {
 	)
 	private Vacunatorio vacunatorio;
 	
+	@Id
 	private LocalDate fecha;
 
 	public RegistroVacuna() {
