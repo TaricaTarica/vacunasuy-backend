@@ -22,4 +22,6 @@ public interface RegistroVacunaNegocioLocal {
 	 public List<Integer> cantRegistroPorSexo(DTVacuna vacuna, int anio);
 	 
 	 public List<Integer> cantRegistroPorEdad(DTVacuna vacuna, int anio);
+	 
+	 public int countVacunadosHoy(long vacunaId);
 }

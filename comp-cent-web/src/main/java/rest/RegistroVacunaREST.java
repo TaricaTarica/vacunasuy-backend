@@ -52,6 +52,22 @@ public class RegistroVacunaREST {
             		.entity("Falta paramentro ci.")
             		.build();			
 		}
-	}	
+	}
+	@GET
+	@Path("count-registros/{id}")
+	public Response countVacunadosHoy(@PathParam("id") long vacunaId) {
+		try {
+			return Response
+		            .status(Response.Status.OK)
+		            .entity(regVacLocal.countVacunadosHoy(vacunaId))
+		            .build(); 
+		}
+		catch(Exception e) {
+			return Response
+            		.status(Response.Status.BAD_REQUEST)
+            		.entity("Error")
+            		.build();
+		}
+	}
 	
 }

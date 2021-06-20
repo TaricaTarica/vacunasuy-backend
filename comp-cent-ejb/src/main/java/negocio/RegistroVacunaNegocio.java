@@ -108,4 +108,20 @@ public class RegistroVacunaNegocio implements RegistroVacunaNegocioLocal {
     	return listaCantidadXEdad;
     }
     
+    @Override
+    public int countVacunadosHoy(long vacunaId) {
+    	int retorno = 0;
+    	List<RegistroVacuna> registros = registroVacunaDatoLocal.obtenerRegistro();
+    	for(RegistroVacuna r: registros) {
+    		if(
+    				r.getFecha().equals(LocalDate.now()) &&
+    				r.getVacuna().getId() == vacunaId
+    		) {
+    			retorno++;
+    		}
+    	}
+    	
+    	return retorno;
+    }
+    
 }
