@@ -28,9 +28,12 @@ public class VacunatorioGeomDato implements VacunatorioGeomDatoLocal {
     
     public void agregarCoordenadas(long idVacunatorio, String lat, String lon) {
     	if(vdl.obtenerVacunatorio(idVacunatorio) != null){
-    		Query q = em.createNativeQuery("INSERT INTO vacunatoriogeom (geom, vacunatorio_id) VALUES (ST_GeomFromText('POINT(? ?)', 4326)), ?;");
+    		
+    		String value = "ST_GeomFromText('POINT("+lat+ " "+lon+")', 4326)";
+    		System.out.println(value);
+    		Query q = em.createNativeQuery("INSERT INTO vacunatoriogeom (geom, vacunatorio_id) VALUES (:value, :id)");
         	
-        	q.setParameter(1, lat).setParameter(2, lon).setParameter(3, idVacunatorio);
+        	q.setParameter("value", value).setParameter("id", idVacunatorio);
     	}
     	
     	/*Insert into markers (name, the_geom) VALUES ('Zion National Park', ST_GeomFromText('POINT(-112.68142 37.22299)', 4326));*/
