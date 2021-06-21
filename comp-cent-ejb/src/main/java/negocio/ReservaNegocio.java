@@ -1,5 +1,6 @@
 package negocio;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.LocalBean;
@@ -8,14 +9,20 @@ import javax.inject.Inject;
 
 import datatypes.DTConsultaReservaCiudadano;
 import datatypes.DTReserva;
+import datatypes.DTReservaVacunatorio;
 import datos.AgendaDatoLocal;
 import datos.CiudadanoDatoLocal;
+import datos.DepartamentoDatoLocal;
 import datos.PlanVacunacionDatoLocal;
 import datos.ReservaDatoLocal;
+import datos.VacunatorioDatoLocal;
 import entidades.Agenda;
 import entidades.Ciudadano;
+import entidades.Departamento;
 import entidades.PlanVacunacion;
 import entidades.Reserva;
+import entidades.Vacunatorio;
+import entidades.Ubicacion;
 import enumeradores.EstadoReserva;
 
 /**
@@ -26,8 +33,13 @@ import enumeradores.EstadoReserva;
 public class ReservaNegocio implements ReservaNegocioLocal {
 	
 	@Inject
-	ReservaDatoLocal rdl;	
+	ReservaDatoLocal rdl;
 	
+	@Inject
+	AgendaNegocioLocal anl;
+	
+	@Inject
+	VacunatorioDatoLocal vdl;
 	
 	@Inject
 	CiudadanoDatoLocal cdl;
@@ -37,7 +49,11 @@ public class ReservaNegocio implements ReservaNegocioLocal {
 	
 	@Inject
 	PlanVacunacionDatoLocal pvdl;
-
+	
+	
+	@Inject
+	DepartamentoDatoLocal ddl;
+	
     /**
      * Default constructor. 
      */
@@ -57,12 +73,14 @@ public class ReservaNegocio implements ReservaNegocioLocal {
 	public void crearReserva(DTReserva res) {
 		Reserva reserva = new Reserva(res);
 		Ciudadano ciudadano = cdl.obtenerCiudadano(res.getCiudadano().getCi());
-		Agenda agenda = adl.obtenerAgendaPorId(res.getAgenda().getId());
 		PlanVacunacion planVacunacion = pvdl.obtenerPlanVacunacion(res.getPlanVacunacion().getNombre());
+		Ubicacion ubicacion = ddl.obtenerDepartamentoUbicacion(res.getDepartamento().getDescripcion(), res.getUbicacion().getDescription());
+		Departamento departamento = ddl.obtenerDepartamentoPorNombre(res.getDepartamento().getDescripcion());
 		reserva.setCiudadano(ciudadano);
-		reserva.setAgenda(agenda);		
 		reserva.setPlanVacunacion(planVacunacion);	
 		reserva.setEstado(EstadoReserva.Pendiente);
+		reserva.setDepartamento(departamento);
+		reserva.setUbicacion(ubicacion);
 		rdl.crearReserva(reserva);		
 	}
 	@Override
@@ -71,7 +89,16 @@ public class ReservaNegocio implements ReservaNegocioLocal {
 		List<DTConsultaReservaCiudadano> dtReservas = new ArrayList<DTConsultaReservaCiudadano>();
 		for(Reserva r: reservas) {
 			if(r.getCiudadano().getCi() == ci) {
-				dtReservas.add(new DTConsultaReservaCiudadano (r));
+				DTConsultaReservaCiudadano  dtcrc = new DTConsultaReservaCiudadano (r);
+				dtcrc.setEnfermedad(r.getPlanVacunacion().getEnfermedad().getNombre());
+				if(r.getAgenda() != null) {
+					dtcrc.setVacunatorio(r.getAgenda().getVacunatorio().getNombre());
+				}
+				else {
+					dtcrc.setVacunatorio("N/A");
+				}
+				dtReservas.add(dtcrc);
+				
 			}
 		}
 		return dtReservas;
@@ -86,6 +113,45 @@ public class ReservaNegocio implements ReservaNegocioLocal {
 	
 	public Boolean existeReservaPorAgenda (long idAgenda) {
 		return rdl.existeReserva(idAgenda);
+	}
+	
+	public List<DTReservaVacunatorio> obtenerReservasVacunatorio (LocalDate fecha, long idVac){
+		Vacunatorio vacunatorio = vdl.obtenerVacunatorio(idVac);
+		List<DTReservaVacunatorio> reservas = new ArrayList<DTReservaVacunatorio>();
+		Agenda agenda = anl.obtenerAgendaActiva (vacunatorio.getId(), fecha);
+		if (agenda != null) {
+			List<Reserva> reservasAux =  rdl.obtenerReservasAgenda(fecha, agenda.getId());
+				if (reservas != null) {
+					for (Reserva res: reservasAux) {
+						DTReservaVacunatorio reserva = new DTReservaVacunatorio ();
+						reserva.setCi(res.getCiudadano().getCi());
+						reserva.setIdVacuna(res.getVacuna().getId());
+						reserva.setFecha(res.getFecha().toString());
+						reservas.add(reserva);
+					}
+					return reservas;
+				}
+				
+				
+		}
+		return null;
+	}
+	
+	@Override
+	public int countAgendadosHoy(long vacunaId) {
+		int retorno = 0;
+		ArrayList<Reserva> reservas = (ArrayList<Reserva>) rdl.obtenerReservas();
+		for(Reserva r: reservas) {
+			if(
+					r.getEstado().equals(EstadoReserva.Agendado) &&
+					r.getFecha().equals(LocalDate.now()) &&
+					r.getVacuna().getId() == vacunaId
+			){
+				retorno++;
+			}
+		}
+		
+		return retorno;
 	}
 
 }

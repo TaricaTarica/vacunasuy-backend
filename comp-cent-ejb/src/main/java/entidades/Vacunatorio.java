@@ -1,6 +1,6 @@
 package entidades;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -21,6 +21,7 @@ public class Vacunatorio {
 	private String nombre;
 	private int cantidadPuestos;
 	private String codigo;
+	private String dominio;
 	
 	@OneToOne(mappedBy="vacunatorio",
 			cascade=CascadeType.ALL,
@@ -41,13 +42,15 @@ public class Vacunatorio {
 		this.nombre = vacunatorio.getNombre();
 		this.codigo = vacunatorio.getCodigo();
 		this.cantidadPuestos = vacunatorio.getCantidadPuestos();
+		this.dominio = vacunatorio.getDominio();
 	}
 	
-	public Vacunatorio(String nombre, String codigo, int cantPuestos) {
+	public Vacunatorio(String nombre, String codigo, int cantPuestos, String dominio) {
 		super();
 		this.nombre = nombre;
 		this.codigo = codigo;
 		this.cantidadPuestos= cantPuestos;
+		this.dominio = dominio;
 		
 	}
 
@@ -92,7 +95,13 @@ public class Vacunatorio {
 		this.agendas = agendas;
 	}
 	
+	public String getDominio() {
+		return dominio;
+	}
 
+	public void setDominio(String dominio) {
+		this.dominio = dominio;
+	}
 
 	public int getCantidadPuestos() {
 		return cantidadPuestos;

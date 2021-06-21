@@ -59,7 +59,7 @@ public class VacunaNegocio implements VacunaNegocioLocal {
     @Override
     public DTVacuna obtenerVacuna(long id) {
 	    	Vacuna vac = puenteDatos.obtenerVacuna(id);
-	    	return new DTVacuna(vac.getNombre(), vac.getCodigo(), vac.getLaboratorio());
+	    	return new DTVacuna(vac);
     }
     
     @Override
@@ -151,6 +151,13 @@ public class VacunaNegocio implements VacunaNegocioLocal {
 		}
     }
     
-    
+	@Override
+	public List<String> nombresVacunas() {
+		
+		List<DTVacuna> vacunas = obtenerVacunas();
+		List<String> nombres = new ArrayList<String>();
+		vacunas.forEach((v)->{nombres.add(v.getNombre());});
+		return nombres;
+    }
     
 }

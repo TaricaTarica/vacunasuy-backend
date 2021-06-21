@@ -1,5 +1,6 @@
 package datos;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,5 +69,18 @@ public class AgendaDato implements AgendaDatoLocal {
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public Agenda obtenerAgendaActivaVacunatorio(long idVac, LocalDate fecha) {
+		Agenda agenda = em.createQuery("Select a from Agenda a where a.vacunatorio.id = :id and :fecha between a.inicio and a.fin",Agenda.class)
+				.setParameter("id",idVac)
+				.setParameter("fecha",fecha).getSingleResult();
+		
+		
+		return agenda;
+		
+		
+		
 	}
 }

@@ -1,5 +1,6 @@
 package datos;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.ejb.Local;
@@ -15,5 +16,6 @@ public interface AgendaDatoLocal {
 	public void editarAgenda(Agenda agenda);
 	public void eliminarAgenda(Agenda agenda);
 	public Boolean agendaSuperpuesta(Agenda agenda);
+	public Agenda obtenerAgendaActivaVacunatorio(long idVac, LocalDate fecha);
 
 }

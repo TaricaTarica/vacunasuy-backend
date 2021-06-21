@@ -141,8 +141,6 @@ public class Vacuna {
 	public void setRegistros(List<RegistroVacuna> registros) {
 		this.registros = registros;
 	}
-	
-	
-	
+
 	
 }

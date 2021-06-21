@@ -25,9 +25,7 @@ import entidades.Vacunador;
 import negocio.DepartamentoNegocioLocal;
 import negocio.UsuarioNegocioLocal;
 import negocio.VacunatorioNegocioLocal;
-import webservicesoap.DtMsjVacunatorio;
-import webservicesoap.VacunatorioServicio;
-import webservicesoap.VacunatorioServicioService;
+
 
 @Named("vacunatorioBean")
 @ViewScoped

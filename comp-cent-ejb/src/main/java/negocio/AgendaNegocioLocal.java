@@ -1,10 +1,12 @@
 package negocio;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.ejb.Local;
 
 import datatypes.DTAgenda;
+import entidades.Agenda;
 
 @Local
 public interface AgendaNegocioLocal {
@@ -14,5 +16,7 @@ public interface AgendaNegocioLocal {
 	public List<DTAgenda> listarAgendasActivas();
 	public void editarAgenda (DTAgenda dtAgenda) throws Exception;
 	public void eliminarAgenda (DTAgenda dtAgenda) throws Exception;
+	public Agenda obtenerAgendaActiva(long id, LocalDate fecha);
+	public int countAgendasActivasHoy(long vacunaId);
 	
 }

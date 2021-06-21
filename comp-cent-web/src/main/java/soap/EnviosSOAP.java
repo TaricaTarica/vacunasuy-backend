@@ -1,19 +1,31 @@
 package soap;
 
+import java.time.LocalDate;
 import java.util.Collection;
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 import datatypes.DTEnvio;
+import datatypes.DTRegistroVacuna;
+import datatypes.DTReservaVacunatorio;
 import enumeradores.EstadoEnvio;
 import negocio.EnvioNegocioLocal;
+import negocio.RegistroVacunaNegocioLocal;
+import negocio.ReservaNegocioLocal;
 
 @WebService
 public class EnviosSOAP {
 
 	@Inject
 	EnvioNegocioLocal enl;	
-
+	@Inject
+	RegistroVacunaNegocioLocal registroNegocio;
+	@Inject
+	ReservaNegocioLocal reservaNegocio;
+	
+	
 	@WebMethod 
 	public void cambiarEstadoEnvio(String codigoSocioLogistico, String estado, long codigoEnvio) {	
 		EstadoEnvio estadoEnvio = EstadoEnvio.Entransito;

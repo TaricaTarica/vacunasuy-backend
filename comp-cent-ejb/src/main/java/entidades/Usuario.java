@@ -3,7 +3,11 @@ package entidades;
 
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
+
+import enumeradores.Sexo;
 
 @Entity
 @DiscriminatorColumn(name="tipo")
@@ -19,6 +23,8 @@ public abstract class Usuario {
 	private int telefono;
 	private String email;
 	private String contrasenia;
+	@Enumerated(value = EnumType.STRING)
+	private Sexo sexo; 
 	
 	public Usuario() {
 		super();
@@ -112,6 +118,14 @@ public abstract class Usuario {
 
 	public void setContrasenia(String contrasenia) {
 		this.contrasenia = contrasenia;
+	}
+
+	public Sexo getSexo() {
+		return sexo;
+	}
+
+	public void setSexo(Sexo sexo) {
+		this.sexo = sexo;
 	}
 
 	@Override

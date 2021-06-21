@@ -32,4 +32,5 @@ public class UbicacionDato implements UbicacionDatoLocal {
 	public void actualizarVacunatorio(Ubicacion ubi) {
 		em.merge(ubi);
 	}
+	
 }

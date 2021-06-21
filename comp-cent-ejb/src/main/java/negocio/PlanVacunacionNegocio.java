@@ -161,6 +161,16 @@ public class PlanVacunacionNegocio implements PlanVacunacionNegocioLocal {
 			
 		}
 	}
+	
+	@Override
+	public List<DTPlanVacunacion> obtenerPlanesVacunacionObjetivoEdad(String poblacionObjetivo, String fnac){
+		List<PlanVacunacion> planes = datoLocal.obtenerPlanesVacunacionObjetivoEdad(poblacionObjetivo, fnac);
+		List<DTPlanVacunacion> retorno = new ArrayList<>();
+		for(PlanVacunacion p: planes) {
+			retorno.add(new DTPlanVacunacion(p));
+		}
+		return retorno;
+	}
 
 }
 
