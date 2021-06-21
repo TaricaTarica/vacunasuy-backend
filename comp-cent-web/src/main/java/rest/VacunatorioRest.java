@@ -1,25 +1,18 @@
 package rest;
 
-import java.time.LocalDate;
-import java.util.List;
 
+import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
-import javax.jws.WebMethod;
+
 import javax.naming.NamingException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.springframework.web.util.UriComponentsBuilder;
-
-import datatypes.DTRegistroVacuna;
-import datatypes.DTReservaVacunatorio;
+import negocio.VacunatorioNegocioLocal;
 
 
 @RequestScoped
@@ -27,6 +20,9 @@ import datatypes.DTReservaVacunatorio;
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class VacunatorioRest {
+	
+	@EJB
+	VacunatorioNegocioLocal vnl;
 
 	public VacunatorioRest() throws NamingException {		
 
@@ -41,4 +37,21 @@ public class VacunatorioRest {
 	public List<DTReservaVacunatorio> obtenerReservasVacunatorio (String fecha, long idVac){
 		return reservaNegocio.obtenerReservasVacunatorio(LocalDate.parse(fecha), idVac);
 	}*/
+	
+	@GET
+	@Path("/listar")
+	public Response listarVacunatorios() {
+		try {
+			return Response
+					.status(Response.Status.OK)
+					.entity(vnl.listarVacunatorio())
+					.build();
+		}
+		catch(Exception e){
+			return Response
+					.status(Response.Status.INTERNAL_SERVER_ERROR)
+					.build();
+		}
+	}
+	
 }
