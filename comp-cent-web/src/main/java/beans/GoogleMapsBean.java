@@ -59,7 +59,7 @@ public class GoogleMapsBean implements Serializable {
 		System.out.println("Latitud: " + y);
 		
 		
-		geomLocal.agregarCoordenadas(1000, y, x);
+		geomLocal.agregarCoordenadas(1001, y, x);
 	}
 
 
