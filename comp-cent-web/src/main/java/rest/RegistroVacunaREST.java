@@ -69,5 +69,35 @@ public class RegistroVacunaREST {
             		.build();
 		}
 	}
+	@GET
+	@Path("count-vacunados-mes/{id}/{ano}")
+	public Response countVacunadosPorMes(@PathParam("id") long vacunaId, @PathParam("ano") int ano) {
+		try {
+			return Response
+					.status(Response.Status.OK)
+					.entity(regVacLocal.countVacunadosPorMes(vacunaId, ano))
+					.build();
+		}
+		catch(Exception e){
+			return Response
+					.status(Response.Status.INTERNAL_SERVER_ERROR)
+					.build();
+		}
+	}
+	@GET
+	@Path("count-vacunados-departamento/{id}/{ano}")
+	public Response countVacunadosPorDepartamento(@PathParam("id") long vacunaId, @PathParam("ano") int ano) {
+		try {
+			return Response
+					.status(Response.Status.OK)
+					.entity(regVacLocal.countVacunadosPorDepartamento(vacunaId, ano))
+					.build();
+		}
+		catch(Exception e){
+			return Response
+					.status(Response.Status.INTERNAL_SERVER_ERROR)
+					.build();
+		}
+	}
 	
 }

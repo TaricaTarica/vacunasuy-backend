@@ -37,6 +37,14 @@ public class RegistroVacuna {
 	private Vacunatorio vacunatorio;
 	
 	@Id
+	@ManyToOne
+	@JoinColumn(
+			insertable=false,
+			updatable=false
+	)
+	private Reserva reserva;
+	
+	@Id
 	private LocalDate fecha;
 
 	public RegistroVacuna() {
@@ -44,15 +52,15 @@ public class RegistroVacuna {
 		// TODO Auto-generated constructor stub
 	}
 	
-
-	public RegistroVacuna(Vacuna vacuna, Ciudadano ciudadano, Vacunatorio vacunatorio, LocalDate fecha) {
+	public RegistroVacuna(Vacuna vacuna, Ciudadano ciudadano, Vacunatorio vacunatorio, Reserva reserva,
+			LocalDate fecha) {
 		super();
 		this.vacuna = vacuna;
 		this.ciudadano = ciudadano;
 		this.vacunatorio = vacunatorio;
+		this.reserva = reserva;
 		this.fecha = fecha;
 	}
-
 
 	public Vacuna getVacuna() {
 		return vacuna;
@@ -86,12 +94,21 @@ public class RegistroVacuna {
 		this.vacunatorio = vacunatorio;
 	}
 	
+	public Reserva getReserva() {
+		return reserva;
+	}
+
+	public void setReserva(Reserva reserva) {
+		this.reserva = reserva;
+	}
+
 	public DTRegistroVacuna getDT () {
 		DTRegistroVacuna dt = new DTRegistroVacuna ();
 		dt.setCedula(ciudadano.getCi());
 		dt.setIdVacuna(vacuna.getId());
 		dt.setIdVacunatorio(vacunatorio.getId());
 		dt.setFecha(fecha.toString());
+		dt.setIdReserva(reserva.getId());
 		
 		return dt;
 		

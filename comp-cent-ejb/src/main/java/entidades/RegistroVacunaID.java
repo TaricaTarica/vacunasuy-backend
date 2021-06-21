@@ -11,6 +11,7 @@ public class RegistroVacunaID implements Serializable{
 	private long vacuna;
 	private int ciudadano;
 	private long vacunatorio;
+	private long reserva;
 	private LocalDate fecha;
 	
 	public RegistroVacunaID() {
@@ -48,6 +49,14 @@ public class RegistroVacunaID implements Serializable{
 
 	public void setFecha(LocalDate fecha) {
 		this.fecha = fecha;
+	}
+	
+	public long getReserva() {
+		return reserva;
+	}
+
+	public void setReserva(long reserva) {
+		this.reserva = reserva;
 	}
 
 	@Override
