@@ -43,10 +43,7 @@ public class GoogleMapsBean implements Serializable {
 	public void init() {
 		
 
-	}
-
-
-
+	} 
 	
 	public void publicar() {
 		System.out.println("longitud: " + x);
@@ -55,10 +52,6 @@ public class GoogleMapsBean implements Serializable {
 	}
 
 	public void insertarCoordenadas() {
-		System.out.println("longitud: " + x);
-		System.out.println("Latitud: " + y);
-		
-		
 		geomLocal.agregarCoordenadas(1001, y, x);
 	}
 
