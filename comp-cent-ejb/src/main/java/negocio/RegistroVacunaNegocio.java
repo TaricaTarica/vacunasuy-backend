@@ -80,7 +80,8 @@ public class RegistroVacunaNegocio implements RegistroVacunaNegocioLocal {
 	    	Ciudadano usuario = ciudadanoDatoLocal.obtenerCiudadano(regVacuna.getCedula());
 	    	Vacunatorio vacunatorio = vacunatorioDatoLocal.obtenerVacunatorio(regVacuna.getIdVacunatorio());
 	    	Vacuna vacuna = vacunaDatoLocal.obtenerVacunaPorId(regVacuna.getIdVacuna());
-	    	RegistroVacuna registroVac = new RegistroVacuna(vacuna, usuario,vacunatorio, LocalDate.parse(regVacuna.getFecha()));
+	    	Reserva reserva = reservaDatoLocal.obtenerReserva(regVacuna.getIdReserva());
+	    	RegistroVacuna registroVac = new RegistroVacuna(vacuna, usuario,vacunatorio, reserva, LocalDate.parse(regVacuna.getFecha()));
 	    	registroVacunaDatoLocal.agregarRegistroVacuna(registroVac);
 	    }
     }
