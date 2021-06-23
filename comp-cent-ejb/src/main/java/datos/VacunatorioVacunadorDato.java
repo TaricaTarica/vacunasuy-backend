@@ -32,18 +32,37 @@ public class VacunatorioVacunadorDato implements VacunatorioVacunadorDatoLocal {
 		em.persist(vacunatorioVacunador);
 	}
 	
-	public Vacunatorio buscarVacunatorio(Vacunador vacunador, LocalDate fecha) {
-		return em.createQuery("SELECT vv FROM VacunatorioVacunador vv "
-				+ "WHERE vv.vacunador.ci = :ciVacunador AND vv.fecha = :fecha ", Vacunatorio.class)
-				.setParameter("ciVacunador", vacunador.getCi())
-				.setParameter("fecha", fecha).getSingleResult();
+	public void quitarVacunadorVacunatorio(VacunatorioVacunador vacunatorioVacunador) {
+		em.remove(vacunatorioVacunador);
 	}
 	
-	public List<Vacunador> buscarVacunadoresAsignados(Vacunatorio vacunatorio, LocalDate fecha){
+	public Vacunatorio buscarVacunatorio(Vacunador vacunador) {
 		return em.createQuery("SELECT vv FROM VacunatorioVacunador vv "
-				+ "WHERE vv.vacuntorio.id = :idVacunatorio AND vv.fecha = :fecha", Vacunador.class)
-				.setParameter("idVacunatorio", vacunatorio.getId())
-				.setParameter("fecha", fecha).getResultList();
+				+ "WHERE vv.vacunador.ci = :ciVacunador", Vacunatorio.class)
+				.setParameter("ciVacunador", vacunador.getCi()).getSingleResult();
 	}
+	
+	public Boolean existeVacunatorio(long id) {
+		return (em.createQuery("Select v from VacunatorioVacunador v where v.vacunatorio.id = :id")
+				.setParameter("id", id).getResultList().size() > 0);
+		
+	}
+	
+	public List<VacunatorioVacunador> obtenerVacunatoriosVacunadores(long id) {
+		return em.createQuery("Select v from VacunatorioVacunador v where v.vacunatorio.id = :id", VacunatorioVacunador.class)
+				.setParameter("id", id).getResultList();
+		
+	}
+	
+	public List<Integer> buscarVacunadoresAsignados(Vacunatorio vacunatorio){
+		return em.createQuery("SELECT vv.vacunador.ci FROM VacunatorioVacunador vv "
+				+ "WHERE vv.vacunatorio.id = :idVacunatorio", Integer.class)
+				.setParameter("idVacunatorio", vacunatorio.getId()).getResultList();
+	}
+	
+	//public void EliminarVacunatorioAsignaciones(long id) {
+	//	em.createQuery("delete from VacunatorioVacunador where vacunatorio.id = :id").setParameter("id", id).executeUpdate();
+	//}
+	
 	
 }

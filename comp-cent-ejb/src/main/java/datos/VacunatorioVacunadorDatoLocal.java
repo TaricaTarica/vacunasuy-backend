@@ -13,7 +13,11 @@ import entidades.VacunatorioVacunador;
 public interface VacunatorioVacunadorDatoLocal {
 	
 	public void agregarVacunadorVacunatorio(VacunatorioVacunador vacunatorioVacunador);
-	public Vacunatorio buscarVacunatorio(Vacunador vacunador, LocalDate fecha);
-	public List<Vacunador> buscarVacunadoresAsignados(Vacunatorio vacunatorio, LocalDate fecha);
+	public Vacunatorio buscarVacunatorio(Vacunador vacunador);
+	public List<Integer> buscarVacunadoresAsignados(Vacunatorio vacunatorio);
+	public Boolean existeVacunatorio(long id);
+	//public void EliminarVacunatorioAsignaciones(long id);
+	public List<VacunatorioVacunador> obtenerVacunatoriosVacunadores(long id);
+	public void quitarVacunadorVacunatorio(VacunatorioVacunador vacunatorioVacunador);
 	
 }

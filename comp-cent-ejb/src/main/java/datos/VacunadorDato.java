@@ -1,11 +1,15 @@
 package datos;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
+import entidades.Usuario;
 import entidades.Vacunador;
 
 /**
@@ -43,6 +47,15 @@ public class VacunadorDato implements VacunadorDatoLocal {
 	@Override
 	public Vacunador obteneVacunadorPorCI(int ci) {
 		return em.find(Vacunador.class, ci);
+	}
+
+	
+	@Override
+	public List<Vacunador> obtenerVacunadoresLibres() {
+		// TODO Auto-generated method stub
+		
+		List<Vacunador> vacunadores = em.createQuery("SELECT v FROM Vacunador v WHERE v.ci not in (SELECT vv.vacunador.ci FROM VacunatorioVacunador vv)", Vacunador.class).getResultList();
+		return vacunadores;
 	}
 
 }

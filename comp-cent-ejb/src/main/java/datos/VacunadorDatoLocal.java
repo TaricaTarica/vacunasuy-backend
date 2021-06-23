@@ -17,4 +17,6 @@ public interface VacunadorDatoLocal {
 	
 	public Vacunador obteneVacunadorPorCI(int ci);
 	
+	public List<Vacunador> obtenerVacunadoresLibres();
+	
 }

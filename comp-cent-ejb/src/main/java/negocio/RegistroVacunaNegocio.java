@@ -70,13 +70,16 @@ public class RegistroVacunaNegocio implements RegistroVacunaNegocioLocal {
 		return registros;
     }
     
-    public void altaRegistroVacuna (DTRegistroVacuna regVacuna) {
-    	Ciudadano usuario = ciudadanoDatoLocal.obtenerCiudadano(regVacuna.getCedula());
-    	Vacunatorio vacunatorio = vacunatorioDatoLocal.obtenerVacunatorio(regVacuna.getIdVacunatorio());
-    	Vacuna vacuna = vacunaDatoLocal.obtenerVacunaPorId(regVacuna.getIdVacuna());
-    	RegistroVacuna registroVac = new RegistroVacuna(vacuna, usuario,vacunatorio, LocalDate.parse(regVacuna.getFecha()));
-    	registroVacunaDatoLocal.agregarRegistroVacuna(registroVac);
+    public void altaRegistroVacuna (List<DTRegistroVacuna> regVacunas) {
+    	for(DTRegistroVacuna regVacuna : regVacunas ) {
+	    	Ciudadano usuario = ciudadanoDatoLocal.obtenerCiudadano(regVacuna.getCedula());
+	    	Vacunatorio vacunatorio = vacunatorioDatoLocal.obtenerVacunatorio(regVacuna.getIdVacunatorio());
+	    	Vacuna vacuna = vacunaDatoLocal.obtenerVacunaPorId(regVacuna.getIdVacuna());
+	    	RegistroVacuna registroVac = new RegistroVacuna(vacuna, usuario,vacunatorio, LocalDate.parse(regVacuna.getFecha()));
+	    	registroVacunaDatoLocal.agregarRegistroVacuna(registroVac);
+	    }
     }
+    	
     
     public List<Integer> obtenerCantVac(DTVacuna vacuna, int anio) {
     	Vacuna vac = vacunaDatoLocal.obtenerVacunaPorId(vacuna.getId());
