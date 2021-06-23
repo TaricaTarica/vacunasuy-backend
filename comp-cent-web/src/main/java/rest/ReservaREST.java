@@ -145,5 +145,20 @@ public class ReservaREST {
 					.build();
 		}
 	}
+	@GET
+	@Path("count-agendados/{id}")
+	public Response countAgendadosHoy(@PathParam("id") long vacunaId) {
+		try {
+			return Response
+					.status(Response.Status.OK)
+					.entity(rnl.countAgendadosHoy(vacunaId))
+					.build();
+		}
+		catch(Exception e){
+			return Response
+					.status(Response.Status.INTERNAL_SERVER_ERROR)
+					.build();
+		}
+	}
 	
 }

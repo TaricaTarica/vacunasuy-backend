@@ -4,16 +4,18 @@ public class DTRegistroVacuna {
 	private int cedula;
 	private long idVacuna;
 	private long idVacunatorio;
+	private long idReserva;
 	private String fecha;
 	public DTRegistroVacuna() {
 		// TODO Auto-generated constructor stub
 	}
-	
-	public DTRegistroVacuna(int cedula, long idVacuna, long idVacunatorio, String fecha) {
+
+	public DTRegistroVacuna(int cedula, long idVacuna, long idVacunatorio, long idReserva, String fecha) {
 		super();
 		this.cedula = cedula;
 		this.idVacuna = idVacuna;
 		this.idVacunatorio = idVacunatorio;
+		this.idReserva = idReserva;
 		this.fecha = fecha;
 	}
 
@@ -44,4 +46,12 @@ public class DTRegistroVacuna {
 		this.fecha = fecha;
 	}
 
+	public long getIdReserva() {
+		return idReserva;
+	}
+
+	public void setIdReserva(long idReserva) {
+		this.idReserva = idReserva;
+	}
+	
 }

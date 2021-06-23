@@ -17,5 +17,6 @@ public interface AgendaNegocioLocal {
 	public void editarAgenda (DTAgenda dtAgenda) throws Exception;
 	public void eliminarAgenda (DTAgenda dtAgenda) throws Exception;
 	public Agenda obtenerAgendaActiva(long id, LocalDate fecha);
+	public int countAgendasActivasHoy(long vacunaId);
 	
 }
