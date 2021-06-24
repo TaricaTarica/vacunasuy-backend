@@ -161,11 +161,14 @@ private static final long serialVersionUID = -9187425136651928924L;
     }
 	
 	public void editarVacunatorio () throws Exception  {
-		vacunatorioLocal.editarVacunatorio(vacunatorioSeleccionado);
-		this.vacunatorioSeleccionado = null;
-	    PrimeFaces.current().executeScript("PF('editarVacunatorioDialog').hide()");
-	    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Vacunatorio editado correctamente","" ));
-	
+		try {
+			vacunatorioLocal.editarVacunatorio(vacunatorioSeleccionado);
+			this.vacunatorioSeleccionado = null;
+		    PrimeFaces.current().executeScript("PF('editarVacunatorioDialog').hide()");
+		    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Vacunatorio editado correctamente","" ));
+		} catch (Exception e){
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(),"" ));
+		}
 	}
 	
 	public void agregarVacunatorio () throws Exception {

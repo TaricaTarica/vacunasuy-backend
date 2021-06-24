@@ -20,10 +20,10 @@ import negocio.RegistroVacunaNegocioLocal;
 import negocio.ReservaNegocioLocal;
 
 @RequestScoped
-@Path("/vacunatorioPereira")
+@Path("/vacunatorio")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class VacunatorioPereiraREST {
+public class VacunatorioREST {
 
 	@EJB
 	private ReservaNegocioLocal reservaNegocio;
@@ -33,23 +33,21 @@ public class VacunatorioPereiraREST {
 	
 	
 	
-	public VacunatorioPereiraREST() throws NamingException {		
+	public VacunatorioREST() throws NamingException {		
 
 	}
 	
 	@POST
 	@Path("/obtenerRegistroVacuna")
 	public void altaRegistroVacuna(List<DTRegistroVacuna> regVacuna) {
-		for (DTRegistroVacuna v : regVacuna) {
-			v.setIdVacunatorio(1);
-		}
+		
 		registroNegocio.altaRegistroVacuna(regVacuna);
 	}
 	
 	@GET
 	@Path("/obtenerAgenda")
-	public List<DTReservaVacunatorio> obtenerReservasVacunatorio (@QueryParam("fecha") String fecha){
+	public List<DTReservaVacunatorio> obtenerReservasVacunatorio (@QueryParam("id") long id, @QueryParam("fecha") String fecha){
 		
-		return reservaNegocio.obtenerReservasVacunatorio(LocalDate.parse(fecha), 1);
+		return reservaNegocio.obtenerReservasVacunatorio(LocalDate.parse(fecha), id);
 	}
 }

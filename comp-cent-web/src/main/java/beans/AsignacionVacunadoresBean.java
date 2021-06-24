@@ -113,7 +113,7 @@ public class AsignacionVacunadoresBean implements Serializable {
 	public void asignarVacunadoresVacunatorio() {
 		
 	if (cedula.length > vacunatorio.getCantidadPuestos()) {
-		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Se superó la cantidad de vacunadores permitidos");
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Se superó la cantidad de vacunadores permitidos: "+ vacunatorio.getCantidadPuestos() );
         FacesContext.getCurrentInstance().addMessage(null, message);
 	}else {
 		

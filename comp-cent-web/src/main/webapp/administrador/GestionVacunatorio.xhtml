@@ -53,6 +53,14 @@
 				<p:column headerText="Cantidad de Puestos">
 					<h:outputText value="#{vac.cantidadPuestos}" />
 				</p:column>
+			
+				<p:column headerText="Localidad">
+					<h:outputText value="#{vac.ubicacion.description}" />
+				</p:column>
+				
+				<p:column headerText="Servicio Rest">
+					<h:outputText value="#{vac.dominio}" />
+				</p:column>
 				
 				<p:column headerText="Opciones">
 					<div style="display: flex; align-items: center;justify-content: center;"> 
@@ -120,7 +128,10 @@
 		                
 		                <h:outputLabel for="cantidadpuestos" value="Cantidad de Puestos"/>
 		            	<p:spinner id="cantidadpuestos" value="#{vacunatorioBean.vacunatorioSeleccionado.cantidadPuestos}" min="0" required="true"/>
-		        
+		        		
+		        		<h:outputLabel for="dominio" value="Servicio Rest:"/>
+		            	<p:message for="dominio" display="icon"> <p:inputText id="dominio" value="#{vacunatorioBean.vacunatorioSeleccionado.dominio}" required="true" requiredMessage="Debe ingresar una direccion del servicio"/>  </p:message>
+		            	
 		            	
 		            	 <h:outputLabel for="departamento" value="Departamento:"/>
 			                <p:selectOneMenu id="departamento" value="#{vacunatorioBean.nombreDepartamento}" required="true" requiredMessage="Debe seleccionar un Departamento" style="width:15rem">
@@ -167,9 +178,12 @@
 		            	<h:outputLabel for="codigo" value="Codigo:"/>
 		            	<p:message for="codigo" display="icon"> <p:inputText id="codigo" value="#{vacunatorioBean.vacunatorioSeleccionado.codigo}" required="true" requiredMessage="Debe ingresar un codigo para el vacunatorio"/>  </p:message>
 		            	
-		                
+		            	<h:outputLabel for="dominio" value="Servicio Rest:"/>
+		            	<p:message for="dominio" display="icon"> <p:inputText id="dominio" value="#{vacunatorioBean.vacunatorioSeleccionado.dominio}" required="true" requiredMessage="Debe ingresar una direccion del servicio"/>  </p:message>
+		            	
 		                <h:outputLabel for="cantidadpuestos" value="Cantidad de Puestos"/>
 		            	<p:spinner id="cantidadpuestos" value="#{vacunatorioBean.vacunatorioSeleccionado.cantidadPuestos}" min="0" required="true"/>
+		            	
 		            	    
 	            	</h:panelGrid>
 				

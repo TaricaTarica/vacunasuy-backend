@@ -5,6 +5,7 @@ import java.util.List;
 public class DTReservaVacunatorio {
 	private int ci;
 	private long idVacuna;
+	private long idReserva;
 	private String fecha;
 	
 	public DTReservaVacunatorio() {
@@ -35,6 +36,14 @@ public class DTReservaVacunatorio {
 
 	public void setFecha(String fecha) {
 		this.fecha = fecha;
+	}
+
+	public long getIdReserva() {
+		return idReserva;
+	}
+
+	public void setIdReserva(long idReserva) {
+		this.idReserva = idReserva;
 	}
 
 }

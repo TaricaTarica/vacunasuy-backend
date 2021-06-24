@@ -18,6 +18,7 @@ public class Reserva {
 	private long id;
 	private int hora;
 	private LocalDate fecha;
+	private int dosisSuministradas;
 	@Enumerated(value = EnumType.STRING)
 	private EstadoReserva estado;
 	
@@ -63,6 +64,7 @@ public class Reserva {
 		this.planVacunacion = planVacunacion;
 		this.departamento = departamento;
 		this.ubicacion = ubicacion;
+		this.dosisSuministradas = 0;
 	}
 
 	public long getId() {
@@ -143,6 +145,15 @@ public class Reserva {
 
 	public void setUbicacion(Ubicacion ubicacion) {
 		this.ubicacion = ubicacion;
+	}
+	
+
+	public int getDosisSuministradas() {
+		return dosisSuministradas;
+	}
+
+	public void setDosisSuministradas(int dosisSuministradas) {
+		this.dosisSuministradas = dosisSuministradas;
 	}
 
 	@Override

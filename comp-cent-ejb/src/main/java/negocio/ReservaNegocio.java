@@ -127,6 +127,7 @@ public class ReservaNegocio implements ReservaNegocioLocal {
 						reserva.setCi(res.getCiudadano().getCi());
 						reserva.setIdVacuna(res.getVacuna().getId());
 						reserva.setFecha(res.getFecha().toString());
+						reserva.setIdReserva(res.getId());
 						reservas.add(reserva);
 					}
 					return reservas;
