@@ -75,14 +75,19 @@ public class RegistroVacunaNegocio implements RegistroVacunaNegocioLocal {
 		return registros;
     }
     
-    public void altaRegistroVacuna (DTRegistroVacuna regVacuna) {
-    	Ciudadano usuario = ciudadanoDatoLocal.obtenerCiudadano(regVacuna.getCedula());
-    	Vacunatorio vacunatorio = vacunatorioDatoLocal.obtenerVacunatorio(regVacuna.getIdVacunatorio());
-    	Vacuna vacuna = vacunaDatoLocal.obtenerVacunaPorId(regVacuna.getIdVacuna());
-    	Reserva reserva = reservaDatoLocal.obtenerReserva(regVacuna.getIdReserva());
-    	RegistroVacuna registroVac = new RegistroVacuna(vacuna, usuario,vacunatorio, reserva, LocalDate.parse(regVacuna.getFecha()));
-    	registroVacunaDatoLocal.agregarRegistroVacuna(registroVac);
+    public void altaRegistroVacuna (List<DTRegistroVacuna> regVacunas) {
+    	for(DTRegistroVacuna regVacuna : regVacunas ) {
+	    	Ciudadano usuario = ciudadanoDatoLocal.obtenerCiudadano(regVacuna.getCedula());
+	    	Vacunatorio vacunatorio = vacunatorioDatoLocal.obtenerVacunatorio(regVacuna.getIdVacunatorio());
+	    	Vacuna vacuna = vacunaDatoLocal.obtenerVacunaPorId(regVacuna.getIdVacuna());
+	    	Reserva reserva = reservaDatoLocal.obtenerReserva(regVacuna.getIdReserva());
+	    	reserva.setDosisSuministradas(reserva.getDosisSuministradas()+1);
+	    	///FALTA CHEQUEAR SI ES LA ULTIMA DOSIS O SINO ASIGNARLE UNA RESERVA NUEVA
+	    	RegistroVacuna registroVac = new RegistroVacuna(vacuna, usuario,vacunatorio, reserva, LocalDate.parse(regVacuna.getFecha()));
+	    	registroVacunaDatoLocal.agregarRegistroVacuna(registroVac);
+	    }
     }
+    	
     
     public List<Integer> obtenerCantVac(DTVacuna vacuna, int anio) {
     	Vacuna vac = vacunaDatoLocal.obtenerVacunaPorId(vacuna.getId());

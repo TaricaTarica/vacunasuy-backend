@@ -1,6 +1,7 @@
-package negocio;
+package datatypes;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import datatypes.DTVacunador;
 import datatypes.DTVacunatorio;
@@ -12,22 +13,19 @@ public class DTVacunatorioVacunador {
 		// TODO Auto-generated constructor stub
 	}
 	private DTVacunatorio dtVacunatorio;
-	private DTVacunador dtVacunador;
-	private LocalDate fecha;
+	private List<DTVacunador> dtVacunador;
 	
 	
 	
-	public DTVacunatorioVacunador(DTVacunatorio dtVacunatorio, DTVacunador dtVacunador, LocalDate fecha) {
+	public DTVacunatorioVacunador(DTVacunatorio dtVacunatorio, List<DTVacunador> dtVacunador) {
 		super();
 		this.dtVacunatorio = dtVacunatorio;
 		this.dtVacunador = dtVacunador;
-		this.fecha = fecha;
 	}
 	
 	public DTVacunatorioVacunador(VacunatorioVacunador vacunatorioVacunador) {
 		this.dtVacunatorio = new DTVacunatorio(vacunatorioVacunador.getVacunatorio());
-		this.dtVacunador = new DTVacunador(vacunatorioVacunador.getVacunador());
-		this.fecha = vacunatorioVacunador.getFecha();
+
 		
 	}
 	
@@ -37,17 +35,14 @@ public class DTVacunatorioVacunador {
 	public void setDtVacunatorio(DTVacunatorio dtVacunatorio) {
 		this.dtVacunatorio = dtVacunatorio;
 	}
-	public DTVacunador getDtVacunador() {
+
+	public List<DTVacunador> getDtVacunador() {
 		return dtVacunador;
 	}
-	public void setDtVacunador(DTVacunador dtVacunador) {
+
+	public void setDtVacunador(List<DTVacunador> dtVacunador) {
 		this.dtVacunador = dtVacunador;
 	}
-	public LocalDate getFecha() {
-		return fecha;
-	}
-	public void setFecha(LocalDate fecha) {
-		this.fecha = fecha;
-	}
+	
 	
 }

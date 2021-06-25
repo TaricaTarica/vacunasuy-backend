@@ -27,8 +27,7 @@ public class VacunatorioVacunador {
 	)
 	private Vacunador vacunador;
 	
-	@Id
-	private LocalDate fecha;
+
 	
 	public VacunatorioVacunador() {
 		// TODO Auto-generated constructor stub
@@ -50,19 +49,12 @@ public class VacunatorioVacunador {
 		this.vacunador = vacunador;
 	}
 
-	public LocalDate getFecha() {
-		return fecha;
-	}
 
-	public void setFecha(LocalDate fecha) {
-		this.fecha = fecha;
-	}
-
-	public VacunatorioVacunador(Vacunatorio vacunatorio, Vacunador vacunador, LocalDate fecha) {
+	public VacunatorioVacunador(Vacunatorio vacunatorio, Vacunador vacunador) {
 		super();
 		this.vacunatorio = vacunatorio;
 		this.vacunador = vacunador;
-		this.fecha = fecha;
+		
 	}
 
 }

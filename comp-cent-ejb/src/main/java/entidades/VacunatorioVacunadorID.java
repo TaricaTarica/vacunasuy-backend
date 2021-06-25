@@ -11,7 +11,6 @@ public class VacunatorioVacunadorID implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private long vacunatorio;
 	private int vacunador;
-	private LocalDate fecha;
 	
 	public VacunatorioVacunadorID() {
 		// TODO Auto-generated constructor stub
@@ -40,19 +39,6 @@ public class VacunatorioVacunadorID implements Serializable{
 	public void setVacunador(int vacunador) {
 		this.vacunador = vacunador;
 	}
-
-
-
-	public LocalDate getFecha() {
-		return fecha;
-	}
-
-
-
-	public void setFecha(LocalDate fecha) {
-		this.fecha = fecha;
-	}
-
 
 
 	@Override

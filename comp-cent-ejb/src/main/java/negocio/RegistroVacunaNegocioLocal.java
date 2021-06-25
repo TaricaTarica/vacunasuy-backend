@@ -15,7 +15,7 @@ public interface RegistroVacunaNegocioLocal {
 	public List<DTCertificado> obtenerCertificados(String ci);
 	
 	 public List<RegistroVacuna> listarRegistros();
-	 public void altaRegistroVacuna (DTRegistroVacuna regVacuna);
+	 public void altaRegistroVacuna (List<DTRegistroVacuna> regVacuna);
 	 
 	 public List<Integer> obtenerCantVac(DTVacuna vacuna, int anio);
 	 

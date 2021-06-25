@@ -7,12 +7,13 @@ import javax.ejb.Local;
 
 import datatypes.DTVacunador;
 import datatypes.DTVacunatorio;
-
+import datatypes.DTVacunatorioVacunador;
 @Local
 public interface VacunatorioVacunadorNegocioLocal {
 
-	public void agregarVacunadorVacunatorio(DTVacunatorioVacunador dtVacunatorioVacunador);
-	public DTVacunatorio buscarVacunatorio(DTVacunador dtVacunador, LocalDate fecha);
-	public List<DTVacunador> buscarVacunadoresAsignados(DTVacunatorio dtVacunatorio, LocalDate fecha);
+	public void agregarVacunadorVacunatorio(DTVacunatorioVacunador dtVacunatorioVacunador) throws Exception;
+	public DTVacunatorio buscarVacunatorio(DTVacunador dtVacunador);
+	public List<DTVacunador> buscarVacunadoresAsignados(long id);
+	public List<DTVacunador> obtenerVacunadoresLibres();
 	
 }
