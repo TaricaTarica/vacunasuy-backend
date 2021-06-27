@@ -22,4 +22,12 @@ public interface ReservaDatoLocal {
 
 	public List<Reserva> obtenerReservasAgenda(LocalDate fecha, long id);
 
+	public List<Reserva> obtenerReservasPorUbicacion(long id);
+
+	public Reserva obtenerUltimaReserva(long id, LocalDate fecha);
+
+	public int obtenerCantidadUltimaHora(long id, LocalDate fecha, int hora);
+
+	public int obtenerCantidadReservasDia(long id, LocalDate fecha);
+
 }

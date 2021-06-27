@@ -76,11 +76,16 @@ public class AgendaDato implements AgendaDatoLocal {
 		Agenda agenda = em.createQuery("Select a from Agenda a where a.vacunatorio.id = :id and :fecha between a.inicio and a.fin",Agenda.class)
 				.setParameter("id",idVac)
 				.setParameter("fecha",fecha).getSingleResult();
-		
-		
-		return agenda;
-		
-		
+		return agenda;	
+	}
+	
+	@Override
+	public List<Agenda> obtenerAgendasFuturasVacunatorio(long idVac, LocalDate fecha) {
+		return em.createQuery("Select a from Agenda a where a.vacunatorio.id = :id and a.inicio > :fecha",Agenda.class)
+				.setParameter("id",idVac)
+				.setParameter("fecha",fecha).getResultList();
 		
 	}
+	
+	
 }
