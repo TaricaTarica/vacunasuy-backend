@@ -76,11 +76,30 @@ public class AgendaDato implements AgendaDatoLocal {
 		Agenda agenda = em.createQuery("Select a from Agenda a where a.vacunatorio.id = :id and :fecha between a.inicio and a.fin",Agenda.class)
 				.setParameter("id",idVac)
 				.setParameter("fecha",fecha).getSingleResult();
-		
-		
-		return agenda;
-		
-		
+		return agenda;	
+	}
+	
+	@Override
+	public List<Agenda> obtenerAgendasFuturasVacunatorio(long idVac, LocalDate fecha) {
+		return em.createQuery("Select a from Agenda a where a.vacunatorio.id = :id and a.inicio > :fecha",Agenda.class)
+				.setParameter("id",idVac)
+				.setParameter("fecha",fecha).getResultList();
 		
 	}
+	
+	@Override
+	public List<Agenda> obtenerAgendasActivasYPasadasVacunatorio(long idVacunatorio){
+		List<Agenda> agendas = this.listarAgenda();
+		List<Agenda> retorno = new ArrayList<>();
+		for(Agenda a: agendas){
+			if(a.getInicio().isBefore(LocalDate.now()) || a.getInicio().equals(LocalDate.now())) {
+				if(a.getVacunatorio().getId() == idVacunatorio) {
+					retorno.add(a);
+				}
+			}
+		}
+		return retorno;
+	}
+	
+	
 }

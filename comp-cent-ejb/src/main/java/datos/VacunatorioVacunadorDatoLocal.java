@@ -1,6 +1,5 @@
 package datos;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import javax.ejb.Local;

@@ -17,5 +17,7 @@ public interface AgendaDatoLocal {
 	public void eliminarAgenda(Agenda agenda);
 	public Boolean agendaSuperpuesta(Agenda agenda);
 	public Agenda obtenerAgendaActivaVacunatorio(long idVac, LocalDate fecha);
+	public List<Agenda> obtenerAgendasFuturasVacunatorio(long idVac, LocalDate fecha);
+	public List<Agenda> obtenerAgendasActivasYPasadasVacunatorio(long idVacunatorio);
 
 }

@@ -60,5 +60,45 @@ public class ReservaDato implements ReservaDatoLocal {
 				.getResultList();
 		
 	}
+	
+	@Override
+	public List<Reserva> obtenerReservasPorUbicacion(long id) {
+		return em.createQuery("Select r from Reserva r where r.ubicacion.id = :id and r.estado = :estado", Reserva.class).setParameter("id", id)
+				.setParameter("estado", EstadoReserva.Pendiente)
+				.getResultList();
+		
+	}
+	
+	@Override
+	public Reserva obtenerUltimaReserva(long id, LocalDate fecha) {
+	
+		List<Reserva> reserva = em.createQuery("Select r from Reserva r where r.agenda.id = :id and r.fecha = :fecha order by r.hora desc", Reserva.class).setParameter("id", id)
+				.setParameter("fecha", fecha)
+				.getResultList();
+		if (reserva.isEmpty()) {
+			return null;
+		}
+		return reserva.get(0);
+		
+		
+	}
+	
+
+	@Override
+	public int obtenerCantidadUltimaHora(long id, LocalDate fecha, int hora) {
+		return em.createQuery("Select r from Reserva r where r.agenda.id = :id and r.fecha = :fecha and r.hora = :hora", Reserva.class).setParameter("id", id)
+				.setParameter("fecha", fecha)
+				.setParameter("hora", hora)
+				.getResultList().size();
+		
+	}
+	
+	@Override
+	public int obtenerCantidadReservasDia(long id, LocalDate fecha) {
+		return  em.createQuery("Select r from Reserva r where r.agenda.id = :id and r.fecha = :fecha", Reserva.class).setParameter("id", id)
+				.setParameter("fecha", fecha)
+				.getResultList().size();
+		
+	}
 
 }

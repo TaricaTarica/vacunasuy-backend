@@ -3,8 +3,14 @@ package negocio;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+
+import javax.annotation.Resource;
 import javax.ejb.LocalBean;
+import javax.ejb.Schedule;
 import javax.ejb.Stateless;
+import javax.ejb.Timer;
+import javax.ejb.TimerService;
 import javax.inject.Inject;
 
 import datatypes.DTConsultaReservaCiudadano;
@@ -23,7 +29,9 @@ import entidades.PlanVacunacion;
 import entidades.Reserva;
 import entidades.Vacunatorio;
 import entidades.Ubicacion;
+import entidades.Vacuna;
 import enumeradores.EstadoReserva;
+import fechaActual.FechaActualLocal;
 
 /**
  * Session Bean implementation class ReservaNegocio
@@ -31,6 +39,9 @@ import enumeradores.EstadoReserva;
 @Stateless
 @LocalBean
 public class ReservaNegocio implements ReservaNegocioLocal {
+	
+	@Resource
+	TimerService timerService;
 	
 	@Inject
 	ReservaDatoLocal rdl;
@@ -54,7 +65,11 @@ public class ReservaNegocio implements ReservaNegocioLocal {
 	@Inject
 	DepartamentoDatoLocal ddl;
 	
-    /**
+	@Inject
+	FechaActualLocal fal;
+	
+	
+	/**
      * Default constructor. 
      */
     public ReservaNegocio() {
@@ -154,5 +169,63 @@ public class ReservaNegocio implements ReservaNegocioLocal {
 		
 		return retorno;
 	}
+	
+	public void setTimer(long interval) {
+    	timerService.createTimer(interval, "Seteando timer");
+    }
+   
+    @Schedule(second="59", minute="*/1", hour="0-23", dayOfWeek="*", month="*", year="*", info="TimerReserva")
+    private void generarReserva(final Timer t)  {
+    	System.out.println("entre al timer");
+     LocalDate fecha = fal.getFechaInicio();
+     List<Vacunatorio> vacunatorios = vdl.listarVacunatorio();
+     if (vacunatorios != null) {
+    	 for (Vacunatorio vac : vacunatorios) {
+    		 List<Reserva> reservasPendientes = rdl.obtenerReservasPorUbicacion(vac.getUbicacion().getId());
+    		 List<Agenda> agendasFuturas = adl.obtenerAgendasFuturasVacunatorio(vac.getId(), fecha);
+    		 while (!reservasPendientes.isEmpty() && !agendasFuturas.isEmpty()){
+    			 	Agenda agenda = agendasFuturas.get(0);
+    			 	LocalDate fechaActualenAgenda = agenda.getInicio();
+    			 	int cantidadReservaFecha = rdl.obtenerCantidadReservasDia(agenda.getId(), fechaActualenAgenda);
+    			 	int cantHoras = agenda.getHoraFin() - agenda.getHoraInicio();
+    			 	while(cantidadReservaFecha == 6*vac.getCantidadPuestos()*cantHoras && !fechaActualenAgenda.isAfter(agenda.getFin())) {
+    			 		fechaActualenAgenda= fechaActualenAgenda.plusDays(1);
+    			 		cantidadReservaFecha = rdl.obtenerCantidadReservasDia(agenda.getId(), fechaActualenAgenda);
+    			 	}
+    				if (fechaActualenAgenda.isAfter(agenda.getFin())) {
+    					agendasFuturas.remove(agenda);
+    				}else {
+    					Reserva ultimaReserva = rdl.obtenerUltimaReserva(agenda.getId(), fechaActualenAgenda );
+    					int horaDePartida = agenda.getHoraInicio();
+    					if(ultimaReserva!= null) {
+    						horaDePartida = ultimaReserva.getHora();
+    						int cantidadReservasHora = rdl.obtenerCantidadUltimaHora(agenda.getId(), fechaActualenAgenda, ultimaReserva.getHora());
+    						if ( 6*vac.getCantidadPuestos() == cantidadReservasHora) {
+    							horaDePartida++;
+    						}
+    					}		
+						Reserva reserva = reservasPendientes.get(0);
+						reserva.setAgenda(agenda);
+						reserva.setFecha(fechaActualenAgenda);
+						reserva.setHora(horaDePartida);
+						reserva.setEstado(EstadoReserva.Agendado);
+						PlanVacunacion plan = pvdl.obtenerPlanVacunacionPorId(reserva.getPlanVacunacion().getId());
+						List<Vacuna> vacunas = plan.getVacunas();
+						Random rand = new Random();
+						int nAleatorio = rand.nextInt(vacunas.size());
+						reserva.setVacuna(vacunas.get(nAleatorio));
+						rdl.editarReserva(reserva);
+						reservasPendientes.remove(reserva);
+						
+    				}		
+    					 
+    			 }
+    		 }
+    	 }
+    
+    }
+   
 
 }
+
+
