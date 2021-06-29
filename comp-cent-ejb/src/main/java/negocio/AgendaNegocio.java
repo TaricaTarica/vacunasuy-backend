@@ -13,10 +13,13 @@ import datatypes.DTPlanVacunacion;
 import datos.AgendaDatoLocal;
 import datos.PlanVacunacionDatoLocal;
 import datos.ReservaDatoLocal;
+import datos.VacunadorDatoLocal;
 import datos.VacunatorioDatoLocal;
+import datos.VacunatorioVacunadorDatoLocal;
 import entidades.Agenda;
 import entidades.PlanVacunacion;
 import entidades.Vacuna;
+import entidades.Vacunador;
 import entidades.Vacunatorio;
 
 /**
@@ -34,6 +37,11 @@ public class AgendaNegocio implements AgendaNegocioLocal {
 	private PlanVacunacionDatoLocal planLocal;
 	@EJB
 	private ReservaDatoLocal reservaLocal;
+	@EJB
+	private VacunatorioVacunadorDatoLocal vvl;
+	@EJB
+	private VacunadorDatoLocal vdl;
+	
     /**
      * Default constructor. 
      */
@@ -158,5 +166,20 @@ public class AgendaNegocio implements AgendaNegocioLocal {
 			}
 		}
 		return retorno;
+	}
+	
+	@Override
+	public List<DTAgenda> agendasVacunador(int ci){
+		List<DTAgenda> retorno = new ArrayList<DTAgenda>();
+		
+		Vacunador vacunador = vdl.obteneVacunadorPorCI(ci);
+		Vacunatorio vacunatorio = vvl.buscarVacunatorio(vacunador);
+		
+		List<Agenda> agendas = agendaLocal.obtenerAgendasActivasYPasadasVacunatorio(vacunatorio.getId());
+		for(Agenda a: agendas) {
+			retorno.add(new DTAgenda(a));
+		}
+
+		return retorno;		
 	}
 }

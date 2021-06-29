@@ -87,5 +87,19 @@ public class AgendaDato implements AgendaDatoLocal {
 		
 	}
 	
+	@Override
+	public List<Agenda> obtenerAgendasActivasYPasadasVacunatorio(long idVacunatorio){
+		List<Agenda> agendas = this.listarAgenda();
+		List<Agenda> retorno = new ArrayList<>();
+		for(Agenda a: agendas){
+			if(a.getInicio().isBefore(LocalDate.now()) || a.getInicio().equals(LocalDate.now())) {
+				if(a.getVacunatorio().getId() == idVacunatorio) {
+					retorno.add(a);
+				}
+			}
+		}
+		return retorno;
+	}
+	
 	
 }

@@ -19,4 +19,5 @@ public interface AgendaNegocioLocal {
 	public Agenda obtenerAgendaActiva(long id, LocalDate fecha);
 	public int countAgendasActivasHoy(long vacunaId);
 	
+	public List<DTAgenda> agendasVacunador(int ci);
 }

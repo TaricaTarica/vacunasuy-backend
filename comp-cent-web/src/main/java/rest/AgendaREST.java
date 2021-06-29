@@ -77,5 +77,17 @@ public class AgendaREST {
 		}
 	}
 	
+	@GET
+	@Path("/agendas-vacunador/{ci}")
+	public Response agendasVacunador(@PathParam("ci")int ci) {
+		try {
+			return Response.status(Response.Status.OK)
+					.entity(an.agendasVacunador(ci))
+					.build();
+		}
+		catch(Exception e) {
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+		}
+	}
 	
 }

@@ -65,4 +65,5 @@ public class VacunatorioVacunadorDato implements VacunatorioVacunadorDatoLocal {
 	//}
 	
 	
+	
 }
