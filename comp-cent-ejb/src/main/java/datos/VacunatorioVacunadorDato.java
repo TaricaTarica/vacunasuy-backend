@@ -1,8 +1,8 @@
 package datos;
 
-import java.time.LocalDate;
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -21,6 +21,7 @@ public class VacunatorioVacunadorDato implements VacunatorioVacunadorDatoLocal {
 
 	@PersistenceContext(name = "comp-centPersistenceUnit")
 	private EntityManager em;
+
     /**
      * Default constructor. 
      */
@@ -37,8 +38,8 @@ public class VacunatorioVacunadorDato implements VacunatorioVacunadorDatoLocal {
 	}
 	
 	public Vacunatorio buscarVacunatorio(Vacunador vacunador) {
-		return em.createQuery("SELECT vv FROM VacunatorioVacunador vv "
-				+ "WHERE vv.vacunador.ci = :ciVacunador", Vacunatorio.class)
+		return (Vacunatorio) em.createQuery("SELECT vv.vacunatorio FROM VacunatorioVacunador vv "
+				+ "WHERE vv.vacunador.ci = :ciVacunador")
 				.setParameter("ciVacunador", vacunador.getCi()).getSingleResult();
 	}
 	
