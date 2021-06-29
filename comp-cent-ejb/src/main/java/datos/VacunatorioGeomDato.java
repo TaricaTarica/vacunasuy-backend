@@ -1,5 +1,7 @@
 package datos;
 
+import java.util.List;
+
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -39,6 +41,17 @@ public class VacunatorioGeomDato implements VacunatorioGeomDatoLocal {
     	
     	/*Insert into markers (name, the_geom) VALUES ('Zion National Park', ST_GeomFromText('POINT(-112.68142 37.22299)', 4326));*/
     }
+    
+    @Override
+    public List<Integer> vacunatoriosCercanos(String lat, String lon){
+    	String value = "POINT("+lon+" "+lat+")";
+    	return em.createNativeQuery("SELECT vacunatorio_id FROM  vacunatoriogeom v\n"
+    			+ "WHERE ST_Intersects(v.geom , ST_BUFFER(ST_GeomFromText( :value , 4326), 0.05))")
+    			.setParameter("value", value).getResultList();
+    	
+    	
+    }
+    
     
     
 
