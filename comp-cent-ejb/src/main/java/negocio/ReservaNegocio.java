@@ -210,10 +210,12 @@ public class ReservaNegocio implements ReservaNegocioLocal {
 						reserva.setHora(horaDePartida);
 						reserva.setEstado(EstadoReserva.Agendado);
 						PlanVacunacion plan = pvdl.obtenerPlanVacunacionPorId(reserva.getPlanVacunacion().getId());
-						List<Vacuna> vacunas = plan.getVacunas();
-						Random rand = new Random();
-						int nAleatorio = rand.nextInt(vacunas.size());
-						reserva.setVacuna(vacunas.get(nAleatorio));
+						if (reserva.getVacuna() == null) {
+							List<Vacuna> vacunas = plan.getVacunas();
+							Random rand = new Random();
+							int nAleatorio = rand.nextInt(vacunas.size());
+							reserva.setVacuna(vacunas.get(nAleatorio));
+						}	
 						rdl.editarReserva(reserva);
 						reservasPendientes.remove(reserva);
 						

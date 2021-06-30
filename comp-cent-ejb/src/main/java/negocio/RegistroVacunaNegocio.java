@@ -15,9 +15,13 @@ import datos.ReservaDatoLocal;
 import datos.VacunaDatoLocal;
 import datos.VacunatorioDatoLocal;
 import entidades.Ciudadano;
+import entidades.Departamento;
+import entidades.PlanVacunacion;
 import entidades.RegistroVacuna;
 import entidades.Reserva;
+import entidades.Ubicacion;
 import entidades.Vacuna;
+import enumeradores.EstadoReserva;
 import enumeradores.Sexo;
 import entidades.Vacunatorio;
 
@@ -81,8 +85,18 @@ public class RegistroVacunaNegocio implements RegistroVacunaNegocioLocal {
 	    	Vacunatorio vacunatorio = vacunatorioDatoLocal.obtenerVacunatorio(regVacuna.getIdVacunatorio());
 	    	Vacuna vacuna = vacunaDatoLocal.obtenerVacunaPorId(regVacuna.getIdVacuna());
 	    	Reserva reserva = reservaDatoLocal.obtenerReserva(regVacuna.getIdReserva());
-	    	//reserva.setDosisSuministradas(reserva.getDosisSuministradas()+1);
-	    	///FALTA CHEQUEAR SI ES LA ULTIMA DOSIS O SINO ASIGNARLE UNA RESERVA NUEVA
+	    	reserva.setDosisSuministradas(reserva.getDosisSuministradas()+1);
+	    	if (reserva.getDosisSuministradas() < vacuna.getDosis()) {
+	    		Reserva reservaNueva = new Reserva();
+	    		reservaNueva.setCiudadano(usuario);
+	    		reservaNueva.setPlanVacunacion(reserva.getPlanVacunacion());
+	    		reservaNueva.setEstado(EstadoReserva.Pendiente);
+	    		reservaNueva.setDepartamento(reserva.getDepartamento());
+	    		reservaNueva.setUbicacion(reserva.getUbicacion());
+	    		reservaNueva.setVacuna(vacuna);
+	    		reservaNueva.setDosisSuministradas(reserva.getDosisSuministradas());
+	    		reservaDatoLocal.crearReserva(reservaNueva);
+	    	}
 	    	RegistroVacuna registroVac = new RegistroVacuna(vacuna, usuario,vacunatorio, reserva, LocalDate.parse(regVacuna.getFecha()));
 	    	registroVacunaDatoLocal.agregarRegistroVacuna(registroVac);
 	    }
