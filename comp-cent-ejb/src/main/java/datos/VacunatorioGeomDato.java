@@ -52,22 +52,13 @@ public class VacunatorioGeomDato implements VacunatorioGeomDatoLocal {
     
     @Override
     public List<DTVacunatorioGeom> vacunatoriosCercanos(String lat, String lon){
-    	
-    	
-    	
     	String value = "POINT("+lon+" "+lat+")";
-    	
-    	//List<String> vacunatorios = new ArrayList<String>();
-    	
     	List<DTVacunatorioGeom> vacunatorios = new ArrayList<DTVacunatorioGeom>();
     	Gson gson = new Gson();
     	
     	List<Object[]> retornoQuery = (List<Object[]>) em.createNativeQuery("SELECT vacunatorio_id, ST_AsGeoJSON (v.geom) FROM  vacunatoriogeom v\n"
     			+ "WHERE ST_Intersects(v.geom , ST_BUFFER(ST_GeomFromText( :value , 4326), 0.05))")
     			.setParameter("value", value).getResultList();
-    	
-    	System.out.println(retornoQuery);
-    	
     	
     	for(Object[] o: retornoQuery) {
     		BigInteger bigVacId = (BigInteger) o[0];
@@ -82,11 +73,5 @@ public class VacunatorioGeomDato implements VacunatorioGeomDatoLocal {
     	
     	return vacunatorios;
     	
-    	
-    	
     }
-    
-    
-    
-
 }
