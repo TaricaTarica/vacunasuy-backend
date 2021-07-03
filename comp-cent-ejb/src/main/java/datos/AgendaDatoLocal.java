@@ -19,5 +19,6 @@ public interface AgendaDatoLocal {
 	public Agenda obtenerAgendaActivaVacunatorio(long idVac, LocalDate fecha);
 	public List<Agenda> obtenerAgendasFuturasVacunatorio(long idVac, LocalDate fecha);
 	public List<Agenda> obtenerAgendasActivasYPasadasVacunatorio(long idVacunatorio);
+	public Boolean existeAgendaActiva(long idVac, LocalDate fecha);
 
 }
