@@ -12,7 +12,7 @@ import javax.ejb.Singleton;
 @LocalBean
 public class FechaActual implements FechaActualLocal {
 
-    private LocalDate fechaInicio = LocalDate.of(2020, 06, 14);
+    private LocalDate fechaInicio = LocalDate.of(2020, 12, 30);
     public FechaActual() {
         // TODO Auto-generated constructor stub
     	

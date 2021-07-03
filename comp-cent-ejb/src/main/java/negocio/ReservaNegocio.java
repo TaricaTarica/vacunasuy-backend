@@ -133,8 +133,9 @@ public class ReservaNegocio implements ReservaNegocioLocal {
 	public List<DTReservaVacunatorio> obtenerReservasVacunatorio (LocalDate fecha, long idVac){
 		Vacunatorio vacunatorio = vdl.obtenerVacunatorio(idVac);
 		List<DTReservaVacunatorio> reservas = new ArrayList<DTReservaVacunatorio>();
-		Agenda agenda = anl.obtenerAgendaActiva (vacunatorio.getId(), fecha);
-		if (agenda != null) {
+		Boolean existe = adl.existeAgendaActiva(vacunatorio.getId(), fecha);
+		if (existe) {
+			Agenda agenda = anl.obtenerAgendaActiva (vacunatorio.getId(), fecha);
 			List<Reserva> reservasAux =  rdl.obtenerReservasAgenda(fecha, agenda.getId());
 				if (reservas != null) {
 					for (Reserva res: reservasAux) {
@@ -188,7 +189,7 @@ public class ReservaNegocio implements ReservaNegocioLocal {
     			 	LocalDate fechaActualenAgenda = agenda.getInicio();
     			 	int cantidadReservaFecha = rdl.obtenerCantidadReservasDia(agenda.getId(), fechaActualenAgenda);
     			 	int cantHoras = agenda.getHoraFin() - agenda.getHoraInicio();
-    			 	while(cantidadReservaFecha == 6*vac.getCantidadPuestos()*cantHoras && !fechaActualenAgenda.isAfter(agenda.getFin())) {
+    			 	while(cantidadReservaFecha == 1*vac.getCantidadPuestos()*cantHoras && !fechaActualenAgenda.isAfter(agenda.getFin())) {
     			 		fechaActualenAgenda= fechaActualenAgenda.plusDays(1);
     			 		cantidadReservaFecha = rdl.obtenerCantidadReservasDia(agenda.getId(), fechaActualenAgenda);
     			 	}
@@ -200,7 +201,7 @@ public class ReservaNegocio implements ReservaNegocioLocal {
     					if(ultimaReserva!= null) {
     						horaDePartida = ultimaReserva.getHora();
     						int cantidadReservasHora = rdl.obtenerCantidadUltimaHora(agenda.getId(), fechaActualenAgenda, ultimaReserva.getHora());
-    						if ( 6*vac.getCantidadPuestos() == cantidadReservasHora) {
+    						if ( 1*vac.getCantidadPuestos() == cantidadReservasHora) {
     							horaDePartida++;
     						}
     					}		
