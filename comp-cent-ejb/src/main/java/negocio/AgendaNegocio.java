@@ -177,9 +177,10 @@ public class AgendaNegocio implements AgendaNegocioLocal {
 		
 		List<Agenda> agendas = agendaLocal.obtenerAgendasActivasYPasadasVacunatorio(vacunatorio.getId());
 		for(Agenda a: agendas) {
-			retorno.add(new DTAgenda(a));
+			DTAgenda dtagenda = new DTAgenda(a);
+			//dtagenda.setFechaAsignado(vvl.obtenerFechaAsignado(vacunatorio.getId(), ci).toString());
+			retorno.add(dtagenda);
 		}
-
 		return retorno;		
 	}
 }

@@ -10,7 +10,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import datatypes.DTVacunatorio;
 import negocio.VacunadorNegocioLocal;
+import negocio.VacunatorioNegocioLocal;
+import negocio.VacunatorioVacunadorNegocioLocal;
 
 @RequestScoped
 @Path("/vacunador")
@@ -20,6 +23,10 @@ public class VacunadorREST {
 
 	@EJB
 	VacunadorNegocioLocal vnl;
+	@EJB
+	VacunatorioNegocioLocal vacnl;
+	@EJB
+	VacunatorioVacunadorNegocioLocal vvnl;
 	
 	@GET
 	@Path("/es-vacunador/{ci}")
@@ -38,4 +45,22 @@ public class VacunadorREST {
 	           		 .build();
 		}
 	}
+	@GET
+	@Path("/puesto-vacunador/{ciVacunador}/{codigoVacunatorio}")
+	public Response puestoVacunador(@PathParam("ciVacunador") String ciVacunador, @PathParam("codigoVacunatorio") String codigoVacunatorio) {
+		try {
+			DTVacunatorio dtVacunatorio = vacnl.obtenerVacunatorioPorCodigo(codigoVacunatorio);
+			int numeroCi = Integer.parseInt(ciVacunador);
+			return Response
+	           		 .status(Response.Status.OK)
+	           		 .entity(vvnl.obtenerPuestoVacunador(numeroCi, dtVacunatorio))
+	           		 .build();
+		}
+		catch(Exception e) {
+			return Response
+	           		 .status(Response.Status.INTERNAL_SERVER_ERROR)
+	           		 .build();
+		}
+	}
+	
 }

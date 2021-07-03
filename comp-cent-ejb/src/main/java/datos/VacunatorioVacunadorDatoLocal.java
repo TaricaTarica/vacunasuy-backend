@@ -1,5 +1,6 @@
 package datos;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.ejb.Local;
@@ -18,5 +19,7 @@ public interface VacunatorioVacunadorDatoLocal {
 	//public void EliminarVacunatorioAsignaciones(long id);
 	public List<VacunatorioVacunador> obtenerVacunatoriosVacunadores(long id);
 	public void quitarVacunadorVacunatorio(VacunatorioVacunador vacunatorioVacunador);
+	
+	public LocalDate obtenerFechaAsignado(long vacunatorioId, int ci);
 	
 }

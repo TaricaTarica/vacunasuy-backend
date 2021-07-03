@@ -18,6 +18,8 @@ public class DTAgenda {
 	private DTVacunatorio dtVacunatorio;
 	private List<DTPlanVacunacion> listDtPlanVacunacion;
 	
+	private String fechaAsignado;
+	
 	public DTAgenda() {
 		super();
 	}
@@ -101,6 +103,14 @@ public class DTAgenda {
 
 	public void setHoraFin(int horaFin) {
 		this.horaFin = horaFin;
+	}
+	
+	public String getFechaAsignado() {
+		return fechaAsignado;
+	}
+
+	public void setFechaAsignado(String fechaAsignado) {
+		this.fechaAsignado = fechaAsignado;
 	}
 
 	@Override
