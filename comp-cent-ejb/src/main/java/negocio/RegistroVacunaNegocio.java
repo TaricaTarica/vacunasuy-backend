@@ -260,7 +260,14 @@ public class RegistroVacunaNegocio implements RegistroVacunaNegocioLocal {
 		RegistroVacuna registroVacuna = registroVacunaDatoLocal.obtenerCertificadoReserva(idReserva);
 		DTCertificado retorno = new DTCertificado();
     	Vacuna vac = registroVacuna.getVacuna();
-		
+    	Ciudadano cdn = registroVacuna.getCiudadano();
+    	
+    	retorno.setNombreCompleto(
+    		cdn.getPrimerNombre() + " " +
+    		cdn.getPrimerApellido()
+    	);
+    	retorno.setCedula(String.valueOf(cdn.getCi()));
+    	retorno.setFechaNacimiento(cdn.getFnac().toString());
     	retorno.setFechaVacuna(registroVacuna.getFecha().toString());
 		retorno.setIdVacuna(String.valueOf(vac.getId()));
 		retorno.setNombreVacuna(vac.getNombre());
@@ -271,7 +278,7 @@ public class RegistroVacunaNegocio implements RegistroVacunaNegocioLocal {
 		retorno.setIdEnfermedad(String.valueOf(vac.getEnfermedad().getId()));
 		retorno.setNombreEnfermedad(vac.getEnfermedad().getNombre());
 		retorno.setIdReserva(String.valueOf(registroVacuna.getReserva().getId()));
-
+		
 		return retorno;
 	}
     
