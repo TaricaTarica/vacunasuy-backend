@@ -113,4 +113,15 @@ public class RegistroVacunaDato implements RegistroVacunaDatoLocal {
     	return cant;
     }
     
+    @Override
+    public RegistroVacuna obtenerCertificadoReserva(long idReserva) {
+    	List<RegistroVacuna> registros = this.obtenerRegistro();
+    	RegistroVacuna retorno = null;
+    	for(RegistroVacuna r: registros) {
+    		if(r.getReserva().getId() == idReserva) {
+    			retorno = r;
+    		}
+    	}
+    	return retorno;
+    }
 }

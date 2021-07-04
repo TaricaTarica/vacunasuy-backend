@@ -28,4 +28,6 @@ public interface RegistroVacunaNegocioLocal {
 	 public int[] countVacunadosPorMes(long vacunaId, int ano);
 	 
 	 public int[] countVacunadosPorDepartamento(long vacunaId, int ano);
+	 
+	 public DTCertificado obtenerCertificadoReserva(long idReserva);
 }

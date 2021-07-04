@@ -254,5 +254,25 @@ public class RegistroVacunaNegocio implements RegistroVacunaNegocioLocal {
     	
     	return countVacunadosPorDepartamento;
 	}
+	
+	@Override
+	public DTCertificado obtenerCertificadoReserva(long idReserva) {
+		RegistroVacuna registroVacuna = registroVacunaDatoLocal.obtenerCertificadoReserva(idReserva);
+		DTCertificado retorno = new DTCertificado();
+    	Vacuna vac = registroVacuna.getVacuna();
+		
+    	retorno.setFechaVacuna(registroVacuna.getFecha().toString());
+		retorno.setIdVacuna(String.valueOf(vac.getId()));
+		retorno.setNombreVacuna(vac.getNombre());
+		retorno.setLaboratorioVacuna(vac.getLaboratorio());
+		retorno.setCodigoVacuna(vac.getCodigo());
+		retorno.setCantDosis(String.valueOf(vac.getDosis()));
+		retorno.setPeriodoInmunidad(String.valueOf(vac.getPeriodoInmune()));
+		retorno.setIdEnfermedad(String.valueOf(vac.getEnfermedad().getId()));
+		retorno.setNombreEnfermedad(vac.getEnfermedad().getNombre());
+		retorno.setIdReserva(String.valueOf(registroVacuna.getReserva().getId()));
+
+		return retorno;
+	}
     
 }

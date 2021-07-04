@@ -23,4 +23,6 @@ public interface RegistroVacunaDatoLocal {
 	
 	public int cantRegistroPorEdad(Vacuna vacuna, int edadMin, int edadMax, int anio);
 	
+	public RegistroVacuna obtenerCertificadoReserva(long idReserva);
+	
 }
