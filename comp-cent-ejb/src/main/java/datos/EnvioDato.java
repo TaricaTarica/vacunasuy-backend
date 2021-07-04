@@ -1,7 +1,7 @@
 package datos;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 
@@ -15,7 +15,6 @@ import datatypes.DTLote;
 import datatypes.DTSocioLogistico;
 import datatypes.DTVacunatorio;
 import datatypes.DTVistaEnvio;
-import entidades.Agenda;
 import entidades.Envio;
 import entidades.Lote;
 import enumeradores.EstadoEnvio;
@@ -118,6 +117,16 @@ public class EnvioDato implements EnvioDatoLocal {
 			
 		}
 		return lista;
+	}
+	
+	public List<Envio> cantVacEnviado(long idVacunatorio, int anio) {
+		LocalDate fecha = LocalDate.of(anio, 12, 31);
+		List<Envio> envios = em.createQuery("Select e from Envio e where e.vacunatorio.id = :idVacunatorio "
+				+ "and e.fechaCreacion <= :fecha and e.estado = 'Entregado'", Envio.class)
+				.setParameter("idVacunatorio", idVacunatorio)
+				.setParameter("fecha",fecha)
+				.getResultList();
+		return envios;
 	}
 	
 }

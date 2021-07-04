@@ -281,5 +281,9 @@ public class RegistroVacunaNegocio implements RegistroVacunaNegocioLocal {
 		
 		return retorno;
 	}
+	
+	public int cantVacHastaFecha(long vacunaId, LocalDate fecha) {
+		return registroVacunaDatoLocal.cantVacHastaFecha(vacunaId, fecha);
+	}
     
 }

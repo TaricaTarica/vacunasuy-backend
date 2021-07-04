@@ -11,6 +11,8 @@ import javax.ejb.Stateless;
 import datatypes.DTEnvio;
 import datatypes.DTLote;
 import datatypes.DTSocioLogistico;
+import datatypes.DTStockVacuna;
+import datatypes.DTVacuna;
 import datatypes.DTVacunatorio;
 import datos.EnvioDatoLocal;
 import datos.LoteDatoLocal;
@@ -19,6 +21,7 @@ import datos.VacunatorioDatoLocal;
 import entidades.Envio;
 import entidades.Lote;
 import entidades.SocioLogistico;
+import entidades.Vacuna;
 import entidades.Vacunatorio;
 import enumeradores.EstadoEnvio;
 
@@ -113,5 +116,35 @@ public class EnvioNegocio implements EnvioNegocioLocal {
 		return lotes;
     }
 	
+	@Override
+	public List<DTStockVacuna> stockEnviado(long idVacunatorio, int anio) {
+		
+		List<Envio> envios = envioLocal.cantVacEnviado(idVacunatorio, anio);
+		List<DTStockVacuna> listStock = new ArrayList<DTStockVacuna>();
+		for (Envio env: envios) {
+			if (existeVacuna(listStock,env.getLote().getVacuna())){
+				int i = 0;
+				while (listStock.get(i).getVacunaId() != env.getLote().getVacuna().getId()) {
+					i++;
+				}
+				listStock.get(i).setCant(listStock.get(i).getCant() + env.getLote().getCantVacunas());
+			} else {
+				listStock.add(new DTStockVacuna(env.getLote().getVacuna().getId(),
+						env.getLote().getVacuna().getCodigo(),env.getLote().getVacuna().getNombre(),
+						env.getLote().getVacuna().getLaboratorio(), env.getLote().getVacuna().getEnfermedad().getNombre(),
+						env.getLote().getCantVacunas()));
+			}
+		}
+		return listStock;
+	}
+	
+	private Boolean existeVacuna(List<DTStockVacuna> list, Vacuna vacuna) {
+		for (DTStockVacuna vac : list) {
+			if (vac.getVacunaId() == vacuna.getId()) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 }

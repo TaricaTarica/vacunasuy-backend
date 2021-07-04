@@ -1,5 +1,6 @@
 package negocio;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.ejb.Local;
@@ -30,4 +31,6 @@ public interface RegistroVacunaNegocioLocal {
 	 public int[] countVacunadosPorDepartamento(long vacunaId, int ano);
 	 
 	 public DTCertificado obtenerCertificadoReserva(long idReserva);
+	 
+	 public int cantVacHastaFecha(long vacunaId, LocalDate fecha);
 }
