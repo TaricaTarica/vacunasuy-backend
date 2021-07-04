@@ -15,11 +15,8 @@ import datos.ReservaDatoLocal;
 import datos.VacunaDatoLocal;
 import datos.VacunatorioDatoLocal;
 import entidades.Ciudadano;
-import entidades.Departamento;
-import entidades.PlanVacunacion;
 import entidades.RegistroVacuna;
 import entidades.Reserva;
-import entidades.Ubicacion;
 import entidades.Vacuna;
 import enumeradores.EstadoReserva;
 import enumeradores.Sexo;
@@ -67,6 +64,7 @@ public class RegistroVacunaNegocio implements RegistroVacunaNegocioLocal {
         		dtCert.setPeriodoInmunidad(String.valueOf(vac.getPeriodoInmune()));
         		dtCert.setIdEnfermedad(String.valueOf(vac.getEnfermedad().getId()));
         		dtCert.setNombreEnfermedad(vac.getEnfermedad().getNombre());
+        		dtCert.setIdReserva(String.valueOf(regVac.getReserva().getId()));
         		listCert.add(dtCert);
         		
         	}

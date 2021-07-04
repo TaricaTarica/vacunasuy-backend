@@ -14,6 +14,7 @@ public class DTCertificado {
 	private String periodoInmunidad;
 	private String idEnfermedad;
 	private String nombreEnfermedad;
+	private String idReserva;
 	
 	
 	
@@ -23,7 +24,7 @@ public class DTCertificado {
 	}
 	
 	public DTCertificado(String fechaVacuna,String idVacuna,String nombreVacuna,String laboratorioVacuna,String codigoVacuna
-	,String cantDosis,String periodoInmunidad,String idEnfermedad,String nombreEnfermedad) {
+	,String cantDosis,String periodoInmunidad,String idEnfermedad,String nombreEnfermedad, String idReserva) {
 		super();
 		// TODO Auto-generated constructor stub
 		this.fechaVacuna = fechaVacuna;
@@ -35,6 +36,7 @@ public class DTCertificado {
 		this.periodoInmunidad = periodoInmunidad;
 		this.idEnfermedad = idEnfermedad;
 		this.nombreEnfermedad = nombreEnfermedad;
+		this.idReserva = idReserva;
 	}
 	
 
@@ -92,7 +94,13 @@ public class DTCertificado {
 	public void setNombreEnfermedad(String nombreEnfermedad) {
 		this.nombreEnfermedad = nombreEnfermedad;
 	}
-	
-	
+
+	public String getIdReserva() {
+		return idReserva;
+	}
+
+	public void setIdReserva(String idReserva) {
+		this.idReserva = idReserva;
+	}
 	
 }
