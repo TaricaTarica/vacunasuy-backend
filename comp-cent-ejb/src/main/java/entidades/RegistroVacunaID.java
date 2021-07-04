@@ -11,10 +11,6 @@ public class RegistroVacunaID implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	@Id 
-	@GeneratedValue
-	private long id;
 		
 	private long vacuna;
 	private int ciudadano;
