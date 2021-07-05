@@ -157,6 +157,22 @@ public class GoogleMapsBean implements Serializable {
 	}
 
 
-	
+	public DTVacunatorio obtenerVacunatorio() {
+		
+		
+		System.out.println(vacunatorio.getNombre());
+		System.out.println(vacunatorio.getCodigo());
+		
+		
+		for (DTVacunatorio vac : vacunatorios) {
+			
+			if (vac.getNombre().equals(nombreVacunatorio)) {
+				setVacunatorio(vac);
+			} else {
+				System.out.println("Vacunatorio null");
+			}
+		}
+		return vacunatorio;
+	}
 	
 }

@@ -58,16 +58,16 @@
 		<h:form id="form">
             <p:spacer width="5"/>
 			<div id="prueba" class="p-field p-col-12 p-md-4">
-			
-				 <h:outputLabel for="vacunatorio" value="Vacunatorio:"/>
+				 <h:outputLabel for="vacunatorio" value=" "/>
 			                <p:selectOneMenu id="vacunatorio" value="#{googleMapsBean.nombreVacunatorio}" required="true" requiredMessage="Debe seleccionar un Vacunatorio" style="width:15rem">
 			                   <f:selectItem itemLabel="Seleccionar Vacunatorio" itemValue="" noSelectionOption="true"/>
-			                    <f:selectItems value="#{googleMapsBean.vacunatorios}"/>
+			                   <f:selectItems value="#{googleMapsBean.vacunatorios}"/>
 			                </p:selectOneMenu>
             </div>
+     		
 			<h:inputHidden id="y" value="#{googleMapsBean.y}" />
     		<h:inputHidden id="x" value="#{googleMapsBean.x}"/> 
-			<h:commandButton  value="agregar" action="#{googleMapsBean.insertarCoordenadas()}" update="prueba"/>
+			<h:commandButton value="agregar Coordenadas" action="#{googleMapsBean.insertarCoordenadas()}" update="prueba"/>
 		</h:form>
 		
 		</div>
