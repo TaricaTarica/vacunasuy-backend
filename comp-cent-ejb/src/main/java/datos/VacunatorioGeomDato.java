@@ -1,5 +1,7 @@
 package datos;
 
+import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -8,6 +10,12 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
+import datatypes.DTVacunatorioGeom;
+import entidades.Vacunatorio;
 
 
 /**
@@ -43,16 +51,27 @@ public class VacunatorioGeomDato implements VacunatorioGeomDatoLocal {
     }
     
     @Override
-    public List<Integer> vacunatoriosCercanos(String lat, String lon){
+    public List<DTVacunatorioGeom> vacunatoriosCercanos(String lat, String lon){
     	String value = "POINT("+lon+" "+lat+")";
-    	return em.createNativeQuery("SELECT vacunatorio_id FROM  vacunatoriogeom v\n"
+    	List<DTVacunatorioGeom> vacunatorios = new ArrayList<DTVacunatorioGeom>();
+    	Gson gson = new Gson();
+    	
+    	List<Object[]> retornoQuery = (List<Object[]>) em.createNativeQuery("SELECT vacunatorio_id, ST_AsGeoJSON (v.geom) FROM  vacunatoriogeom v\n"
     			+ "WHERE ST_Intersects(v.geom , ST_BUFFER(ST_GeomFromText( :value , 4326), 0.05))")
     			.setParameter("value", value).getResultList();
     	
+    	for(Object[] o: retornoQuery) {
+    		BigInteger bigVacId = (BigInteger) o[0];
+    		JsonObject jsonObject = gson.fromJson( (String) o[1], JsonObject.class);
+    		Vacunatorio vacunatorio = vdl.obtenerVacunatorio( bigVacId.longValue());
+    		vacunatorios.add(new DTVacunatorioGeom(
+    				vacunatorio.getId(),
+    				vacunatorio.getNombre(),
+    				jsonObject.get("coordinates").toString()
+    		));
+    	}
+    	
+    	return vacunatorios;
     	
     }
-    
-    
-    
-
 }

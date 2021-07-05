@@ -20,4 +20,5 @@ public interface AgendaNegocioLocal {
 	public int countAgendasActivasHoy(long vacunaId);
 	
 	public List<DTAgenda> agendasVacunador(int ci);
+	
 }

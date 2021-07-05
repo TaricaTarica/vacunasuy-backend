@@ -7,6 +7,7 @@ import javax.ejb.Local;
 import datatypes.DTEnvio;
 import datatypes.DTLote;
 import datatypes.DTSocioLogistico;
+import datatypes.DTStockVacuna;
 import datatypes.DTVacunatorio;
 import enumeradores.EstadoEnvio;
 
@@ -18,4 +19,5 @@ public interface EnvioNegocioLocal {
 	public void AgregarEnvio(DTEnvio envio, DTLote lote,  DTVacunatorio vacunatorio, DTSocioLogistico dtSocio ) throws Exception;
 	public List<String> listarEstado ();
 	public List<DTLote> listarLotePendientesDeEnviar ();
+	public List<DTStockVacuna> stockEnviado(long idVacunatorio, int anio);
 }

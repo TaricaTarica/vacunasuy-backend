@@ -70,6 +70,15 @@ public class AgendaDato implements AgendaDatoLocal {
 		}
 		return false;
 	}
+	
+	@Override
+	public Boolean existeAgendaActiva(long idVac, LocalDate fecha) {
+		Boolean existe = (em.createQuery("Select a from Agenda a where a.vacunatorio.id = :id and :fecha between a.inicio and a.fin")
+				.setParameter("id",idVac)
+				.setParameter("fecha",fecha).getResultList().size()> 0);	
+		return existe;
+
+	}
 
 	@Override
 	public Agenda obtenerAgendaActivaVacunatorio(long idVac, LocalDate fecha) {

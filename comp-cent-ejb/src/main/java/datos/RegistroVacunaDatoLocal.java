@@ -1,5 +1,6 @@
 package datos;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.ejb.Local;
@@ -22,5 +23,9 @@ public interface RegistroVacunaDatoLocal {
 	public int cantRegistroPorSexo(Vacuna vacuna, Sexo sexo, int anio);
 	
 	public int cantRegistroPorEdad(Vacuna vacuna, int edadMin, int edadMax, int anio);
+	
+	public RegistroVacuna obtenerCertificadoReserva(long idReserva);
+	
+	public int cantVacHastaFecha(long vacunaId, LocalDate fecha);
 	
 }

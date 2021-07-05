@@ -15,5 +15,6 @@ public interface VacunatorioVacunadorNegocioLocal {
 	public DTVacunatorio buscarVacunatorio(DTVacunador dtVacunador);
 	public List<DTVacunador> buscarVacunadoresAsignados(long id);
 	public List<DTVacunador> obtenerVacunadoresLibres();
+	public Integer obtenerPuestoVacunador(int ciVacunador,DTVacunatorio dtVacunatorio); 
 	
 }

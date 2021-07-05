@@ -100,4 +100,19 @@ public class RegistroVacunaREST {
 		}
 	}
 	
+	@GET
+	@Path("obtener-certificado-reserva/{id}")
+	public Response obtenerCertificadoReserva(@PathParam("id") long idReserva) {
+		try {
+			return Response
+					.status(Response.Status.OK)
+					.entity(regVacLocal.obtenerCertificadoReserva(idReserva))
+					.build();
+		}
+		catch(Exception e){
+			return Response
+					.status(Response.Status.INTERNAL_SERVER_ERROR)
+					.build();
+		}
+	}
 }

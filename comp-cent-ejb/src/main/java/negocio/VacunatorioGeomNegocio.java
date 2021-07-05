@@ -6,6 +6,7 @@ import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
+import datatypes.DTVacunatorioGeom;
 import datos.VacunatorioGeomDatoLocal;
 
 /**
@@ -28,7 +29,7 @@ public class VacunatorioGeomNegocio implements VacunatorioGeomNegocioLocal {
     }
     
     @Override
-    public List<Integer> vacunatoriosCercanos(String lat, String lon){
+    public List<DTVacunatorioGeom> vacunatoriosCercanos(String lat, String lon){
     	return vgdl.vacunatoriosCercanos(lat, lon);
     }
     

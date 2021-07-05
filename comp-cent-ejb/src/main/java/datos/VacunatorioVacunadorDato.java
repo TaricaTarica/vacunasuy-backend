@@ -1,8 +1,8 @@
 package datos;
 
+import java.time.LocalDate;
 import java.util.List;
 
-import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -64,6 +64,13 @@ public class VacunatorioVacunadorDato implements VacunatorioVacunadorDatoLocal {
 	//public void EliminarVacunatorioAsignaciones(long id) {
 	//	em.createQuery("delete from VacunatorioVacunador where vacunatorio.id = :id").setParameter("id", id).executeUpdate();
 	//}
+	
+	public LocalDate obtenerFechaAsignado(long vacunatorioId, int ci) {
+		return (LocalDate) em.createQuery("SELECT vv.fecha FROM VacunatorioVacunador vv "
+				+ "WHERE vv.vacunatorio.id = :vacunatorioId AND vv.vacunador.ci = :ci")
+				.setParameter("vacunatorioId", vacunatorioId).setParameter("ci", ci).getSingleResult();
+
+	}
 	
 	
 	

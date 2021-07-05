@@ -116,12 +116,11 @@ public class VacunatorioVacunadorNegocio implements VacunatorioVacunadorNegocioL
 		return listDTVacunadores;
 	}
     
-    public Integer obtenerPuestoVacunador(DTVacunador dtVacunador,DTVacunatorio dtVacunatorio) {
+    public Integer obtenerPuestoVacunador(int ciVacunador,DTVacunatorio dtVacunatorio) {
     	// Cliente para la conexión
         Client client = ClientBuilder.newClient();
        UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(dtVacunatorio.getDominio() + "/obtenerPuesto")
-                //.queryParam("fecha", fecha.toString())
-                .queryParam("cedula", dtVacunador.getCi());
+                .queryParam("cedula", ciVacunador);
        // Definición de URL
        WebTarget target = client.target(builder.buildAndExpand().toUri());
        
