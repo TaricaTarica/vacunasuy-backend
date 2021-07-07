@@ -20,12 +20,14 @@ import datatypes.DTReservaVacunatorio;
 import datos.AgendaDatoLocal;
 import datos.CiudadanoDatoLocal;
 import datos.DepartamentoDatoLocal;
+import datos.NotificacionTokenDatoLocal;
 import datos.PlanVacunacionDatoLocal;
 import datos.ReservaDatoLocal;
 import datos.VacunatorioDatoLocal;
 import entidades.Agenda;
 import entidades.Ciudadano;
 import entidades.Departamento;
+import entidades.NotificacionToken;
 import entidades.PlanVacunacion;
 import entidades.Reserva;
 import entidades.Vacunatorio;
@@ -73,6 +75,9 @@ public class ReservaNegocio implements ReservaNegocioLocal {
 	
 	@Inject 
 	ServiceAgentFirebaseLocal saFirebase;
+	
+	@Inject 
+	NotificacionTokenDatoLocal ntdl;
 	
 	
 	/**
@@ -226,10 +231,12 @@ public class ReservaNegocio implements ReservaNegocioLocal {
 							reserva.setVacuna(vacunas.get(nAleatorio));
 						}	
 						rdl.editarReserva(reserva);
-						
-						NotificationInfo notificacion = new NotificationInfo("dpIj9OwSQHyVa4ZHAn5VBK:APA91bFSIgSeHdW6Eh1tqQM0Rp_o10MhpyHVx_qd2Cv0qkggU25w4gJDAU3XMnXLpeyprQhQkqZnODpwnGib1JIdwUjUVIk3u5b0TTHJm0ihe500p1V8vZeAabNlgtloZlAGV8pNnBiz",
-								new NotificationInfoData("VacunasUy", "Su reserva fue confirmada"));
-								saFirebase.sendPushNotification(notificacion);
+						List<NotificacionToken> tokens = ntdl.getUserTokens(reserva.getCiudadano());
+						for (NotificacionToken token : tokens) {
+							NotificationInfo notificacion = new NotificationInfo(token.getToken(),
+									new NotificationInfoData("Reserva confirmada", "Vacunatorio: " + reserva.getAgenda().getVacunatorio().getNombre() + ", Fecha: " + reserva.getFecha() + ", Vacuna: " + reserva.getVacuna().getNombre()));
+									saFirebase.sendPushNotification(notificacion);
+						}
 						reservasPendientes.remove(reserva);
 						
     				}		
