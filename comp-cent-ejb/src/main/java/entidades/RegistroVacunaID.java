@@ -62,15 +62,6 @@ public class RegistroVacunaID implements Serializable{
 	public void setReserva(long reserva) {
 		this.reserva = reserva;
 	}
-	
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
 
 	@Override
 	public int hashCode() {

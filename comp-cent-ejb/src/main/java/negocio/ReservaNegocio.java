@@ -13,6 +13,7 @@ import javax.ejb.Timer;
 import javax.ejb.TimerService;
 import javax.inject.Inject;
 
+
 import datatypes.DTConsultaReservaCiudadano;
 import datatypes.DTReserva;
 import datatypes.DTReservaVacunatorio;
@@ -32,7 +33,9 @@ import entidades.Ubicacion;
 import entidades.Vacuna;
 import enumeradores.EstadoReserva;
 import fechaActual.FechaActualLocal;
-
+import notificacionesFirebase.NotificationInfo;
+import notificacionesFirebase.NotificationInfoData;
+import notificacionesFirebase.ServiceAgentFirebaseLocal;
 /**
  * Session Bean implementation class ReservaNegocio
  */
@@ -68,6 +71,9 @@ public class ReservaNegocio implements ReservaNegocioLocal {
 	@Inject
 	FechaActualLocal fal;
 	
+	@Inject 
+	ServiceAgentFirebaseLocal saFirebase;
+	
 	
 	/**
      * Default constructor. 
@@ -97,6 +103,8 @@ public class ReservaNegocio implements ReservaNegocioLocal {
 		reserva.setDepartamento(departamento);
 		reserva.setUbicacion(ubicacion);
 		rdl.crearReserva(reserva);		
+
+		
 	}
 	@Override
 	public List<DTConsultaReservaCiudadano> ciudadanoReservas(int ci){
@@ -218,6 +226,10 @@ public class ReservaNegocio implements ReservaNegocioLocal {
 							reserva.setVacuna(vacunas.get(nAleatorio));
 						}	
 						rdl.editarReserva(reserva);
+						
+						NotificationInfo notificacion = new NotificationInfo("dpIj9OwSQHyVa4ZHAn5VBK:APA91bFSIgSeHdW6Eh1tqQM0Rp_o10MhpyHVx_qd2Cv0qkggU25w4gJDAU3XMnXLpeyprQhQkqZnODpwnGib1JIdwUjUVIk3u5b0TTHJm0ihe500p1V8vZeAabNlgtloZlAGV8pNnBiz",
+								new NotificationInfoData("VacunasUy", "Su reserva fue confirmada"));
+								saFirebase.sendPushNotification(notificacion);
 						reservasPendientes.remove(reserva);
 						
     				}		
