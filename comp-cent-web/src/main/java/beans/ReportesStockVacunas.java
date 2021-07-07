@@ -1,6 +1,7 @@
 package beans;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -24,54 +25,73 @@ import org.primefaces.model.charts.optionconfig.title.Title;
 import org.primefaces.model.charts.pie.PieChartDataSet;
 import org.primefaces.model.charts.pie.PieChartModel;
 
+import datatypes.DTEnfermedad;
+import datatypes.DTStockVacuna;
 import datatypes.DTVacuna;
+import datatypes.DTVacunatorio;
+import negocio.EnfermedadNegocioLocal;
+import negocio.EnvioNegocioLocal;
 import negocio.RegistroVacunaNegocioLocal;
 import negocio.VacunaNegocioLocal;
+import negocio.VacunatorioNegocioLocal;
 
 
-@Named("reportesACBean")
+@Named("reportesSVBean")
 @ViewScoped
-public class ReportesActosVacunalesBean implements Serializable{
+public class ReportesStockVacunas implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	@EJB
 	private RegistroVacunaNegocioLocal registroLocal;
 	@EJB
 	private VacunaNegocioLocal vacunaLocal;
+	@EJB
+	private EnfermedadNegocioLocal enfermedadLocal;
+	@EJB
+	private VacunatorioNegocioLocal vacunatorioLocal;
+	@EJB
+	private EnvioNegocioLocal envioLocal;
 	
-	private List<Integer> cantidadVacunados;
 	private int anio;
-	private DTVacuna vacuna;
-	private List<DTVacuna> listaVacunas;
-	private List<String> nombreVacunas;
-	private String vac;
-	private List<Integer> cantidadVacunadosPorSexo;
-	private List<Integer> cantidadVacunadosPorEdad;
-	private int totalVacunados;
+	
+	private List<DTVacunatorio> listaVacunatorio;
+	private List<String> nombreVacunatorio;
+	private String vacunatorio;
+	
+	private List<DTStockVacuna> listaStock;
+	
 	private Boolean visible;
-
+	
     private LineChartModel lineModel;
 	private PieChartModel pieModel;
 	private BarChartModel barModel;
 	
-	public ReportesActosVacunalesBean() {
+	public ReportesStockVacunas() {
 		// TODO Auto-generated constructor stub
 	}
 
     @PostConstruct
     public void init() {
-        this.cantidadVacunados = new ArrayList<Integer>();
-        this.cantidadVacunadosPorSexo = new ArrayList<Integer>();
-        this.cantidadVacunadosPorEdad = new ArrayList<Integer>();
-		this.listaVacunas = vacunaLocal.obtenerVacunas();
-		this.nombreVacunas = vacunaLocal.nombresVacunas();
-		this.totalVacunados = 0;
-		this.visible = false;
-		createLineModel();
-		createPieModel();
-		createBarModel();
+    	this.listaVacunatorio = vacunatorioLocal.listarVacunatorio();
+		this.nombreVacunatorio = vacunatorioLocal.nombresVacunatorios();
+		this.listaStock = envioLocal.stockEnviado(1001, LocalDate.now().getYear());
+		/*for (DTVacunatorio vacunatorio: listaVacunatorio) {
+			*List<DTStockVacuna >listaStockaux = envioLocal.stockEnviado(vacunatorio.getId(), LocalDate.now().getYear());
+			
+			 * for (DTStockVacuna stock: listaStockaux) { if
+			 * (listaStock.contains(stock.getVacunaId())) {
+			 * listaStock.set(listaStock.lastIndexOf(stock.getVacunaId()), stock); } else {
+			 * 
+			 * } }
+			 
+		}*/
+		for (DTStockVacuna stock: listaStock) {
+			int cant = registroLocal.cantVacHastaFecha(stock.getVacunaId(), LocalDate.now());
+			stock.setCant(stock.getCant() - cant);
+		}
+    	this.visible= false;
     }
-
+/*
     public void createLineModel() {
         lineModel = new LineChartModel();
         ChartData data = new ChartData();
@@ -259,13 +279,12 @@ public class ReportesActosVacunalesBean implements Serializable{
         this.barModel = barModel;
     }
     
-	public List<Integer> getCantidadVacunados() {
-		return cantidadVacunados;
+	
+	public Boolean getVisible() {
+		return visible;
 	}
 
-	public void setCantidadVacunados(List<Integer> cantidadVacunados) {
-		this.cantidadVacunados = cantidadVacunados;
-	}
+	*/
 
 	public int getAnio() {
 		return anio;
@@ -275,61 +294,36 @@ public class ReportesActosVacunalesBean implements Serializable{
 		this.anio = anio;
 	}
 
-	public DTVacuna getVacuna() {
-		return vacuna;
+	public List<DTVacunatorio> getListaVacunatorio() {
+		return listaVacunatorio;
 	}
 
-	public void setVacuna(DTVacuna vacuna) {
-		this.vacuna = vacuna;
+	public void setListaVacunatorio(List<DTVacunatorio> listaVacunatorio) {
+		this.listaVacunatorio = listaVacunatorio;
 	}
 
-	public List<DTVacuna> getListaVacunas() {
-		return listaVacunas;
+	public List<String> getNombreVacunatorio() {
+		return nombreVacunatorio;
 	}
 
-	public void setListaVacunas(List<DTVacuna> listaVacunas) {
-		this.listaVacunas = listaVacunas;
-	}
-	
-	public List<String> getNombreVacunas() {
-		return nombreVacunas;
+	public void setNombreVacunatorio(List<String> nombreVacunatorio) {
+		this.nombreVacunatorio = nombreVacunatorio;
 	}
 
-	public void setNombreVacunas(List<String> nombreVacunas) {
-		this.nombreVacunas = nombreVacunas;
-	}
-	
-	public String getVac() {
-		return vac;
+	public String getVacunatorio() {
+		return vacunatorio;
 	}
 
-	public void setVac(String vac) {
-		this.vac = vac;
+	public void setVacunatorio(String vacunatorio) {
+		this.vacunatorio = vacunatorio;
 	}
 
-
-	public List<Integer> getCantidadVacunadosPorSexo() {
-		return cantidadVacunadosPorSexo;
+	public List<DTStockVacuna> getListaStock() {
+		return listaStock;
 	}
 
-	public void setCantidadVacunadosPorSexo(List<Integer> cantidadVacunadosPorSexo) {
-		this.cantidadVacunadosPorSexo = cantidadVacunadosPorSexo;
-	}
-
-	public List<Integer> getCantidadVacunadosPorEdad() {
-		return cantidadVacunadosPorEdad;
-	}
-
-	public void setCantidadVacunadosPorEdad(List<Integer> cantidadVacunadosPorEdad) {
-		this.cantidadVacunadosPorEdad = cantidadVacunadosPorEdad;
-	}
-
-	public int getTotalVacunados() {
-		return totalVacunados;
-	}
-
-	public void setTotalVacunados(int totalVacunados) {
-		this.totalVacunados = totalVacunados;
+	public void setListaStock(List<DTStockVacuna> listaStock) {
+		this.listaStock = listaStock;
 	}
 
 	public Boolean getVisible() {
@@ -339,27 +333,10 @@ public class ReportesActosVacunalesBean implements Serializable{
 	public void setVisible(Boolean visible) {
 		this.visible = visible;
 	}
-
-	public void obtenerVacunadosXAnio() {
-		this.visible = true;
-		this.vacuna = new DTVacuna();
-		for (DTVacuna dtVacuna : listaVacunas) {
-			if (dtVacuna.getNombre().equals(vac)) {
-				this.vacuna = dtVacuna;
-			}
-		}
-		this.cantidadVacunados = registroLocal.obtenerCantVac(vacuna, anio);
-		for (int cant: cantidadVacunados) {
-			this.totalVacunados += cant;
-		}
-		createLineModel();
-		this.cantidadVacunadosPorSexo = registroLocal.cantRegistroPorSexo(vacuna, anio);
-		createPieModel();
-		this.cantidadVacunadosPorEdad = registroLocal.cantRegistroPorEdad(vacuna, anio);
-		createBarModel();
-		this.vacuna = new DTVacuna();
-		this.anio = 0;
-		this.totalVacunados = 0;
+	
+	public void obtenerStock() {
+		
 	}
+    
 }	
 

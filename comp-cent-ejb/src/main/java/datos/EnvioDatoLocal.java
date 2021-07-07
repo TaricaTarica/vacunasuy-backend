@@ -9,6 +9,7 @@ import entidades.Lote;
 
 @Local
 public interface EnvioDatoLocal {
+	
 	public void guardarEnvio(Envio envio);
 	public void editarEnvio(Envio envio);
 	public Envio obtenerEnvio(long id);
@@ -17,4 +18,6 @@ public interface EnvioDatoLocal {
 	public List<Lote> listarLotesPendientesDeEnviar();
 	public List<DTVistaEnvio> ListarEnviosVista();
 	public boolean ExisteLote(Lote lote);
+	public List<Envio> cantVacEnviado(long idVacunatorio, int anio);
+	
 }

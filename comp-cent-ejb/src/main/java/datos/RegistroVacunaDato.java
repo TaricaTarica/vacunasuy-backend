@@ -113,4 +113,23 @@ public class RegistroVacunaDato implements RegistroVacunaDatoLocal {
     	return cant;
     }
     
+    @Override
+    public RegistroVacuna obtenerCertificadoReserva(long idReserva) {
+    	List<RegistroVacuna> registros = this.obtenerRegistro();
+    	RegistroVacuna retorno = null;
+    	for(RegistroVacuna r: registros) {
+    		if(r.getReserva().getId() == idReserva) {
+    			retorno = r;
+    		}
+    	}
+    	return retorno;
+    }
+    
+    @Override
+    public int cantVacHastaFecha(long vacunaId, LocalDate fecha) {
+    	long cant =  (long) em.createQuery("Select count(rv) from RegistroVacuna rv where rv.vacuna.id = :id and rv.fecha <= :fecha")
+    			.setParameter("id", vacunaId)
+    			.setParameter("fecha", fecha).getSingleResult();
+    	 return (int) cant;
+    }
 }

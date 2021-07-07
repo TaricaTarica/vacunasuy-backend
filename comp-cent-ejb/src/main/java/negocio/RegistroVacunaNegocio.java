@@ -15,11 +15,8 @@ import datos.ReservaDatoLocal;
 import datos.VacunaDatoLocal;
 import datos.VacunatorioDatoLocal;
 import entidades.Ciudadano;
-import entidades.Departamento;
-import entidades.PlanVacunacion;
 import entidades.RegistroVacuna;
 import entidades.Reserva;
-import entidades.Ubicacion;
 import entidades.Vacuna;
 import enumeradores.EstadoReserva;
 import enumeradores.Sexo;
@@ -67,6 +64,7 @@ public class RegistroVacunaNegocio implements RegistroVacunaNegocioLocal {
         		dtCert.setPeriodoInmunidad(String.valueOf(vac.getPeriodoInmune()));
         		dtCert.setIdEnfermedad(String.valueOf(vac.getEnfermedad().getId()));
         		dtCert.setNombreEnfermedad(vac.getEnfermedad().getNombre());
+        		dtCert.setIdReserva(String.valueOf(regVac.getReserva().getId()));
         		listCert.add(dtCert);
         		
         	}
@@ -255,6 +253,37 @@ public class RegistroVacunaNegocio implements RegistroVacunaNegocioLocal {
     	}
     	
     	return countVacunadosPorDepartamento;
+	}
+	
+	@Override
+	public DTCertificado obtenerCertificadoReserva(long idReserva) {
+		RegistroVacuna registroVacuna = registroVacunaDatoLocal.obtenerCertificadoReserva(idReserva);
+		DTCertificado retorno = new DTCertificado();
+    	Vacuna vac = registroVacuna.getVacuna();
+    	Ciudadano cdn = registroVacuna.getCiudadano();
+    	
+    	retorno.setNombreCompleto(
+    		cdn.getPrimerNombre() + " " +
+    		cdn.getPrimerApellido()
+    	);
+    	retorno.setCedula(String.valueOf(cdn.getCi()));
+    	retorno.setFechaNacimiento(cdn.getFnac().toString());
+    	retorno.setFechaVacuna(registroVacuna.getFecha().toString());
+		retorno.setIdVacuna(String.valueOf(vac.getId()));
+		retorno.setNombreVacuna(vac.getNombre());
+		retorno.setLaboratorioVacuna(vac.getLaboratorio());
+		retorno.setCodigoVacuna(vac.getCodigo());
+		retorno.setCantDosis(String.valueOf(vac.getDosis()));
+		retorno.setPeriodoInmunidad(String.valueOf(vac.getPeriodoInmune()));
+		retorno.setIdEnfermedad(String.valueOf(vac.getEnfermedad().getId()));
+		retorno.setNombreEnfermedad(vac.getEnfermedad().getNombre());
+		retorno.setIdReserva(String.valueOf(registroVacuna.getReserva().getId()));
+		
+		return retorno;
+	}
+	
+	public int cantVacHastaFecha(long vacunaId, LocalDate fecha) {
+		return registroVacunaDatoLocal.cantVacHastaFecha(vacunaId, fecha);
 	}
     
 }
