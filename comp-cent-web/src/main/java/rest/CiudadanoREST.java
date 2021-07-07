@@ -15,7 +15,9 @@ import javax.ws.rs.core.Response;
 import com.google.gson.Gson;
 
 import datatypes.DTCiudadano;
+import datatypes.DTNotificacionToken;
 import negocio.CiudadanoNegocioLocal;
+import negocio.NotificacionTokenNegocioLocal;
 import servicios.DtPersona;
 import servicios.ServicioAgesic;
 import servicios.ServicioAgesicService;
@@ -28,6 +30,9 @@ public class CiudadanoREST {
 	
 	@Inject
 	private CiudadanoNegocioLocal cnl;
+	
+	@Inject
+	private NotificacionTokenNegocioLocal notificacionTokenNegocio;	
 	
 	public CiudadanoREST() throws NamingException {		
 
@@ -110,6 +115,24 @@ public class CiudadanoREST {
 	           		 .entity("Ha ocurrido un error procesando la cedula")
 	           		 .build();
 		}
+	}
+	
+	@POST
+	@Path("/notificacion-token")
+	public Response setNotificacionToken(DTNotificacionToken notificacionToken) {
+		try {
+			notificacionTokenNegocio.saveUserToken(notificacionToken);
+			return Response
+					.status(Response.Status.OK)
+					.entity(notificacionToken)
+					.build();			
+		}
+		catch(Exception ex){
+			return Response
+	           		 .status(Response.Status.BAD_REQUEST)
+	           		 .entity("Ha ocurrido un error" + ex.getMessage())
+	           		 .build();
+		}		
 	}
 	
 }
