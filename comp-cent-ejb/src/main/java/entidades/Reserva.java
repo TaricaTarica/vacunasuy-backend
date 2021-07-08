@@ -64,7 +64,7 @@ public class Reserva {
 		this.planVacunacion = planVacunacion;
 		this.departamento = departamento;
 		this.ubicacion = ubicacion;
-		this.dosisSuministradas = 0;
+		this.dosisSuministradas = 1;
 	}
 
 	public long getId() {

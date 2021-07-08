@@ -234,7 +234,7 @@ public class ReservaNegocio implements ReservaNegocioLocal {
 						List<NotificacionToken> tokens = ntdl.getUserTokens(reserva.getCiudadano());
 						for (NotificacionToken token : tokens) {
 							NotificationInfo notificacion = new NotificationInfo(token.getToken(),
-									new NotificationInfoData("Reserva confirmada", "Vacunatorio: " + reserva.getAgenda().getVacunatorio().getNombre() + ", Fecha: " + reserva.getFecha() + ", Vacuna: " + reserva.getVacuna().getNombre()));
+									new NotificationInfoData("Reserva confirmada", "Vacunatorio: " + reserva.getAgenda().getVacunatorio().getNombre() + ", Fecha: " + reserva.getFecha() + ", Hora: "+ reserva.getHora() + ", Vacuna: " + reserva.getVacuna().getNombre() + ", Dosis Nª: " + reserva.getDosisSuministradas()));
 									saFirebase.sendPushNotification(notificacion);
 						}
 						reservasPendientes.remove(reserva);

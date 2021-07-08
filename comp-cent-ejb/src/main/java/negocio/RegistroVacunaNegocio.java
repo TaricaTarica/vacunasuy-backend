@@ -83,7 +83,7 @@ public class RegistroVacunaNegocio implements RegistroVacunaNegocioLocal {
 	    	Vacunatorio vacunatorio = vacunatorioDatoLocal.obtenerVacunatorio(regVacuna.getIdVacunatorio());
 	    	Vacuna vacuna = vacunaDatoLocal.obtenerVacunaPorId(regVacuna.getIdVacuna());
 	    	Reserva reserva = reservaDatoLocal.obtenerReserva(regVacuna.getIdReserva());
-	    	reserva.setDosisSuministradas(reserva.getDosisSuministradas()+1);
+	    	//reserva.setDosisSuministradas(reserva.getDosisSuministradas()+1);
 	    	if (reserva.getDosisSuministradas() < vacuna.getDosis()) {
 	    		Reserva reservaNueva = new Reserva();
 	    		reservaNueva.setCiudadano(usuario);
@@ -92,7 +92,7 @@ public class RegistroVacunaNegocio implements RegistroVacunaNegocioLocal {
 	    		reservaNueva.setDepartamento(reserva.getDepartamento());
 	    		reservaNueva.setUbicacion(reserva.getUbicacion());
 	    		reservaNueva.setVacuna(vacuna);
-	    		reservaNueva.setDosisSuministradas(reserva.getDosisSuministradas());
+	    		reservaNueva.setDosisSuministradas(reserva.getDosisSuministradas()+1);
 	    		reservaDatoLocal.crearReserva(reservaNueva);
 	    	}
 	    	RegistroVacuna registroVac = new RegistroVacuna(vacuna, usuario,vacunatorio, reserva, LocalDate.parse(regVacuna.getFecha()));
