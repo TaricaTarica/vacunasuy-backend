@@ -14,4 +14,6 @@ public interface NotificacionTokenDatoLocal {
 	
 	public List<NotificacionToken> getUserTokens(Usuario usuario);
 
+	Boolean existeNoficacionToken(NotificacionToken notificacionToken);
+
 }

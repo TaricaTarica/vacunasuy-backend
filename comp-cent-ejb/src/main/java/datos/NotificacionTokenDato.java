@@ -36,5 +36,14 @@ public class NotificacionTokenDato implements NotificacionTokenDatoLocal {
 				.setParameter("id", usuario.getCi())
 				.getResultList();
 	}
+	
+	@Override
+	public Boolean existeNoficacionToken(NotificacionToken notificacionToken) {
+		return em.createQuery("Select n from NotificacionToken n where n.usuario.id = :id and n.token = :token", NotificacionToken.class)
+				.setParameter("id", notificacionToken.getUsuario().getCi())
+				.setParameter("token", notificacionToken.getToken())
+				.getResultList().size()>0;
+		
+	}
 
 }
