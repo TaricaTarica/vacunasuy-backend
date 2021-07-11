@@ -6,39 +6,43 @@
     xmlns:p="http://primefaces.org/ui">
     
     <h:head>
+	<style type="text/css">
+			body {
+				background-image: url("http://uy-vacunas.web.elasticloud.uy/comp-cent-web/imagen/azul.jpeg");
+				background-repeat: no-repeat;
+				background-size: 105%;
+				
+			}
+	</style>
+    
         <title>Back Office - VacunasUY</title>
     </h:head>
 <h:body style="text-align:center">
-	<div style="display: flex; align-items: center;justify-content: center;">
-		    <p:growl id="mensajes" showDetail="true" life="2000" />
-		   
-		   <h:form>
-		      <p:panel header="Login" style="width:300px">
-		        <h:panelGrid columns="2" cellpadding="5">
-		          <h:outputLabel for="username" value="Usuario:" />
-		          <p:inputText value="#{loginBean.ci}" id="ci"
-		             required="true" label="ci" />
-		          <h:outputLabel for="password" value="Clave:" />
-		        <p:password value="#{loginBean.contrasenia}" id="password" required="true"
-		           label="password" />
-		        <f:facet name="footer">
-		          <p:commandButton id="loginButton" value="Login"
-		             action="#{loginBean.login}" update=":mensajes"
-		             />
-		        </f:facet>
-		      </h:panelGrid>
-		    </p:panel>
-		    <h:outputText value="#{loginBean.mensaje}" id="ajaxMessage"/>
-		  </h:form>
-		  
-	</div>
+	<div style="display: flex; align-items: center;justify-content: center;width: 100%; height: 100%;margin-top: 13%;">
+			  <div style="display: flex; align-items: center;justify-content: center;">
+				    <p:growl id="mensajes" showDetail="true" life="2000" />
+				   
+				   <h:form>
+				      <p:panel header="Login" style="width:300px">
+				        <h:panelGrid columns="2" cellpadding="5">
+				          <h:outputLabel for="username" value="Usuario:" />
+				          <p:inputText value="#{loginBean.ci}" id="ci"
+				             required="true" label="ci" />
+				          <h:outputLabel for="password" value="Clave:" />
+				        <p:password value="#{loginBean.contrasenia}" id="password" required="true"
+				           label="password" />
+				        <f:facet name="footer">
+				          <p:commandButton id="loginButton" value="Login"
+				             action="#{loginBean.login}" update=":mensajes"
+				             />
+				        </f:facet>
+				      </h:panelGrid>
+				    </p:panel>
+				    <h:outputText value="#{loginBean.mensaje}" id="ajaxMessage"/>
+				  </h:form>
+			  </div>
 		
-		             
-	<div>
-		<p:commandButton id="crear" value="Crear"
-		             actionListener="#{crearUserBean.agregarAdministrador()}" update=":mensajes" />
 	</div>
-
 </h:body>
 <script type="text/javascript">   //<![CDATA[   function logout(xhr, status, args) {     setTimeout(function() {       window.location = 'login.xhtml';     }, 500);   } //]]> </script>
 </html>
