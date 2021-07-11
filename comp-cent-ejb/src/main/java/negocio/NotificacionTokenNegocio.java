@@ -41,7 +41,9 @@ public class NotificacionTokenNegocio implements NotificacionTokenNegocioLocal {
 			throw new RuntimeException("Usuario no existe");
 		}
 		notificacionToken.setUsuario(usuario);
-		notificacionTokenDato.saveUserToken(notificacionToken);
+		if (!notificacionTokenDato.existeNoficacionToken(notificacionToken)) {
+			notificacionTokenDato.saveUserToken(notificacionToken);
+		}
 	}
     
 
