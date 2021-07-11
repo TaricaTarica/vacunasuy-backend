@@ -14,8 +14,6 @@ import entidades.Administrador;
 
 public class AdministradorNegocioTest {
 	@Mock
-	AdministradorNegocioLocal mockedAdministradorNegocioLocal;
-	@Mock
 	AdministradorDatoLocal mockedAdministradorDatoLocal; 
 	@Mock
 	Administrador mockedAdministrador;
@@ -34,10 +32,10 @@ public class AdministradorNegocioTest {
 	@Test
 	public void testObtenerAdministradorPorCi() {
 		mockedAdministrador = Mockito.mock(Administrador.class);
-		Mockito.when(mockedAdministradorDatoLocal.obtenerAdministradorPorCI(456)).thenReturn(mockedAdministrador);
+		Mockito.when(mockedAdministradorDatoLocal.obtenerAdministradorPorCI(12345678)).thenReturn(mockedAdministrador);
 				
 				
-				Administrador admin = administradorNegocio.obtenerAdministradorPorCi(456);
+				Administrador admin = administradorNegocio.obtenerAdministradorPorCi(12345678);
 				assertEquals(mockedAdministrador, admin);
 		//fail("Not yet implemented");
 	}

@@ -68,10 +68,10 @@ public class AgendaNegocio implements AgendaNegocioLocal {
 	}
 	
 	public List<DTAgenda> listarAgenda(){
-		List <Agenda> agenda = (ArrayList<Agenda>)(this.agendaLocal.listarAgenda());
+		List <Agenda> agendas = (ArrayList<Agenda>)(this.agendaLocal.listarAgenda());
 		List <DTAgenda> dtAgenda = new ArrayList<DTAgenda>();
-		if (agenda != null) {
-			agenda.forEach((a)->{dtAgenda.add(new DTAgenda(a));});
+		if (agendas != null) {
+			agendas.forEach((a)->{dtAgenda.add(new DTAgenda(a));});
 		}
 		return dtAgenda;
 	}
@@ -152,7 +152,7 @@ public class AgendaNegocio implements AgendaNegocioLocal {
 		for(Agenda a: agendas) {
 			if(
 					(a.getInicio().equals(hoy) || a.getInicio().isBefore(hoy)) &&
-					(a.getFin().equals(hoy) || a.getFin().isBefore(hoy))
+					(a.getFin().equals(hoy) || a.getFin().isAfter(hoy))
 			){
 				List<PlanVacunacion> planes = a.getPlanes();
 				for(PlanVacunacion pv: planes) {

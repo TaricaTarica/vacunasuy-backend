@@ -52,11 +52,13 @@ public class DTAgenda {
 	public DTAgenda(Agenda agenda) {
 		super();
 		this.id = agenda.getId();
-		this.inicio = agenda.getInicio().toString();
-		this.fin = agenda.getFin().toString();
-		this.dtVacunatorio = new DTVacunatorio(agenda.getVacunatorio().getNombre(),agenda.getVacunatorio().getCodigo());
 		this.horaInicio = agenda.getHoraInicio();
 		this.horaFin = agenda.getHoraFin();
+		this.dtVacunatorio = new DTVacunatorio(agenda.getVacunatorio().getNombre(),agenda.getVacunatorio().getCodigo());
+		this.inicio = agenda.getInicio().toString();
+		this.fin = agenda.getFin().toString();
+		
+		
 		this.listDtPlanVacunacion = new ArrayList<DTPlanVacunacion>();
 		for (PlanVacunacion planes : agenda.getPlanes()) {
 			DTPlanVacunacion plan = new DTPlanVacunacion(planes);
