@@ -153,8 +153,8 @@ public class EnvioNegocioTest {
 
 	@Test
 	public void testStockEnviado() {
-		Mockito.when(envioLocal.cantVacEnviado(any(Long.class), any(Integer.class))).thenReturn(envios);
-		List<DTStockVacuna> stock = en.stockEnviado(any(Integer.class), any(Integer.class));
+		Mockito.when(envioLocal.cantVacEnviado(any(Long.class), any(LocalDate.class))).thenReturn(envios);
+		List<DTStockVacuna> stock = en.stockEnviado(any(Integer.class), any(LocalDate.class));
 		assertTrue (stock!=null);
 		
 	}
