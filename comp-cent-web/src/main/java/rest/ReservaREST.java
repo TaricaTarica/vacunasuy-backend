@@ -146,7 +146,7 @@ public class ReservaREST {
 		}
 	}
 	@GET
-	@Path("count-agendados/{id}")
+	@Path("/count-agendados/{id}")
 	public Response countAgendadosHoy(@PathParam("id") long vacunaId) {
 		try {
 			return Response

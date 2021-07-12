@@ -48,7 +48,7 @@ public class RegistroVacuna {
 	@Id
 	private LocalDate fecha;
 	
-	RegistroVacuna() {
+	public RegistroVacuna() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
