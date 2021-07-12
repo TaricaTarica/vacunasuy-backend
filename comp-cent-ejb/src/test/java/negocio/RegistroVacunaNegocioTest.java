@@ -17,9 +17,11 @@ import datos.RegistroVacunaDatoLocal;
 import datos.ReservaDatoLocal;
 import datos.VacunaDatoLocal;
 import datos.VacunatorioDatoLocal;
+import entidades.Ciudadano;
 import entidades.Enfermedad;
 import entidades.RegistroVacuna;
 import entidades.Reserva;
+import entidades.Usuario;
 import entidades.Vacuna;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -50,9 +52,11 @@ public class RegistroVacunaNegocioTest {
 	private static Vacuna vacuna;
 	private static Enfermedad enfermedad;
 	private static Reserva reserva;
+	private static Ciudadano usuario;
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
+		usuario = Mockito.mock(Ciudadano.class);
 		vacuna = new Vacuna();
 		enfermedad = Mockito.mock(Enfermedad.class);
 		reserva = Mockito.mock(Reserva.class);
@@ -63,6 +67,8 @@ public class RegistroVacunaNegocioTest {
 		registro.setReserva(reserva);
 		registros = new ArrayList<RegistroVacuna>();
 		registros.add(registro);
+		dtRegistro = Mockito.mock(DTRegistroVacuna.class);
+		dtRegistros = new ArrayList<DTRegistroVacuna>();
 		
 	}
 
@@ -82,7 +88,8 @@ public class RegistroVacunaNegocioTest {
 	
 	@Test
 	public void testAltaRegistroVacuna() {
-		fail("Not yet implemented");
+		Mockito.when(ciudadanoDatoLocal.obtenerCiudadano(any(Integer.class))).thenReturn(usuario);
+		rvn.altaRegistroVacuna(dtRegistros);
 	}
 	/*
 	@Test
