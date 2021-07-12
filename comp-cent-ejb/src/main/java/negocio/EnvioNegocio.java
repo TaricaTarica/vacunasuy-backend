@@ -1,5 +1,6 @@
 package negocio;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -117,9 +118,9 @@ public class EnvioNegocio implements EnvioNegocioLocal {
     }
 	
 	@Override
-	public List<DTStockVacuna> stockEnviado(long idVacunatorio, int anio) {
+	public List<DTStockVacuna> stockEnviado(long idVacunatorio, LocalDate fecha) {
 		
-		List<Envio> envios = envioLocal.cantVacEnviado(idVacunatorio, anio);
+		List<Envio> envios = envioLocal.cantVacEnviado(idVacunatorio, fecha);
 		List<DTStockVacuna> listStock = new ArrayList<DTStockVacuna>();
 		for (Envio env: envios) {
 			if (existeVacuna(listStock,env.getLote().getVacuna())){

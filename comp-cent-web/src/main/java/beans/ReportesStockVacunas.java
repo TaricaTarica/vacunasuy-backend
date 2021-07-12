@@ -29,6 +29,7 @@ import datatypes.DTEnfermedad;
 import datatypes.DTStockVacuna;
 import datatypes.DTVacuna;
 import datatypes.DTVacunatorio;
+import entidades.Vacuna;
 import negocio.EnfermedadNegocioLocal;
 import negocio.EnvioNegocioLocal;
 import negocio.RegistroVacunaNegocioLocal;
@@ -52,20 +53,15 @@ public class ReportesStockVacunas implements Serializable{
 	@EJB
 	private EnvioNegocioLocal envioLocal;
 	
-	private int anio;
+	private LocalDate fecha;
 	
 	private List<DTVacunatorio> listaVacunatorio;
 	private List<String> nombreVacunatorio;
 	private String vacunatorio;
-	
 	private List<DTStockVacuna> listaStock;
-	
 	private Boolean visible;
-	
-    private LineChartModel lineModel;
-	private PieChartModel pieModel;
 	private BarChartModel barModel;
-	
+	private long idVacunatorio;
 	public ReportesStockVacunas() {
 		// TODO Auto-generated constructor stub
 	}
@@ -74,128 +70,51 @@ public class ReportesStockVacunas implements Serializable{
     public void init() {
     	this.listaVacunatorio = vacunatorioLocal.listarVacunatorio();
 		this.nombreVacunatorio = vacunatorioLocal.nombresVacunatorios();
-		this.listaStock = envioLocal.stockEnviado(1001, LocalDate.now().getYear());
-		/*for (DTVacunatorio vacunatorio: listaVacunatorio) {
-			*List<DTStockVacuna >listaStockaux = envioLocal.stockEnviado(vacunatorio.getId(), LocalDate.now().getYear());
-			
-			 * for (DTStockVacuna stock: listaStockaux) { if
-			 * (listaStock.contains(stock.getVacunaId())) {
-			 * listaStock.set(listaStock.lastIndexOf(stock.getVacunaId()), stock); } else {
-			 * 
-			 * } }
-			 
-		}*/
+		this.listaStock = new ArrayList<DTStockVacuna>();
+		this.fecha = LocalDate.now();
+		for (DTVacunatorio vac: listaVacunatorio) {
+			List<DTStockVacuna> listaStockAux = envioLocal.stockEnviado(vac.getId(), LocalDate.now());
+			for (DTStockVacuna stock: listaStockAux) {
+				int posicion = posicionVacuna(listaStock,stock.getVacunaId());
+				if (posicion == -1) {
+					this.listaStock.add(stock);
+				} else {
+					listaStock.get(posicion).setCant(listaStock.get(posicion).getCant() + stock.getCant());
+				}
+			}
+		}
 		for (DTStockVacuna stock: listaStock) {
 			int cant = registroLocal.cantVacHastaFecha(stock.getVacunaId(), LocalDate.now());
 			stock.setCant(stock.getCant() - cant);
 		}
     	this.visible= false;
+		this.idVacunatorio = 0;
+		createBarModel();
     }
-/*
-    public void createLineModel() {
-        lineModel = new LineChartModel();
-        ChartData data = new ChartData();
-        LineChartDataSet dataSet = new LineChartDataSet();
-        List<Object> values = new ArrayList<>();
-        if (cantidadVacunados != null) {
-            for (int cant : cantidadVacunados) {
-            	values.add(cant);
-            }
-        } else {
-        	values.add(0);
-        }
-        dataSet.setData(values);
-        dataSet.setFill(false);
-        if (vacuna != null) {
-        	dataSet.setLabel(vacuna.getNombre());
-        } else {
-        	dataSet.setLabel("");
-        }
-        dataSet.setBorderColor("rgb(75, 192, 192)");
-        dataSet.setLineTension(0.1);
-        data.addChartDataSet(dataSet);
+   
+    int posicionVacuna(List<DTStockVacuna> list, long vacunaId) {
+    	int index = 0;
+		for (DTStockVacuna vac : list) {
+			if (vac.getVacunaId() == vacunaId) {
+				return index;
+			}
+			index++;
+		}
+		return -1;
+	}
 
-        List<String> labels = new ArrayList<>();
-        labels.add("Enero");
-        labels.add("Febrero");
-        labels.add("Marzo");
-        labels.add("Abril");
-        labels.add("Mayo");
-        labels.add("Junio");
-        labels.add("Julio");
-        labels.add("Agosto");
-        labels.add("Septiembre");
-        labels.add("Octubre");
-        labels.add("Noviembre");
-        labels.add("Diciembre");
-        data.setLabels(labels);
-
-        //Options
-        LineChartOptions options = new LineChartOptions();
-        Title title = new Title();
-        title.setDisplay(true);
-        title.setText("Vacunados");
-        options.setTitle(title);
-
-        lineModel.setOptions(options);
-        lineModel.setData(data);
-    }
-
-    public LineChartModel getLineModel() {
-        return lineModel;
-    }
-
-    public void setLineModel(LineChartModel lineModel) {
-        this.lineModel = lineModel;
-    }
-    
-	private void createPieModel() {
-        pieModel = new PieChartModel();
-        ChartData data = new ChartData();
-        PieChartDataSet dataSet = new PieChartDataSet();
-        List<Number> values = new ArrayList<>();
-        if (cantidadVacunadosPorSexo != null) {
-            for (Integer cantPorSexo: cantidadVacunadosPorSexo) {
-            	values.add(cantPorSexo);
-            }
-        } else {
-        	values.add(0);
-        }
-        dataSet.setData(values);
-
-        List<String> bgColors = new ArrayList<>();
-        bgColors.add("rgb(255, 99, 132)");
-        bgColors.add("rgb(54, 162, 235)");
-        dataSet.setBackgroundColor(bgColors);
-
-        data.addChartDataSet(dataSet);
-        List<String> labels = new ArrayList<>();
-        labels.add("Mujeres");
-        labels.add("Hombres");
-        data.setLabels(labels);
-
-        pieModel.setData(data);
-    }
-    
-    public PieChartModel getPieModel() {
-        return pieModel;
-    }
-
-    public void setPieModel(PieChartModel pieModel) {
-        this.pieModel = pieModel;
-    }
     
     public void createBarModel() {
         barModel = new BarChartModel();
         ChartData data = new ChartData();
 
         BarChartDataSet barDataSet = new BarChartDataSet();
-        barDataSet.setLabel("Vacunados");
+        barDataSet.setLabel("Vacunas");
 
         List<Number> values = new ArrayList<>();
-        if (cantidadVacunadosPorEdad != null) {
-        	for (Integer cantXEdad :cantidadVacunadosPorEdad) {
-        		values.add(cantXEdad);
+        if (listaStock != null) {
+        	for (DTStockVacuna stock :listaStock) {
+        		values.add(stock.getCant());
         	}
         } else {
         	values.add(0);
@@ -227,13 +146,11 @@ public class ReportesStockVacunas implements Serializable{
         data.addChartDataSet(barDataSet);
 
         List<String> labels = new ArrayList<>();
-        labels.add("0 - 11");
-        labels.add("12 - 17");
-        labels.add("18 - 25");
-        labels.add("26 - 40");
-        labels.add("41 - 60");
-        labels.add("61 - 75");
-        labels.add("Mayores de 76");
+        if (listaStock != null) {
+        	for (DTStockVacuna stock :listaStock) {
+        		labels.add(stock.getNombre());
+        	}
+        }
         data.setLabels(labels);
         barModel.setData(data);
 
@@ -250,7 +167,7 @@ public class ReportesStockVacunas implements Serializable{
 
         Title title = new Title();
         title.setDisplay(true);
-        title.setText("Por rango de edades");
+        title.setText(vacunatorio);
         options.setTitle(title);
 
         Legend legend = new Legend();
@@ -279,19 +196,12 @@ public class ReportesStockVacunas implements Serializable{
         this.barModel = barModel;
     }
     
-	
-	public Boolean getVisible() {
-		return visible;
+	public LocalDate getFecha() {
+		return fecha;
 	}
 
-	*/
-
-	public int getAnio() {
-		return anio;
-	}
-
-	public void setAnio(int anio) {
-		this.anio = anio;
+	public void setFecha(LocalDate fecha) {
+		this.fecha = fecha;
 	}
 
 	public List<DTVacunatorio> getListaVacunatorio() {
@@ -334,8 +244,29 @@ public class ReportesStockVacunas implements Serializable{
 		this.visible = visible;
 	}
 	
+	public long getIdVacunatorio() {
+		return idVacunatorio;
+	}
+
+	public void setIdVacunatorio(long idVacunatorio) {
+		this.idVacunatorio = idVacunatorio;
+	}
+
 	public void obtenerStock() {
-		
+		this.visible= true;
+		for (DTVacunatorio vac: listaVacunatorio) {
+			if (vac.getNombre().equals(vacunatorio)) {
+				idVacunatorio = vac.getId();
+			}
+		}
+		listaStock = envioLocal.stockEnviado(idVacunatorio, fecha);
+		for (DTStockVacuna stock: listaStock) {
+			int cant = registroLocal.cantVacHastaFecha(stock.getVacunaId(), fecha);
+			stock.setCant(stock.getCant() - cant);
+		}
+		createBarModel();
+		this.idVacunatorio = 0;
+		this.vacunatorio = "";
 	}
     
 }	

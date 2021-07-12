@@ -1,5 +1,6 @@
 package negocio;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.ejb.Local;
@@ -19,5 +20,5 @@ public interface EnvioNegocioLocal {
 	public void AgregarEnvio(DTEnvio envio, DTLote lote,  DTVacunatorio vacunatorio, DTSocioLogistico dtSocio ) throws Exception;
 	public List<String> listarEstado ();
 	public List<DTLote> listarLotePendientesDeEnviar ();
-	public List<DTStockVacuna> stockEnviado(long idVacunatorio, int anio);
+	public List<DTStockVacuna> stockEnviado(long idVacunatorio, LocalDate fecha);
 }

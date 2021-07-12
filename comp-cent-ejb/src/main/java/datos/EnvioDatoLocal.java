@@ -1,5 +1,6 @@
 package datos;
 
+import java.time.LocalDate;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -18,6 +19,6 @@ public interface EnvioDatoLocal {
 	public List<Lote> listarLotesPendientesDeEnviar();
 	public List<DTVistaEnvio> ListarEnviosVista();
 	public boolean ExisteLote(Lote lote);
-	public List<Envio> cantVacEnviado(long idVacunatorio, int anio);
+	public List<Envio> cantVacEnviado(long idVacunatorio, LocalDate fecha);
 	
 }
